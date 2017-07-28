@@ -1,0 +1,17 @@
+
+*.lib
+*.pdb
+*.exe
+*.ilk
+*.idb
+*.tlog
+*.sln
+*.obj
+*.db
+*.vcxproj
+*.cache
+*.filters
+*.log
+*.user
+HXEngine/.vs/HXEngine/v14/.suo
+*.opendb
