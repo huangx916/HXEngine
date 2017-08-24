@@ -1,9 +1,11 @@
 #pragma once
-
-class HXInputListener
+namespace HX3D
 {
-public:
-	HXInputListener() {}
-	virtual ~HXInputListener() {}
+	class HXInputListener
+	{
+	public:
+		HXInputListener() {}
+		virtual ~HXInputListener() {}
 
-};
+	};
+}

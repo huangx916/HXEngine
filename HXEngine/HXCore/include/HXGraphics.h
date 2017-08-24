@@ -3,42 +3,49 @@
 #include <string>
 #include "HXCommon.h"
 
-
-class HXGraphics
+namespace HX3D
 {
-private:
-	// 单例模式
-	static HXGraphics* m_pInstance;
-	HXGraphics();	//单例模式构造函数是私有的,防止外部直接new
-
-public:
-	static HXGraphics* GetInstance()
+	class HXGraphics
 	{
-		if (NULL == m_pInstance)
+	private:
+		// 单例模式
+		static HXGraphics* m_pInstance;
+		HXGraphics();	//单例模式构造函数是私有的,防止外部直接new
+
+	public:
+		static HXGraphics* GetInstance()
 		{
-			m_pInstance = new HXGraphics();
+			if (NULL == m_pInstance)
+			{
+				m_pInstance = new HXGraphics();
+			}
+			return m_pInstance;
 		}
-		return m_pInstance;
-	}
 
-	//~HXGraphics();
+		//~HXGraphics();
 
-	void InitGraphics();
-	void ShutDownGraphics();
+		void InitGraphics();
+		void ShutDownGraphics();
 
-	void ClearBuffer();
-	void SwapBuffer(HDC hdc);
+		void ClearBuffer();
+		void SwapBuffer(HDC hdc);
 
-	void DrawLine(int nFromX, int nFromY, int nToX, int nToY, COLORREF col);
-	void DrawString(std::string str, int nFromX, int nFromY, COLORREF col);
+		void SetBufferPixel(int nX, int nY, const HXCOLOR& col);
+		// UI
+		void DrawLine(int nFromX, int nFromY, int nToX, int nToY, const HXCOLOR& col = HXCOLOR(255,255,255));
+		void DrawString(std::string str, int nFromX, int nFromY, const HXCOLOR& frontCol = HXCOLOR(255,255,255), const HXCOLOR& backCol = HXCOLOR(0,0,0));
 
-private:
+	private:
 
-	HDC mBufferHDC;			//后备缓冲DC
-	HBITMAP mBufferHandle;	//后备缓冲
-	HPEN mPenHandle;
-	HBRUSH mBrushHandle;
+		HDC mBufferHDC;			//后备缓冲DC
+		HBITMAP mBufferHandle;	//后备缓冲
+		// DIBSECTION mDIBSection;	
+		unsigned char* m_pBufferData;	// 指向后备缓冲数据
+		int mWidthBytes;	// 后备缓冲每行所占字节数
+		// HPEN mPenHandle;
+		HBRUSH mBrushHandle;
 
-	RECT mBufferRect;
-};
+		RECT mBufferRect;
+	};
+}
 

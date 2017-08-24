@@ -2,6 +2,7 @@
 #include "HXWindow.h"
 #include "HXGame.h"
 
+using namespace HX3D;
 // 入口函数
 int WINAPI WinMain(
 	HINSTANCE hInstance,
