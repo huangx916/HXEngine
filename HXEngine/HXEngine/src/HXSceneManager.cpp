@@ -4,6 +4,8 @@
 #include "HXCore.h"
 #include "HXCamera.h"
 #include "HXFrustum.h"
+#include "HXResourceManager.h"
+#include "HXRenderState.h"
 
 namespace HX3D
 {
@@ -23,12 +25,7 @@ namespace HX3D
 			delete(itr->second);
 		}
 		gameObjectMap.clear();
-		for (std::map<std::string, HXMesh*>::iterator itr = meshMap.begin(); itr != meshMap.end(); itr++)
-		{
-			delete(itr->second);
-		}
-		meshMap.clear();
-
+		
 		delete mRenderList;
 		delete mMainCamera;
 	}
@@ -40,25 +37,28 @@ namespace HX3D
 		{
 			return itr->second;
 		}
-		std::map<std::string, HXMesh*>::iterator itr1 = meshMap.find(strMeshName);
-		if (itr1 != meshMap.end())
+
+		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(strMeshName);
+		if (NULL != pMesh)
 		{
-			HXGameObject* gameObject = new HXGameObject((itr1->second));
+			HXGameObject* gameObject = new HXGameObject(pMesh);
 			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
 			return gameObject;
 		}
 		else
 		{
-			// TODO: 创建MESH
-			HXMesh* pMesh = new HXMesh;
-			pMesh->CreateCubeForTest();
-			//pMesh->LoadMeshFile(strMeshName);
-			meshMap.insert(make_pair(strMeshName, pMesh));
-			
-			HXGameObject* gameObject = new HXGameObject((pMesh));
-			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
-			return gameObject;
+			return NULL;
 		}
+	}
+
+	HXGameObject* HXSceneManager::GetGameObject(std::string strGameObjectName)
+	{
+		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
+		if (itr != gameObjectMap.end())
+		{
+			return itr->second;
+		}
+		return NULL;
 	}
 
 	HXCamera* HXSceneManager::GetMainCamera()
@@ -70,14 +70,35 @@ namespace HX3D
 	{
 		mMainCamera->update();
 
+		//for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
+		//{
+		//	Local_To_World_RenderList(itr->second, mRenderList);
+		//}
+		//Culling_Backface_RenderList(mRenderList, mMainCamera->mFrustum);
+		//World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
+		//Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
+		//Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);
+		////Draw_RenderList_Wire(mRenderList);
+		//Draw_RenderList_Texture_Solid(mRenderList);
+
+		// TODO: 以DrawCall为单位提交渲染，以便设置渲染状态。现在暂时以SubMesh为单位提交渲染
 		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
 		{
-			Local_To_World_RenderList(itr->second, mRenderList);
+			HXMesh* pMesh = itr->second->GetMesh();
+			for (std::vector<HXSubMesh*>::iterator itr1 = pMesh->subMeshList.begin(); itr1 != pMesh->subMeshList.end(); itr1++)
+			{
+				HXRenderState::Reset();
+				HXRenderState::SetMaterial((*itr1)->materialName);
+
+				(*itr1)->Insert_To_RenderList(itr->second->GetPosition(), itr->second->GetRotation(), itr->second->GetScale(), mRenderList);
+				Culling_Backface_RenderList(mRenderList, mMainCamera->mFrustum);
+				World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
+				Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
+				Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);
+				//Draw_RenderList_Wire(mRenderList);
+				Draw_RenderList_Texture_Solid(mRenderList);
+			}
 		}
-		World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
-		Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
-		Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);
-		Draw_RenderList_Wire(mRenderList);
 	}
 
 }

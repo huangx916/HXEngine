@@ -26,6 +26,8 @@ namespace HX3D
 	void Frustum_Culling_GameObject(HXGameObject* pGameObject);
 	// 顶点从模型空间到世界空间转换并出入到渲染列表
 	void Local_To_World_RenderList(HXGameObject* pGameObject, HXRenderList* pRenderList);
+	// 世界空间背面三角形剔除
+	void Culling_Backface_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);
 	void World_To_Camera_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);
 	void Camera_To_Project_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);
 	void Project_To_ViewPort_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);

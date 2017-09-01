@@ -68,6 +68,16 @@ namespace HX3D
 			HXWindow::pInstance->UpdateMyWnd(hwnd);
 			break;
 		}
+		case WM_KEYDOWN:
+		{
+			HXWindow::GetInstance()->OnKeyDown(wParam);
+			break;
+		}
+		case WM_KEYUP:
+		{
+			HXWindow::GetInstance()->OnKeyUp(wParam);
+			break;
+		}
 		case WM_DESTROY:	// 窗口销毁消息
 		{
 			PostQuitMessage(0);	//  发送退出消息
@@ -232,12 +242,16 @@ namespace HX3D
 
 	void HXWindow::RemoveInputListener(HXInputListener* pHXInputListener)
 	{
-		for (InputItr itr = m_vec_pInputListener.begin(); itr != m_vec_pInputListener.end(); itr++)
+		for (InputItr itr = m_vec_pInputListener.begin(); itr != m_vec_pInputListener.end();)
 		{
 			if (*itr == pHXInputListener)
 			{
-				m_vec_pInputListener.erase(itr);
+				m_vec_pInputListener.erase(itr++);
 				return;
+			}
+			else
+			{
+				itr++;
 			}
 		}
 	}
@@ -253,6 +267,22 @@ namespace HX3D
 
 			// 双缓冲技术防止闪烁
 			HXGraphics::GetInstance()->SwapBuffer(hdc);
+		}
+	}
+
+	void HXWindow::OnKeyDown(int msg)
+	{
+		for (InputItr itr = m_vec_pInputListener.begin(); itr != m_vec_pInputListener.end(); ++itr)
+		{
+			(*itr)->OnKeyDown(msg);
+		}
+	}
+
+	void HXWindow::OnKeyUp(int msg)
+	{
+		for (InputItr itr = m_vec_pInputListener.begin(); itr != m_vec_pInputListener.end(); ++itr)
+		{
+			(*itr)->OnKeyUp(msg);
 		}
 	}
 }

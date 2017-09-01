@@ -49,6 +49,9 @@ class HXInputListener;
 		void UpdateMyWnd(HWND hWnd);
 		// 绘画回调
 		void OnPaint(HDC hdc);
+		// 按键回调
+		void OnKeyDown(int msg);
+		void OnKeyUp(int msg);
 
 	private:
 		HXPaintListener* m_pPaintListener;

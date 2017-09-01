@@ -30,11 +30,12 @@ namespace HX3D
 		void ClearBuffer();
 		void SwapBuffer(HDC hdc);
 
-		void SetBufferPixel(int nX, int nY, const HXCOLOR& col);
+		void SetBufferPixel(int nX, int nY, float fZ, const HXCOLOR& col);
 		// UI
 		void DrawLine(int nFromX, int nFromY, int nToX, int nToY, const HXCOLOR& col = HXCOLOR(255,255,255));
 		void DrawString(std::string str, int nFromX, int nFromY, const HXCOLOR& frontCol = HXCOLOR(255,255,255), const HXCOLOR& backCol = HXCOLOR(0,0,0));
 
+		bool CheckZ(int nX, int nY, float fZ);
 	private:
 
 		HDC mBufferHDC;			//后备缓冲DC
@@ -44,8 +45,8 @@ namespace HX3D
 		int mWidthBytes;	// 后备缓冲每行所占字节数
 		// HPEN mPenHandle;
 		HBRUSH mBrushHandle;
-
 		RECT mBufferRect;
+		float* m_pZBuffer;
 	};
 }
 

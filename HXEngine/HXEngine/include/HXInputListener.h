@@ -7,5 +7,7 @@ namespace HX3D
 		HXInputListener() {}
 		virtual ~HXInputListener() {}
 
+		virtual void OnKeyDown(int msg) = 0;
+		virtual void OnKeyUp(int msg) = 0;
 	};
 }

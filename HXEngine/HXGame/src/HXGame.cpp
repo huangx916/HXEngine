@@ -1,9 +1,8 @@
 #include "..\include\HXGame.h"
-#include "HXGraphics.h"
-
+#include "HXVector.h"
 #include "HXSceneManager.h"
 #include "HXCamera.h"
-#include "HXVector.h"
+#include "HXGameObject.h"
 
 HXGame::HXGame()
 {
@@ -15,28 +14,19 @@ HXGame::~HXGame()
 {
 }
 
-void HXGame::CreateGameScene()
-{
-	HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
-	HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
-	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));
-}
+#include "HXGraphics.h"
+//#include "HXMatrix.h"
+//#include "HXVector.h"
+//#include "HXCamera.h"
+//#include "HXFrustum.h"
+//#include "HXMath.h"
+//#include "HXMesh.h"
+//#include "HXCore.h"
+//#include "HXGameObject.h"
+#include "HXBitmap.h"
 
-//void HXGame::OnUpdate()
-//{
-//
-//}
-
-#include "HXMatrix.h"
-#include "HXVector.h"
-#include "HXCamera.h"
-#include "HXFrustum.h"
-#include "HXMath.h"
-#include "HXMesh.h"
-#include "HXCore.h"
-#include "HXGameObject.h"
-
-void TestUpdate()
+HXBitmap* Gpbitmap = NULL;
+void Test()
 {
 	//// for test begin
 	//HXMatrix44 mat(1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4);
@@ -64,135 +54,136 @@ void TestUpdate()
 	HXVector4D pos = GetVector4DMulMatrix44(worldPos, cam.mFrustum->matWorldToCamera);
 	int i = 0;*/
 
-
-
-
-	//HXSubMesh subMesh;
-	//// 立方体
-	//subMesh.vertexList.reserve(8);
-
-	//HXVertex vertex0;
-	//vertex0.pos = HXVector3D(-1,1,1);
-	//subMesh.vertexList.push_back(vertex0);
-
-	//HXVertex vertex1;
-	//vertex1.pos = HXVector3D(1,1,1);
-	//subMesh.vertexList.push_back(vertex1);
-
-	//HXVertex vertex2;
-	//vertex2.pos = HXVector3D(-1,1,-1);
-	//subMesh.vertexList.push_back(vertex2);
-
-	//HXVertex vertex3;
-	//vertex3.pos = HXVector3D(1,1,-1);
-	//subMesh.vertexList.push_back(vertex3);
-
-	//HXVertex vertex4;
-	//vertex4.pos = HXVector3D(-1,-1,1);
-	//subMesh.vertexList.push_back(vertex4);
-
-	//HXVertex vertex5;
-	//vertex5.pos = HXVector3D(1,-1,1);
-	//subMesh.vertexList.push_back(vertex5);
-
-	//HXVertex vertex6;
-	//vertex6.pos = HXVector3D(-1,-1,-1);
-	//subMesh.vertexList.push_back(vertex6);
-
-	//HXVertex vertex7;
-	//vertex7.pos = HXVector3D(1,-1,-1);
-	//subMesh.vertexList.push_back(vertex7);
-
-	//// 上0,1,3	0,3,2	前2,3,7	2,7,6	右3,1,5	3,5,7	左0,2,6	0,6,4	后1,0,4	1,4,5	下6,7,5	6,5,4
-	//subMesh.indexList.resize(36);
-	//subMesh.indexList.push_back(0);
-	//subMesh.indexList.push_back(1);
-	//subMesh.indexList.push_back(3);
-
-	//subMesh.indexList.push_back(0);
-	//subMesh.indexList.push_back(3);
-	//subMesh.indexList.push_back(2);
-
-	//subMesh.indexList.push_back(2);
-	//subMesh.indexList.push_back(3);
-	//subMesh.indexList.push_back(7);
-
-	//subMesh.indexList.push_back(2);
-	//subMesh.indexList.push_back(7);
-	//subMesh.indexList.push_back(6);
-
-	//subMesh.indexList.push_back(3);
-	//subMesh.indexList.push_back(1);
-	//subMesh.indexList.push_back(5);
-
-	//subMesh.indexList.push_back(3);
-	//subMesh.indexList.push_back(5);
-	//subMesh.indexList.push_back(7);
-
-	//subMesh.indexList.push_back(0);
-	//subMesh.indexList.push_back(2);
-	//subMesh.indexList.push_back(6);
-
-	//subMesh.indexList.push_back(0);
-	//subMesh.indexList.push_back(6);
-	//subMesh.indexList.push_back(4);
-
-	//subMesh.indexList.push_back(1);
-	//subMesh.indexList.push_back(0);
-	//subMesh.indexList.push_back(4);
-
-	//subMesh.indexList.push_back(1);
-	//subMesh.indexList.push_back(4);
-	//subMesh.indexList.push_back(5);
-
-	//subMesh.indexList.push_back(6);
-	//subMesh.indexList.push_back(7);
-	//subMesh.indexList.push_back(5);
-
-	//subMesh.indexList.push_back(6);
-	//subMesh.indexList.push_back(5);
-	//subMesh.indexList.push_back(4);
-
-	//HXRenderList renderlist;
-	//subMesh.Insert_To_RenderList(HXVector3D(0, 0, 0), HXVector3D(0, 0, 0), HXVector3D(1, 1, 1), &renderlist);
-
-	//HXMesh mesh;
-	//mesh.subMeshList.push_back(subMesh);
-
-	//HXGameObject gameObj(&mesh);
-
-	//HXCamera camera;
-
-	//Local_To_World_RenderList(&gameObj, &renderlist);
-	//World_To_Camera_RenderList(&renderlist, camera.mFrustum);
-	//Camera_To_Project_RenderList(&renderlist, camera.mFrustum);
-	//Project_To_ViewPort_RenderList(&renderlist, camera.mFrustum);
-	//Draw_RenderList_Texture_Solid(&renderlist);
-
+	//Gpbitmap = new HXBitmap("terrain_texture.bmp");
+	//Gpbitmap = new HXBitmap("terrain_texture.png");
+	//Gpbitmap = new HXBitmap("icon.png");
+	Gpbitmap = new HXBitmap();
+	if (!Gpbitmap->LoadBitmapFile("icon.bmp"))
+	{
+		delete Gpbitmap;
+		Gpbitmap = NULL;
+	}
 
 	//// for test end
 
 }
 
+void HXGame::CreateGameScene()
+{
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
+	HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTriangle", "Triangle");
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
+	pGameObject->SetPostion(HXVector3D(0, 0, 0));
+	//pGameObject->Pitch(45.0f);
+	//pGameObject->Yaw(45.0f);
+	//pGameObject->Roll(45.0f);
+
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad1", "Quad");
+	//pGameObject->SetPostion(HXVector3D(0, 0, 10));
+	//pGameObject->Pitch(45.0f);
+	//pGameObject->Yaw(45.0f);
+	//pGameObject->Roll(45.0f);
+	//pGameObject->SetScale(HXVector3D(0.5f, 0.5f, 0.5f));
+
+	HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
+	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));
+
+	Test();
+}
+
+//void HXGame::OnUpdate()
+//{
+//
+//}
+
+
 void HXGame::OnPaint()
 {
 	// TODO: UI
 	int nX = rand() % 800;
-	HXGraphics::GetInstance()->DrawLine(-10, -10, nX, 100, HXCOLOR(255, 0, 0));
-	HXGraphics::GetInstance()->DrawLine(200, 0, 0, 100);
-	HXGraphics::GetInstance()->DrawString("hello world", nX, 100, HXCOLOR(255, 0, 0), HXCOLOR(0,255,0));
-	HXGraphics::GetInstance()->DrawString("hello world", 0, 200);
+	//HXGraphics::GetInstance()->DrawLine(-10, -10, nX, 100, HXCOLOR(255, 0, 0));
+	//HXGraphics::GetInstance()->DrawLine(200, 0, 0, 100);
+	//HXGraphics::GetInstance()->DrawString("hello world", nX, 100, HXCOLOR(255, 0, 0), HXCOLOR(0,255,0));
+	//HXGraphics::GetInstance()->DrawString("hello world", 0, 200);
 
 	//for (int i = SCREEN_HEIGHT-200; i < SCREEN_HEIGHT; i++)
 	//{
 	//	for (int j = SCREEN_WIDTH-200; j < SCREEN_WIDTH; j++)
 	//	{
-	//		HXGraphics::GetInstance()->SetBufferPixel(j, i, HXCOLOR(255, 0, 0));
+	//		HXGraphics::GetInstance()->SetBufferPixel(j, i, 0, HXCOLOR(255, 0, 0));
 	//	}
 	//}
 
-	////TestUpdate();
+	if(Gpbitmap != NULL)
+	{
+		for(int i = 0; i < Gpbitmap->GetHeight(); i++)
+		{ 
+			for(int j = 0; j < Gpbitmap->GetWidth(); j++)
+			{ 
+				HXGraphics::GetInstance()->SetBufferPixel(j, i, 0, Gpbitmap->GetPixel(j,i));
+			}
+		}		
+	}
 
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
+	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
+	if (pGameObject)
+	{
+		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
+		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
+	}
+	
 	HXSceneManager::GetInstance()->Update();
+
+}
+
+void HXGame::OnKeyDown(int msg)
+{
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
+	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad1");
+	if (pGameObject)
+	{
+		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
+		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
+	}
+	else
+	{
+		return;
+	}
+
+	if (msg == 'W')
+	{
+		pGameObject->Move(HXVector3D(0, 0.5f, 0));
+	}
+	else if (msg == 'S')
+	{
+		pGameObject->Move(HXVector3D(0, -0.5f, 0));
+	}
+	else if (msg == 'A')
+	{
+		pGameObject->Move(HXVector3D(-0.5f, 0, 0));
+	}
+	else if (msg == 'D')
+	{
+		pGameObject->Move(HXVector3D(0.5f, 0, 0));
+	}
+	else if (msg == 'Z')
+	{
+		pGameObject->Move(HXVector3D(0, 0, 0.5f));
+	}
+	else if (msg == 'X')
+	{
+		pGameObject->Move(HXVector3D(0, 0, -0.5f));
+	}
+
+}
+
+void HXGame::OnKeyUp(int msg)
+{
 
 }

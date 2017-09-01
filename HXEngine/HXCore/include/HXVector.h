@@ -125,11 +125,32 @@ namespace HX3D
 			return HXVector3D(x*rhs, y*rhs, z*rhs);
 		}
 
+		inline HXVector3D operator/(float rhs) const
+		{
+			return HXVector3D(x/rhs, y/rhs, z/rhs);
+		}
+
 		inline HXVector3D& operator=(const HXVector3D& rhs)
 		{
 			x = rhs.x;
 			y = rhs.y;
 			z = rhs.z;
+			return *this;
+		}
+
+		inline HXVector3D& operator+=(const HXVector3D& rhs)
+		{
+			x += rhs.x;
+			y += rhs.y;
+			z += rhs.z;
+			return *this;
+		}
+
+		inline HXVector3D& operator-=(const HXVector3D& rhs)
+		{
+			x -= rhs.x;
+			y -= rhs.y;
+			z -= rhs.z;
 			return *this;
 		}
 

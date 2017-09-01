@@ -12,5 +12,8 @@ public:
 	void CreateGameScene();
 	//virtual void OnUpdate();
 	virtual void OnPaint();
+
+	virtual void OnKeyDown(int msg);
+	virtual void OnKeyUp(int msg);
 };
 

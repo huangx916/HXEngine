@@ -7,7 +7,6 @@ namespace HX3D
 {
 	class HXCamera;
 	class HXGameObject;
-	class HXMesh;
 	class HXRenderList;
 
 	class HXSceneManager
@@ -25,7 +24,7 @@ namespace HX3D
 		~HXSceneManager();
 
 		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
-
+		HXGameObject* GetGameObject(std::string strGameObjectName);
 		HXCamera* GetMainCamera();
 
 		void Update();
@@ -35,7 +34,7 @@ namespace HX3D
 		HXSceneManager();
 
 		std::map<std::string, HXGameObject*>	gameObjectMap;
-		std::map<std::string, HXMesh*>	meshMap;
+		
 		HXRenderList*	mRenderList;
 		HXCamera*	mMainCamera;
 	};
