@@ -4,14 +4,13 @@
 *.exe
 *.ilk
 *.idb
-*.tlog
-*.sln
-*.obj
+*.tlog*.obj
 *.db
-*.vcxproj
 *.cache
 *.filters
 *.log
 *.user
 HXEngine/.vs/HXEngine/v14/.suo
 *.opendb
+*.obj
+*.tlog
