@@ -95,7 +95,7 @@ namespace HX3D
 				World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
 				Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
 				Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);
-				//Draw_RenderList_Wire(mRenderList);
+				// Draw_RenderList_Wire(mRenderList);
 				Draw_RenderList_Texture_Solid(mRenderList);
 			}
 		}

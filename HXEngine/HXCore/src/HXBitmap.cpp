@@ -1,4 +1,5 @@
 #include "..\include\HXBitmap.h"
+#include "HXMath.h"
 
 namespace HX3D
 {
@@ -56,6 +57,8 @@ namespace HX3D
 
 	HXCOLOR HXBitmap::GetPixel(int nX, int nY)
 	{
+		nX = Clamp(nX, nWidth - 1, 0);
+		nY = Clamp(nY, nHeight - 1, 0);
 		return mPixels[nY*nPitch + nX];
 	}
 

@@ -70,10 +70,11 @@ void Test()
 
 void HXGame::CreateGameScene()
 {
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
-	HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTriangle", "Triangle");
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
-	pGameObject->SetPostion(HXVector3D(0, 0, 0));
+	HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
+	/*HXGameObject* */pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTriangle", "Triangle");
+	pGameObject->SetPostion(HXVector3D(-4, 0, 0));
+	/*HXGameObject* */pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
+	pGameObject->SetPostion(HXVector3D(4, 0, 0));
 	//pGameObject->Pitch(45.0f);
 	//pGameObject->Yaw(45.0f);
 	//pGameObject->Roll(45.0f);
@@ -114,7 +115,7 @@ void HXGame::OnPaint()
 	//	}
 	//}
 
-	if(Gpbitmap != NULL)
+	/*if(Gpbitmap != NULL)
 	{
 		for(int i = 0; i < Gpbitmap->GetHeight(); i++)
 		{ 
@@ -123,16 +124,16 @@ void HXGame::OnPaint()
 				HXGraphics::GetInstance()->SetBufferPixel(j, i, 0, Gpbitmap->GetPixel(j,i));
 			}
 		}		
-	}
+	}*/
 
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
+	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
 	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
-	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
 	if (pGameObject)
 	{
-		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
-		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
-		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
+		pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
+		pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+		pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
 	}
 	
 	HXSceneManager::GetInstance()->Update();
@@ -141,9 +142,9 @@ void HXGame::OnPaint()
 
 void HXGame::OnKeyDown(int msg)
 {
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
+	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
 	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
-	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
+	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
 	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad1");
 	if (pGameObject)
 	{
