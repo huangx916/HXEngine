@@ -26,6 +26,12 @@ namespace HX3D
 		}
 		gameObjectMap.clear();
 		
+		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); itr++)
+		{
+			delete *itr;
+		}
+		lightVct.clear();
+
 		delete mRenderList;
 		delete mMainCamera;
 	}
@@ -66,6 +72,13 @@ namespace HX3D
 		return mMainCamera;
 	}
 
+	HXLight* HXSceneManager::CreateLight(LIGHT_TYPE lightType)
+	{
+		HXLight* pLight = new HXLight(lightType);
+		lightVct.push_back(pLight);
+		return pLight;
+	}
+
 	void HXSceneManager::Update()
 	{
 		mMainCamera->update();
@@ -92,6 +105,7 @@ namespace HX3D
 
 				(*itr1)->Insert_To_RenderList(itr->second->GetPosition(), itr->second->GetRotation(), itr->second->GetScale(), mRenderList);
 				Culling_Backface_RenderList(mRenderList, mMainCamera->mFrustum);
+				World_Space_Vertex_Lighting(mRenderList, &lightVct);
 				World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
 				Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
 				Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);

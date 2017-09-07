@@ -26,6 +26,7 @@
     <ClInclude Include="include\HXFrustum.h" />
     <ClInclude Include="include\HXGameObject.h" />
     <ClInclude Include="include\HXGraphics.h" />
+    <ClInclude Include="include\HXLight.h" />
     <ClInclude Include="include\HXMaterial.h" />
     <ClInclude Include="include\HXMath.h" />
     <ClInclude Include="include\HXMatrix.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="src\HXFrustum.cpp" />
     <ClCompile Include="src\HXGameObject.cpp" />
     <ClCompile Include="src\HXGraphics.cpp" />
+    <ClCompile Include="src\HXLight.cpp" />
     <ClCompile Include="src\HXMaterial.cpp" />
     <ClCompile Include="src\HXMath.cpp" />
     <ClCompile Include="src\HXMatrix.cpp" />

@@ -1,12 +1,14 @@
 #pragma once
 #include "HXCommon.h"
 #include <map>
+#include "HXLight.h"
 
 
 namespace HX3D
 {
 	class HXCamera;
 	class HXGameObject;
+	class HXLight;
 	class HXRenderList;
 
 	class HXSceneManager
@@ -26,6 +28,7 @@ namespace HX3D
 		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
 		HXCamera* GetMainCamera();
+		HXLight* CreateLight(LIGHT_TYPE lightType);
 
 		void Update();
 		
@@ -34,9 +37,9 @@ namespace HX3D
 		HXSceneManager();
 
 		std::map<std::string, HXGameObject*>	gameObjectMap;
-		
-		HXRenderList*	mRenderList;
+		std::vector<HXLight*>		lightVct;
 		HXCamera*	mMainCamera;
+		HXRenderList*	mRenderList;
 	};
 }
 

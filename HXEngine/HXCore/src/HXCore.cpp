@@ -5,6 +5,7 @@
 #include "HXGraphics.h"
 #include "HXRenderState.h"
 #include "HXMaterial.h"
+#include "HXLight.h"
 
 namespace HX3D
 {
@@ -36,6 +37,22 @@ namespace HX3D
 			else
 			{
 				itr++;
+			}
+		}
+	}
+
+	void World_Space_Vertex_Lighting(HXRenderList* pRenderList, std::vector<HXLight*>* pLightVct)
+	{
+		for (std::list<HXTriangle>::iterator itr = pRenderList->triangleList.begin(); itr != pRenderList->triangleList.end(); ++itr)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				HXCOLOR col(0,0,0);
+				for (std::vector<HXLight*>::iterator itr1 = pLightVct->begin(); itr1 != pLightVct->end(); ++itr1)
+				{
+					col += (*itr1)->VertexLighting(&(*itr).vertexList[i]);
+				}
+				(*itr).vertexList[i].color = col;
 			}
 		}
 	}
@@ -125,7 +142,7 @@ namespace HX3D
 			for (int i = 0; i <= length; i++)
 			{
 				HXCOLOR color = pMat->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
-				HXGraphics::GetInstance()->SetBufferPixel(scanline.x + i, scanline.y, scanline.v.pos.z, color);
+				HXGraphics::GetInstance()->SetBufferPixel(scanline.x + i, scanline.y, scanline.v.pos.z, color*scanline.v.color);
 				scanline.v += scanline.step;
 			}
 		}

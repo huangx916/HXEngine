@@ -115,6 +115,11 @@ namespace HX3D
 			return HXVector3D(x + rhs.x, y + rhs.y, z + rhs.z);
 		}
 
+		inline HXVector3D operator-() const
+		{
+			return HXVector3D(-x,-y,-z);
+		}
+
 		inline HXVector3D operator-(const HXVector3D& rhs) const
 		{
 			return HXVector3D(x - rhs.x, y - rhs.y, z - rhs.z);

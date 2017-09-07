@@ -70,11 +70,12 @@ void Test()
 
 void HXGame::CreateGameScene()
 {
-	HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
-	/*HXGameObject* */pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTriangle", "Triangle");
-	pGameObject->SetPostion(HXVector3D(-4, 0, 0));
-	/*HXGameObject* */pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
-	pGameObject->SetPostion(HXVector3D(4, 0, 0));
+	HXGameObject* pGameObject = NULL;
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTriangle", "Triangle");
+	//pGameObject->SetPostion(HXVector3D(-4, 0, 0));
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
+	//pGameObject->SetPostion(HXVector3D(4, 0, 0));
 	//pGameObject->Pitch(45.0f);
 	//pGameObject->Yaw(45.0f);
 	//pGameObject->Roll(45.0f);
@@ -88,6 +89,13 @@ void HXGame::CreateGameScene()
 
 	HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
 	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));
+
+	/*HXLight* pLight = HXSceneManager::GetInstance()->CreateLight(LIGHT_AMBIENT);
+	pLight->color = HXCOLOR(255,255,255);*/
+
+	HXLight* pLight = HXSceneManager::GetInstance()->CreateLight(LIGHT_DIRECTION);
+	pLight->color = HXCOLOR(255, 255, 255);
+	pLight->direct = HXVector3D(1, -1, 1);
 
 	Test();
 }

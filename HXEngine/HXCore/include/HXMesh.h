@@ -11,6 +11,7 @@ namespace HX3D
 		//HXVertex() {}
 		//HXVertex(const HXVector3D& pos_, const HXCOLOR& color_): pos(pos_),color(color_) {}
 		HXVector3D pos;
+		HXVector3D normal;
 		HXCOLOR	color;
 		float u;
 		float v;

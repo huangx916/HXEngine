@@ -6,6 +6,7 @@
 //#include <deque>
 #include <iostream>
 #include "HX3DHeader.h"
+// #include "HXMath.h"	// 交叉包含
 
 namespace HX3D
 {
@@ -60,6 +61,47 @@ namespace HX3D
 			return HXCOLOR(r * (rhs.r / 255), g * (rhs.g / 255), b * (rhs.b / 255), a * (rhs.a / 255));
 		}
 
+		inline HXCOLOR operator*(float rhs) const
+		{
+			float fR = r * rhs;
+			float fG = g * rhs;
+			float fB = b * rhs;
+			float fA = a * rhs;
+			if (fR > 255)
+			{
+				fR = 255;
+			}
+			if (fR < 0)
+			{
+				fR = 0;
+			}
+			if (fG > 255)
+			{
+				fG = 255;
+			}
+			if (fG < 0)
+			{
+				fG = 0;
+			}
+			if (fB > 255)
+			{
+				fB = 255;
+			}
+			if (fB < 0)
+			{
+				fB = 0;
+			}
+			if (fA > 255)
+			{
+				fA = 255;
+			}
+			if (fA < 0)
+			{
+				fA = 0;
+			}
+			return HXCOLOR(fR, fG, fB, fA);
+		}
+
 		inline HXCOLOR operator/(float rhs) const
 		{
 			return HXCOLOR(r/rhs, g/rhs, b/rhs, a/rhs);
@@ -71,7 +113,6 @@ namespace HX3D
 			float fG = g - rhs.g;
 			float fB = b - rhs.b;
 			float fA = a - rhs.a;
-			
 			return HXCOLOR(fR, fG, fB, fA);
 		}
 
