@@ -51,10 +51,10 @@ namespace HX3D
 			triangle.vertexList[0].pos = GetVector3DMulMatrix44(triangle.vertexList[0].pos, mat);
 			triangle.vertexList[1].pos = GetVector3DMulMatrix44(triangle.vertexList[1].pos, mat);
 			triangle.vertexList[2].pos = GetVector3DMulMatrix44(triangle.vertexList[2].pos, mat);
-			// TODO: 非同一缩放计算法线要用逆转置矩阵
-			triangle.vertexList[0].normal = GetVector3DMulMatrix44(triangle.vertexList[0].normal, mat);
-			triangle.vertexList[1].normal = GetVector3DMulMatrix44(triangle.vertexList[1].normal, mat);
-			triangle.vertexList[2].normal = GetVector3DMulMatrix44(triangle.vertexList[2].normal, mat);
+			// TODO: 非同一缩放计算法线要用逆转置矩阵(法线只有方向，不能平移)
+			triangle.vertexList[0].normal = GetVector3DMulMatrix33(triangle.vertexList[0].normal, HXMatrix33(mat));
+			triangle.vertexList[1].normal = GetVector3DMulMatrix33(triangle.vertexList[1].normal, HXMatrix33(mat));
+			triangle.vertexList[2].normal = GetVector3DMulMatrix33(triangle.vertexList[2].normal, HXMatrix33(mat));
 
 			pRenderList->triangleList.push_back(triangle);
 		}
@@ -536,27 +536,6 @@ namespace HX3D
 		subMesh->materialName = "icon.bmp";
 
 		subMeshList.push_back(subMesh);
-	}
-
-	bool HXMesh::LoadMeshFile(std::string strMeshName)
-	{
-		if (strMeshName == "Cube")
-		{
-			CreateCubeForTest();
-		}
-		else if (strMeshName == "Triangle")
-		{
-			CreateTriangleForTest();
-		}
-		else if (strMeshName == "Quad")
-		{
-			CreateQuadForTest();
-		}
-		else
-		{
-			// TODO: 读取模型文本文档
-		}
-		return true;
 	}
 
 	void HXMesh::Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)

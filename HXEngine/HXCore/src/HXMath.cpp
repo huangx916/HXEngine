@@ -85,4 +85,13 @@ namespace HX3D
 
 		return HXVector4D(x, y, z, w);
 	}
+
+	HXVector3D GetVector3DMulMatrix33(const HXVector3D& vec, const HXMatrix33& mat)
+	{
+		float x = vec.x * mat.m[0][0] + vec.y * mat.m[1][0] + vec.z * mat.m[2][0];
+		float y = vec.x * mat.m[0][1] + vec.y * mat.m[1][1] + vec.z * mat.m[2][1];
+		float z = vec.x * mat.m[0][2] + vec.y * mat.m[1][2] + vec.z * mat.m[2][2];
+
+		return HXVector3D(x, y, z);
+	}
 }

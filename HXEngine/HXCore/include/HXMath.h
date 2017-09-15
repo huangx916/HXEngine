@@ -46,5 +46,8 @@ namespace HX3D
 
 	// 4D向量 X 44矩阵
 	HXVector4D GetVector4DMulMatrix44(const HXVector4D& vec, const HXMatrix44& mat);
+
+	// 3D向量 X 33矩阵
+	HXVector3D GetVector3DMulMatrix33(const HXVector3D& vec, const HXMatrix33& mat);
 }
 

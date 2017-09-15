@@ -2,6 +2,8 @@
 #include "HXMesh.h"
 #include "HXMaterial.h"
 #include "HXBitmap.h"
+#include "HXIMeshLoader.h"
+#include "HXFBXLoader.h"
 
 namespace HX3D
 {
@@ -9,6 +11,7 @@ namespace HX3D
 
 	HXResourceManager::HXResourceManager()
 	{
+		m_pMeshLoader = new HXFBXLoader();
 	}
 
 
@@ -31,6 +34,12 @@ namespace HX3D
 			delete itr->second;
 		}
 		bitmapMap.clear();
+
+		if (m_pMeshLoader)
+		{
+			delete m_pMeshLoader;
+			m_pMeshLoader = NULL;
+		}
 	}
 
 	HXMesh* HXResourceManager::GetMesh(std::string strMeshName)
@@ -43,7 +52,7 @@ namespace HX3D
 		else
 		{
 			HXMesh* pMesh = new HXMesh;
-			if (pMesh->LoadMeshFile(strMeshName))
+			if (m_pMeshLoader->LoadMeshFromFile(strMeshName, pMesh))
 			{
 				meshMap.insert(make_pair(strMeshName, pMesh));
 				return pMesh;

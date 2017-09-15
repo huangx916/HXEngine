@@ -106,9 +106,29 @@ namespace HX3D
 				return false;
 			}
 			return true;
+		}		
+	};
+
+	struct HXMatrix33
+	{
+		static HXMatrix33 IDENTITY;
+		float m[3][3];
+
+		HXMatrix33()
+		{
+			memset(m, 0, sizeof(float) * 9);
 		}
 
-		
+		HXMatrix33(HXMatrix44 mat)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					m[i][j] = mat.m[i][j];
+				}
+			}
+		}
 	};
 }
 

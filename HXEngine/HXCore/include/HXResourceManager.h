@@ -7,7 +7,7 @@ namespace HX3D
 	class HXMesh;
 	class HXMaterial;
 	class HXBitmap;
-
+	class HXIMeshLoader;
 	class HXResourceManager
 	{
 	public:
@@ -29,6 +29,7 @@ namespace HX3D
 		HXResourceManager();
 		static HXResourceManager* m_pInstance;
 
+		HXIMeshLoader*	m_pMeshLoader;
 		std::map<std::string, HXMesh*>	meshMap;
 		std::map<std::string, HXMaterial*> materialMap;
 		std::map<std::string, HXBitmap*> bitmapMap;
