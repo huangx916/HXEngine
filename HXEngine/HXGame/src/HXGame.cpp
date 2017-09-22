@@ -72,7 +72,10 @@ void HXGame::CreateGameScene()
 {
 	HXGameObject* pGameObject = NULL;
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "FBX\\cubeSubMesh.FBX");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeSubMesh.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube1", "cubeTexture.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "shaizi888.FBX");
 	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "BC_Gong_skin.FBX");
 	pGameObject->SetScale(HXVector3D(0.05f, 0.05f, 0.05f));
@@ -145,7 +148,7 @@ void HXGame::OnPaint()
 	if (pGameObject)
 	{
 		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
-		pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
 		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
 	}
 	
@@ -194,7 +197,18 @@ void HXGame::OnKeyDown(int msg)
 	{
 		pGameObject->Move(HXVector3D(0, 0, -0.5f));
 	}
-
+	else if (msg == 'P')
+	{
+		pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
+	}
+	else if (msg == 'Y')
+	{
+		pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+	}
+	else if (msg == 'R')
+	{
+		pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
+	}
 }
 
 void HXGame::OnKeyUp(int msg)

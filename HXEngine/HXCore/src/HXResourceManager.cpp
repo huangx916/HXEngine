@@ -51,8 +51,8 @@ namespace HX3D
 		}
 		else
 		{
-			HXMesh* pMesh = new HXMesh;
-			if (m_pMeshLoader->LoadMeshFromFile(strMeshName, pMesh))
+			HXMesh* pMesh = NULL;
+			if (m_pMeshLoader->LoadMeshFromFile(strMeshName, &pMesh))
 			{
 				meshMap.insert(make_pair(strMeshName, pMesh));
 				return pMesh;
@@ -109,5 +109,10 @@ namespace HX3D
 				return NULL;
 			}
 		}
+	}
+
+	void HXResourceManager::AddMaterial(std::string strMaterialName, HXMaterial* pMaterial)
+	{
+		materialMap.insert(make_pair(strMaterialName, pMaterial));
 	}
 }

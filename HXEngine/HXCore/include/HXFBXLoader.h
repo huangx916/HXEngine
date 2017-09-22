@@ -6,6 +6,7 @@
 namespace HX3D
 {
 	class HXMesh;
+	class HXMeshFBX;
 	class HXVertex;
 	class HXFBXLoader : public HXIMeshLoader
 	{
@@ -14,17 +15,19 @@ namespace HX3D
 		~HXFBXLoader();
 
 		bool LoadScene(std::string strFileName);
-		void ProcessNode(FbxNode* pNode, HXMesh* pMesh);
-		void ProcessMesh(FbxNode* pNode, HXMesh* pMesh);
-		void ReadVertex(FbxMesh* pFbxMesh, int nCtrlPointIndex, HXVertex& vertex);
-		void ReadColor(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex);
-		// TODO: 多层UV读取
-		void ReadUV(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nTextureUVIndex, HXVertex& vertex);
-		void ReadNormal(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex);
-		virtual bool LoadMeshFromFile(std::string strFileName, HXMesh* pMesh);
+		void ProcessNode(FbxNode* pNode, HXMeshFBX* pMesh);
+		void ProcessMesh(FbxNode* pNode, HXMeshFBX* pMesh);
+		// 读取顶点坐标、颜色、UV、法线等。划分SUBMESH。关联材质名。
+		void ProcessPolygons(FbxMesh* pFbxMesh, HXMeshFBX* pMesh);
+		// 读取加载材质和贴图
+		void ProcessMaterial(FbxMesh* pFbxMesh);
+		virtual bool LoadMeshFromFile(std::string strFileName, HXMesh** ppMesh);
 
+		// 用于保存Material及Mesh唯一名字
+		static std::string gCurPathFileName;
 	private:
 		FbxManager* m_pFbxManager;
 		FbxScene* m_pScene;
+		
 	};
 }

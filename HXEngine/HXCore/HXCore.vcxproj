@@ -29,10 +29,12 @@
     <ClInclude Include="include\HXIMeshLoader.h" />
     <ClInclude Include="include\HXLight.h" />
     <ClInclude Include="include\HXMaterial.h" />
+    <ClInclude Include="include\HXMaterialFBX.h" />
     <ClInclude Include="include\HXMath.h" />
     <ClInclude Include="include\HXMatrix.h" />
     <ClInclude Include="include\HXMesh.h" />
     <ClInclude Include="include\HXFBXLoader.h" />
+    <ClInclude Include="include\HXMeshFBX.h" />
     <ClInclude Include="include\HXPlane.h" />
     <ClInclude Include="include\HXRenderState.h" />
     <ClInclude Include="include\HXResourceManager.h" />
@@ -47,10 +49,12 @@
     <ClCompile Include="src\HXGraphics.cpp" />
     <ClCompile Include="src\HXLight.cpp" />
     <ClCompile Include="src\HXMaterial.cpp" />
+    <ClCompile Include="src\HXMaterialFBX.cpp" />
     <ClCompile Include="src\HXMath.cpp" />
     <ClCompile Include="src\HXMatrix.cpp" />
     <ClCompile Include="src\HXMesh.cpp" />
     <ClCompile Include="src\HXFBXLoader.cpp" />
+    <ClCompile Include="src\HXMeshFBX.cpp" />
     <ClCompile Include="src\HXPlane.cpp" />
     <ClCompile Include="src\HXRenderState.cpp" />
     <ClCompile Include="src\HXResourceManager.cpp" />

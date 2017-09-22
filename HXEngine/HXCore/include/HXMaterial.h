@@ -15,6 +15,7 @@ namespace HX3D
 		HXCOLOR GetPixelRatio(float fX, float fY);
 
 		HXBitmap* mBitmap;
+		std::string mMaterialName;
 	};
 }
 

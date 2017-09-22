@@ -15,6 +15,9 @@ namespace HX3D
 
 	bool HXMaterial::LoadMaterialFile(std::string strMaterialName)
 	{
+		// 以后用引擎编辑器生成的材质加载
+		return false;
+
 		// TODO: 读取材质球文本
 		std::string strBitmapName = strMaterialName;
 

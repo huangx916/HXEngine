@@ -90,6 +90,8 @@ namespace HX3D
 
 		std::string materialName;
 
+		int triangleCount;
+
 	private:
 		void Insert_To_RenderList_Without_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
 		void Insert_To_RenderList_With_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
@@ -109,6 +111,8 @@ namespace HX3D
 		void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
 
 		std::vector<HXSubMesh*> subMeshList;
+
+		int triangleCount;
 	};
 }
 
