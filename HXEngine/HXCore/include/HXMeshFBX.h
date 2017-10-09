@@ -11,6 +11,7 @@ namespace HX3D
 		~HXMeshFBX();
 
 		bool Initialize(FbxMesh* pFbxMesh);
+		void UpdateVertexPosition(const FbxVector4* pVertices);
 
 		void ReadVertex(FbxMesh* pFbxMesh, int nCtrlPointIndex, HXVertex& vertex);
 		void ReadColor(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex);

@@ -47,7 +47,7 @@ namespace HX3D
 		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(strMeshName);
 		if (NULL != pMesh)
 		{
-			HXGameObject* gameObject = new HXGameObject(pMesh);
+			HXGameObject* gameObject = new HXGameObject(pMesh->Clone());
 			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
 			return gameObject;
 		}
@@ -98,6 +98,8 @@ namespace HX3D
 		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
 		{
 			HXMesh* pMesh = itr->second->GetMesh();
+			// 更新动作
+			pMesh->UpdateAnimation();
 			for (std::vector<HXSubMesh*>::iterator itr1 = pMesh->subMeshList.begin(); itr1 != pMesh->subMeshList.end(); itr1++)
 			{
 				HXRenderState::Reset();

@@ -16,6 +16,19 @@ namespace HX3D
 
 	HXGameObject::~HXGameObject()
 	{
+		if (m_pMesh)
+		{
+			delete m_pMesh;
+			m_pMesh = NULL;
+		}
+	}
+
+	void HXGameObject::Update()
+	{
+		if (m_pMesh)
+		{
+			m_pMesh->UpdateAnimation();
+		}
 	}
 
 	void HXGameObject::Insert_To_RenderList(HXRenderList* pRenderList)

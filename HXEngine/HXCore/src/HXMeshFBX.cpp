@@ -129,12 +129,29 @@ namespace HX3D
 		return true;
 	}
 
+	void HXMeshFBX::UpdateVertexPosition(const FbxVector4* pVertices)
+	{
+		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
+		{
+			for (std::vector<HXVertex>::iterator itr1 = (*itr)->vertexList.begin(); itr1 != (*itr)->vertexList.end(); ++itr1)
+			{
+				float x = pVertices[(*itr1).ctrlPointIndex][0];
+				float y = pVertices[(*itr1).ctrlPointIndex][1];
+				float z = pVertices[(*itr1).ctrlPointIndex][2];
+				(*itr1).pos.x = x;
+				(*itr1).pos.y = y;
+				(*itr1).pos.z = z;
+			}
+		}
+	}
+
 	void HXMeshFBX::ReadVertex(FbxMesh* pFbxMesh, int nCtrlPointIndex, HXVertex& vertex)
 	{
 		FbxVector4* pCtrlPoint = pFbxMesh->GetControlPoints();
 		vertex.pos.x = pCtrlPoint[nCtrlPointIndex][0];
 		vertex.pos.y = pCtrlPoint[nCtrlPointIndex][1];
 		vertex.pos.z = pCtrlPoint[nCtrlPointIndex][2];
+		vertex.ctrlPointIndex = nCtrlPointIndex;
 	}
 
 	void HXMeshFBX::ReadColor(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex)

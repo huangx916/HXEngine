@@ -5,12 +5,14 @@
 namespace HX3D
 {
 	class HXRenderList;
+	class HXISkeleton;
 
 	struct HXVertex
 	{
 		//HXVertex() {}
 		//HXVertex(const HXVector3D& pos_, const HXCOLOR& color_): pos(pos_),color(color_) {}
 		HXVector3D pos;
+		int ctrlPointIndex;	// 骨骼动画更新时控制点映射到顶点用
 		HXVector3D normal;
 		HXCOLOR	color;
 		float u;
@@ -82,6 +84,8 @@ namespace HX3D
 		HXSubMesh();
 		~HXSubMesh();
 
+		HXSubMesh* Clone();
+
 		void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
 
 		bool useIndex;
@@ -103,6 +107,10 @@ namespace HX3D
 		HXMesh();
 		~HXMesh();
 
+		void UpdateAnimation();
+
+		HXMesh* Clone();
+
 		// For Test
 		void CreateCubeForTest();
 		void CreateTriangleForTest();
@@ -113,6 +121,7 @@ namespace HX3D
 		std::vector<HXSubMesh*> subMeshList;
 
 		int triangleCount;
+		HXISkeleton* skeleton;
 	};
 }
 

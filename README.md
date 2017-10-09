@@ -30,3 +30,5 @@ gpu:
 		Frustum culling 
 		Frustum cliping-->填充平底和平顶三角形时，丢弃屏幕外像素
 		
+		
+逆矩阵求法  放射矩阵判断  法线MV逆转置操作

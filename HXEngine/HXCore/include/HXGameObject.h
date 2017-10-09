@@ -14,6 +14,8 @@ namespace HX3D
 		HXGameObject(HXMesh* pMesh);
 		~HXGameObject();
 	
+		void Update();
+
 		void Insert_To_RenderList(HXRenderList* pRenderList);
 		void SetPostion(const HXVector3D& pos);
 		HXVector3D GetPosition();

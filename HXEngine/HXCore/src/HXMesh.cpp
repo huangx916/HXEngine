@@ -2,6 +2,7 @@
 #include "HXCore.h"
 #include "HXMatrix.h"
 #include "HXMath.h"
+#include "HXISkeleton.h"
 
 namespace HX3D
 {
@@ -14,6 +15,27 @@ namespace HX3D
 	HXSubMesh::~HXSubMesh()
 	{
 
+	}
+
+	HXSubMesh* HXSubMesh::Clone()
+	{
+		HXSubMesh* pHXSubMesh = new HXSubMesh();
+		for (std::vector<HXVertex>::iterator itr = vertexList.begin(); itr != vertexList.end(); ++itr)
+		{
+			HXVertex vertex(*itr);
+			pHXSubMesh->vertexList.push_back(vertex);
+		}
+		for (std::vector<int>::iterator itr = indexList.begin(); itr != indexList.end(); ++itr)
+		{
+			int index = *itr;
+			pHXSubMesh->indexList.push_back(index);
+		}
+
+		pHXSubMesh->useIndex = useIndex;
+		pHXSubMesh->materialName = materialName;
+		pHXSubMesh->triangleCount = triangleCount;
+
+		return pHXSubMesh;
 	}
 
 	void HXSubMesh::Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
@@ -104,6 +126,35 @@ namespace HX3D
 		{
 			delete (*itr);
 		}
+		if (skeleton)
+		{
+			delete skeleton;
+			skeleton = NULL;
+		}
+	}
+
+	void HXMesh::UpdateAnimation()
+	{
+		if (skeleton)
+		{
+			skeleton->Update();
+		}
+	}
+
+	HXMesh* HXMesh::Clone()
+	{
+		HXMesh* pMesh = new HXMesh();
+		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
+		{
+			HXSubMesh* pHXSubMesh = (*itr)->Clone();
+			pMesh->subMeshList.push_back(pHXSubMesh);
+		}
+		pMesh->triangleCount = triangleCount;
+		
+		// 骨骼用同一套，具体参数(如当前动画片段，时间等)自己控制
+		pMesh->skeleton = skeleton->Clone(pMesh);
+
+		return pMesh;
 	}
 
 	void HXMesh::CreateCubeForTest()

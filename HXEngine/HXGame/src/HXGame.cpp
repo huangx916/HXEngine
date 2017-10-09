@@ -77,15 +77,15 @@ void HXGame::CreateGameScene()
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube1", "cubeTexture.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "shaizi888.FBX");
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "BC_Gong_skin.FBX");
-	pGameObject->SetScale(HXVector3D(0.05f, 0.05f, 0.05f));
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "WLObjDog@run.FBX");
+	////pGameObject->SetScale(HXVector3D(0.05f, 0.05f, 0.05f));
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTriangle", "Triangle");
 	//pGameObject->SetPostion(HXVector3D(-4, 0, 0));
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
 	//pGameObject->SetPostion(HXVector3D(4, 0, 0));
-	pGameObject->SetPostion(HXVector3D(0, -4, 0));
+	////pGameObject->SetPostion(HXVector3D(0, -4, 0));
 	pGameObject->Pitch(270.0f);
-	//pGameObject->Yaw(45.0f);
+	pGameObject->Yaw(90.0f);
 	//pGameObject->Roll(45.0f);
 
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad1", "Quad");

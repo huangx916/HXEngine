@@ -27,6 +27,7 @@
     <ClInclude Include="include\HXGameObject.h" />
     <ClInclude Include="include\HXGraphics.h" />
     <ClInclude Include="include\HXIMeshLoader.h" />
+    <ClInclude Include="include\HXISkeleton.h" />
     <ClInclude Include="include\HXLight.h" />
     <ClInclude Include="include\HXMaterial.h" />
     <ClInclude Include="include\HXMaterialFBX.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="include\HXPlane.h" />
     <ClInclude Include="include\HXRenderState.h" />
     <ClInclude Include="include\HXResourceManager.h" />
+    <ClInclude Include="include\HXSkeletonFBX.h" />
     <ClInclude Include="include\HXUtil.h" />
     <ClInclude Include="include\HXVector.h" />
   </ItemGroup>
@@ -47,6 +49,7 @@
     <ClCompile Include="src\HXFrustum.cpp" />
     <ClCompile Include="src\HXGameObject.cpp" />
     <ClCompile Include="src\HXGraphics.cpp" />
+    <ClCompile Include="src\HXISkeleton.cpp" />
     <ClCompile Include="src\HXLight.cpp" />
     <ClCompile Include="src\HXMaterial.cpp" />
     <ClCompile Include="src\HXMaterialFBX.cpp" />
@@ -58,6 +61,7 @@
     <ClCompile Include="src\HXPlane.cpp" />
     <ClCompile Include="src\HXRenderState.cpp" />
     <ClCompile Include="src\HXResourceManager.cpp" />
+    <ClCompile Include="src\HXSkeletonFBX.cpp" />
     <ClCompile Include="src\HXVector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
