@@ -152,7 +152,10 @@ namespace HX3D
 		pMesh->triangleCount = triangleCount;
 		
 		// 骨骼用同一套，具体参数(如当前动画片段，时间等)自己控制
-		pMesh->skeleton = skeleton->Clone(pMesh);
+		if (NULL != skeleton)
+		{
+			pMesh->skeleton = skeleton->Clone(pMesh);
+		}
 
 		return pMesh;
 	}

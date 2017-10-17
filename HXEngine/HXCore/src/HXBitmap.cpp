@@ -41,6 +41,13 @@ namespace HX3D
 				{
 					COLORREF color = ::GetPixel(hBitmapDC, j, i);
 					mPixels[i*nPitch + j] = HXCOLOR(GetRValue(color), GetGValue(color), GetBValue(color));
+					
+					// alpha被自动设置为0，无法正确读取
+					/*float a = LOBYTE((color) >> 24);
+					float r = LOBYTE(color);
+					float g = LOBYTE(((WORD)(color)) >> 8);
+					float b = LOBYTE((color) >> 16);
+					int n = 0;*/
 				}
 			}
 

@@ -64,6 +64,11 @@ void Test()
 		Gpbitmap = NULL;
 	}
 
+	
+	static const char* const vars[] = {"foo", "gl_SkipComponents2", "gl_SkipComponents3", "bar", "baz"};
+	unsigned int n = sizeof(vars);	// 20 指针总字节数
+	unsigned int n1 = sizeof(vars[0]);	// 4 单个指针字节数
+	unsigned int n2 = n / n1;	// 5 指针个数(数组大小)
 	//// for test end
 
 }
@@ -77,15 +82,14 @@ void HXGame::CreateGameScene()
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube1", "cubeTexture.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "shaizi888.FBX");
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "WLObjDog@run.FBX");
+	
 	////pGameObject->SetScale(HXVector3D(0.05f, 0.05f, 0.05f));
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTriangle", "Triangle");
 	//pGameObject->SetPostion(HXVector3D(-4, 0, 0));
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
 	//pGameObject->SetPostion(HXVector3D(4, 0, 0));
 	////pGameObject->SetPostion(HXVector3D(0, -4, 0));
-	pGameObject->Pitch(270.0f);
-	pGameObject->Yaw(90.0f);
+	
 	//pGameObject->Roll(45.0f);
 
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad1", "Quad");
@@ -94,6 +98,13 @@ void HXGame::CreateGameScene()
 	//pGameObject->Yaw(45.0f);
 	//pGameObject->Roll(45.0f);
 	//pGameObject->SetScale(HXVector3D(0.5f, 0.5f, 0.5f));
+
+	// dog begin===========================================
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "WLObjDog@run.FBX");
+	pGameObject->Pitch(270.0f);
+	pGameObject->Yaw(90.0f);
+	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+	// dog end===========================================
 
 	HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
 	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));
