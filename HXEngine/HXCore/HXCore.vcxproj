@@ -40,8 +40,11 @@
     <ClInclude Include="include\HXRenderState.h" />
     <ClInclude Include="include\HXResourceManager.h" />
     <ClInclude Include="include\HXSkeletonFBX.h" />
+    <ClInclude Include="include\hxtest.h" />
     <ClInclude Include="include\HXUtil.h" />
     <ClInclude Include="include\HXVector.h" />
+    <ClInclude Include="include\tinystr.h" />
+    <ClInclude Include="include\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HXBitmap.cpp" />
@@ -62,7 +65,12 @@
     <ClCompile Include="src\HXRenderState.cpp" />
     <ClCompile Include="src\HXResourceManager.cpp" />
     <ClCompile Include="src\HXSkeletonFBX.cpp" />
+    <ClCompile Include="src\hxtest.cpp" />
     <ClCompile Include="src\HXVector.cpp" />
+    <ClCompile Include="src\tinystr.cpp" />
+    <ClCompile Include="src\tinyxml.cpp" />
+    <ClCompile Include="src\tinyxmlerror.cpp" />
+    <ClCompile Include="src\tinyxmlparser.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7772C6AF-71B0-44F8-9F31-E44A139C0F23}</ProjectGuid>

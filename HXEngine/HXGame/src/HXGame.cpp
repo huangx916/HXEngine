@@ -24,6 +24,7 @@ HXGame::~HXGame()
 //#include "HXCore.h"
 //#include "HXGameObject.h"
 #include "HXBitmap.h"
+#include "hxtest.h"
 
 HXBitmap* Gpbitmap = NULL;
 void Test()
@@ -69,8 +70,11 @@ void Test()
 	unsigned int n = sizeof(vars);	// 20 指针总字节数
 	unsigned int n1 = sizeof(vars[0]);	// 4 单个指针字节数
 	unsigned int n2 = n / n1;	// 5 指针个数(数组大小)
-	//// for test end
 
+	hxtest hx;
+	hx.LoadFile("DogAnim.xml");
+
+	//// for test end
 }
 
 void HXGame::CreateGameScene()
