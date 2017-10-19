@@ -21,6 +21,7 @@ namespace HX3D
 		void ProcessPolygons(FbxMesh* pFbxMesh, HXMeshFBX* pMesh);
 		// 读取加载材质和贴图
 		void ProcessMaterial(FbxMesh* pFbxMesh);
+
 		virtual bool LoadMeshFromFile(std::string strFileName, HXMesh** ppMesh);
 
 		// 用于保存Material及Mesh唯一名字

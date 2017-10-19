@@ -7,21 +7,11 @@ namespace HX3D
 {
 	HXSkeletonFBX::HXSkeletonFBX()
 	{
-		nSpeed = 1;
-		bAnimationLoaded = false;
-		pAnimation = new HXAnimation;
-		srcControlPoints = NULL;
+		
 	}
 
 	HXSkeletonFBX::~HXSkeletonFBX()
 	{
-		delete pAnimation;
-		if (srcControlPoints)
-		{
-			delete[] srcControlPoints;
-		}
-
-		// TODO: delete
 	}
 
 	// Scale all the elements of a matrix.
@@ -252,23 +242,12 @@ namespace HX3D
 			int lClusterCount = lSkinDeformer->GetClusterCount();
 			for (int lClusterIndex = 0; lClusterIndex < lClusterCount; ++lClusterIndex)
 			{
-				if (lClusterIndex + 1 > pAnimation->xSkeleton.nJointCount)
-				{
-					HXJoint* pJoint = new HXJoint();
-					pAnimation->xSkeleton.vctJoint.push_back(pJoint);
-					pAnimation->xSkeleton.nJointCount++;
-				}
-
 				FbxCluster* lCluster = lSkinDeformer->GetCluster(lClusterIndex);
 				if (!lCluster->GetLink())
 					continue;
 
 				FbxAMatrix lVertexTransformMatrix;
 				ComputeClusterDeformation(pGlobalPosition, pMesh, lCluster, lVertexTransformMatrix, pTime, pPose);
-
-				HXJointPose* pJointPose = new HXJointPose;
-				pJointPose->mtVertexTransformMatrix = lVertexTransformMatrix;
-				pAnimation->xSkeleton.vctJoint[lClusterIndex]->vctJointPose.push_back(pJointPose);
 
 				int lVertexIndexCount = lCluster->GetControlPointIndicesCount();
 				for (int k = 0; k < lVertexIndexCount; ++k)
@@ -308,50 +287,34 @@ namespace HX3D
 						// Add to the sum of weights to either normalize or complete the vertex.
 						lClusterWeight[lIndex] += lWeight;
 					}
-					// 只在第一帧读取，不要每帧重复读取
-					if (pAnimation->nKeyNums == 1)
-					{
-						HXVertJointWeights xVertJointWeight;
-						xVertJointWeight.nAttachJointIndex = lClusterIndex;
-						xVertJointWeight.fWeightBias = (float)lWeight;
-						std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = pAnimation->mapVertJointInfo.find(lIndex);
-						if (pFind != pAnimation->mapVertJointInfo.end())
-						{
-							pFind->second.push_back(xVertJointWeight);
-						}
-						else
-						{
-							pAnimation->mapVertJointInfo.insert(std::make_pair(lIndex, std::vector<HXVertJointWeights>())).first->second.push_back(xVertJointWeight);
-						}
-					}
 				}//For each vertex			
 			}//lClusterCount
 		}
 
 		//Actually deform each vertices here by information stored in lClusterDeformation and lClusterWeight
-		//for (int i = 0; i < lVertexCount; i++)
-		//{
-		//	FbxVector4 lSrcVertex = pVertexArray[i];
-		//	FbxVector4& lDstVertex = pVertexArray[i];
-		//	double lWeight = lClusterWeight[i];
+		for (int i = 0; i < lVertexCount; i++)
+		{
+			FbxVector4 lSrcVertex = pVertexArray[i];
+			FbxVector4& lDstVertex = pVertexArray[i];
+			double lWeight = lClusterWeight[i];
 
-		//	// Deform the vertex if there was at least a link with an influence on the vertex,
-		//	if (lWeight != 0.0)
-		//	{
-		//		lDstVertex = lClusterDeformation[i].MultT(lSrcVertex);
-		//		if (lClusterMode == FbxCluster::eNormalize)
-		//		{
-		//			// In the normalized link mode, a vertex is always totally influenced by the links. 
-		//			lDstVertex /= lWeight;
-		//		}
-		//		else if (lClusterMode == FbxCluster::eTotalOne)
-		//		{
-		//			// In the total 1 link mode, a vertex can be partially influenced by the links. 
-		//			lSrcVertex *= (1.0 - lWeight);
-		//			lDstVertex += lSrcVertex;
-		//		}
-		//	}
-		//}
+			// Deform the vertex if there was at least a link with an influence on the vertex,
+			if (lWeight != 0.0)
+			{
+				lDstVertex = lClusterDeformation[i].MultT(lSrcVertex);
+				if (lClusterMode == FbxCluster::eNormalize)
+				{
+					// In the normalized link mode, a vertex is always totally influenced by the links. 
+					lDstVertex /= lWeight;
+				}
+				else if (lClusterMode == FbxCluster::eTotalOne)
+				{
+					// In the total 1 link mode, a vertex can be partially influenced by the links. 
+					lSrcVertex *= (1.0 - lWeight);
+					lDstVertex += lSrcVertex;
+				}
+			}
+		}
 
 		delete[] lClusterDeformation;
 		delete[] lClusterWeight;
@@ -426,13 +389,9 @@ namespace HX3D
 		FbxVector4* lVertexArray = NULL;
 		//if (!lMeshCache || lHasDeformation)
 		//{
-		lVertexArray = new FbxVector4[lVertexCount];
-		memcpy(lVertexArray, lMesh->GetControlPoints(), lVertexCount * sizeof(FbxVector4));
+			lVertexArray = new FbxVector4[lVertexCount];
+			memcpy(lVertexArray, lMesh->GetControlPoints(), lVertexCount * sizeof(FbxVector4));
 		//}
-
-		srcControlPoints = new FbxVector4[lVertexCount];
-		memcpy(srcControlPoints, lMesh->GetControlPoints(), lVertexCount * sizeof(FbxVector4));
-		nControlPointCount = lVertexCount;
 
 		if (lHasDeformation)
 		{
@@ -465,10 +424,10 @@ namespace HX3D
 
 			//if (lMeshCache)
 			//	lMeshCache->UpdateVertexPosition(lMesh, lVertexArray);
-			/*if (mMesh)
+			if (mMesh)
 			{
 				mMesh->UpdateVertexPosition(lVertexArray);
-			}*/
+			}
 		}
 
 		//glPushMatrix();
@@ -634,33 +593,31 @@ namespace HX3D
 		return true;
 	}
 
-	//void HXSkeletonFBX::Update()
-	//{
-	//	double curTime = ::GetTickCount();
-	//	//mFrameTime.SetMilliSeconds(curTime - mLastTime);
-	//	mFrameTime.SetTime(0, 0, 0, 1, 0, mScene->GetGlobalSettings().GetTimeMode());
-	//	mLastTime = curTime;
-	//	mCurrentTime += mFrameTime;
-	//	if (mCurrentTime > mStop)
-	//	{
-	//		mCurrentTime = mStart;
-	//	}
+	void HXSkeletonFBX::Update()
+	{
+		double curTime = ::GetTickCount();
+		//mFrameTime.SetMilliSeconds(curTime - mLastTime);
+		mFrameTime.SetTime(0, 0, 0, 1, 0, mScene->GetGlobalSettings().GetTimeMode());
+		mLastTime = curTime;
+		mCurrentTime += mFrameTime;
+		if (mCurrentTime > mStop)
+		{
+			mCurrentTime = mStart;
+		}
 
-	//	// If one node is selected, draw it and its children.
-	//	FbxAMatrix lDummyGlobalPosition;
-	//	DrawNodeRecursive(mScene->GetRootNode(), mCurrentTime, mCurrentAnimLayer, lDummyGlobalPosition, NULL);
-	//}
+		// If one node is selected, draw it and its children.
+		FbxAMatrix lDummyGlobalPosition;
+		DrawNodeRecursive(mScene->GetRootNode(), mCurrentTime, mCurrentAnimLayer, lDummyGlobalPosition, NULL);
+	}
 
 	HXISkeleton* HXSkeletonFBX::Clone(HXMesh* pMesh)
 	{
 		HXSkeletonFBX* pSkeletonFBX = new HXSkeletonFBX();
 		
-		pSkeletonFBX->Initial(NULL, mScene);
-
 		// 具体mesh实例
 		pSkeletonFBX->mMesh = (HXMeshFBX*)pMesh;
 
-		/*pSkeletonFBX->mAnimStackNameArray = mAnimStackNameArray;
+		pSkeletonFBX->mAnimStackNameArray = mAnimStackNameArray;
 		pSkeletonFBX->mCurrentAnimLayer = mCurrentAnimLayer;
 		pSkeletonFBX->mFrameTime = mFrameTime;
 		pSkeletonFBX->mStart = mStart;
@@ -669,7 +626,7 @@ namespace HX3D
 		pSkeletonFBX->mCache_Start = mCache_Start;
 		pSkeletonFBX->mCache_Stop = mCache_Stop;
 		pSkeletonFBX->mScene = mScene;
-		pSkeletonFBX->mLastTime = mLastTime;*/
+		pSkeletonFBX->mLastTime = mLastTime;
 
 		return pSkeletonFBX;
 	}
@@ -684,165 +641,5 @@ namespace HX3D
 		mMesh = NULL;
 		mScene = pScene;
 		SetCurrentAnimStack(0);
-		LoadAnimationCurve();
-	}
-
-	void HXSkeletonFBX::UpdateAnimation()
-	{
-		if (!bAnimationLoaded)
-		{
-			return;
-		}
-
-		nCurKeyframe += nSpeed;
-		if (nCurKeyframe > pAnimation->nKeyNums - 1)
-		{
-			nCurKeyframe = 0;
-		}
-
-		int lVertexCount = nControlPointCount;
-		FbxAMatrix* lClusterDeformation = new FbxAMatrix[lVertexCount];
-		memset(lClusterDeformation, 0, lVertexCount * sizeof(FbxAMatrix));
-
-		double* lClusterWeight = new double[lVertexCount];
-		memset(lClusterWeight, 0, lVertexCount * sizeof(double));
-
-		FbxVector4* destVertexArray = new FbxVector4[lVertexCount];
-		//memset(destVertexArray, 0, lVertexCount * sizeof(FbxVector4));
-
-		for (int i = 0; i < lVertexCount; i++)
-		{
-			FbxVector4 lSrcVertex = srcControlPoints[i];
-			FbxVector4& lDstVertex = destVertexArray[i];
-
-			std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = pAnimation->mapVertJointInfo.find(i);
-			if (pFind != pAnimation->mapVertJointInfo.end())
-			{
-				for (std::vector<HXVertJointWeights>::iterator itr = pFind->second.begin(); itr != pFind->second.end(); ++itr)
-				{
-					HXJoint* pJoint = pAnimation->xSkeleton.vctJoint[itr->nAttachJointIndex];
-					HXJointPose* pJointPose = pJoint->vctJointPose[nCurKeyframe];
-					// Compute the influence of the link on the vertex.
-					FbxAMatrix lInfluence = pJointPose->mtVertexTransformMatrix;
-					MatrixScale(lInfluence, itr->fWeightBias);
-					MatrixAdd(lClusterDeformation[i], lInfluence);
-					lClusterWeight[i] += itr->fWeightBias;
-				}
-			}
-
-			double lWeight = lClusterWeight[i];
-
-			// Deform the vertex if there was at least a link with an influence on the vertex,
-			if (lWeight != 0.0)
-			{
-				lDstVertex = lClusterDeformation[i].MultT(lSrcVertex);
-				//if (lClusterMode == FbxCluster::eNormalize)
-				//{
-					// In the normalized link mode, a vertex is always totally influenced by the links. 
-					lDstVertex /= lWeight;
-				//}
-				//else if (lClusterMode == FbxCluster::eTotalOne)
-				//{
-				//	// In the total 1 link mode, a vertex can be partially influenced by the links. 
-				//	lSrcVertex *= (1.0 - lWeight);
-				//	lDstVertex += lSrcVertex;
-				//}
-			}
-		}
-		
-		if (mMesh)
-		{
-			mMesh->UpdateVertexPosition(destVertexArray);
-		}
-
-		delete[] lClusterDeformation;
-		delete[] lClusterWeight;
-		delete[] destVertexArray;
-	}
-
-	void HXSkeletonFBX::LoadAnimationCurve()
-	{
-		mFrameTime.SetTime(0, 0, 0, 1, 0, mScene->GetGlobalSettings().GetTimeMode());
-
-		bool bFinish = false;
-		while (!bFinish)
-		{
-			mCurrentTime += mFrameTime;
-			if (mCurrentTime > mStop)
-			{
-				mCurrentTime = mStart;
-				bFinish = true;
-			}
-			pAnimation->nKeyNums++;
-		
-			// 加载关键帧
-			// If one node is selected, draw it and its children.
-			FbxAMatrix lDummyGlobalPosition;
-			DrawNodeRecursive(mScene->GetRootNode(), mCurrentTime, mCurrentAnimLayer, lDummyGlobalPosition, NULL);
-
-		}
-
-		bAnimationLoaded = true;
-	}
-
-	bool NodeRecursiveFindSkin(FbxNode* pNode)
-	{
-		if (pNode->GetNodeAttribute())
-		{
-			if (pNode->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eMesh)
-			{
-				FbxMesh* lMesh = pNode->GetMesh();
-				const bool lHasSkin = lMesh->GetDeformerCount(FbxDeformer::eSkin) > 0;
-				if (lHasSkin)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-		}
-
-		const int lChildCount = pNode->GetChildCount();
-		for (int lChildIndex = 0; lChildIndex < lChildCount; ++lChildIndex)
-		{
-			if (NodeRecursiveFindSkin(pNode->GetChild(lChildIndex)))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	bool HXSkeletonFBX::IsHaveSkeletonAnimation(FbxScene* pScene)
-	{
-		FbxArray<FbxString*> animStackNameArray;
-		// Get the list of all the animation stack.
-		pScene->FillAnimStackNameArray(animStackNameArray);
-
-		const int lAnimStackCount = animStackNameArray.GetCount();
-		if (lAnimStackCount <= 0)
-		{
-			return false;
-		}
-
-		// select the base layer from the animation stack
-		FbxAnimStack * lCurrentAnimationStack = pScene->FindMember<FbxAnimStack>(animStackNameArray[0]->Buffer());
-		if (lCurrentAnimationStack == NULL)
-		{
-			// this is a problem. The anim stack should be found in the scene!
-			return false;
-		}
-
-		if (NodeRecursiveFindSkin(pScene->GetRootNode()))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
 }

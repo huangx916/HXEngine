@@ -184,9 +184,13 @@ namespace HX3D
 
 			ProcessNode(m_pScene->GetRootNode(), (HXMeshFBX*)*ppMesh);
 
-			HXSkeletonFBX* pSkeleton = new HXSkeletonFBX();
-			pSkeleton->Initial((HXMeshFBX*)*ppMesh, m_pScene);
-			(*ppMesh)->skeleton = pSkeleton;
+			if (HXSkeletonFBX::IsHaveSkeletonAnimation(m_pScene))
+			{
+				HXSkeletonFBX* pSkeleton = new HXSkeletonFBX();
+				pSkeleton->Initial((HXMeshFBX*)*ppMesh, m_pScene);
+				(*ppMesh)->skeleton = pSkeleton;
+			}
+			
 		}
 		return true;
 	}

@@ -11,7 +11,8 @@ namespace HX3D
 		HXISkeleton();
 		~HXISkeleton();
 
-		virtual void Update() = 0;
+		//// virtual void Update() = 0;
+		virtual void UpdateAnimation() = 0;
 		virtual HXISkeleton* Clone(HXMesh* pMesh) = 0;
 	};
 }

@@ -137,7 +137,7 @@ namespace HX3D
 	{
 		if (skeleton)
 		{
-			skeleton->Update();
+			skeleton->UpdateAnimation();
 		}
 	}
 

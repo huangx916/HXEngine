@@ -100,10 +100,14 @@ void HXGame::CreateGameScene()
 	//pGameObject->SetScale(HXVector3D(0.5f, 0.5f, 0.5f));
 
 	// dog begin===========================================
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+
 	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "WLObjDog@run.FBX");
 	pGameObject->Pitch(270.0f);
 	pGameObject->Yaw(90.0f);
-	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube1", "cubeTexture.FBX");
+	pGameObject->SetPostion(HXVector3D(0, -4, 0));
 	// dog end===========================================
 
 	HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
