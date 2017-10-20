@@ -29,6 +29,7 @@
     <ClInclude Include="include\HXIMeshLoader.h" />
     <ClInclude Include="include\HXISkeleton.h" />
     <ClInclude Include="include\HXLight.h" />
+    <ClInclude Include="include\HXLoadConfigAnim.h" />
     <ClInclude Include="include\HXMaterial.h" />
     <ClInclude Include="include\HXMaterialFBX.h" />
     <ClInclude Include="include\HXMath.h" />
@@ -54,6 +55,7 @@
     <ClCompile Include="src\HXGraphics.cpp" />
     <ClCompile Include="src\HXISkeleton.cpp" />
     <ClCompile Include="src\HXLight.cpp" />
+    <ClCompile Include="src\HXLoadConfigAnim.cpp" />
     <ClCompile Include="src\HXMaterial.cpp" />
     <ClCompile Include="src\HXMaterialFBX.cpp" />
     <ClCompile Include="src\HXMath.cpp" />

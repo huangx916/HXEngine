@@ -5,6 +5,7 @@
 #include "HXResourceManager.h"
 #include <Windows.h>
 #include "HXSkeletonFBX.h"
+#include "HXLoadConfigAnim.h"
 
 namespace HX3D
 {
@@ -57,6 +58,30 @@ namespace HX3D
 			return false;
 		}
 		pSceneImporter->Destroy();
+
+		// Convert Axis System to what is used in this example, if needed
+		FbxAxisSystem SceneAxisSystem = m_pScene->GetGlobalSettings().GetAxisSystem();
+		FbxAxisSystem OurAxisSystem(FbxAxisSystem::eYAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eLeftHanded);
+		if (SceneAxisSystem != OurAxisSystem)
+		{
+			OurAxisSystem.ConvertScene(m_pScene);
+		}
+
+		// Convert Unit System to what is used in this example, if needed
+		FbxSystemUnit SceneSystemUnit = m_pScene->GetGlobalSettings().GetSystemUnit();
+		if (SceneSystemUnit.GetScaleFactor() != 1.0)
+		{
+			//The unit in this example is centimeter.
+			//FbxSystemUnit::cm.ConvertScene(m_pScene);
+
+			//The unit in this example is meter.
+			FbxSystemUnit::m.ConvertScene(m_pScene);
+		}
+
+		// Convert mesh, NURBS and patch into triangle mesh
+		FbxGeometryConverter lGeomConverter(m_pFbxManager);
+		lGeomConverter.Triangulate(m_pScene, /*replace*/true);
+
 		return true;
 	}
 
@@ -157,40 +182,47 @@ namespace HX3D
 			if (LoadScene(strFileName) == false)
 			{
 				return false;
-			}
-
-			// Convert Axis System to what is used in this example, if needed
-			FbxAxisSystem SceneAxisSystem = m_pScene->GetGlobalSettings().GetAxisSystem();
-			FbxAxisSystem OurAxisSystem(FbxAxisSystem::eYAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eLeftHanded);
-			if (SceneAxisSystem != OurAxisSystem)
-			{
-				OurAxisSystem.ConvertScene(m_pScene);
-			}
-
-			// Convert Unit System to what is used in this example, if needed
-			FbxSystemUnit SceneSystemUnit = m_pScene->GetGlobalSettings().GetSystemUnit();
-			if (SceneSystemUnit.GetScaleFactor() != 1.0)
-			{
-				//The unit in this example is centimeter.
-				//FbxSystemUnit::cm.ConvertScene(m_pScene);
-
-				//The unit in this example is meter.
-				FbxSystemUnit::m.ConvertScene(m_pScene);
-			}
-
-			// Convert mesh, NURBS and patch into triangle mesh
-			FbxGeometryConverter lGeomConverter(m_pFbxManager);
-			lGeomConverter.Triangulate(m_pScene, /*replace*/true);
-
+			}			
+			// 加载网格数据
 			ProcessNode(m_pScene->GetRootNode(), (HXMeshFBX*)*ppMesh);
-
-			if (HXSkeletonFBX::IsHaveSkeletonAnimation(m_pScene))
+			// 加载骨骼数据
+			if (HXSkeletonFBX::IsHaveSkeleton(m_pScene))
 			{
+				// 加载骨骼
 				HXSkeletonFBX* pSkeleton = new HXSkeletonFBX();
-				pSkeleton->Initial((HXMeshFBX*)*ppMesh, m_pScene);
+				pSkeleton->LoadSkeleton(m_pScene);
 				(*ppMesh)->skeleton = pSkeleton;
+				// 加载骨骼动画
+				std::string strAnimConfigFile;
+				int index = strFileName.find_last_of("\\");
+				std::string strPath;
+				if (index != -1)
+				{
+					strAnimConfigFile = strFileName.substr(index + 1);
+					strAnimConfigFile = strAnimConfigFile.substr(0, strAnimConfigFile.length() - 4) + "Anim.xml";
+					strPath = strFileName.substr(0, index + 1);
+					strAnimConfigFile = strPath + strAnimConfigFile;
+				}
+				else
+				{
+					strPath = "";
+					strAnimConfigFile = strFileName.substr(0, strFileName.length() - 4) + "Anim.xml";
+				}
+				HXLoadConfigAnim animConfig;
+				if (animConfig.LoadFile(strAnimConfigFile))
+				{
+					for (std::vector<HXAnimInfo>::iterator itr = animConfig.vctAnimsInfo.begin(); itr != animConfig.vctAnimsInfo.end(); itr++)
+					{
+						// 读取模型文本文档
+						std::string strAnimFileName = strPath + itr->strFileName + ".FBX";
+						if (LoadScene(strAnimFileName) == false)
+						{
+							return false;
+						}
+						pSkeleton->LoadAnimationCurve(itr->strAnimName, m_pScene);
+					}
+				}
 			}
-			
 		}
 		return true;
 	}

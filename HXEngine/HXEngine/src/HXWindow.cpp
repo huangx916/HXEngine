@@ -262,8 +262,8 @@ namespace HX3D
 		{
 			HXGraphics::GetInstance()->ClearBuffer();
 
-			HXStatus::GetInstance()->ShowStatusInfo();
 			m_pPaintListener->OnPaint();
+			HXStatus::GetInstance()->ShowStatusInfo();
 
 			// 双缓冲技术防止闪烁
 			HXGraphics::GetInstance()->SwapBuffer(hdc);

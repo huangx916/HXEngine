@@ -6,6 +6,7 @@ namespace HX3D
 {
 	class HXRenderList;
 	class HXISkeleton;
+	class HXAnimationInstance;
 
 	struct HXVertex
 	{
@@ -107,6 +108,7 @@ namespace HX3D
 		HXMesh();
 		~HXMesh();
 
+		void PlayAnimation(std::string strAnimName, int nSpeed = 1);
 		void UpdateAnimation();
 
 		HXMesh* Clone();
@@ -121,7 +123,9 @@ namespace HX3D
 		std::vector<HXSubMesh*> subMeshList;
 
 		int triangleCount;
+		int vertexCount;
 		HXISkeleton* skeleton;
+		HXAnimationInstance* animInst;	// 只有实例化到场景的MESH才会new
 	};
 }
 

@@ -11,9 +11,21 @@ namespace HX3D
 		FbxAMatrix mtVertexTransformMatrix;
 	};
 
+	struct HXJointAnim 
+	{
+		HXJointAnim()
+		{
+			nKeyNums = 0;
+		}
+		std::string strAnimName;
+		int nKeyNums;
+		std::vector<HXJointPose*> vctJointPose;
+	};
+
 	struct HXJoint 
 	{
-		std::vector<HXJointPose*> vctJointPose;
+		//std::vector<HXJointPose*> vctJointPose;
+		std::map<std::string, HXJointAnim> mapJointAnim;
 	};
 
 	struct HXSkeleton
@@ -37,13 +49,13 @@ namespace HX3D
 		float fWeightBias;
 	};
 
-	struct HXAnimation 
+	struct HXSkinSkeleton 
 	{
-		HXAnimation()
+		/*HXSkinSkeleton()
 		{
 			nKeyNums = 0;
 		}
-		int nKeyNums;
+		int nKeyNums;*/
 		HXSkeleton xSkeleton;
 		std::map<int, std::vector<HXVertJointWeights>> mapVertJointInfo;	//#include <map>
 	};
@@ -106,12 +118,17 @@ namespace HX3D
 		bool SetCurrentAnimStack(int pIndex);
 
 		//// virtual void Update();
-		virtual HXISkeleton* Clone(HXMesh* pMesh);
-		void Initial(HXMeshFBX* pMesh, FbxScene* pScene);
+		// virtual HXISkeleton* Clone(HXMesh* pMesh);
+		void Initial(FbxScene* pScene);
 
-		virtual void UpdateAnimation();
-		void LoadAnimationCurve();
+		virtual void UpdateAnimation(HXAnimationInstance* pAnimInst);
+		// ¼ÓÔØ¹Ç÷À
+		void LoadSkeleton(FbxScene* pScene);
+		// ¼ÓÔØ¹Ç÷À¶¯»­
+		void LoadAnimationCurve(std::string strAnimName, FbxScene* pScene);
 
+		static FbxMesh* GetMeshNodeRecursive(FbxNode* pNode);
+		static bool IsHaveSkeleton(FbxScene* pScene);
 		static bool IsHaveSkeletonAnimation(FbxScene* pScene);
 
 		FbxArray<FbxString*> mAnimStackNameArray;
@@ -119,15 +136,16 @@ namespace HX3D
 		FbxTime mFrameTime, mStart, mStop, mCurrentTime;
 		FbxTime mCache_Start, mCache_Stop;
 		FbxScene * mScene;
-		HXMeshFBX* mMesh;
 		double mLastTime;
-
-
-		int nCurKeyframe;
-		HXAnimation* pAnimation;
+		std::string mCurLoadAnim;
+		
+		HXSkinSkeleton* mSkinSkeleton;
 		FbxVector4* srcControlPoints;
 		int nControlPointCount;
+		// bool bAnimationLoaded;
+
+		/*int nCurKeyframe;
 		int nSpeed;
-		bool bAnimationLoaded;
+		HXMeshFBX* mMesh;*/
 	};
 }

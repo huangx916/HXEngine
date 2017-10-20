@@ -20,6 +20,9 @@ namespace HX3D
 
 		void ShowStatusInfo();
 
+		int nTriangleCount;
+		int nVertexCount;
+
 	private:
 		// 计算并显现上一秒帧率
 		float CalcLastFPS();
@@ -28,7 +31,9 @@ namespace HX3D
 		// 上一秒FPS
 		double mLastFPS;
 		double mLastTime;
-		int	mFrameCout;
+		int	mFrameCount;
+
+		
 	};
 }
 

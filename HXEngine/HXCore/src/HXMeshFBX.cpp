@@ -125,7 +125,8 @@ namespace HX3D
 				}
 			}
 		}
-
+		triangleCount = nTriangleCount;
+		vertexCount = nVertexCounter;
 		return true;
 	}
 

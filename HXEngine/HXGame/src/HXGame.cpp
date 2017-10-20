@@ -3,6 +3,7 @@
 #include "HXSceneManager.h"
 #include "HXCamera.h"
 #include "HXGameObject.h"
+#include "HXMesh.h"
 
 HXGame::HXGame()
 {
@@ -58,21 +59,22 @@ void Test()
 	//Gpbitmap = new HXBitmap("terrain_texture.bmp");
 	//Gpbitmap = new HXBitmap("terrain_texture.png");
 	//Gpbitmap = new HXBitmap("icon.png");
-	Gpbitmap = new HXBitmap();
+
+	/*Gpbitmap = new HXBitmap();
 	if (!Gpbitmap->LoadBitmapFile("icon.bmp"))
 	{
 		delete Gpbitmap;
 		Gpbitmap = NULL;
-	}
+	}*/
 
 	
-	static const char* const vars[] = {"foo", "gl_SkipComponents2", "gl_SkipComponents3", "bar", "baz"};
-	unsigned int n = sizeof(vars);	// 20 指针总字节数
-	unsigned int n1 = sizeof(vars[0]);	// 4 单个指针字节数
-	unsigned int n2 = n / n1;	// 5 指针个数(数组大小)
+	//static const char* const vars[] = {"foo", "gl_SkipComponents2", "gl_SkipComponents3", "bar", "baz"};
+	//unsigned int n = sizeof(vars);	// 20 指针总字节数
+	//unsigned int n1 = sizeof(vars[0]);	// 4 单个指针字节数
+	//unsigned int n2 = n / n1;	// 5 指针个数(数组大小)
 
-	hxtest hx;
-	hx.LoadFile("DogAnim.xml");
+	/*hxtest hx;
+	hx.LoadFile("DogAnim.xml");*/
 
 	//// for test end
 }
@@ -106,7 +108,10 @@ void HXGame::CreateGameScene()
 	// dog begin===========================================
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
 
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "WLObjDog@run.FBX");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "Dog.FBX");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog@run.FBX");
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog.FBX");
+	pGameObject->GetMesh()->PlayAnimation("walk");
 	pGameObject->Pitch(270.0f);
 	pGameObject->Yaw(90.0f);
 	pGameObject->SetPostion(HXVector3D(-4, -4, 0));
@@ -114,7 +119,8 @@ void HXGame::CreateGameScene()
 	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube1", "cubeTexture.FBX");
 	pGameObject->SetPostion(HXVector3D(0, 0, 0));
 
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog1", "WLObjDog@walk.FBX");
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog1", "FBX\\Dog\\Dog.FBX");
+	pGameObject->GetMesh()->PlayAnimation("run", 2);
 	pGameObject->Pitch(270.0f);
 	pGameObject->Yaw(90.0f);
 	pGameObject->SetPostion(HXVector3D(2, 2, 0));

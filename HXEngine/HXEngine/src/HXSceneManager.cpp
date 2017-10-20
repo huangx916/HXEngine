@@ -6,6 +6,7 @@
 #include "HXFrustum.h"
 #include "HXResourceManager.h"
 #include "HXRenderState.h"
+#include "HXStatus.h"
 
 namespace HX3D
 {
@@ -94,12 +95,18 @@ namespace HX3D
 		////Draw_RenderList_Wire(mRenderList);
 		//Draw_RenderList_Texture_Solid(mRenderList);
 
+		HXStatus::GetInstance()->nVertexCount = 0;
+		HXStatus::GetInstance()->nTriangleCount = 0;
 		// TODO: 以DrawCall为单位提交渲染，以便设置渲染状态。现在暂时以SubMesh为单位提交渲染
 		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
 		{
 			HXMesh* pMesh = itr->second->GetMesh();
 			// 更新动作
 			pMesh->UpdateAnimation();
+			
+			HXStatus::GetInstance()->nVertexCount += pMesh->vertexCount;
+			HXStatus::GetInstance()->nTriangleCount += pMesh->triangleCount;
+
 			for (std::vector<HXSubMesh*>::iterator itr1 = pMesh->subMeshList.begin(); itr1 != pMesh->subMeshList.end(); itr1++)
 			{
 				HXRenderState::Reset();

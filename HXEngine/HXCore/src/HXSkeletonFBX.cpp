@@ -7,15 +7,15 @@ namespace HX3D
 {
 	HXSkeletonFBX::HXSkeletonFBX()
 	{
-		nSpeed = 1;
-		bAnimationLoaded = false;
-		pAnimation = new HXAnimation;
+		// nSpeed = 1;
+		// bAnimationLoaded = false;
+		mSkinSkeleton = new HXSkinSkeleton;
 		srcControlPoints = NULL;
 	}
 
 	HXSkeletonFBX::~HXSkeletonFBX()
 	{
-		delete pAnimation;
+		delete mSkinSkeleton;
 		if (srcControlPoints)
 		{
 			delete[] srcControlPoints;
@@ -224,23 +224,23 @@ namespace HX3D
 		FbxVector4* pVertexArray,
 		FbxPose* pPose)
 	{
-		// All the links must have the same link mode.
-		FbxCluster::ELinkMode lClusterMode = ((FbxSkin*)pMesh->GetDeformer(0, FbxDeformer::eSkin))->GetCluster(0)->GetLinkMode();
+		//// All the links must have the same link mode.
+		//FbxCluster::ELinkMode lClusterMode = ((FbxSkin*)pMesh->GetDeformer(0, FbxDeformer::eSkin))->GetCluster(0)->GetLinkMode();
 
-		int lVertexCount = pMesh->GetControlPointsCount();
-		FbxAMatrix* lClusterDeformation = new FbxAMatrix[lVertexCount];
-		memset(lClusterDeformation, 0, lVertexCount * sizeof(FbxAMatrix));
+		//int lVertexCount = pMesh->GetControlPointsCount();
+		//FbxAMatrix* lClusterDeformation = new FbxAMatrix[lVertexCount];
+		//memset(lClusterDeformation, 0, lVertexCount * sizeof(FbxAMatrix));
 
-		double* lClusterWeight = new double[lVertexCount];
-		memset(lClusterWeight, 0, lVertexCount * sizeof(double));
+		//double* lClusterWeight = new double[lVertexCount];
+		//memset(lClusterWeight, 0, lVertexCount * sizeof(double));
 
-		if (lClusterMode == FbxCluster::eAdditive)
-		{
-			for (int i = 0; i < lVertexCount; ++i)
-			{
-				lClusterDeformation[i].SetIdentity();
-			}
-		}
+		//if (lClusterMode == FbxCluster::eAdditive)
+		//{
+		//	for (int i = 0; i < lVertexCount; ++i)
+		//	{
+		//		lClusterDeformation[i].SetIdentity();
+		//	}
+		//}
 
 		// For all skins and all clusters, accumulate their deformation and weight
 		// on each vertices and store them in lClusterDeformation and lClusterWeight.
@@ -252,12 +252,12 @@ namespace HX3D
 			int lClusterCount = lSkinDeformer->GetClusterCount();
 			for (int lClusterIndex = 0; lClusterIndex < lClusterCount; ++lClusterIndex)
 			{
-				if (lClusterIndex + 1 > pAnimation->xSkeleton.nJointCount)
+				/*if (lClusterIndex + 1 > mSkinSkeleton->xSkeleton.nJointCount)
 				{
 					HXJoint* pJoint = new HXJoint();
-					pAnimation->xSkeleton.vctJoint.push_back(pJoint);
-					pAnimation->xSkeleton.nJointCount++;
-				}
+					mSkinSkeleton->xSkeleton.vctJoint.push_back(pJoint);
+					mSkinSkeleton->xSkeleton.nJointCount++;
+				}*/
 
 				FbxCluster* lCluster = lSkinDeformer->GetCluster(lClusterIndex);
 				if (!lCluster->GetLink())
@@ -268,63 +268,77 @@ namespace HX3D
 
 				HXJointPose* pJointPose = new HXJointPose;
 				pJointPose->mtVertexTransformMatrix = lVertexTransformMatrix;
-				pAnimation->xSkeleton.vctJoint[lClusterIndex]->vctJointPose.push_back(pJointPose);
-
-				int lVertexIndexCount = lCluster->GetControlPointIndicesCount();
-				for (int k = 0; k < lVertexIndexCount; ++k)
+				//mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->vctJointPose.push_back(pJointPose);
+				std::map<std::string, HXJointAnim>::iterator pFind = mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->mapJointAnim.find(mCurLoadAnim);
+				if (pFind != mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->mapJointAnim.end())
 				{
-					int lIndex = lCluster->GetControlPointIndices()[k];
+					pFind->second.nKeyNums++;
+					pFind->second.vctJointPose.push_back(pJointPose);
+				}
+				else
+				{
+					HXJointAnim xJointAnim;
+					xJointAnim.strAnimName = mCurLoadAnim;
+					xJointAnim.nKeyNums++;
+					xJointAnim.vctJointPose.push_back(pJointPose);
+					mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->mapJointAnim.insert(std::make_pair(mCurLoadAnim, xJointAnim));
+				}
 
-					// Sometimes, the mesh can have less points than at the time of the skinning
-					// because a smooth operator was active when skinning but has been deactivated during export.
-					if (lIndex >= lVertexCount)
-						continue;
+				//int lVertexIndexCount = lCluster->GetControlPointIndicesCount();
+				//for (int k = 0; k < lVertexIndexCount; ++k)
+				//{
+				//	int lIndex = lCluster->GetControlPointIndices()[k];
 
-					double lWeight = lCluster->GetControlPointWeights()[k];
+				//	// Sometimes, the mesh can have less points than at the time of the skinning
+				//	// because a smooth operator was active when skinning but has been deactivated during export.
+				//	if (lIndex >= lVertexCount)
+				//		continue;
 
-					if (lWeight == 0.0)
-					{
-						continue;
-					}
+				//	double lWeight = lCluster->GetControlPointWeights()[k];
 
-					// Compute the influence of the link on the vertex.
-					FbxAMatrix lInfluence = lVertexTransformMatrix;
-					MatrixScale(lInfluence, lWeight);
+				//	if (lWeight == 0.0)
+				//	{
+				//		continue;
+				//	}
 
-					if (lClusterMode == FbxCluster::eAdditive)
-					{
-						// Multiply with the product of the deformations on the vertex.
-						MatrixAddToDiagonal(lInfluence, 1.0 - lWeight);
-						lClusterDeformation[lIndex] = lInfluence * lClusterDeformation[lIndex];
+				//	// Compute the influence of the link on the vertex.
+				//	FbxAMatrix lInfluence = lVertexTransformMatrix;
+				//	MatrixScale(lInfluence, lWeight);
 
-						// Set the link to 1.0 just to know this vertex is influenced by a link.
-						lClusterWeight[lIndex] = 1.0;
-					}
-					else // lLinkMode == FbxCluster::eNormalize || lLinkMode == FbxCluster::eTotalOne
-					{
-						// Add to the sum of the deformations on the vertex.
-						MatrixAdd(lClusterDeformation[lIndex], lInfluence);
+				//	if (lClusterMode == FbxCluster::eAdditive)
+				//	{
+				//		// Multiply with the product of the deformations on the vertex.
+				//		MatrixAddToDiagonal(lInfluence, 1.0 - lWeight);
+				//		lClusterDeformation[lIndex] = lInfluence * lClusterDeformation[lIndex];
 
-						// Add to the sum of weights to either normalize or complete the vertex.
-						lClusterWeight[lIndex] += lWeight;
-					}
-					// 只在第一帧读取，不要每帧重复读取
-					if (pAnimation->nKeyNums == 1)
-					{
-						HXVertJointWeights xVertJointWeight;
-						xVertJointWeight.nAttachJointIndex = lClusterIndex;
-						xVertJointWeight.fWeightBias = (float)lWeight;
-						std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = pAnimation->mapVertJointInfo.find(lIndex);
-						if (pFind != pAnimation->mapVertJointInfo.end())
-						{
-							pFind->second.push_back(xVertJointWeight);
-						}
-						else
-						{
-							pAnimation->mapVertJointInfo.insert(std::make_pair(lIndex, std::vector<HXVertJointWeights>())).first->second.push_back(xVertJointWeight);
-						}
-					}
-				}//For each vertex			
+				//		// Set the link to 1.0 just to know this vertex is influenced by a link.
+				//		lClusterWeight[lIndex] = 1.0;
+				//	}
+				//	else // lLinkMode == FbxCluster::eNormalize || lLinkMode == FbxCluster::eTotalOne
+				//	{
+				//		// Add to the sum of the deformations on the vertex.
+				//		MatrixAdd(lClusterDeformation[lIndex], lInfluence);
+
+				//		// Add to the sum of weights to either normalize or complete the vertex.
+				//		lClusterWeight[lIndex] += lWeight;
+				//	}
+				//	// 只在第一帧读取，不要每帧重复读取
+				//	if (mSkinSkeleton->nKeyNums == 1)
+				//	{
+				//		HXVertJointWeights xVertJointWeight;
+				//		xVertJointWeight.nAttachJointIndex = lClusterIndex;
+				//		xVertJointWeight.fWeightBias = (float)lWeight;
+				//		std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = mSkinSkeleton->mapVertJointInfo.find(lIndex);
+				//		if (pFind != mSkinSkeleton->mapVertJointInfo.end())
+				//		{
+				//			pFind->second.push_back(xVertJointWeight);
+				//		}
+				//		else
+				//		{
+				//			mSkinSkeleton->mapVertJointInfo.insert(std::make_pair(lIndex, std::vector<HXVertJointWeights>())).first->second.push_back(xVertJointWeight);
+				//		}
+				//	}
+				//}//For each vertex			
 			}//lClusterCount
 		}
 
@@ -353,8 +367,8 @@ namespace HX3D
 		//	}
 		//}
 
-		delete[] lClusterDeformation;
-		delete[] lClusterWeight;
+		/*delete[] lClusterDeformation;
+		delete[] lClusterWeight;*/
 	}
 
 	// Deform the vertex array according to the links contained in the mesh and the skinning type.
@@ -651,53 +665,62 @@ namespace HX3D
 	//	DrawNodeRecursive(mScene->GetRootNode(), mCurrentTime, mCurrentAnimLayer, lDummyGlobalPosition, NULL);
 	//}
 
-	HXISkeleton* HXSkeletonFBX::Clone(HXMesh* pMesh)
+	//HXISkeleton* HXSkeletonFBX::Clone(HXMesh* pMesh)
+	//{
+	//	HXSkeletonFBX* pSkeletonFBX = new HXSkeletonFBX();
+	//	
+	//	pSkeletonFBX->Initial(NULL, mScene);
+
+	//	// 具体mesh实例
+	//	pSkeletonFBX->mMesh = (HXMeshFBX*)pMesh;
+
+	//	/*pSkeletonFBX->mAnimStackNameArray = mAnimStackNameArray;
+	//	pSkeletonFBX->mCurrentAnimLayer = mCurrentAnimLayer;
+	//	pSkeletonFBX->mFrameTime = mFrameTime;
+	//	pSkeletonFBX->mStart = mStart;
+	//	pSkeletonFBX->mStop = mStop;
+	//	pSkeletonFBX->mCurrentTime = mCurrentTime;
+	//	pSkeletonFBX->mCache_Start = mCache_Start;
+	//	pSkeletonFBX->mCache_Stop = mCache_Stop;
+	//	pSkeletonFBX->mScene = mScene;
+	//	pSkeletonFBX->mLastTime = mLastTime;*/
+
+	//	return pSkeletonFBX;
+	//}
+
+	void HXSkeletonFBX::Initial(FbxScene* pScene)
 	{
-		HXSkeletonFBX* pSkeletonFBX = new HXSkeletonFBX();
 		
-		pSkeletonFBX->Initial(NULL, mScene);
-
-		// 具体mesh实例
-		pSkeletonFBX->mMesh = (HXMeshFBX*)pMesh;
-
-		/*pSkeletonFBX->mAnimStackNameArray = mAnimStackNameArray;
-		pSkeletonFBX->mCurrentAnimLayer = mCurrentAnimLayer;
-		pSkeletonFBX->mFrameTime = mFrameTime;
-		pSkeletonFBX->mStart = mStart;
-		pSkeletonFBX->mStop = mStop;
-		pSkeletonFBX->mCurrentTime = mCurrentTime;
-		pSkeletonFBX->mCache_Start = mCache_Start;
-		pSkeletonFBX->mCache_Stop = mCache_Stop;
-		pSkeletonFBX->mScene = mScene;
-		pSkeletonFBX->mLastTime = mLastTime;*/
-
-		return pSkeletonFBX;
-	}
-
-	void HXSkeletonFBX::Initial(HXMeshFBX* pMesh, FbxScene* pScene)
-	{
-		// initialize cache start and stop time
-		mCache_Start = FBXSDK_TIME_INFINITE;
-		mCache_Stop = FBXSDK_TIME_MINUS_INFINITE;
-		mLastTime = 0.0;
 		// mMesh = pMesh;  Clone时赋值具体实例Mesh
-		mMesh = NULL;
-		mScene = pScene;
-		SetCurrentAnimStack(0);
-		LoadAnimationCurve();
+		// mMesh = NULL;
+		//mScene = pScene;
+		
+		LoadSkeleton(pScene);
+		//LoadAnimationCurve();
 	}
 
-	void HXSkeletonFBX::UpdateAnimation()
+	void HXSkeletonFBX::UpdateAnimation(HXAnimationInstance* pAnimInst)
 	{
-		if (!bAnimationLoaded)
+		/*if (!bAnimationLoaded)
+		{
+			return;
+		}*/
+
+		// 首先判断是否有该动作
+		if (!mSkinSkeleton->xSkeleton.vctJoint[0])
+		{
+			return;
+		}
+		std::map<std::string, HXJointAnim>::iterator itr = mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.find(pAnimInst->strCurPlayAnim);
+		if (itr == mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.end())
 		{
 			return;
 		}
 
-		nCurKeyframe += nSpeed;
-		if (nCurKeyframe > pAnimation->nKeyNums - 1)
+		pAnimInst->nCurKeyframe += pAnimInst->nSpeed;
+		if (pAnimInst->nCurKeyframe > itr->second.nKeyNums - 1)
 		{
-			nCurKeyframe = 0;
+			pAnimInst->nCurKeyframe = 0;
 		}
 
 		int lVertexCount = nControlPointCount;
@@ -715,13 +738,14 @@ namespace HX3D
 			FbxVector4 lSrcVertex = srcControlPoints[i];
 			FbxVector4& lDstVertex = destVertexArray[i];
 
-			std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = pAnimation->mapVertJointInfo.find(i);
-			if (pFind != pAnimation->mapVertJointInfo.end())
+			std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = mSkinSkeleton->mapVertJointInfo.find(i);
+			if (pFind != mSkinSkeleton->mapVertJointInfo.end())
 			{
 				for (std::vector<HXVertJointWeights>::iterator itr = pFind->second.begin(); itr != pFind->second.end(); ++itr)
 				{
-					HXJoint* pJoint = pAnimation->xSkeleton.vctJoint[itr->nAttachJointIndex];
-					HXJointPose* pJointPose = pJoint->vctJointPose[nCurKeyframe];
+					HXJoint* pJoint = mSkinSkeleton->xSkeleton.vctJoint[itr->nAttachJointIndex];
+					//HXJointPose* pJointPose = pJoint->vctJointPose[nCurKeyframe];
+					HXJointPose* pJointPose = pJoint->mapJointAnim[pAnimInst->strCurPlayAnim].vctJointPose[pAnimInst->nCurKeyframe];
 					// Compute the influence of the link on the vertex.
 					FbxAMatrix lInfluence = pJointPose->mtVertexTransformMatrix;
 					MatrixScale(lInfluence, itr->fWeightBias);
@@ -750,9 +774,9 @@ namespace HX3D
 			}
 		}
 		
-		if (mMesh)
+		if (pAnimInst->mMesh)
 		{
-			mMesh->UpdateVertexPosition(destVertexArray);
+			((HXMeshFBX*)(pAnimInst->mMesh))->UpdateVertexPosition(destVertexArray);
 		}
 
 		delete[] lClusterDeformation;
@@ -760,8 +784,64 @@ namespace HX3D
 		delete[] destVertexArray;
 	}
 
-	void HXSkeletonFBX::LoadAnimationCurve()
+	void HXSkeletonFBX::LoadSkeleton(FbxScene* pScene)
 	{
+		mScene = pScene;
+
+		FbxMesh* pFbxMesh = GetMeshNodeRecursive(mScene->GetRootNode());
+		if (NULL == pFbxMesh)
+		{
+			return;
+		}
+		FbxSkin* lSkinDeformer = (FbxSkin*)pFbxMesh->GetDeformer(0, FbxDeformer::eSkin);
+		int lClusterCount = lSkinDeformer->GetClusterCount();
+		for (int lClusterIndex = 0; lClusterIndex < lClusterCount; ++lClusterIndex)
+		{
+			if (lClusterIndex + 1 > mSkinSkeleton->xSkeleton.nJointCount)
+			{
+				HXJoint* pJoint = new HXJoint();
+				mSkinSkeleton->xSkeleton.vctJoint.push_back(pJoint);
+				mSkinSkeleton->xSkeleton.nJointCount++;
+			}
+
+			FbxCluster* lCluster = lSkinDeformer->GetCluster(lClusterIndex);
+			if (!lCluster->GetLink())
+				continue;
+
+			int lVertexIndexCount = lCluster->GetControlPointIndicesCount();
+			for (int k = 0; k < lVertexIndexCount; ++k)
+			{
+				int lIndex = lCluster->GetControlPointIndices()[k];
+				double lWeight = lCluster->GetControlPointWeights()[k];
+				
+				HXVertJointWeights xVertJointWeight;
+				xVertJointWeight.nAttachJointIndex = lClusterIndex;
+				xVertJointWeight.fWeightBias = (float)lWeight;
+				std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = mSkinSkeleton->mapVertJointInfo.find(lIndex);
+				if (pFind != mSkinSkeleton->mapVertJointInfo.end())
+				{
+					pFind->second.push_back(xVertJointWeight);
+				}
+				else
+				{
+					mSkinSkeleton->mapVertJointInfo.insert(std::make_pair(lIndex, std::vector<HXVertJointWeights>())).first->second.push_back(xVertJointWeight);
+				}
+				
+			}//For each vertex			
+		}//lClusterCount
+	}
+
+	void HXSkeletonFBX::LoadAnimationCurve(std::string strAnimName, FbxScene* pScene)
+	{
+		mScene = pScene;
+		mCurLoadAnim = strAnimName;
+
+		// initialize cache start and stop time
+		mCache_Start = FBXSDK_TIME_INFINITE;
+		mCache_Stop = FBXSDK_TIME_MINUS_INFINITE;
+		// mLastTime = 0.0;
+		SetCurrentAnimStack(0);
+
 		mFrameTime.SetTime(0, 0, 0, 1, 0, mScene->GetGlobalSettings().GetTimeMode());
 
 		bool bFinish = false;
@@ -773,7 +853,7 @@ namespace HX3D
 				mCurrentTime = mStart;
 				bFinish = true;
 			}
-			pAnimation->nKeyNums++;
+			// mSkinSkeleton->nKeyNums++;
 		
 			// 加载关键帧
 			// If one node is selected, draw it and its children.
@@ -782,37 +862,36 @@ namespace HX3D
 
 		}
 
-		bAnimationLoaded = true;
+		// bAnimationLoaded = true;
 	}
 
-	bool NodeRecursiveFindSkin(FbxNode* pNode)
+	FbxMesh* HXSkeletonFBX::GetMeshNodeRecursive(FbxNode* pNode)
 	{
 		if (pNode->GetNodeAttribute())
 		{
 			if (pNode->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eMesh)
 			{
-				FbxMesh* lMesh = pNode->GetMesh();
-				const bool lHasSkin = lMesh->GetDeformerCount(FbxDeformer::eSkin) > 0;
-				if (lHasSkin)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return pNode->GetMesh();
 			}
 		}
-
 		const int lChildCount = pNode->GetChildCount();
 		for (int lChildIndex = 0; lChildIndex < lChildCount; ++lChildIndex)
 		{
-			if (NodeRecursiveFindSkin(pNode->GetChild(lChildIndex)))
+			return GetMeshNodeRecursive(pNode->GetChild(lChildIndex));
+		}
+	}
+
+	bool HXSkeletonFBX::IsHaveSkeleton(FbxScene* pScene)
+	{
+		FbxMesh* pFbxMesh = GetMeshNodeRecursive(pScene->GetRootNode());
+		if (pFbxMesh)
+		{
+			const bool lHasSkin = pFbxMesh->GetDeformerCount(FbxDeformer::eSkin) > 0;
+			if (lHasSkin)
 			{
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -836,13 +915,7 @@ namespace HX3D
 			return false;
 		}
 
-		if (NodeRecursiveFindSkin(pScene->GetRootNode()))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return true;
+
 	}
 }

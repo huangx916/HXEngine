@@ -10,7 +10,7 @@ namespace HX3D
 	{
 		mLastFPS = 0.0;
 		mLastTime = 0.0;
-		mFrameCout = 0;
+		mFrameCount = 0;
 	}
 
 	HXStatus::~HXStatus()
@@ -21,17 +21,23 @@ namespace HX3D
 	{
 		std::string strFPS = "FPS: " + FloatToString(CalcLastFPS());
 		HXGraphics::GetInstance()->DrawString(strFPS, SCREEN_WIDTH / 2, 0);
+
+		std::string strTriangleCount = "TriangleCount: " + FloatToString(nTriangleCount);
+		HXGraphics::GetInstance()->DrawString(strTriangleCount, SCREEN_WIDTH / 2, 18);
+
+		std::string strVertexCount = "VertexCount: " + FloatToString(nVertexCount);
+		HXGraphics::GetInstance()->DrawString(strVertexCount, SCREEN_WIDTH / 2, 36);
 	}
 
 	float HXStatus::CalcLastFPS()
 	{
-		mFrameCout++;
+		mFrameCount++;
 		double curTime = ::GetTickCount();
 		if (curTime - mLastTime > 1000.0)
 		{
-			mLastFPS = (double)mFrameCout / (double)(curTime - mLastTime) * 1000.0;
+			mLastFPS = (double)mFrameCount / (double)(curTime - mLastTime) * 1000.0;
 			mLastTime = curTime;
-			mFrameCout = 0;
+			mFrameCount = 0;
 		}
 		return (float)mLastFPS;
 	}

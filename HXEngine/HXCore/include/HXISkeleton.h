@@ -3,8 +3,13 @@
 
 namespace HX3D
 {
-	class HXMeshFBX;
-
+	struct HXAnimationInstance
+	{
+		std::string strCurPlayAnim;
+		int nCurKeyframe;
+		int nSpeed;
+		HXMesh* mMesh;
+	};
 	class HXISkeleton
 	{
 	public:
@@ -12,7 +17,7 @@ namespace HX3D
 		~HXISkeleton();
 
 		//// virtual void Update() = 0;
-		virtual void UpdateAnimation() = 0;
-		virtual HXISkeleton* Clone(HXMesh* pMesh) = 0;
+		virtual void UpdateAnimation(HXAnimationInstance* pAnimInst) = 0;
+		//virtual HXISkeleton* Clone(HXMesh* pMesh) = 0;
 	};
 }

@@ -133,11 +133,21 @@ namespace HX3D
 		}
 	}
 
+	void HXMesh::PlayAnimation(std::string strAnimName, int nSpeed)
+	{
+		if (animInst)
+		{
+			animInst->nCurKeyframe = 0;
+			animInst->nSpeed = nSpeed;
+			animInst->strCurPlayAnim = strAnimName;
+		}
+	}
+
 	void HXMesh::UpdateAnimation()
 	{
 		if (skeleton)
 		{
-			skeleton->UpdateAnimation();
+			skeleton->UpdateAnimation(animInst);
 		}
 	}
 
@@ -150,11 +160,15 @@ namespace HX3D
 			pMesh->subMeshList.push_back(pHXSubMesh);
 		}
 		pMesh->triangleCount = triangleCount;
+		pMesh->vertexCount = vertexCount;
 		
 		// 骨骼用同一套，具体参数(如当前动画片段，时间等)自己控制
 		if (NULL != skeleton)
 		{
-			pMesh->skeleton = skeleton->Clone(pMesh);
+			pMesh->skeleton = skeleton;
+			HXAnimationInstance* pAnimInst = new HXAnimationInstance();
+			pMesh->animInst = pAnimInst;
+			pMesh->animInst->mMesh = pMesh;
 		}
 
 		return pMesh;
