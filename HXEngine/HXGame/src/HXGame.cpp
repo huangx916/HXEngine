@@ -106,18 +106,20 @@ void HXGame::CreateGameScene()
 	//pGameObject->SetScale(HXVector3D(0.5f, 0.5f, 0.5f));
 
 	// dog begin===========================================
-	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube1", "cubeTexture.FBX");
 
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "Dog.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog@run.FBX");
+
 	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog.FBX");
 	pGameObject->GetMesh()->PlayAnimation("walk");
 	pGameObject->Pitch(270.0f);
 	pGameObject->Yaw(90.0f);
 	pGameObject->SetPostion(HXVector3D(-4, -4, 0));
 
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube1", "cubeTexture.FBX");
-	pGameObject->SetPostion(HXVector3D(0, 0, 0));
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+	pGameObject->SetPostion(HXVector3D(0, 0, -5));
+	//pGameObject->SetScale(HXVector3D(8,8,8));
 
 	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog1", "FBX\\Dog\\Dog.FBX");
 	pGameObject->GetMesh()->PlayAnimation("run", 2);

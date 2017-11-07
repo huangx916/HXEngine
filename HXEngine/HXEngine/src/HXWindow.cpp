@@ -45,27 +45,19 @@ namespace HX3D
 		switch (uMsg)
 		{
 		case WM_MOVING:
-		/*{
-			HDC hdc;
-			PAINTSTRUCT ps;
-			hdc = BeginPaint(hwnd, &ps);
-			HXWindow::pInstance->OnPaint(hdc);
-			EndPaint(hwnd, &ps);
-			break;
-		}*/
 		case WM_PAINT:
 		{
-			HDC hdc;
+			/*HDC hdc;
 			PAINTSTRUCT ps;
 			hdc = BeginPaint(hwnd, &ps);
 			HXWindow::pInstance->OnPaint(hdc);
-			EndPaint(hwnd, &ps);
+			EndPaint(hwnd, &ps);*/
 			break;
 		}
 		case WM_TIMER:
 		{
 			// 加上，不然画面不会刷新
-			HXWindow::pInstance->UpdateMyWnd(hwnd);
+			// HXWindow::pInstance->UpdateMyWnd(hwnd);
 			break;
 		}
 		case WM_KEYDOWN:
@@ -176,7 +168,8 @@ namespace HX3D
 				"Successed", MB_OK);*/
 		}
 
-		::SetTimer(hWnd, WM_TIMER, 15, NULL);	// 每15毫秒传送一次WM_TIMER消息 
+		// ::SetTimer(hWnd, WM_TIMER, 15, NULL);	// 每15毫秒传送一次WM_TIMER消息 
+
 		// 手动播种
 		srand((unsigned)time(NULL));
 
@@ -221,12 +214,13 @@ namespace HX3D
 			{
 				::Sleep(10);
 			}*/
-			/*HDC hdc;
+			
+			HDC hdc;
 			PAINTSTRUCT ps;
 			hdc = BeginPaint(m_hWnd, &ps);
 			HXWindow::pInstance->OnPaint(hdc);
-			EndPaint(m_hWnd, &ps);*/
-			// UpdateMyWnd(m_hWnd);
+			EndPaint(m_hWnd, &ps);
+			UpdateMyWnd(m_hWnd);
 		}
 	}
 

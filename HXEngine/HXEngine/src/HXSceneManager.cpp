@@ -98,6 +98,7 @@ namespace HX3D
 		HXStatus::GetInstance()->nVertexCount = 0;
 		HXStatus::GetInstance()->nTriangleCount = 0;
 		// TODO: 以DrawCall为单位提交渲染，以便设置渲染状态。现在暂时以SubMesh为单位提交渲染
+		// batch处理 先填充map<Pass*,RenderableList*>，然后遍历一个pass就是一个batch
 		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
 		{
 			HXMesh* pMesh = itr->second->GetMesh();
@@ -118,7 +119,7 @@ namespace HX3D
 				World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
 				Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
 				Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);
-				// Draw_RenderList_Wire(mRenderList);
+				//Draw_RenderList_Wire(mRenderList);
 				Draw_RenderList_Texture_Solid(mRenderList);
 			}
 		}
