@@ -68,6 +68,7 @@ namespace HX3D
 		~HXFBXSkeleton();
 
 		virtual void UpdateAnimation(HXAnimationInstance* pAnimInst);
+
 		static bool IsHaveSkeleton(FbxScene* pScene);
 		// ¼ÓÔØ¹Ç÷À
 		void LoadSkeleton(FbxScene* pScene);
