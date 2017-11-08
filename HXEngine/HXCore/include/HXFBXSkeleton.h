@@ -60,12 +60,21 @@ namespace HX3D
 		std::map<int, std::vector<HXVertJointWeights>> mapVertJointInfo;	//#include <map>
 	};
 
-	class HXMeshFBX;
-	class HXSkeletonFBX : public HXISkeleton
+	class HXFBXMesh;
+	class HXFBXSkeleton : public HXISkeleton
 	{
 	public:
-		HXSkeletonFBX();
-		~HXSkeletonFBX();
+		HXFBXSkeleton();
+		~HXFBXSkeleton();
+
+		virtual void UpdateAnimation(HXAnimationInstance* pAnimInst);
+		static bool IsHaveSkeleton(FbxScene* pScene);
+		// ¼ÓÔØ¹Ç÷À
+		void LoadSkeleton(FbxScene* pScene);
+		// ¼ÓÔØ¹Ç÷À¶¯»­
+		void LoadAnimationCurve(std::string strAnimName, FbxScene* pScene);
+
+	private:
 
 		void MatrixScale(FbxAMatrix& pMatrix, double pValue);
 		void MatrixAddToDiagonal(FbxAMatrix& pMatrix, double pValue);
@@ -121,14 +130,8 @@ namespace HX3D
 		// virtual HXISkeleton* Clone(HXMesh* pMesh);
 		void Initial(FbxScene* pScene);
 
-		virtual void UpdateAnimation(HXAnimationInstance* pAnimInst);
-		// ¼ÓÔØ¹Ç÷À
-		void LoadSkeleton(FbxScene* pScene);
-		// ¼ÓÔØ¹Ç÷À¶¯»­
-		void LoadAnimationCurve(std::string strAnimName, FbxScene* pScene);
-
 		static FbxMesh* GetMeshNodeRecursive(FbxNode* pNode);
-		static bool IsHaveSkeleton(FbxScene* pScene);
+		
 		static bool IsHaveSkeletonAnimation(FbxScene* pScene);
 
 		FbxArray<FbxString*> mAnimStackNameArray;
@@ -146,6 +149,6 @@ namespace HX3D
 
 		/*int nCurKeyframe;
 		int nSpeed;
-		HXMeshFBX* mMesh;*/
+		HXFBXMesh* mMesh;*/
 	};
 }

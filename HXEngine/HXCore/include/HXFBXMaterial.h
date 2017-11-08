@@ -9,14 +9,15 @@ namespace HX3D
 		Lambert,
 		Phong
 	};
-	class HXMaterialFBX : public HXMaterial
+	class HXFBXMaterial : public HXMaterial
 	{
 	public:
-		HXMaterialFBX();
-		~HXMaterialFBX();
+		HXFBXMaterial();
+		~HXFBXMaterial();
 
 		bool Initialize(const FbxSurfaceMaterial* pMaterial);
 
+	private:
 		HXCOLOR ambient;
 		HXCOLOR diffuse;
 		HXCOLOR specular;

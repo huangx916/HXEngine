@@ -1,10 +1,10 @@
 #include "..\include\HXFBXLoader.h"
 #include "HXMesh.h"
-#include "HXMaterialFBX.h"
-#include "HXMeshFBX.h"
+#include "HXFBXMaterial.h"
+#include "HXFBXMesh.h"
 #include "HXResourceManager.h"
 #include <Windows.h>
-#include "HXSkeletonFBX.h"
+#include "HXFBXSkeleton.h"
 #include "HXLoadConfigAnim.h"
 
 namespace HX3D
@@ -85,7 +85,7 @@ namespace HX3D
 		return true;
 	}
 
-	void HXFBXLoader::ProcessNode(FbxNode* pNode, HXMeshFBX* pMesh)
+	void HXFBXLoader::ProcessNode(FbxNode* pNode, HXFBXMesh* pMesh)
 	{
 		if (pNode->GetNodeAttribute())
 		{
@@ -102,7 +102,7 @@ namespace HX3D
 		}
 	}
 
-	void HXFBXLoader::ProcessMesh(FbxNode* pNode, HXMeshFBX* pMesh)
+	void HXFBXLoader::ProcessMesh(FbxNode* pNode, HXFBXMesh* pMesh)
 	{
 		FbxMesh* pFbxMesh = pNode->GetMesh();
 		if (pFbxMesh == NULL)
@@ -114,7 +114,7 @@ namespace HX3D
 		ProcessMaterial(pFbxMesh);
 	}
 
-	void HXFBXLoader::ProcessPolygons(FbxMesh* pFbxMesh, HXMeshFBX* pMesh)
+	void HXFBXLoader::ProcessPolygons(FbxMesh* pFbxMesh, HXFBXMesh* pMesh)
 	{
 		pMesh->Initialize(pFbxMesh);
 	}
@@ -135,7 +135,7 @@ namespace HX3D
 				std::string strMaterialName = gCurPathFileName + "|" + lMaterial->GetName();
 				if (HXResourceManager::GetInstance()->GetMaterial(strMaterialName) == NULL)
 				{
-					HXMaterialFBX* pMaterial = new HXMaterialFBX();
+					HXFBXMaterial* pMaterial = new HXFBXMaterial();
 					pMaterial->mMaterialName = strMaterialName;
 					pMaterial->Initialize(lMaterial);
 					HXResourceManager::GetInstance()->AddMaterial(strMaterialName, pMaterial);
@@ -162,7 +162,7 @@ namespace HX3D
 
 		gCurPathFileName = strFileName;
 
-		*ppMesh = new HXMeshFBX();
+		*ppMesh = new HXFBXMesh();
 
 		if (strFileName == "Cube")
 		{
@@ -184,12 +184,12 @@ namespace HX3D
 				return false;
 			}			
 			// 加载网格数据
-			ProcessNode(m_pScene->GetRootNode(), (HXMeshFBX*)*ppMesh);
+			ProcessNode(m_pScene->GetRootNode(), (HXFBXMesh*)*ppMesh);
 			// 加载骨骼数据
-			if (HXSkeletonFBX::IsHaveSkeleton(m_pScene))
+			if (HXFBXSkeleton::IsHaveSkeleton(m_pScene))
 			{
 				// 加载骨骼
-				HXSkeletonFBX* pSkeleton = new HXSkeletonFBX();
+				HXFBXSkeleton* pSkeleton = new HXFBXSkeleton();
 				pSkeleton->LoadSkeleton(m_pScene);
 				(*ppMesh)->skeleton = pSkeleton;
 				// 加载骨骼动画

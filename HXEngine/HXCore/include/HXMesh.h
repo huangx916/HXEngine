@@ -106,7 +106,7 @@ namespace HX3D
 	{
 	public:
 		HXMesh();
-		~HXMesh();
+		virtual ~HXMesh();
 
 		void PlayAnimation(std::string strAnimName, int nSpeed = 1);
 		void UpdateAnimation();

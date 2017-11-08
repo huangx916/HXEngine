@@ -1,11 +1,11 @@
-#include "..\include\HXSkeletonFBX.h"
+#include "..\include\HXFBXSkeleton.h"
 #include <Windows.h>
-#include "HXMeshFBX.h"
+#include "HXFBXMesh.h"
 #include "HXMesh.h"
 
 namespace HX3D
 {
-	HXSkeletonFBX::HXSkeletonFBX()
+	HXFBXSkeleton::HXFBXSkeleton()
 	{
 		// nSpeed = 1;
 		// bAnimationLoaded = false;
@@ -13,7 +13,7 @@ namespace HX3D
 		srcControlPoints = NULL;
 	}
 
-	HXSkeletonFBX::~HXSkeletonFBX()
+	HXFBXSkeleton::~HXFBXSkeleton()
 	{
 		delete mSkinSkeleton;
 		if (srcControlPoints)
@@ -25,7 +25,7 @@ namespace HX3D
 	}
 
 	// Scale all the elements of a matrix.
-	void HXSkeletonFBX::MatrixScale(FbxAMatrix& pMatrix, double pValue)
+	void HXFBXSkeleton::MatrixScale(FbxAMatrix& pMatrix, double pValue)
 	{
 		int i, j;
 
@@ -39,7 +39,7 @@ namespace HX3D
 	}
 
 	// Add a value to all the elements in the diagonal of the matrix.
-	void HXSkeletonFBX::MatrixAddToDiagonal(FbxAMatrix& pMatrix, double pValue)
+	void HXFBXSkeleton::MatrixAddToDiagonal(FbxAMatrix& pMatrix, double pValue)
 	{
 		pMatrix[0][0] += pValue;
 		pMatrix[1][1] += pValue;
@@ -48,7 +48,7 @@ namespace HX3D
 	}
 
 	// Sum two matrices element by element.
-	void HXSkeletonFBX::MatrixAdd(FbxAMatrix& pDstMatrix, FbxAMatrix& pSrcMatrix)
+	void HXFBXSkeleton::MatrixAdd(FbxAMatrix& pDstMatrix, FbxAMatrix& pSrcMatrix)
 	{
 		int i, j;
 
@@ -62,7 +62,7 @@ namespace HX3D
 	}
 
 	// Get the matrix of the given pose
-	FbxAMatrix HXSkeletonFBX::GetPoseMatrix(FbxPose* pPose, int pNodeIndex)
+	FbxAMatrix HXFBXSkeleton::GetPoseMatrix(FbxPose* pPose, int pNodeIndex)
 	{
 		FbxAMatrix lPoseMatrix;
 		FbxMatrix lMatrix = pPose->GetMatrix(pNodeIndex);
@@ -75,7 +75,7 @@ namespace HX3D
 	// Get the global position of the node for the current pose.
 	// If the specified node is not part of the pose or no pose is specified, get its
 	// global position at the current time.
-	FbxAMatrix HXSkeletonFBX::GetGlobalPosition(FbxNode* pNode, const FbxTime& pTime, FbxPose* pPose, FbxAMatrix* pParentGlobalPosition)
+	FbxAMatrix HXFBXSkeleton::GetGlobalPosition(FbxNode* pNode, const FbxTime& pTime, FbxPose* pPose, FbxAMatrix* pParentGlobalPosition)
 	{
 		FbxAMatrix lGlobalPosition;
 		bool        lPositionFound = false;
@@ -135,7 +135,7 @@ namespace HX3D
 	}
 
 	// Get the geometry offset to a node. It is never inherited by the children.
-	FbxAMatrix HXSkeletonFBX::GetGeometry(FbxNode* pNode)
+	FbxAMatrix HXFBXSkeleton::GetGeometry(FbxNode* pNode)
 	{
 		const FbxVector4 lT = pNode->GetGeometricTranslation(FbxNode::eSourcePivot);
 		const FbxVector4 lR = pNode->GetGeometricRotation(FbxNode::eSourcePivot);
@@ -145,7 +145,7 @@ namespace HX3D
 	}
 
 	//Compute the transform matrix that the cluster will transform the vertex.
-	void HXSkeletonFBX::ComputeClusterDeformation(FbxAMatrix& pGlobalPosition,
+	void HXFBXSkeleton::ComputeClusterDeformation(FbxAMatrix& pGlobalPosition,
 		FbxMesh* pMesh,
 		FbxCluster* pCluster,
 		FbxAMatrix& pVertexTransformMatrix,
@@ -218,7 +218,7 @@ namespace HX3D
 	}
 
 	// Deform the vertex array in classic linear way.
-	void HXSkeletonFBX::ComputeLinearDeformation(FbxAMatrix& pGlobalPosition,
+	void HXFBXSkeleton::ComputeLinearDeformation(FbxAMatrix& pGlobalPosition,
 		FbxMesh* pMesh,
 		FbxTime& pTime,
 		FbxVector4* pVertexArray,
@@ -372,7 +372,7 @@ namespace HX3D
 	}
 
 	// Deform the vertex array according to the links contained in the mesh and the skinning type.
-	void HXSkeletonFBX::ComputeSkinDeformation(FbxAMatrix& pGlobalPosition,
+	void HXFBXSkeleton::ComputeSkinDeformation(FbxAMatrix& pGlobalPosition,
 		FbxMesh* pMesh,
 		FbxTime& pTime,
 		FbxVector4* pVertexArray,
@@ -416,7 +416,7 @@ namespace HX3D
 	}
 
 	// Draw the vertices of a mesh.
-	void HXSkeletonFBX::DrawMesh(FbxNode* pNode, FbxTime& pTime, FbxAnimLayer* pAnimLayer,
+	void HXFBXSkeleton::DrawMesh(FbxNode* pNode, FbxTime& pTime, FbxAnimLayer* pAnimLayer,
 		FbxAMatrix& pGlobalPosition, FbxPose* pPose)
 	{
 		FbxMesh* lMesh = pNode->GetMesh();
@@ -539,7 +539,7 @@ namespace HX3D
 	}
 
 	// Draw the node following the content of it's node attribute.
-	void HXSkeletonFBX::DrawNode(FbxNode* pNode,
+	void HXFBXSkeleton::DrawNode(FbxNode* pNode,
 		FbxTime& pTime,
 		FbxAnimLayer* pAnimLayer,
 		FbxAMatrix& pParentGlobalPosition,
@@ -572,7 +572,7 @@ namespace HX3D
 	// If the node is part of the given pose for the current scene,
 	// it will be drawn at the position specified in the pose, Otherwise
 	// it will be drawn at the given time.
-	void HXSkeletonFBX::DrawNodeRecursive(FbxNode* pNode, FbxTime& pTime, FbxAnimLayer* pAnimLayer,
+	void HXFBXSkeleton::DrawNodeRecursive(FbxNode* pNode, FbxTime& pTime, FbxAnimLayer* pAnimLayer,
 		FbxAMatrix& pParentGlobalPosition, FbxPose* pPose)
 	{
 		FbxAMatrix lGlobalPosition = GetGlobalPosition(pNode, pTime, pPose, &pParentGlobalPosition);
@@ -594,7 +594,7 @@ namespace HX3D
 		}
 	}
 
-	bool HXSkeletonFBX::SetCurrentAnimStack(int pIndex)
+	bool HXFBXSkeleton::SetCurrentAnimStack(int pIndex)
 	{
 		// Get the list of all the animation stack.
 		mScene->FillAnimStackNameArray(mAnimStackNameArray);
@@ -648,7 +648,7 @@ namespace HX3D
 		return true;
 	}
 
-	//void HXSkeletonFBX::Update()
+	//void HXFBXSkeleton::Update()
 	//{
 	//	double curTime = ::GetTickCount();
 	//	//mFrameTime.SetMilliSeconds(curTime - mLastTime);
@@ -665,14 +665,14 @@ namespace HX3D
 	//	DrawNodeRecursive(mScene->GetRootNode(), mCurrentTime, mCurrentAnimLayer, lDummyGlobalPosition, NULL);
 	//}
 
-	//HXISkeleton* HXSkeletonFBX::Clone(HXMesh* pMesh)
+	//HXISkeleton* HXFBXSkeleton::Clone(HXMesh* pMesh)
 	//{
-	//	HXSkeletonFBX* pSkeletonFBX = new HXSkeletonFBX();
+	//	HXFBXSkeleton* pSkeletonFBX = new HXFBXSkeleton();
 	//	
 	//	pSkeletonFBX->Initial(NULL, mScene);
 
 	//	// 具体mesh实例
-	//	pSkeletonFBX->mMesh = (HXMeshFBX*)pMesh;
+	//	pSkeletonFBX->mMesh = (HXFBXMesh*)pMesh;
 
 	//	/*pSkeletonFBX->mAnimStackNameArray = mAnimStackNameArray;
 	//	pSkeletonFBX->mCurrentAnimLayer = mCurrentAnimLayer;
@@ -688,7 +688,7 @@ namespace HX3D
 	//	return pSkeletonFBX;
 	//}
 
-	void HXSkeletonFBX::Initial(FbxScene* pScene)
+	void HXFBXSkeleton::Initial(FbxScene* pScene)
 	{
 		
 		// mMesh = pMesh;  Clone时赋值具体实例Mesh
@@ -699,7 +699,7 @@ namespace HX3D
 		//LoadAnimationCurve();
 	}
 
-	void HXSkeletonFBX::UpdateAnimation(HXAnimationInstance* pAnimInst)
+	void HXFBXSkeleton::UpdateAnimation(HXAnimationInstance* pAnimInst)
 	{
 		/*if (!bAnimationLoaded)
 		{
@@ -776,7 +776,7 @@ namespace HX3D
 		
 		if (pAnimInst->mMesh)
 		{
-			((HXMeshFBX*)(pAnimInst->mMesh))->UpdateVertexPosition(destVertexArray);
+			((HXFBXMesh*)(pAnimInst->mMesh))->UpdateVertexPosition(destVertexArray);
 		}
 
 		delete[] lClusterDeformation;
@@ -784,7 +784,7 @@ namespace HX3D
 		delete[] destVertexArray;
 	}
 
-	void HXSkeletonFBX::LoadSkeleton(FbxScene* pScene)
+	void HXFBXSkeleton::LoadSkeleton(FbxScene* pScene)
 	{
 		mScene = pScene;
 
@@ -831,7 +831,7 @@ namespace HX3D
 		}//lClusterCount
 	}
 
-	void HXSkeletonFBX::LoadAnimationCurve(std::string strAnimName, FbxScene* pScene)
+	void HXFBXSkeleton::LoadAnimationCurve(std::string strAnimName, FbxScene* pScene)
 	{
 		mScene = pScene;
 		mCurLoadAnim = strAnimName;
@@ -865,7 +865,7 @@ namespace HX3D
 		// bAnimationLoaded = true;
 	}
 
-	FbxMesh* HXSkeletonFBX::GetMeshNodeRecursive(FbxNode* pNode)
+	FbxMesh* HXFBXSkeleton::GetMeshNodeRecursive(FbxNode* pNode)
 	{
 		if (pNode->GetNodeAttribute())
 		{
@@ -881,7 +881,7 @@ namespace HX3D
 		}
 	}
 
-	bool HXSkeletonFBX::IsHaveSkeleton(FbxScene* pScene)
+	bool HXFBXSkeleton::IsHaveSkeleton(FbxScene* pScene)
 	{
 		FbxMesh* pFbxMesh = GetMeshNodeRecursive(pScene->GetRootNode());
 		if (pFbxMesh)
@@ -895,7 +895,7 @@ namespace HX3D
 		return false;
 	}
 
-	bool HXSkeletonFBX::IsHaveSkeletonAnimation(FbxScene* pScene)
+	bool HXFBXSkeleton::IsHaveSkeletonAnimation(FbxScene* pScene)
 	{
 		FbxArray<FbxString*> animStackNameArray;
 		// Get the list of all the animation stack.

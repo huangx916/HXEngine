@@ -1,18 +1,18 @@
-#include "..\include\HXMeshFBX.h"
+#include "..\include\HXFBXMesh.h"
 #include "HXFBXLoader.h"
 
 namespace HX3D
 {
-	HXMeshFBX::HXMeshFBX()
+	HXFBXMesh::HXFBXMesh()
 	{
 	}
 
 
-	HXMeshFBX::~HXMeshFBX()
+	HXFBXMesh::~HXFBXMesh()
 	{
 	}
 
-	bool HXMeshFBX::Initialize(FbxMesh* pFbxMesh)
+	bool HXFBXMesh::Initialize(FbxMesh* pFbxMesh)
 	{
 		/*FbxVector4 fbxScale = pFbxMesh->GetNode()->GetGeometricScaling(FbxNode::eSourcePivot);
 		HXVector3D scale = HXVector3D(fbxScale.mData[0], fbxScale.mData[1], fbxScale.mData[2]);*/
@@ -130,7 +130,7 @@ namespace HX3D
 		return true;
 	}
 
-	void HXMeshFBX::UpdateVertexPosition(const FbxVector4* pVertices)
+	void HXFBXMesh::UpdateVertexPosition(const FbxVector4* pVertices)
 	{
 		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
 		{
@@ -146,7 +146,7 @@ namespace HX3D
 		}
 	}
 
-	void HXMeshFBX::ReadVertex(FbxMesh* pFbxMesh, int nCtrlPointIndex, HXVertex& vertex)
+	void HXFBXMesh::ReadVertex(FbxMesh* pFbxMesh, int nCtrlPointIndex, HXVertex& vertex)
 	{
 		FbxVector4* pCtrlPoint = pFbxMesh->GetControlPoints();
 		vertex.pos.x = pCtrlPoint[nCtrlPointIndex][0];
@@ -155,7 +155,7 @@ namespace HX3D
 		vertex.ctrlPointIndex = nCtrlPointIndex;
 	}
 
-	void HXMeshFBX::ReadColor(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex)
+	void HXFBXMesh::ReadColor(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex)
 	{
 		if (pFbxMesh->GetElementVertexColorCount() < 1)
 		{
@@ -218,7 +218,7 @@ namespace HX3D
 		}
 	}
 
-	void HXMeshFBX::ReadUV(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nTextureUVIndex, HXVertex& vertex)
+	void HXFBXMesh::ReadUV(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nTextureUVIndex, HXVertex& vertex)
 	{
 		if (pFbxMesh->GetElementUVCount() < 1)
 		{
@@ -271,7 +271,7 @@ namespace HX3D
 		}
 	}
 
-	void HXMeshFBX::ReadNormal(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex)
+	void HXFBXMesh::ReadNormal(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex)
 	{
 		if (pFbxMesh->GetElementNormalCount() < 1)
 		{

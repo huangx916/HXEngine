@@ -13,8 +13,8 @@ namespace HX3D
 	class HXISkeleton
 	{
 	public:
-		HXISkeleton();
-		~HXISkeleton();
+		HXISkeleton() {};
+		virtual ~HXISkeleton() {};
 
 		//// virtual void Update() = 0;
 		virtual void UpdateAnimation(HXAnimationInstance* pAnimInst) = 0;

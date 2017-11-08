@@ -1,19 +1,19 @@
-#include "..\include\HXMaterialFBX.h"
+#include "..\include\HXFBXMaterial.h"
 #include "HXResourceManager.h"
 #include "HXFBXLoader.h"
 
 namespace HX3D
 {
-	HXMaterialFBX::HXMaterialFBX()
+	HXFBXMaterial::HXFBXMaterial()
 	{
 	}
 
 
-	HXMaterialFBX::~HXMaterialFBX()
+	HXFBXMaterial::~HXFBXMaterial()
 	{
 	}
 
-	bool HXMaterialFBX::Initialize(const FbxSurfaceMaterial* pMaterial)
+	bool HXFBXMaterial::Initialize(const FbxSurfaceMaterial* pMaterial)
 	{
 		// TODO: 暂时只支持一张漫反射贴图
 		FbxProperty lProperty = pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse);

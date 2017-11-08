@@ -8,7 +8,7 @@ namespace HX3D
 	{
 	public:
 		HXMaterial();
-		~HXMaterial();
+		virtual ~HXMaterial();
 
 		bool LoadMaterialFile(std::string strMaterialName);
 		HXBitmap* UsedTexture();
