@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HXEngine", "HXEngine\HXEngi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HXGame", "HXGame\HXGame.vcxproj", "{089CA959-297E-4C3E-AA95-AD1A544CB6E7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestOpenGL", "TestOpenGL\TestOpenGL.vcxproj", "{35911C84-8DCF-4041-8D3E-BB986834CC6D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -57,18 +55,6 @@ Global
 		{089CA959-297E-4C3E-AA95-AD1A544CB6E7}.Release|x64.Build.0 = Release|x64
 		{089CA959-297E-4C3E-AA95-AD1A544CB6E7}.Release|x86.ActiveCfg = Release|Win32
 		{089CA959-297E-4C3E-AA95-AD1A544CB6E7}.Release|x86.Build.0 = Release|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Debug|Win32.Build.0 = Debug|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Debug|x64.ActiveCfg = Debug|x64
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Debug|x64.Build.0 = Debug|x64
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Debug|x86.ActiveCfg = Debug|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Debug|x86.Build.0 = Debug|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Release|Win32.ActiveCfg = Release|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Release|Win32.Build.0 = Release|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Release|x64.ActiveCfg = Release|x64
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Release|x64.Build.0 = Release|x64
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Release|x86.ActiveCfg = Release|Win32
-		{35911C84-8DCF-4041-8D3E-BB986834CC6D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
