@@ -6,11 +6,11 @@
 
 namespace HX3D
 {
-	class HXCamera;
+	////class HXCamera;
 	class HXGameObject;
 	class HXLight;
-	class HXRenderList;
-
+	struct HXRenderList;
+	class HXICamera;
 	class HXSceneManager
 	{
 	public:
@@ -27,10 +27,18 @@ namespace HX3D
 
 		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
-		HXCamera* GetMainCamera();
+		////HXCamera* GetMainCamera();
 		HXLight* CreateLight(LIGHT_TYPE lightType);
+		HXICamera* CreateMainCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up = HXVector3D(0, 1, 0),
+			float ffov = 75.0f, float nearZ = 1.0f, float farZ = 1000.0f, 
+			float viewportWidth = SCREEN_WIDTH, float viewportHeigth = SCREEN_HEIGHT,
+			float left = -1.0f, float right = 1.0f, 
+			float bottom = -(float)SCREEN_HEIGHT / (float)SCREEN_WIDTH, float top = (float)SCREEN_HEIGHT / (float)SCREEN_WIDTH);
+		HXICamera* GetMainCamera();
 
-		void Update();
+		//void Update();
+		void OnDisplay();
+		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
 	private:
 		static HXSceneManager* m_pInstance;
@@ -38,8 +46,9 @@ namespace HX3D
 
 		std::map<std::string, HXGameObject*>	gameObjectMap;
 		std::vector<HXLight*>		lightVct;
-		HXCamera*	mMainCamera;
+		////HXCamera*	mMainCamera;
 		HXRenderList*	mRenderList;
+		HXICamera* m_pMainCamera;
 	};
 }
 

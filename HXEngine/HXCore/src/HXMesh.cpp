@@ -3,21 +3,26 @@
 #include "HXMatrix.h"
 #include "HXMath.h"
 #include "HXISkeleton.h"
+#include "HXRenderable.h"
+#include "HXRenderSystem.h"
 
 namespace HX3D
 {
 
 	//----------------------------------SubMesh-------------------------------------------
-	HXSubMesh::HXSubMesh() :useIndex(false)
+	HXSubMesh::HXSubMesh() :useIndex(false),IsStaticMesh(true)
 	{
 
 	}
 	HXSubMesh::~HXSubMesh()
 	{
-
+		if (renderable)
+		{
+			delete renderable;
+		}
 	}
 
-	HXSubMesh* HXSubMesh::Clone()
+	HXSubMesh* HXSubMesh::Clone(HXRenderSystem* pRenderSystem)
 	{
 		HXSubMesh* pHXSubMesh = new HXSubMesh();
 		for (std::vector<HXVertex>::iterator itr = vertexList.begin(); itr != vertexList.end(); ++itr)
@@ -32,8 +37,16 @@ namespace HX3D
 		}
 
 		pHXSubMesh->useIndex = useIndex;
+		pHXSubMesh->IsStaticMesh = IsStaticMesh;
+
 		pHXSubMesh->materialName = materialName;
 		pHXSubMesh->triangleCount = triangleCount;
+
+		// renderable clone
+		if (pRenderSystem)
+		{
+			pHXSubMesh->renderable = pRenderSystem->GenerateRenderable(pHXSubMesh);
+		}
 
 		return pHXSubMesh;
 	}
@@ -69,7 +82,8 @@ namespace HX3D
 			HXMatrix44 matT = GetTranslateMatrix44(pos.x, pos.y, pos.z);
 
 			// 模型空间到世界空间转换 SQT
-			HXMatrix44 mat = matS*matX*matY*matZ*matT;
+			// HXMatrix44 mat = matS*matX*matY*matZ*matT;
+			HXMatrix44 mat = matS*matY*matZ*matX*matT;
 			triangle.vertexList[0].pos = GetVector3DMulMatrix44(triangle.vertexList[0].pos, mat);
 			triangle.vertexList[1].pos = GetVector3DMulMatrix44(triangle.vertexList[1].pos, mat);
 			triangle.vertexList[2].pos = GetVector3DMulMatrix44(triangle.vertexList[2].pos, mat);
@@ -151,12 +165,12 @@ namespace HX3D
 		}
 	}
 
-	HXMesh* HXMesh::Clone()
+	HXMesh* HXMesh::Clone(HXRenderSystem* pRenderSystem)
 	{
 		HXMesh* pMesh = new HXMesh();
 		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
 		{
-			HXSubMesh* pHXSubMesh = (*itr)->Clone();
+			HXSubMesh* pHXSubMesh = (*itr)->Clone(pRenderSystem);
 			pMesh->subMeshList.push_back(pHXSubMesh);
 		}
 		pMesh->triangleCount = triangleCount;
@@ -183,7 +197,8 @@ namespace HX3D
 
 		// 立方体
 		// reserve配合pushback使用	resize配合[]使用
-		subMesh->vertexList.reserve(24);
+		subMesh->vertexList.reserve(36);
+		subMesh->triangleCount = 12;
 
 		// --------------------上--012--023--------------------------
 		HXVertex vertex0up;
@@ -196,7 +211,7 @@ namespace HX3D
 
 		HXVertex vertex1up;
 		vertex1up.pos = HXVector3D(1, 1, 1);
-		vertex1up.color = HXCOLOR(255, 255, 255, 255);
+		vertex1up.color = HXCOLOR(255, 0, 0, 255);
 		vertex1up.u = 1;
 		vertex1up.v = 1;
 		vertex1up.normal = HXVector3D(0, 1, 0);
@@ -204,7 +219,7 @@ namespace HX3D
 
 		HXVertex vertex2up;
 		vertex2up.pos = HXVector3D(1, 1, -1);
-		vertex2up.color = HXCOLOR(255, 255, 255, 255);
+		vertex2up.color = HXCOLOR(0, 255, 0, 255);
 		vertex2up.u = 1;
 		vertex2up.v = 0;
 		vertex2up.normal = HXVector3D(0, 1, 0);
@@ -215,7 +230,7 @@ namespace HX3D
 
 		HXVertex vertex3up;
 		vertex3up.pos = HXVector3D(-1, 1, -1);
-		vertex3up.color = HXCOLOR(255, 255, 255, 255);
+		vertex3up.color = HXCOLOR(0, 0, 255, 255);
 		vertex3up.u = 0;
 		vertex3up.v = 0;
 		vertex3up.normal = HXVector3D(0, 1, 0);
@@ -232,7 +247,7 @@ namespace HX3D
 
 		HXVertex vertex6bottom;
 		vertex6bottom.pos = HXVector3D(1, -1, -1);
-		vertex6bottom.color = HXCOLOR(255, 255, 255, 255);
+		vertex6bottom.color = HXCOLOR(255, 0, 0, 255);
 		vertex6bottom.u = 1;
 		vertex6bottom.v = 1;
 		vertex6bottom.normal = HXVector3D(0, -1, 0);
@@ -240,7 +255,7 @@ namespace HX3D
 
 		HXVertex vertex5bottom;
 		vertex5bottom.pos = HXVector3D(1, -1, 1);
-		vertex5bottom.color = HXCOLOR(255, 255, 255, 255);
+		vertex5bottom.color = HXCOLOR(0, 255, 0, 255);
 		vertex5bottom.u = 1;
 		vertex5bottom.v = 0;
 		vertex5bottom.normal = HXVector3D(0, -1, 0);
@@ -251,7 +266,7 @@ namespace HX3D
 
 		HXVertex vertex4bottom;
 		vertex4bottom.pos = HXVector3D(-1, -1, 1);
-		vertex4bottom.color = HXCOLOR(255, 255, 255, 255);
+		vertex4bottom.color = HXCOLOR(0, 0, 255, 255);
 		vertex4bottom.u = 0;
 		vertex4bottom.v = 0;
 		vertex4bottom.normal = HXVector3D(0, -1, 0);
@@ -268,7 +283,7 @@ namespace HX3D
 
 		HXVertex vertex3left;
 		vertex3left.pos = HXVector3D(-1, 1, -1);
-		vertex3left.color = HXCOLOR(255, 255, 255, 255);
+		vertex3left.color = HXCOLOR(0, 0, 255, 255);
 		vertex3left.u = 1;
 		vertex3left.v = 1;
 		vertex3left.normal = HXVector3D(-1, 0, 0);
@@ -287,7 +302,7 @@ namespace HX3D
 
 		HXVertex vertex4left;
 		vertex4left.pos = HXVector3D(-1, -1, 1);
-		vertex4left.color = HXCOLOR(255, 255, 255, 255);
+		vertex4left.color = HXCOLOR(0, 0, 255, 255);
 		vertex4left.u = 0;
 		vertex4left.v = 0;
 		vertex4left.normal = HXVector3D(-1, 0, 0);
@@ -296,7 +311,7 @@ namespace HX3D
 		//-----------------------右--215--256------------------------------------
 		HXVertex vertex2right;
 		vertex2right.pos = HXVector3D(1, 1, -1);
-		vertex2right.color = HXCOLOR(255, 255, 255, 255);
+		vertex2right.color = HXCOLOR(0, 255, 0, 255);
 		vertex2right.u = 0;
 		vertex2right.v = 1;
 		vertex2right.normal = HXVector3D(1, 0, 0);
@@ -304,7 +319,7 @@ namespace HX3D
 
 		HXVertex vertex1right;
 		vertex1right.pos = HXVector3D(1, 1, 1);
-		vertex1right.color = HXCOLOR(255, 255, 255, 255);
+		vertex1right.color = HXCOLOR(255, 0, 0, 255);
 		vertex1right.u = 1;
 		vertex1right.v = 1;
 		vertex1right.normal = HXVector3D(1, 0, 0);
@@ -312,7 +327,7 @@ namespace HX3D
 
 		HXVertex vertex5right;
 		vertex5right.pos = HXVector3D(1, -1, 1);
-		vertex5right.color = HXCOLOR(255, 255, 255, 255);
+		vertex5right.color = HXCOLOR(0, 255, 0, 255);
 		vertex5right.u = 1;
 		vertex5right.v = 0;
 		vertex5right.normal = HXVector3D(1, 0, 0);
@@ -323,7 +338,7 @@ namespace HX3D
 
 		HXVertex vertex6right;
 		vertex6right.pos = HXVector3D(1, -1, -1);
-		vertex6right.color = HXCOLOR(255, 255, 255, 255);
+		vertex6right.color = HXCOLOR(255, 0, 0, 255);
 		vertex6right.u = 0;
 		vertex6right.v = 0;
 		vertex6right.normal = HXVector3D(1, 0, 0);
@@ -332,7 +347,7 @@ namespace HX3D
 		//--------------------------前--326--367----------------------------
 		HXVertex vertex3front;
 		vertex3front.pos = HXVector3D(-1, 1, -1);
-		vertex3front.color = HXCOLOR(255, 255, 255, 255);
+		vertex3front.color = HXCOLOR(0, 0, 255, 255);
 		vertex3front.u = 0;
 		vertex3front.v = 1;
 		vertex3front.normal = HXVector3D(0, 0, -1);
@@ -340,7 +355,7 @@ namespace HX3D
 
 		HXVertex vertex2front;
 		vertex2front.pos = HXVector3D(1, 1, -1);
-		vertex2front.color = HXCOLOR(255, 255, 255, 255);
+		vertex2front.color = HXCOLOR(0, 255, 0, 255);
 		vertex2front.u = 1;
 		vertex2front.v = 1;
 		vertex2front.normal = HXVector3D(0, 0, -1);
@@ -348,7 +363,7 @@ namespace HX3D
 
 		HXVertex vertex6front;
 		vertex6front.pos = HXVector3D(1, -1, -1);
-		vertex6front.color = HXCOLOR(255, 255, 255, 255);
+		vertex6front.color = HXCOLOR(255, 0, 0, 255);
 		vertex6front.u = 1;
 		vertex6front.v = 0;
 		vertex6front.normal = HXVector3D(0, 0, -1);
@@ -368,7 +383,7 @@ namespace HX3D
 		//----------------------------后--104--145-----------------------------------------
 		HXVertex vertex1back;
 		vertex1back.pos = HXVector3D(1, 1, 1);
-		vertex1back.color = HXCOLOR(255, 255, 255, 255);
+		vertex1back.color = HXCOLOR(255, 0, 0, 255);
 		vertex1back.u = 0;
 		vertex1back.v = 1;
 		vertex1back.normal = HXVector3D(0, 0, 1);
@@ -384,7 +399,7 @@ namespace HX3D
 
 		HXVertex vertex4back;
 		vertex4back.pos = HXVector3D(-1, -1, 1);
-		vertex4back.color = HXCOLOR(255, 255, 255, 255);
+		vertex4back.color = HXCOLOR(0, 0, 255, 255);
 		vertex4back.u = 1;
 		vertex4back.v = 0;
 		vertex4back.normal = HXVector3D(0, 0, 1);
@@ -395,7 +410,7 @@ namespace HX3D
 
 		HXVertex vertex5back;
 		vertex5back.pos = HXVector3D(1, -1, 1);
-		vertex5back.color = HXCOLOR(255, 255, 255, 255);
+		vertex5back.color = HXCOLOR(0, 255, 0, 255);
 		vertex5back.u = 0;
 		vertex5back.v = 0;
 		vertex5back.normal = HXVector3D(0, 0, 1);
@@ -507,6 +522,7 @@ namespace HX3D
 		subMesh->useIndex = false;
 
 		subMesh->vertexList.reserve(3);
+		subMesh->triangleCount = 1;
 
 		HXVertex vertex0;
 		vertex0.pos = HXVector3D(0, 1, 0);
@@ -553,7 +569,8 @@ namespace HX3D
 		subMesh->useIndex = false;
 
 		// 顶点
-		subMesh->vertexList.reserve(4);
+		subMesh->vertexList.reserve(6);
+		subMesh->triangleCount = 2;
 
 		HXVertex vertex0;
 		vertex0.pos = HXVector3D(-1, 1, 0);
@@ -611,6 +628,14 @@ namespace HX3D
 		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
 		{
 			(*itr)->Insert_To_RenderList(pos, eulerDegree, scale, pRenderList);
+		}
+	}
+
+	void HXMesh::SetMeshNotStatic()
+	{
+		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
+		{
+			(*itr)->IsStaticMesh = false;
 		}
 	}
 }

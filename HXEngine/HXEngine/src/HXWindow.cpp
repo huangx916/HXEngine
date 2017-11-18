@@ -8,6 +8,7 @@
 #include<ctime>
 #include "HXStatus.h"
 
+#include "HXGLTest.h"
 //using namespace std;
 
 //int main(int argc, char* argv[])
@@ -278,5 +279,11 @@ namespace HX3D
 		{
 			(*itr)->OnKeyUp(msg);
 		}
+	}
+
+	void HXWindow::TestCreateGLWindow(int argc, char* argv[])
+	{
+		HXGLTest test;
+		test.CreateGLWindow(argc, argv);
 	}
 }

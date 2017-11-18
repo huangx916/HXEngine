@@ -4,9 +4,9 @@
 
 namespace HX3D
 {
-	class HXRenderList;
+	struct HXRenderList;
 	class HXISkeleton;
-	class HXAnimationInstance;
+	struct HXAnimationInstance;
 
 	struct HXVertex
 	{
@@ -79,23 +79,29 @@ namespace HX3D
 		float width;	// É¨ÃèÏß¿í¶È
 	};
 
+	class HXRenderable;
+	class HXRenderSystem;
 	class HXSubMesh
 	{
 	public:
 		HXSubMesh();
 		~HXSubMesh();
 
-		HXSubMesh* Clone();
+		HXSubMesh* Clone(HXRenderSystem* pRenderSystem);
 
 		void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
 
 		bool useIndex;
+		bool IsStaticMesh;
+
 		std::vector<HXVertex>	vertexList;
 		std::vector<int>	indexList;
 
 		std::string materialName;
 
 		int triangleCount;
+
+		HXRenderable* renderable;
 
 	private:
 		void Insert_To_RenderList_Without_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
@@ -111,7 +117,7 @@ namespace HX3D
 		void PlayAnimation(std::string strAnimName, int nSpeed = 1);
 		void UpdateAnimation();
 
-		HXMesh* Clone();
+		HXMesh* Clone(HXRenderSystem* pRenderSystem);
 
 		// For Test
 		void CreateCubeForTest();
@@ -119,6 +125,8 @@ namespace HX3D
 		void CreateQuadForTest();
 
 		void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
+
+		void SetMeshNotStatic();
 
 		std::vector<HXSubMesh*> subMeshList;
 

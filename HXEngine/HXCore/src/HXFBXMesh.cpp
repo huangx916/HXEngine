@@ -30,8 +30,16 @@ namespace HX3D
 		int nVertexCounter = 0;
 
 
-		FbxLayerElementArrayTemplate<int>* lMaterialIndice = &pFbxMesh->GetElementMaterial()->GetIndexArray();
-		FbxGeometryElement::EMappingMode lMaterialMappingMode = pFbxMesh->GetElementMaterial()->GetMappingMode();
+
+
+		FbxLayerElementArrayTemplate<int>* lMaterialIndice = NULL;
+		FbxGeometryElement::EMappingMode lMaterialMappingMode = FbxGeometryElement::eNone;
+		if (pFbxMesh->GetElementMaterial() != NULL)
+		{
+			lMaterialIndice = &pFbxMesh->GetElementMaterial()->GetIndexArray();
+			lMaterialMappingMode = pFbxMesh->GetElementMaterial()->GetMappingMode();
+		}
+		
 		if (lMaterialIndice && lMaterialMappingMode == FbxGeometryElement::eByPolygon)
 		{
 			// 多个子网格
@@ -90,14 +98,17 @@ namespace HX3D
 		}
 		else
 		{
-			// 只有一个子网格
+			// 只有一个子网格或者无材质信息
 			subMeshList.resize(1);
 			subMeshList[0] = new HXSubMesh();
 			subMeshList[0]->triangleCount = nTriangleCount;
 			// 关联材质
 			FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(0);
-			std::string strMaterialName = HXFBXLoader::gCurPathFileName + "|" + lMaterial->GetName();
-			subMeshList[0]->materialName = strMaterialName;
+			if (lMaterial)
+			{
+				subMeshList[0]->materialName = HXFBXLoader::gCurPathFileName + "|" + lMaterial->GetName();
+			}
+			
 			for (int i = 0; i < nTriangleCount; i++)
 			{
 				for (int j = 0; j < 3; j++)

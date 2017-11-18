@@ -1,5 +1,5 @@
 #pragma once
-#include "HXCommon.h";
+#include "HXCommon.h"
 #include "HXMatrix.h"
 #include "HXVector.h"
 

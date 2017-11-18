@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--TYPE 1:Float 2:Float2 3:Float3 4:Float4 5:Texture-->
+<Material>  
+    <Shader File="DogDiffuse">
+		<Property Type="5" Name="MainTexture" Value1="DogTex.DDS" Value2="" Value3="" Value4=""/>
+		<Property Type="4" Name="DiffColor" Value1="1" Value2="0" Value3="0" Value4="1"/>
+	</Shader>
+</Material>

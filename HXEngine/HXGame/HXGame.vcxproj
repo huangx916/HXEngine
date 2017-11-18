@@ -76,6 +76,10 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\HXCore\include;..\HXEngine\include;include</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\HXCore\opengl\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew_static_vs2010_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

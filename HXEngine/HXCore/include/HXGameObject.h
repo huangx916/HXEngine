@@ -6,7 +6,7 @@
 namespace HX3D
 {
 	class HXMesh;
-	class HXRenderList;
+	struct HXRenderList;
 
 	class HXGameObject
 	{

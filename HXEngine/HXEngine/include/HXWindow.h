@@ -31,6 +31,8 @@ class HXInputListener;
 		void SetPaintListener(HXPaintListener* pHXPaintListener);
 		void AddInputListener(HXInputListener* pHXInputListener);
 		void RemoveInputListener(HXInputListener* pHXInputListener);
+
+		void TestCreateGLWindow(int argc, char* argv[]);
 	private:
 		// 2、窗口过程函数(必须要是全局函数)
 		static LRESULT CALLBACK MyWindowProc(

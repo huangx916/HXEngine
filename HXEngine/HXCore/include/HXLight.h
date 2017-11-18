@@ -10,7 +10,7 @@ namespace HX3D
 		LIGHT_DIRECTION	= 1,	// Æ½ÐÐ¹â
 	};
 
-	class HXVertex;
+	struct HXVertex;
 
 	class HXLight
 	{

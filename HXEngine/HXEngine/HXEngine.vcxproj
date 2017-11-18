@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="include\HXCamera.h" />
     <ClInclude Include="include\HXPaintListener.h" />
+    <ClInclude Include="include\HXRoot.h" />
     <ClInclude Include="include\HXSceneManager.h" />
     <ClInclude Include="include\HXStatus.h" />
     <ClInclude Include="include\HXWindow.h" />
@@ -124,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HXCamera.cpp" />
+    <ClCompile Include="src\HXRoot.cpp" />
     <ClCompile Include="src\HXSceneManager.cpp" />
     <ClCompile Include="src\HXStatus.cpp" />
     <ClCompile Include="src\HXWindow.cpp" />

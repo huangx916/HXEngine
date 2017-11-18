@@ -4,6 +4,7 @@
 #include "HXCamera.h"
 #include "HXGameObject.h"
 #include "HXMesh.h"
+#include "HXICamera.h"
 
 HXGame::HXGame()
 {
@@ -26,8 +27,10 @@ HXGame::~HXGame()
 //#include "HXGameObject.h"
 #include "HXBitmap.h"
 #include "hxtest.h"
+//#include "HXGLTest.h"
 
 HXBitmap* Gpbitmap = NULL;
+//HXGLTest* pGLTest = NULL;
 void Test()
 {
 	//// for test begin
@@ -76,6 +79,9 @@ void Test()
 	/*hxtest hx;
 	hx.LoadFile("DogAnim.xml");*/
 
+	/*pGLTest = new HXGLTest();
+	pGLTest->Init();*/
+
 	//// for test end
 }
 
@@ -114,22 +120,28 @@ void HXGame::CreateGameScene()
 	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog.FBX");
 	pGameObject->GetMesh()->PlayAnimation("walk");
 	pGameObject->Pitch(270.0f);
-	pGameObject->Yaw(90.0f);
-	pGameObject->SetPostion(HXVector3D(-4, -4, 0));
-
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+	pGameObject->Roll(90.0f);
+	//pGameObject->SetPostion(HXVector3D(-4, -4, -10));
 	pGameObject->SetPostion(HXVector3D(0, 0, -5));
+
+	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubecolor.FBX");
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
+	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
+	pGameObject->SetPostion(HXVector3D(3, 0, -5));
+	pGameObject->Yaw(45.0f);
 	//pGameObject->SetScale(HXVector3D(8,8,8));
 
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog1", "FBX\\Dog\\Dog.FBX");
+	/*pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog1", "FBX\\Dog\\Dog.FBX");
 	pGameObject->GetMesh()->PlayAnimation("run", 2);
 	pGameObject->Pitch(270.0f);
 	pGameObject->Yaw(90.0f);
-	pGameObject->SetPostion(HXVector3D(2, 2, 0));
+	pGameObject->SetPostion(HXVector3D(2, 2, -10));*/
 	// dog end===========================================
 
-	HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
-	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));
+	/*HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
+	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));*/
+	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0,0,0), HXVector3D(0,0,-1));
 
 	/*HXLight* pLight = HXSceneManager::GetInstance()->CreateLight(LIGHT_AMBIENT);
 	pLight->color = HXCOLOR(255,255,255);*/
@@ -175,6 +187,11 @@ void HXGame::OnPaint()
 		}		
 	}*/
 
+	/*if (pGLTest != NULL)
+	{
+		pGLTest->Display();
+	}*/
+
 	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
 	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
 	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
@@ -185,8 +202,18 @@ void HXGame::OnPaint()
 		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
 	}
 	
-	HXSceneManager::GetInstance()->Update();
+	////HXSceneManager::GetInstance()->Update();
 
+}
+
+void HXGame::OnDisplay()
+{
+	HXSceneManager::GetInstance()->OnDisplay();
+}
+
+void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)
+{
+	HXSceneManager::GetInstance()->GetMainCamera()->OnViewPortResize(nScreenWidth, nScreenHeight);
 }
 
 void HXGame::OnKeyDown(int msg)

@@ -7,7 +7,7 @@ namespace HX3D
 {
 	class HXMesh;
 	class HXFBXMesh;
-	class HXVertex;
+	struct HXVertex;
 	class HXFBXLoader : public HXIMeshLoader
 	{
 	public:
