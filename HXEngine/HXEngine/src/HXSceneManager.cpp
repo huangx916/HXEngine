@@ -152,11 +152,9 @@ namespace HX3D
 
 	void HXSceneManager::OnDisplay()
 	{
+		HXStatus::GetInstance()->ResetStatus();
+
 		m_pMainCamera->Update();
-
-		HXStatus::GetInstance()->nVertexCount = 0;
-		HXStatus::GetInstance()->nTriangleCount = 0;
-
 		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
 		{
 			// For test
@@ -183,6 +181,8 @@ namespace HX3D
 				}
 			}
 		}
+
+		HXStatus::GetInstance()->ShowStatusInfo();
 	}
 
 	void HXSceneManager::OnViewPortResize(int nScreenWidth, int nScreenHeight)

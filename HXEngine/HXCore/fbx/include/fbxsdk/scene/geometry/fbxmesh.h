@@ -198,7 +198,7 @@ public:
 	* refer to \c FbxLayer and \c FbxLayerElementUV methods to do the job. Except for the GetAllChannelUV(int pLayer),
 	* all the methods are implicitly working on Layer 0. Use the \c FbxLayer methods to have access to the other layers. */
 	//@{
-		/** Init texture UV coordinates.
+		/** InitTriangle texture UV coordinates.
 		* \param pCount Number of texture UV elements.
 		* \param pTypeIdentifier Specifies which texture channel this UV refers to.
 		* \remark \c pCount must equal the number of control points of the Mesh if

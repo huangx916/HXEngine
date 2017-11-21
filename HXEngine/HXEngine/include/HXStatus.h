@@ -18,6 +18,7 @@ namespace HX3D
 		}
 		~HXStatus();
 
+		void ResetStatus();
 		void ShowStatusInfo();
 
 		int nTriangleCount;

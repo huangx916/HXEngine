@@ -603,6 +603,21 @@ typedef Tmat4<int> imat4;
 typedef Tmat4<unsigned int> umat4;
 typedef Tmat4<double> dmat4;
 
+// add by huangxin
+static inline mat4 Ortho(float left, float right, float bottom, float top, float n, float f)
+{
+	mat4 result(mat4::identity());
+
+	result[0][0] = 2 / (right - left);
+	result[1][1] = 2 / (top - bottom);
+	result[2][2] = 2 / -(f - n);
+	result[3][0] = -(right + left) / (right - left);
+	result[3][1] = -(top + bottom) / (top - bottom);
+	result[3][2] = -(f + n) / (f - n);
+
+	return result;
+}
+
 static inline mat4 frustum(float left, float right, float bottom, float top, float n, float f)
 {
     mat4 result(mat4::identity());

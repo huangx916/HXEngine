@@ -24,6 +24,8 @@ namespace HX3D
 			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
 			float left, float right, float bottom, float top) = 0;
 
+		// virtual void DrawString() = 0;
+
 		static HXDisplayListener* m_pDisplayListener;
 		//static int gCurScreenWidth;
 		//static int gCurScreenHeight;

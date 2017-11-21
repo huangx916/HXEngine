@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 
 	/////////////////////////////////////////////////////////////////////////
 	// OpenGL测试
-	// HXWindow::GetInstance()->TestCreateGLWindow(argc, argv);
+	HXWindow::GetInstance()->TestCreateGLWindow(argc, argv);
 	//////////////////////////////////////////////////////////////////////////
 
 
@@ -62,11 +62,11 @@ int main(int argc, char* argv[])
 		RenderSystem_GL,
 		RenderSystem_D3D
 	};*/
-	HXRoot::GetInstance()->Initialize(RenderSystem_GDI);
+	/*HXRoot::GetInstance()->Initialize(RenderSystem_GL);
 	HXRoot::GetInstance()->CreateRenderWindow("HXENGINE", SCREEN_WIDTH, SCREEN_HEIGHT, false);
 	HXGame* pGame = new HXGame;
 	HXRoot::GetInstance()->SetDisplayListener(pGame);
-	HXRoot::GetInstance()->MainLoop();
+	HXRoot::GetInstance()->MainLoop();*/
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	return 0;
 }

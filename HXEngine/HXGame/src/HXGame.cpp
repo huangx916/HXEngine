@@ -80,7 +80,7 @@ void Test()
 	hx.LoadFile("DogAnim.xml");*/
 
 	/*pGLTest = new HXGLTest();
-	pGLTest->Init();*/
+	pGLTest->InitTriangle();*/
 
 	//// for test end
 }

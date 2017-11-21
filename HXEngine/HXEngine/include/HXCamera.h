@@ -10,7 +10,7 @@ namespace HX3D
 		RENDER_WIRE,	// 线框渲染
 		RENDER_SOILD,	// 实体渲染
 	};
-
+	// 废弃的，请使用HXICamera类
 	class HXCamera
 	{
 	public:

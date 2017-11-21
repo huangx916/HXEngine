@@ -14,12 +14,20 @@ namespace HX3D
 		NumBuffers
 	};
 
+	enum Program_IDs
+	{
+		TriangleProgram,
+		NumPrograms
+	};
+
 	enum Attrib_IDs
 	{
 		vPosition = 0,
 		vColor = 1
 	};
 
+	class HXFreeTypeFont;
+	class HXIFreeTypeFont;
 	class HXGLTest
 	{
 	public:
@@ -30,10 +38,20 @@ namespace HX3D
 		void CreateGLWindow(int argc, char* argv[]);
 
 	private:
-		void Init();
+		void InitTriangle();
+		void InitFont();
 		static void Display();
+		static void RenderTriangle();
+		static void RenderFont();
 
 		static unsigned int VAOs[NumVAOs];
-		unsigned int Buffers[NumBuffers];
+		static unsigned int Buffers[NumBuffers];
+		
+		static int _nWidth;
+		static int _nHeight;
+
+		static HXIFreeTypeFont* font;
+	public:
+		static unsigned int Programs[NumPrograms];
 	};
 }

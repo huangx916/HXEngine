@@ -44,7 +44,7 @@ namespace HX3D
 			exit(EXIT_FAILURE);
 		}
 
-		// Init();
+		// InitTriangle();
 		
 	}
 

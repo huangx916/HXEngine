@@ -17,6 +17,12 @@ namespace HX3D
 	{
 	}
 
+	void HXStatus::ResetStatus()
+	{
+		nVertexCount = 0;
+		nTriangleCount = 0;
+	}
+
 	void HXStatus::ShowStatusInfo()
 	{
 		std::string strFPS = "FPS: " + FloatToString(CalcLastFPS());

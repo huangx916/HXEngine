@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\HX3DHeader.h" />
     <ClInclude Include="include\HXBitmap.h" />
+    <ClInclude Include="include\HXGLFreeTypeFont.h" />
     <ClInclude Include="include\HXICamera.h" />
     <ClInclude Include="include\HXCommon.h" />
     <ClInclude Include="include\HXCore.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="include\HXGLRenderSystem.h" />
     <ClInclude Include="include\HXGLTest.h" />
     <ClInclude Include="include\HXGraphics.h" />
+    <ClInclude Include="include\HXIFreeTypeFont.h" />
     <ClInclude Include="include\HXIMeshLoader.h" />
     <ClInclude Include="include\HXISkeleton.h" />
     <ClInclude Include="include\HXLight.h" />
@@ -69,6 +71,7 @@
     <ClCompile Include="src\HXGDIRenderable.cpp" />
     <ClCompile Include="src\HXGDIRenderSystem.cpp" />
     <ClCompile Include="src\HXGLCamera.cpp" />
+    <ClCompile Include="src\HXGLFreeTypeFont.cpp" />
     <ClCompile Include="src\HXGLRenderable.cpp" />
     <ClCompile Include="src\HXGLRenderSystem.cpp" />
     <ClCompile Include="src\HXGLTest.cpp" />
@@ -151,14 +154,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>include;.\fbx\include;.\opengl\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;.\fbx\include;.\opengl\include;.\freetype\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libfbxsdk-md.lib;freetyped.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>.\fbx\lib\vs2015\x86\debug;.\opengl\lib;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\fbx\lib\vs2015\x86\debug;.\opengl\lib;.\freetype\lib;</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
