@@ -1,7 +1,9 @@
 #include "..\include\HXStatus.h"
 #include <Windows.h>
 #include "HXUtil.h"
-#include "HXGraphics.h"
+#include "HXRenderSystem.h"
+#include "HXRoot.h"
+
 namespace HX3D
 {
 	HXStatus* HXStatus::pInstance = NULL;
@@ -25,14 +27,32 @@ namespace HX3D
 
 	void HXStatus::ShowStatusInfo()
 	{
-		std::string strFPS = "FPS: " + FloatToString(CalcLastFPS());
+		/*std::string strFPS = "FPS: " + FloatToString(CalcLastFPS());
 		HXGraphics::GetInstance()->DrawString(strFPS, SCREEN_WIDTH / 2, 0);
 
 		std::string strTriangleCount = "TriangleCount: " + FloatToString(nTriangleCount);
 		HXGraphics::GetInstance()->DrawString(strTriangleCount, SCREEN_WIDTH / 2, 18);
 
 		std::string strVertexCount = "VertexCount: " + FloatToString(nVertexCount);
-		HXGraphics::GetInstance()->DrawString(strVertexCount, SCREEN_WIDTH / 2, 36);
+		HXGraphics::GetInstance()->DrawString(strVertexCount, SCREEN_WIDTH / 2, 36);*/
+
+		HXRenderSystem* rs = HXRoot::GetInstance()->GetRenderSystem();
+		if (NULL == rs)
+		{
+			return;
+		}
+		rs->BeginText();
+
+		std::string strFPS = "FPS: " + FloatToString(CalcLastFPS());
+		rs->_DrawText(SCREEN_WIDTH / 2, 0, strFPS.c_str(), HXCOLOR(255,0,0,255));
+
+		std::string strTriangleCount = "TriangleCount: " + FloatToString(nTriangleCount);
+		rs->_DrawText(SCREEN_WIDTH / 2, 18, strTriangleCount.c_str(), HXCOLOR(255, 0, 0, 255));
+
+		std::string strVertexCount = "VertexCount: " + FloatToString(nVertexCount);
+		rs->_DrawText(SCREEN_WIDTH / 2, 36, strVertexCount.c_str(), HXCOLOR(255, 0, 0, 255));
+
+		rs->EndText();
 	}
 
 	float HXStatus::CalcLastFPS()

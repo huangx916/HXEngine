@@ -23,6 +23,10 @@ namespace HX3D
 			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
 			float left, float right, float bottom, float top);
 
+		//virtual void BeginText();
+		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255,255,255,255));
+		//virtual void EndText();
+
 	private:
 		// 2、窗口过程函数(必须要是全局函数)
 		static LRESULT CALLBACK MyWindowProc(

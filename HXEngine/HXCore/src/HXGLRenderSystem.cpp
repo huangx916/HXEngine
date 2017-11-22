@@ -3,16 +3,22 @@
 #include "HXDisplayListener.h"
 #include "HXGLRenderable.h"
 #include "HXGLCamera.h"
+#include "HXGLFreeTypeFont.h"
 
 namespace HX3D
 {
-	HXGLRenderSystem::HXGLRenderSystem()
+	HXGLRenderSystem::HXGLRenderSystem():mFont(NULL)
 	{
 	}
 
 
 	HXGLRenderSystem::~HXGLRenderSystem()
 	{
+		if (mFont)
+		{
+			delete mFont;
+			mFont = NULL;
+		}
 	}
 
 	void HXGLRenderSystem::CreateRenderWindow(std::string strName, int nWidth, int nHeight, bool bFullScreen)
@@ -45,7 +51,8 @@ namespace HX3D
 		}
 
 		// InitTriangle();
-		
+		mFont = new HXGLFreeTypeFont();
+		mFont->Initialize("default.ttf", 16);
 	}
 
 	void HXGLRenderSystem::MainLoop()
@@ -102,5 +109,30 @@ namespace HX3D
 		HXICamera* pCam = new HXGLCamera();
 		pCam->Initialize(eye, at, up, ffov, nearZ, farZ, viewportWidth, viewportHeigth, left, right, bottom, top);
 		return pCam;
+	}
+
+	void HXGLRenderSystem::BeginText()
+	{
+		if (mFont)
+		{
+			mFont->BeginText();
+		}
+	}
+
+	void HXGLRenderSystem::_DrawText(float x, float y, std::string text, const HXCOLOR& color)
+	{
+		if (mFont)
+		{
+			std::wstring wstr = std::wstring(text.begin(), text.end());
+			mFont->_DrawText(x, y, wstr.c_str(), color);
+		}
+	}
+
+	void HXGLRenderSystem::EndText()
+	{
+		if (mFont)
+		{
+			mFont->EndText();
+		}
 	}
 }

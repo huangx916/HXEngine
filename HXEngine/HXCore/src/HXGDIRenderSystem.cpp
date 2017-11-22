@@ -161,6 +161,21 @@ namespace HX3D
 		return pCam;
 	}
 
+	/*void HXGDIRenderSystem::BeginText()
+	{
+
+	}*/
+
+	void HXGDIRenderSystem::_DrawText(float x, float y, std::string text, const HXCOLOR& color)
+	{
+		HXGraphics::GetInstance()->DrawString(text, x, y, color);
+	}
+
+	/*void HXGDIRenderSystem::EndText()
+	{
+
+	}*/
+
 	// 3¡¢×¢²á´°¿ÚÀàÐÍ
 	BOOL HXGDIRenderSystem::RegisterMyWindow(LPCSTR lpcWndName, HINSTANCE hInstance)
 	{
