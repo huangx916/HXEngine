@@ -3,6 +3,6 @@
 <Material>  
     <Shader File="FBX/Dog/DogDiffuse">
 		<Property Type="0" Name="MainTexture" Value="FBX/Dog/DogTex" Value1="" Value2="" Value3="" Value4=""/>
-		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="0.5" Value3="0.3" Value4="1"/>
+		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="1" Value3="1" Value4="1"/>
 	</Shader>
 </Material>
