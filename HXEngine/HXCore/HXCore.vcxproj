@@ -21,7 +21,9 @@
   <ItemGroup>
     <ClInclude Include="include\HX3DHeader.h" />
     <ClInclude Include="include\HXBitmap.h" />
+    <ClInclude Include="include\HXGDITextureBMP.h" />
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
+    <ClInclude Include="include\HXGLTextureDDS.h" />
     <ClInclude Include="include\HXICamera.h" />
     <ClInclude Include="include\HXCommon.h" />
     <ClInclude Include="include\HXCore.h" />
@@ -39,10 +41,13 @@
     <ClInclude Include="include\HXIFreeTypeFont.h" />
     <ClInclude Include="include\HXIMeshLoader.h" />
     <ClInclude Include="include\HXISkeleton.h" />
+    <ClInclude Include="include\HXITexture.h" />
     <ClInclude Include="include\HXLight.h" />
     <ClInclude Include="include\HXLoadConfigAnim.h" />
-    <ClInclude Include="include\HXMaterial.h" />
-    <ClInclude Include="include\HXFBXMaterial.h" />
+    <ClInclude Include="include\HXLoadConfigMat.h" />
+    <ClInclude Include="include\HXLoadConfigPrefab.h" />
+    <ClInclude Include="include\DiscardHXMaterial.h" />
+    <ClInclude Include="include\DiscardHXFBXMaterial.h" />
     <ClInclude Include="include\HXMath.h" />
     <ClInclude Include="include\HXMatrix.h" />
     <ClInclude Include="include\HXMesh.h" />
@@ -63,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="opengl\lib\LoadShaders.cpp" />
+    <ClCompile Include="opengl\lib\loadtexture.cpp" />
+    <ClCompile Include="opengl\lib\vdds.cpp" />
     <ClCompile Include="src\HXBitmap.cpp" />
     <ClCompile Include="src\HXCore.cpp" />
     <ClCompile Include="src\HXFrustum.cpp" />
@@ -70,16 +77,20 @@
     <ClCompile Include="src\HXGDICamera.cpp" />
     <ClCompile Include="src\HXGDIRenderable.cpp" />
     <ClCompile Include="src\HXGDIRenderSystem.cpp" />
+    <ClCompile Include="src\HXGDITextureBMP.cpp" />
     <ClCompile Include="src\HXGLCamera.cpp" />
     <ClCompile Include="src\HXGLFreeTypeFont.cpp" />
     <ClCompile Include="src\HXGLRenderable.cpp" />
     <ClCompile Include="src\HXGLRenderSystem.cpp" />
     <ClCompile Include="src\HXGLTest.cpp" />
+    <ClCompile Include="src\HXGLTextureDDS.cpp" />
     <ClCompile Include="src\HXGraphics.cpp" />
     <ClCompile Include="src\HXLight.cpp" />
     <ClCompile Include="src\HXLoadConfigAnim.cpp" />
-    <ClCompile Include="src\HXMaterial.cpp" />
-    <ClCompile Include="src\HXFBXMaterial.cpp" />
+    <ClCompile Include="src\HXLoadConfigMat.cpp" />
+    <ClCompile Include="src\HXLoadConfigPrefab.cpp" />
+    <ClCompile Include="src\DiscardHXMaterial.cpp" />
+    <ClCompile Include="src\DiscardHXFBXMaterial.cpp" />
     <ClCompile Include="src\HXMath.cpp" />
     <ClCompile Include="src\HXMatrix.cpp" />
     <ClCompile Include="src\HXMesh.cpp" />

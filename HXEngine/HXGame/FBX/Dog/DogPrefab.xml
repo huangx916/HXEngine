@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prefab>
-	<Mesh File="Dog.FBX"/>
-	<Anim File="Dog.anim"/>
-	<Material File="SubMeshDog1.mat"/>
-	<Material File="SubMeshDog2.mat"/>
+	<Mesh File="FBX/Dog/Dog.FBX"/>
+	<Anim File="FBX/Dog/DogAnim.xml"/>
+	<Material File="FBX/Dog/DogMaterial.xml"/>
 </Prefab>

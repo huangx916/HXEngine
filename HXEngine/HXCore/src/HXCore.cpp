@@ -4,8 +4,10 @@
 #include "HXFrustum.h"
 #include "HXGraphics.h"
 #include "HXRenderState.h"
-#include "HXMaterial.h"
+//#include "HXMaterial.h"
 #include "HXLight.h"
+#include "HXGDITextureBMP.h"
+#include "HXLoadConfigMat.h"
 
 namespace HX3D
 {
@@ -64,6 +66,8 @@ namespace HX3D
 			for (int i = 0; i < 3; i++)
 			{
 				(*itr).vertexList[i].pos = GetVector3DMulMatrix44((*itr).vertexList[i].pos, pFrustum->matWorldToCamera);
+				// important 为和OPENGL保持方向一致 X轴需要反向
+				(*itr).vertexList[i].pos.x = -(*itr).vertexList[i].pos.x;
 			}
 		}
 	}
@@ -136,18 +140,23 @@ namespace HX3D
 		HXScanline scanline = Generate_Scanline(vl, vr);
 		int length = scanline.width + 0.5f;
 
-		HXMaterial* pMat = HXRenderState::GetMaterial();
-		if (pMat && pMat->UsedTexture())
+		if (HXRenderState::m_pTex->mBitmap)
 		{
 			for (int i = 0; i <= length; i++)
 			{
-				HXCOLOR color = pMat->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
+				//HXCOLOR color = pMat->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
+				HXCOLOR color = HXRenderState::m_pTex->mBitmap->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
+
 				HXGraphics::GetInstance()->SetBufferPixel(scanline.x + i, scanline.y, scanline.v.pos.z, color*scanline.v.color);
 				scanline.v += scanline.step;
 			}
 		}
-		else
+		else 
 		{
+			if (HXRenderState::m_pMatInfo->strShaderFile == "builtin/Error")
+			{
+				scanline.v.color = HXCOLOR(255, 0, 255, 255);
+			}
 			for (int i = 0; i <= length; i++)
 			{
 				HXGraphics::GetInstance()->SetBufferPixel(scanline.x + i, scanline.y, scanline.v.pos.z, scanline.v.color);

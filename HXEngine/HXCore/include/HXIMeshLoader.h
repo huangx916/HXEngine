@@ -10,7 +10,7 @@ namespace HX3D
 		HXIMeshLoader() {};
 		virtual ~HXIMeshLoader() {};
 		
-		virtual bool LoadMeshFromFile(std::string strFileName, HXMesh** ppMesh) = 0;
+		virtual bool LoadMeshFromFile(std::string strFileName, std::string strAnimName, HXMesh** ppMesh) = 0;
 	};
 }
 

@@ -2,6 +2,9 @@
 #include "HXRenderState.h"
 #include "HXCore.h"
 #include "HXGDICamera.h"
+#include "HXResourceManager.h"
+#include "HXLoadConfigMat.h"
+#include "HXGDITextureBMP.h"
 
 namespace HX3D
 {
@@ -17,9 +20,7 @@ namespace HX3D
 
 	void HXGDIRenderable::SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale)
 	{
-		mPos = pos;
-		// important 为和OPENGL保持方向一致 X轴需要反向
-		mPos.x = -mPos.x;
+		mPos = pos;		
 		mEulerDegree = eulerDegree;
 		mScale = scale;
 	}
@@ -47,7 +48,8 @@ namespace HX3D
 		}
 
 		HXRenderState::Reset();
-		HXRenderState::SetMaterial(m_pSubMesh->materialName);
+		//HXRenderState::SetMaterial(m_pSubMesh->materialName);
+		HXRenderState::SetMatInfoAndTexture(m_pSubMesh->materialName);
 
 		m_pSubMesh->Insert_To_RenderList(mPos, mEulerDegree, mScale, mRenderList);
 		Culling_Backface_RenderList(mRenderList, mFrustum);

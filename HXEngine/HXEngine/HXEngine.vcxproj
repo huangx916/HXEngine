@@ -115,20 +115,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\HXCamera.h" />
-    <ClInclude Include="include\HXPaintListener.h" />
+    <ClInclude Include="include\DiscardHXCamera.h" />
+    <ClInclude Include="include\DiscardHXPaintListener.h" />
     <ClInclude Include="include\HXRoot.h" />
     <ClInclude Include="include\HXSceneManager.h" />
     <ClInclude Include="include\HXStatus.h" />
-    <ClInclude Include="include\HXWindow.h" />
-    <ClInclude Include="include\HXInputListener.h" />
+    <ClInclude Include="include\DiscardHXWindow.h" />
+    <ClInclude Include="include\DiscardHXInputListener.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\HXCamera.cpp" />
+    <ClCompile Include="src\DiscardHXCamera.cpp" />
     <ClCompile Include="src\HXRoot.cpp" />
     <ClCompile Include="src\HXSceneManager.cpp" />
     <ClCompile Include="src\HXStatus.cpp" />
-    <ClCompile Include="src\HXWindow.cpp" />
+    <ClCompile Include="src\DiscardHXWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HXCore\HXCore.vcxproj">

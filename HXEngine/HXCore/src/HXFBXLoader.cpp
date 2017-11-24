@@ -1,6 +1,6 @@
 #include "..\include\HXFBXLoader.h"
 #include "HXMesh.h"
-#include "HXFBXMaterial.h"
+//#include "HXFBXMaterial.h"
 #include "HXFBXMesh.h"
 #include "HXResourceManager.h"
 #include <Windows.h>
@@ -57,11 +57,11 @@ namespace HX3D
 		{
 			return false;
 		}
-		pSceneImporter->Destroy();
 
 		// Convert Axis System to what is used in this example, if needed
+		// TODO: 貌似不起作用 ?
 		FbxAxisSystem SceneAxisSystem = m_pScene->GetGlobalSettings().GetAxisSystem();
-		FbxAxisSystem OurAxisSystem(FbxAxisSystem::eYAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eLeftHanded);
+		FbxAxisSystem OurAxisSystem(FbxAxisSystem::eYAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eRightHanded);
 		if (SceneAxisSystem != OurAxisSystem)
 		{
 			OurAxisSystem.ConvertScene(m_pScene);
@@ -81,6 +81,8 @@ namespace HX3D
 		// Convert mesh, NURBS and patch into triangle mesh
 		FbxGeometryConverter lGeomConverter(m_pFbxManager);
 		lGeomConverter.Triangulate(m_pScene, /*replace*/true);
+
+		pSceneImporter->Destroy();
 
 		return true;
 	}
@@ -111,7 +113,7 @@ namespace HX3D
 		}
 
 		ProcessPolygons(pFbxMesh, pMesh);
-		ProcessMaterial(pFbxMesh);
+		//ProcessMaterial(pFbxMesh);
 	}
 
 	void HXFBXLoader::ProcessPolygons(FbxMesh* pFbxMesh, HXFBXMesh* pMesh)
@@ -119,7 +121,7 @@ namespace HX3D
 		pMesh->Initialize(pFbxMesh);
 	}
 
-	void HXFBXLoader::ProcessMaterial(FbxMesh* pFbxMesh)
+	/*void HXFBXLoader::ProcessMaterial(FbxMesh* pFbxMesh)
 	{
 		FbxNode * pNode = pFbxMesh->GetNode();
 		if (NULL == pNode)
@@ -142,9 +144,9 @@ namespace HX3D
 				}
 			}
 		}
-	}
+	}*/
 
-	bool HXFBXLoader::LoadMeshFromFile(std::string strFileName, HXMesh** ppMesh)
+	bool HXFBXLoader::LoadMeshFromFile(std::string strFileName, std::string strAnimName, HXMesh** ppMesh)
 	{
 		//char* pCurDir = new char[256];
 		//::GetCurrentDirectory(256, pCurDir);
@@ -194,7 +196,7 @@ namespace HX3D
 				(*ppMesh)->skeleton = pSkeleton;
 				(*ppMesh)->SetMeshNotStatic();
 				// 加载骨骼动画
-				std::string strAnimConfigFile;
+				/*std::string strAnimConfigFile;
 				int index = strFileName.find_last_of("\\");
 				std::string strPath;
 				if (index != -1)
@@ -208,14 +210,14 @@ namespace HX3D
 				{
 					strPath = "";
 					strAnimConfigFile = strFileName.substr(0, strFileName.length() - 4) + "Anim.xml";
-				}
+				}*/
 				HXLoadConfigAnim animConfig;
-				if (animConfig.LoadFile(strAnimConfigFile))
+				if (animConfig.LoadFile(strAnimName))
 				{
 					for (std::vector<HXAnimInfo>::iterator itr = animConfig.vctAnimsInfo.begin(); itr != animConfig.vctAnimsInfo.end(); itr++)
 					{
 						// 读取模型文本文档
-						std::string strAnimFileName = strPath + itr->strFileName + ".FBX";
+						std::string strAnimFileName = /*strPath + */itr->strFileName/* + ".FBX"*/;
 						if (LoadScene(strAnimFileName) == false)
 						{
 							return false;

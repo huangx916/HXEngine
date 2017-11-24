@@ -4,6 +4,9 @@
 #include "LoadShaders.h"
 // #include "vmath.h"
 #include "HXGLCamera.h"
+#include "HXResourceManager.h"
+#include "HXLoadConfigMat.h"
+#include "HXGLTextureDDS.h"
 
 namespace HX3D
 {
@@ -80,7 +83,7 @@ namespace HX3D
 			colors[nIndex * 4 + 2] = itr->color.b / 255.0f;
 			colors[nIndex * 4 + 3] = itr->color.a / 255.0f;
 			uvs[nIndex * 2 + 0] = itr->u;
-			uvs[nIndex * 2 + 1] = itr->v;
+			uvs[nIndex * 2 + 1] = 1.0f - itr->v;
 			++nIndex;
 		}
 		
@@ -96,14 +99,71 @@ namespace HX3D
 		delete[] colors;
 		delete[] uvs;
 
+		HXMaterialInfo* pMatInfo = HXResourceManager::GetInstance()->GetMaterialInfo(pSubMesh->materialName);
+		std::string strVertShaderFile = pMatInfo->strShaderFile + ".vert";
+		std::string strFragShaderFile = pMatInfo->strShaderFile + ".frag";
+
 		ShaderInfo shaders[] = {
-			{ GL_VERTEX_SHADER, "shader\\cube.vert" },
-			{ GL_FRAGMENT_SHADER, "shader\\cube.frag" },
+			{ GL_VERTEX_SHADER, strVertShaderFile.c_str() },
+			{ GL_FRAGMENT_SHADER, strFragShaderFile.c_str() },
 			{ GL_NONE, NULL }
 		};
 
 		program = LoadShaders(shaders);
 		glUseProgram(program);
+
+		int nTexIndex = 0;
+		for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
+		{
+			switch (itr->type)
+			{
+			case MPT_TEXTURE:
+			{
+				HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				if(NULL == tex)
+				{
+					tex = new HXGLTextureDDS();
+					tex->texId = vglLoadTexture((itr->value + ".dds").c_str(), 0, &(tex->mImageData));
+					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+				}
+
+				GLint tex_uniform_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+				glBindTexture(tex->mImageData.target, tex->texId);
+				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+				vglUnloadImage(&tex->mImageData);
+				++nTexIndex;
+			}
+			break;
+			case MPT_FLOAT:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform1f(property_loc, itr->value1);
+			}
+			break;
+			case MPT_FLOAT2:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform2f(property_loc, itr->value1, itr->value2);
+			}
+			break;
+			case MPT_FLOAT3:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform3f(property_loc, itr->value1, itr->value2, itr->value3);
+			}
+			break;
+			case MPT_FLOAT4:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+			}
+			break;
+			default:
+				break;
+			}
+		}
 
 		render_model_matrix_loc = glGetUniformLocation(program, "model_matrix");
 		render_view_matrix_loc = glGetUniformLocation(program, "view_matrix");
@@ -126,8 +186,12 @@ namespace HX3D
 		//glEnable(GL_CULL_FACE);
 		//glFrontFace(GL_CCW);
 		//glFrontFace(GL_CW);
+
+		// TODO:提取到material配置文件中
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
 		glBindVertexArray(mVAO);
@@ -167,31 +231,87 @@ namespace HX3D
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////
-		// for test  MVP后是投影平面上的坐标，之后(光栅化时?)渲染管线会自动映射到屏幕坐标
-		vmath::vec4 vec(0.5f, 0.5f, 0.5f, 1.0f);
-		vmath::mat4 matT = vmath::translate(100.0f, 0.0f, 0.0f);
-		// 为什么应用程序不能右乘，着色器里是右乘 ?  
-		// 因为vec * mMatrixModel 中的 static inline vecN<T,N> operator*(const vecN<T,M>& vec, const matNM<T,N,M>& mat)
-		// 行主序向量和列主序矩阵 主序不统一     不能用此乘法    
-		// vec = (mMatrixProjection * (mMatrixView * (mMatrixModel * vec)));
-		vmath::vec4 vec0 = vec * mMatrixModel;
-		vmath::vec4 vec1 = vec * mMatrixModel*mMatrixView;
-		vmath::vec4 vec2 = vec * mMatrixModel*mMatrixView*mMatrixProjection;
-		vmath::vec4 vec3 = vec * matT;
-		// 列主序向量: a11 a21 a31 a41  Mat[column][row]		// http://www.xuebuyuan.com/247515.html
-		// 不是列向量: 
-		// a11
-		// a12
-		// a13
-		// a14
-		// 此矩阵向量乘法是正确的  
-		vmath::vec4 vec4 = mMatrixModel * vec;		
-		vmath::vec4 vec5 = mMatrixView * mMatrixModel * vec;
-		vmath::vec4 vec6 = mMatrixProjection * mMatrixView * mMatrixModel * vec;
-		vmath::vec4 vec7 = matT * vec;
-		// 矩阵间乘法正确
-		mMatrixModel*mMatrixView;
+		//// for test  MVP后是投影平面上的坐标，之后(光栅化时?)渲染管线会自动映射到屏幕坐标
+		//vmath::vec4 vec(0.5f, 0.5f, 0.5f, 1.0f);
+		//vmath::mat4 matT = vmath::translate(100.0f, 0.0f, 0.0f);
+		//// 为什么应用程序不能右乘，着色器里是右乘 ?  
+		//// 因为vec * mMatrixModel 中的 static inline vecN<T,N> operator*(const vecN<T,M>& vec, const matNM<T,N,M>& mat)
+		//// 行主序向量和列主序矩阵 主序不统一     不能用此乘法    
+		//// vec = (mMatrixProjection * (mMatrixView * (mMatrixModel * vec)));
+		//vmath::vec4 vec0 = vec * mMatrixModel;
+		//vmath::vec4 vec1 = vec * mMatrixModel*mMatrixView;
+		//vmath::vec4 vec2 = vec * mMatrixModel*mMatrixView*mMatrixProjection;
+		//vmath::vec4 vec3 = vec * matT;
+		//// 列主序向量: a11 a21 a31 a41  Mat[column][row]		// http://www.xuebuyuan.com/247515.html
+		//// 不是列向量: 
+		//// a11
+		//// a12
+		//// a13
+		//// a14
+		//// 此矩阵向量乘法是正确的  
+		//vmath::vec4 vec4 = mMatrixModel * vec;		
+		//vmath::vec4 vec5 = mMatrixView * mMatrixModel * vec;
+		//vmath::vec4 vec6 = mMatrixProjection * mMatrixView * mMatrixModel * vec;
+		//vmath::vec4 vec7 = matT * vec;
+		//// 矩阵间乘法正确
+		//mMatrixModel*mMatrixView;
 		////////////////////////////////////////////////////////////////////////////////
+
+
+		// 每次渲染，状态都要重新赋值
+		HXMaterialInfo* pMatInfo = HXResourceManager::GetInstance()->GetMaterialInfo(m_pSubMesh->materialName);
+		int nTexIndex = 0;
+		for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
+		{
+			switch (itr->type)
+			{
+			case MPT_TEXTURE:
+			{
+				HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				/*if (NULL == tex)
+				{
+					tex = new HXGLTextureDDS();
+					tex->texId = vglLoadTexture((itr->value + ".dds").c_str(), 0, &(tex->mImageData));
+					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+				}*/
+
+				GLint tex_uniform_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+				glBindTexture(tex->mImageData.target, tex->texId);
+				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+				//vglUnloadImage(&tex->mImageData);
+				++nTexIndex;
+			}
+			break;
+			case MPT_FLOAT:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform1f(property_loc, itr->value1);
+			}
+			break;
+			case MPT_FLOAT2:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform2f(property_loc, itr->value1, itr->value2);
+			}
+			break;
+			case MPT_FLOAT3:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform3f(property_loc, itr->value1, itr->value2, itr->value3);
+			}
+			break;
+			case MPT_FLOAT4:
+			{
+				GLint property_loc = glGetUniformLocation(program, (itr->name).c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+			}
+			break;
+			default:
+				break;
+			}
+		}
 
 		glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, mMatrixModel);
 		glUniformMatrix4fv(render_view_matrix_loc, 1, GL_FALSE, mMatrixView);

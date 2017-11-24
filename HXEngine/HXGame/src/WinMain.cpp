@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include "HXWindow.h"
+#include "DiscardHXWindow.h"
 #include "HXGame.h"
 #include "HXRoot.h"
 

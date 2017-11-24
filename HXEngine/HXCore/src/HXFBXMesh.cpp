@@ -29,9 +29,6 @@ namespace HX3D
 		int nTriangleCount = pFbxMesh->GetPolygonCount();
 		int nVertexCounter = 0;
 
-
-
-
 		FbxLayerElementArrayTemplate<int>* lMaterialIndice = NULL;
 		FbxGeometryElement::EMappingMode lMaterialMappingMode = FbxGeometryElement::eNone;
 		if (pFbxMesh->GetElementMaterial() != NULL)
@@ -59,9 +56,9 @@ namespace HX3D
 						subMeshList[lMaterialIndex]->triangleCount += 1;
 					}
 					// 关联材质
-					FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(lMaterialIndex);
+					/*FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(lMaterialIndex);
 					std::string strMaterialName = HXFBXLoader::gCurPathFileName + "|" + lMaterial->GetName();
-					subMeshList[lMaterialIndex]->materialName = strMaterialName;
+					subMeshList[lMaterialIndex]->materialName = strMaterialName;*/
 					// 读取顶点坐标、颜色、UV、法线等
 					for (int j = 0; j < 3; j++)
 					{

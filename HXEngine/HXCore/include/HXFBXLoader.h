@@ -14,7 +14,7 @@ namespace HX3D
 		HXFBXLoader();
 		~HXFBXLoader();
 
-		virtual bool LoadMeshFromFile(std::string strFileName, HXMesh** ppMesh);
+		virtual bool LoadMeshFromFile(std::string strFileName, std::string strAnimName, HXMesh** ppMesh);
 		
 		// 用于保存Material及Mesh唯一名字
 		static std::string gCurPathFileName;
@@ -27,7 +27,7 @@ namespace HX3D
 		// 读取顶点坐标、颜色、UV、法线等。划分SUBMESH。关联材质名。
 		void ProcessPolygons(FbxMesh* pFbxMesh, HXFBXMesh* pMesh);
 		// 读取加载材质和贴图
-		void ProcessMaterial(FbxMesh* pFbxMesh);
+		//void ProcessMaterial(FbxMesh* pFbxMesh);
 
 		
 	private:

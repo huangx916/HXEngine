@@ -1,7 +1,7 @@
 #include "..\include\HXGame.h"
 #include "HXVector.h"
 #include "HXSceneManager.h"
-#include "HXCamera.h"
+#include "DiscardHXCamera.h"
 #include "HXGameObject.h"
 #include "HXMesh.h"
 #include "HXICamera.h"
@@ -28,6 +28,8 @@ HXGame::~HXGame()
 #include "HXBitmap.h"
 #include "hxtest.h"
 //#include "HXGLTest.h"
+#include "HXLoadConfigMat.h"
+#include "HXLoadConfigPrefab.h"
 
 HXBitmap* Gpbitmap = NULL;
 //HXGLTest* pGLTest = NULL;
@@ -79,6 +81,12 @@ void Test()
 	/*hxtest hx;
 	hx.LoadFile("DogAnim.xml");*/
 
+	/*HXLoadConfigMat cfg;
+	cfg.LoadFile("./FBX/Dog/DogMaterial.xml");*/
+
+	/*HXLoadConfigPrefab cfg;
+	cfg.LoadFile("./FBX/Dog/DogPrefab.xml");*/
+
 	/*pGLTest = new HXGLTest();
 	pGLTest->InitTriangle();*/
 
@@ -117,20 +125,36 @@ void HXGame::CreateGameScene()
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "Dog.FBX");
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog@run.FBX");
 
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog.FBX");
+
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "FBX\\Quad\\QuadPrefab.xml");
+	////pGameObject->Yaw(90.0f);
+	////pGameObject->Roll(90.0f);
+	////pGameObject->Pitch(90.0f);
+	////pGameObject->SetPostion(HXVector3D(-4, -4, -10));
+	//pGameObject->SetPostion(HXVector3D(0, 0, -300));
+
+
+
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\DogPrefab.xml");
+	if (NULL == pGameObject)
+	{
+		return;
+	}
 	pGameObject->GetMesh()->PlayAnimation("walk");
 	pGameObject->Pitch(270.0f);
 	pGameObject->Roll(90.0f);
 	//pGameObject->SetPostion(HXVector3D(-4, -4, -10));
-	pGameObject->SetPostion(HXVector3D(0, 0, -5));
+	pGameObject->SetPostion(HXVector3D(-2, 0, -5));
 
-	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
-	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubecolor.FBX");
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
-	// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
-	pGameObject->SetPostion(HXVector3D(3, 0, -5));
-	pGameObject->Yaw(45.0f);
-	//pGameObject->SetScale(HXVector3D(8,8,8));
+
+
+	//// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
+	//// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubecolor.FBX");
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "Cube");
+	//// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXQuad", "Quad");
+	//pGameObject->SetPostion(HXVector3D(3, 0, -5));
+	//pGameObject->Yaw(45.0f);
+	////pGameObject->SetScale(HXVector3D(8,8,8));
 
 	/*pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog1", "FBX\\Dog\\Dog.FBX");
 	pGameObject->GetMesh()->PlayAnimation("run", 2);
@@ -159,52 +183,52 @@ void HXGame::CreateGameScene()
 //}
 
 
-void HXGame::OnPaint()
-{
-	// TODO: UI
-	int nX = rand() % 800;
-	//HXGraphics::GetInstance()->DrawLine(-10, -10, nX, 100, HXCOLOR(255, 0, 0));
-	//HXGraphics::GetInstance()->DrawLine(200, 0, 0, 100);
-	//HXGraphics::GetInstance()->DrawString("hello world", nX, 100, HXCOLOR(255, 0, 0), HXCOLOR(0,255,0));
-	//HXGraphics::GetInstance()->DrawString("hello world", 0, 200);
-
-	//for (int i = SCREEN_HEIGHT-200; i < SCREEN_HEIGHT; i++)
-	//{
-	//	for (int j = SCREEN_WIDTH-200; j < SCREEN_WIDTH; j++)
-	//	{
-	//		HXGraphics::GetInstance()->SetBufferPixel(j, i, 0, HXCOLOR(255, 0, 0));
-	//	}
-	//}
-
-	/*if(Gpbitmap != NULL)
-	{
-		for(int i = 0; i < Gpbitmap->GetHeight(); i++)
-		{ 
-			for(int j = 0; j < Gpbitmap->GetWidth(); j++)
-			{ 
-				HXGraphics::GetInstance()->SetBufferPixel(j, i, 0, Gpbitmap->GetPixel(j,i));
-			}
-		}		
-	}*/
-
-	/*if (pGLTest != NULL)
-	{
-		pGLTest->Display();
-	}*/
-
-	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
-	if (pGameObject)
-	{
-		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
-		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
-		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
-	}
-	
-	////HXSceneManager::GetInstance()->Update();
-
-}
+//void HXGame::OnPaint()
+//{
+//	// TODO: UI
+//	int nX = rand() % 800;
+//	//HXGraphics::GetInstance()->DrawLine(-10, -10, nX, 100, HXCOLOR(255, 0, 0));
+//	//HXGraphics::GetInstance()->DrawLine(200, 0, 0, 100);
+//	//HXGraphics::GetInstance()->DrawString("hello world", nX, 100, HXCOLOR(255, 0, 0), HXCOLOR(0,255,0));
+//	//HXGraphics::GetInstance()->DrawString("hello world", 0, 200);
+//
+//	//for (int i = SCREEN_HEIGHT-200; i < SCREEN_HEIGHT; i++)
+//	//{
+//	//	for (int j = SCREEN_WIDTH-200; j < SCREEN_WIDTH; j++)
+//	//	{
+//	//		HXGraphics::GetInstance()->SetBufferPixel(j, i, 0, HXCOLOR(255, 0, 0));
+//	//	}
+//	//}
+//
+//	/*if(Gpbitmap != NULL)
+//	{
+//		for(int i = 0; i < Gpbitmap->GetHeight(); i++)
+//		{ 
+//			for(int j = 0; j < Gpbitmap->GetWidth(); j++)
+//			{ 
+//				HXGraphics::GetInstance()->SetBufferPixel(j, i, 0, Gpbitmap->GetPixel(j,i));
+//			}
+//		}		
+//	}*/
+//
+//	/*if (pGLTest != NULL)
+//	{
+//		pGLTest->Display();
+//	}*/
+//
+//	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
+//	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
+//	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
+//	if (pGameObject)
+//	{
+//		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
+//		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+//		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
+//	}
+//	
+//	////HXSceneManager::GetInstance()->Update();
+//
+//}
 
 void HXGame::OnDisplay()
 {
@@ -216,62 +240,62 @@ void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 	HXSceneManager::GetInstance()->GetMainCamera()->OnViewPortResize(nScreenWidth, nScreenHeight);
 }
 
-void HXGame::OnKeyDown(int msg)
-{
-	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
-	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad1");
-	if (pGameObject)
-	{
-		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
-		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
-		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
-	}
-	else
-	{
-		return;
-	}
-
-	if (msg == 'W')
-	{
-		pGameObject->Move(HXVector3D(0, 0.5f, 0));
-	}
-	else if (msg == 'S')
-	{
-		pGameObject->Move(HXVector3D(0, -0.5f, 0));
-	}
-	else if (msg == 'A')
-	{
-		pGameObject->Move(HXVector3D(-0.5f, 0, 0));
-	}
-	else if (msg == 'D')
-	{
-		pGameObject->Move(HXVector3D(0.5f, 0, 0));
-	}
-	else if (msg == 'Z')
-	{
-		pGameObject->Move(HXVector3D(0, 0, 0.5f));
-	}
-	else if (msg == 'X')
-	{
-		pGameObject->Move(HXVector3D(0, 0, -0.5f));
-	}
-	else if (msg == 'P')
-	{
-		pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
-	}
-	else if (msg == 'Y')
-	{
-		pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
-	}
-	else if (msg == 'R')
-	{
-		pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
-	}
-}
-
-void HXGame::OnKeyUp(int msg)
-{
-
-}
+//void HXGame::OnKeyDown(int msg)
+//{
+//	HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXCube");
+//	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXTriangle");
+//	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad");
+//	//HXGameObject* pGameObject = HXSceneManager::GetInstance()->GetGameObject("HXQuad1");
+//	if (pGameObject)
+//	{
+//		//pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
+//		//pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+//		//pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
+//	}
+//	else
+//	{
+//		return;
+//	}
+//
+//	if (msg == 'W')
+//	{
+//		pGameObject->Move(HXVector3D(0, 0.5f, 0));
+//	}
+//	else if (msg == 'S')
+//	{
+//		pGameObject->Move(HXVector3D(0, -0.5f, 0));
+//	}
+//	else if (msg == 'A')
+//	{
+//		pGameObject->Move(HXVector3D(-0.5f, 0, 0));
+//	}
+//	else if (msg == 'D')
+//	{
+//		pGameObject->Move(HXVector3D(0.5f, 0, 0));
+//	}
+//	else if (msg == 'Z')
+//	{
+//		pGameObject->Move(HXVector3D(0, 0, 0.5f));
+//	}
+//	else if (msg == 'X')
+//	{
+//		pGameObject->Move(HXVector3D(0, 0, -0.5f));
+//	}
+//	else if (msg == 'P')
+//	{
+//		pGameObject->Pitch(pGameObject->GetRotation().x + 1.0f);
+//	}
+//	else if (msg == 'Y')
+//	{
+//		pGameObject->Yaw(pGameObject->GetRotation().y + 1.0f);
+//	}
+//	else if (msg == 'R')
+//	{
+//		pGameObject->Roll(pGameObject->GetRotation().z + 1.0f);
+//	}
+//}
+//
+//void HXGame::OnKeyUp(int msg)
+//{
+//
+//}

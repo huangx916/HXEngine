@@ -2,7 +2,7 @@
 #include "HXMesh.h"
 #include "HXGameObject.h"
 #include "HXCore.h"
-#include "HXCamera.h"
+#include "DiscardHXCamera.h"
 #include "HXFrustum.h"
 #include "HXResourceManager.h"
 #include "HXRenderState.h"
@@ -11,6 +11,8 @@
 #include "HXRenderSystem.h"
 #include "HXRenderable.h"
 #include "HXICamera.h"
+#include "HXLoadConfigPrefab.h"
+#include "HXLoadConfigMat.h"
 
 namespace HX3D
 {
@@ -45,7 +47,7 @@ namespace HX3D
 		}
 	}
 
-	HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strMeshName)
+	/*HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strMeshName)
 	{
 		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
 		if (itr != gameObjectMap.end())
@@ -64,6 +66,70 @@ namespace HX3D
 		{
 			return NULL;
 		}
+	}*/
+
+	HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strPrefabName)
+	{
+		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
+		if (itr != gameObjectMap.end())
+		{
+			std::cerr << strGameObjectName + " alreay existed" << std::endl;
+			return itr->second;
+		}
+		HXPrefabInfo* pPrefabInfo = HXResourceManager::GetInstance()->GetPrefabInfo(strPrefabName);
+		if (NULL == pPrefabInfo)
+		{
+			return NULL;
+		}
+
+		// 加载FBX
+		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(pPrefabInfo->m_strMeshFile, pPrefabInfo->m_strAnimFile);
+		if (NULL == pMesh)
+		{
+			return NULL;
+		}
+		
+		// 加载材质
+		int nMatCount = 0;
+		for (std::vector<std::string>::iterator itr = pPrefabInfo->m_vctSubMeshMat.begin(); itr != pPrefabInfo->m_vctSubMeshMat.end(); ++itr)
+		{
+			HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo(*itr);
+			if (NULL == pMat)
+			{
+				// 如果不存在该材质球，则使用粉色材质
+				*itr = "./builtin/ErrorMat.xml";
+				HXResourceManager::GetInstance()->GetMaterialInfo(*itr);
+			}
+			++nMatCount;
+		}
+		// 如果没材质，则添加默认材质
+		if (nMatCount == 0)
+		{
+			pPrefabInfo->m_vctSubMeshMat.push_back("./builtin/ErrorMat.xml");
+			HXResourceManager::GetInstance()->GetMaterialInfo("./builtin/ErrorMat.xml");
+		}
+		
+		// 关联材质到SubMesh
+		int nSubMeshIndex = 0;
+		for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); ++itr)
+		{
+			if (nSubMeshIndex < nMatCount)
+			{
+				pMesh->subMeshList[nSubMeshIndex]->materialName = pPrefabInfo->m_vctSubMeshMat[nSubMeshIndex];
+			}
+			else
+			{
+				// 如果子网格数大于材质数，多出来的子网格使用第一个材质
+				pMesh->subMeshList[nSubMeshIndex]->materialName = pPrefabInfo->m_vctSubMeshMat[0];
+			}
+			++nSubMeshIndex;
+		}
+
+
+		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()));
+		gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
+		return gameObject;
+
 	}
 
 	HXGameObject* HXSceneManager::GetGameObject(std::string strGameObjectName)

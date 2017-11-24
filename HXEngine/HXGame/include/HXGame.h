@@ -1,10 +1,10 @@
 #pragma once
-#include "HXPaintListener.h"
-#include "HXInputListener.h"
+#include "DiscardHXPaintListener.h"
+#include "DiscardHXInputListener.h"
 #include "HXDisplayListener.h"
 
 using namespace HX3D;
-class HXGame : public HXPaintListener, public HXInputListener , public HXDisplayListener
+class HXGame : /*public HXPaintListener, public HXInputListener , */public HXDisplayListener
 {
 public:
 	HXGame();
@@ -12,11 +12,11 @@ public:
 
 	void CreateGameScene();
 	//virtual void OnUpdate();
-	virtual void OnPaint();
+	//virtual void OnPaint();
 	virtual void OnDisplay();
 	virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 
-	virtual void OnKeyDown(int msg);
-	virtual void OnKeyUp(int msg);
+	//virtual void OnKeyDown(int msg);
+	//virtual void OnKeyUp(int msg);
 };
 
