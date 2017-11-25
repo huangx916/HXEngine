@@ -1,7 +1,8 @@
 "# HXEngine" 
 
-visual studio 2015  x86  libfbxsdk-md.lib自行下载（超过100M GIT不让上传）
+configuration
 ================================================================================
+visual studio 2015  x86  libfbxsdk-md.lib自行下载（超过100M GIT不让上传）
 
 GDI RenderSystem:
 ================================================================================
