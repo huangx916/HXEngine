@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prefab>
+	<Mesh File="FBX/Terrain/Terrain.FBX"/>
+	<Anim File=""/>
+	<Material File="FBX/Terrain/TerrainMaterial.xml"/>
+</Prefab>

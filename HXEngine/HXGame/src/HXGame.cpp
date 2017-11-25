@@ -132,20 +132,31 @@ void HXGame::CreateGameScene()
 	////pGameObject->Pitch(90.0f);
 	////pGameObject->SetPostion(HXVector3D(-4, -4, -10));
 	//pGameObject->SetPostion(HXVector3D(0, 0, -300));
+	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 0, 0), HXVector3D(0, 0, -1));
 
-
-
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\DogPrefab.xml");
+	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTerrain", "FBX\\Terrain\\TerrainPrefab.xml");
 	if (NULL == pGameObject)
 	{
 		return;
 	}
-	pGameObject->GetMesh()->PlayAnimation("walk");
 	pGameObject->Pitch(270.0f);
-	pGameObject->Roll(90.0f);
+	//pGameObject->Roll(90.0f);
 	//pGameObject->SetPostion(HXVector3D(-4, -4, -10));
-	pGameObject->SetPostion(HXVector3D(-2, 0, -5));
+	pGameObject->SetPostion(HXVector3D(0, 0, -50));
+	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -50));
 
+
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\DogPrefab.xml");
+	//if (NULL == pGameObject)
+	//{
+	//	return;
+	//}
+	//pGameObject->GetMesh()->PlayAnimation("walk");
+	//pGameObject->Pitch(270.0f);
+	//pGameObject->Roll(90.0f);
+	////pGameObject->SetPostion(HXVector3D(-4, -4, -10));
+	//pGameObject->SetPostion(HXVector3D(-2, 0, -5));
+	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 0, 0), HXVector3D(0, 0, -1));
 
 
 	//// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
@@ -165,7 +176,8 @@ void HXGame::CreateGameScene()
 
 	/*HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
 	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));*/
-	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0,0,0), HXVector3D(0,0,-1));
+	
+	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0,0,0), HXVector3D(0,0,-1));
 
 	/*HXLight* pLight = HXSceneManager::GetInstance()->CreateLight(LIGHT_AMBIENT);
 	pLight->color = HXCOLOR(255,255,255);*/

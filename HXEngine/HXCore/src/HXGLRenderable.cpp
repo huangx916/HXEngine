@@ -54,16 +54,17 @@ namespace HX3D
 	{
 		HXRenderable::GenerateArguments(pSubMesh);
 
+		if (m_pSubMesh->triangleCount > MAX_TRIANGLE_COUNT)
+		{
+			std::cerr << "Mesh over max triangle count !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+			return;
+		}
+
 		glGenVertexArrays(1, &mVAO);
 		glBindVertexArray(mVAO);
 		glGenBuffers(1, &mVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-
-		if (m_pSubMesh->triangleCount > MAX_TRIANGLE_COUNT)
-		{
-			std::cerr << "Mesh over max triangle count" << std::endl;
-			return;
-		}
+		
 		int nVertexCount = m_pSubMesh->triangleCount * 3;
 		//GLfloat positions[nVertexCount * 3] = { 0 };
 		//GLfloat positions[nVertexCount][3] = { 0 };	// 静态分配编译时必须知道其数组大小
@@ -119,6 +120,13 @@ namespace HX3D
 			{
 			case MPT_TEXTURE:
 			{
+				GLint tex_uniform_loc = glGetUniformLocation(program, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
 				HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				if(NULL == tex)
 				{
@@ -126,13 +134,16 @@ namespace HX3D
 					tex->texId = vglLoadTexture((itr->value + ".dds").c_str(), 0, &(tex->mImageData));
 					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
 				}
-
-				GLint tex_uniform_loc = glGetUniformLocation(program, (itr->name).c_str());
+				
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				glBindTexture(tex->mImageData.target, tex->texId);
 				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				vglUnloadImage(&tex->mImageData);
+
+				GLint property_loc = glGetUniformLocation(program, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
 				++nTexIndex;
 			}
 			break;
@@ -180,6 +191,11 @@ namespace HX3D
 
 	void HXGLRenderable::Render()
 	{
+		if (m_pSubMesh->triangleCount > MAX_TRIANGLE_COUNT)
+		{
+			//std::cerr << "Mesh over max triangle count" << std::endl;
+			return;
+		}
 		// 外层 HXGLRenderSystem 已调用
 		// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
@@ -201,11 +217,6 @@ namespace HX3D
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
-			if (m_pSubMesh->triangleCount > MAX_TRIANGLE_COUNT)
-			{
-				std::cerr << "Mesh over max triangle count" << std::endl;
-				return;
-			}
 			int nVertexCount = m_pSubMesh->triangleCount * 3;			
 			GLfloat* positions = new GLfloat[nVertexCount * 3];
 			//GLfloat* colors = new GLfloat[nVertexCount * 4];
@@ -267,6 +278,13 @@ namespace HX3D
 			{
 			case MPT_TEXTURE:
 			{
+				GLint tex_uniform_loc = glGetUniformLocation(program, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
 				HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				/*if (NULL == tex)
 				{
@@ -275,12 +293,15 @@ namespace HX3D
 					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
 				}*/
 
-				GLint tex_uniform_loc = glGetUniformLocation(program, (itr->name).c_str());
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				glBindTexture(tex->mImageData.target, tex->texId);
 				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				//vglUnloadImage(&tex->mImageData);
+
+				GLint property_loc = glGetUniformLocation(program, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
 				++nTexIndex;
 			}
 			break;
