@@ -16,7 +16,7 @@ namespace HX3D
 	{
 		TiXmlDocument doc(strFileName.c_str());
 		bool bLoaded = doc.LoadFile();
-		doc.Print();
+		//doc.Print();
 		if (!bLoaded)
 		{
 			return false;

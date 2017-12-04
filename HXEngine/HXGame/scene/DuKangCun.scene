@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene>
+	<GameObj Name="DuKangCun" Prefab="FBX/Terrain/Terrain.prefab">
+		<Postion Px="0" Py="0" Pz="-100"/>
+		<Rotation Rx="270" Ry="0" Rz="0"/>
+		<Scale Sx="1" Sy="1" Sz="1"/>
+	</GameObj>
+	<GameObj Name="DuKangCun2" Prefab="FBX/Terrain/Terrain.prefab">
+		<Postion Px="0" Py="10" Pz="-100"/>
+		<Rotation Rx="270" Ry="0" Rz="0"/>
+		<Scale Sx="1" Sy="1" Sz="1"/>
+	</GameObj>
+</Scene>

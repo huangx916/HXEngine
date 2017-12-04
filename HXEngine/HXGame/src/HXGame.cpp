@@ -30,6 +30,7 @@ HXGame::~HXGame()
 //#include "HXGLTest.h"
 #include "HXLoadConfigMat.h"
 #include "HXLoadConfigPrefab.h"
+#include "HXLoadConfigScene.h"
 
 HXBitmap* Gpbitmap = NULL;
 //HXGLTest* pGLTest = NULL;
@@ -79,13 +80,16 @@ void Test()
 	//unsigned int n2 = n / n1;	// 5 指针个数(数组大小)
 
 	/*hxtest hx;
-	hx.LoadFile("DogAnim.xml");*/
+	hx.LoadFile("Dog.anim");*/
 
 	/*HXLoadConfigMat cfg;
-	cfg.LoadFile("./FBX/Dog/DogMaterial.xml");*/
+	cfg.LoadFile("./FBX/Dog/Dog.material");*/
 
 	/*HXLoadConfigPrefab cfg;
-	cfg.LoadFile("./FBX/Dog/DogPrefab.xml");*/
+	cfg.LoadFile("./FBX/Dog/Dog.prefab");*/
+
+	/*HXLoadConfigScene cfg;
+	cfg.LoadFile("./scene/DuKangCun.scene");*/
 
 	/*pGLTest = new HXGLTest();
 	pGLTest->InitTriangle();*/
@@ -105,16 +109,16 @@ void HXGame::CreateGameScene()
 	//pGameObject->SetPostion(HXVector3D(0, 0, -300));
 	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 0, 0), HXVector3D(0, 0, -1));
 
-	pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTerrain", "FBX\\Terrain\\Terrain.prefab");
-	if (NULL == pGameObject)
-	{
-		return;
-	}
-	pGameObject->Pitch(270.0f);
-	//pGameObject->Roll(90.0f);
-	//pGameObject->SetPostion(HXVector3D(-4, -4, -10));
-	pGameObject->SetPostion(HXVector3D(0, 0, -100));
-	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -100));
+	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXTerrain", "FBX\\Terrain\\Terrain.prefab");
+	//if (NULL == pGameObject)
+	//{
+	//	return;
+	//}
+	//pGameObject->Pitch(270.0f);
+	////pGameObject->Roll(90.0f);
+	////pGameObject->SetPostion(HXVector3D(-4, -4, -10));
+	//pGameObject->SetPostion(HXVector3D(0, 0, -100));
+	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -100));
 
 
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\Dog.prefab");
@@ -130,7 +134,26 @@ void HXGame::CreateGameScene()
 	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 0, 0), HXVector3D(0, 0, -5));
 
 
-	
+
+	HXLoadConfigScene cfg;
+	cfg.LoadFile("./scene/DuKangCun.scene");
+	for (std::vector<HXGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
+	{
+		HXGameObjInfo& goinfo = *itr;
+
+		pGameObject = HXSceneManager::GetInstance()->CreateGameObject(goinfo.strGameObjName, goinfo.strPrefabFile);
+		if (NULL == pGameObject)
+		{
+			return;
+		}
+		pGameObject->SetScale(goinfo.scale);
+		pGameObject->SetRotation(goinfo.rotation);
+		pGameObject->SetPostion(goinfo.position);
+	}
+	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -100));
+
+
+
 
 	/*HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
 	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));*/

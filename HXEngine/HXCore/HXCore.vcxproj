@@ -48,6 +48,7 @@
     <ClInclude Include="include\HXLoadConfigPrefab.h" />
     <ClInclude Include="include\DiscardHXMaterial.h" />
     <ClInclude Include="include\DiscardHXFBXMaterial.h" />
+    <ClInclude Include="include\HXLoadConfigScene.h" />
     <ClInclude Include="include\HXMath.h" />
     <ClInclude Include="include\HXMatrix.h" />
     <ClInclude Include="include\HXMesh.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="src\HXLoadConfigPrefab.cpp" />
     <ClCompile Include="src\DiscardHXMaterial.cpp" />
     <ClCompile Include="src\DiscardHXFBXMaterial.cpp" />
+    <ClCompile Include="src\HXLoadConfigScene.cpp" />
     <ClCompile Include="src\HXMath.cpp" />
     <ClCompile Include="src\HXMatrix.cpp" />
     <ClCompile Include="src\HXMesh.cpp" />
