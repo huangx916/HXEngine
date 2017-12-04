@@ -23,7 +23,7 @@
     <ClInclude Include="include\HXBitmap.h" />
     <ClInclude Include="include\HXGDITextureBMP.h" />
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
-    <ClInclude Include="include\HXGLTextureDDS.h" />
+    <ClInclude Include="include\HXGLTexture.h" />
     <ClInclude Include="include\HXICamera.h" />
     <ClInclude Include="include\HXCommon.h" />
     <ClInclude Include="include\HXCore.h" />
@@ -83,7 +83,7 @@
     <ClCompile Include="src\HXGLRenderable.cpp" />
     <ClCompile Include="src\HXGLRenderSystem.cpp" />
     <ClCompile Include="src\HXGLTest.cpp" />
-    <ClCompile Include="src\HXGLTextureDDS.cpp" />
+    <ClCompile Include="src\HXGLTexture.cpp" />
     <ClCompile Include="src\HXGraphics.cpp" />
     <ClCompile Include="src\HXLight.cpp" />
     <ClCompile Include="src\HXLoadConfigAnim.cpp" />
@@ -165,14 +165,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>include;.\fbx\include;.\opengl\include;.\freetype\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;.\fbx\include;.\opengl\include;.\freetype\include;.\libpng\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>libfbxsdk-md.lib;freetyped.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libfbxsdk-md.lib;freetyped.lib;zlib.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>.\fbx\lib\vs2015\x86\debug;.\opengl\lib;.\freetype\lib;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\fbx\lib\vs2015\x86\debug;.\opengl\lib;.\freetype\lib;.\libpng\lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

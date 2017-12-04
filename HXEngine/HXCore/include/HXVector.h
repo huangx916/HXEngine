@@ -80,6 +80,7 @@ namespace HX3D
 
 		HXVector3D() :x(0), y(0), z(0) {}
 		HXVector3D(float fx, float fy, float fz):x(fx),y(fy),z(fz){}
+		HXVector3D(const HXVector2D& vec, float fz) :x(vec.x), y(vec.y), z(fz) {}
 		HXVector3D(const HXVector3D& vec):x(vec.x),y(vec.y),z(vec.z){}
 
 		inline float length() const
@@ -180,7 +181,12 @@ namespace HX3D
 
 		HXVector4D():x(0),y(0),z(0),w(0){}
 		HXVector4D(float fx, float fy, float fz, float fw = 1):x(fx),y(fy),z(fz),w(fw){}
-		HXVector4D(const HXVector4D& vec):x(vec.x),y(vec.y),z(vec.z),w(vec.w){}
+		HXVector4D(const HXVector2D& vec, float fz, float fw) :x(vec.x), y(vec.y), z(fz), w(fw) {};
+		HXVector4D(const HXVector3D& vec, float fw) :x(vec.x), y(vec.y), z(vec.z), w(fw) {};
+		HXVector4D(const HXVector4D& vec) :x(vec.x), y(vec.y), z(vec.z), w(vec.w) {}
+
+		// TODO: vec.xyz
+		// HXVector3D xyz
 
 		// 以下接口前提 w = 1
 		inline float length() const

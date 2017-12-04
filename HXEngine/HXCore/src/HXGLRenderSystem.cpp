@@ -59,6 +59,9 @@ namespace HX3D
 	{
 		glutDisplayFunc(Display);
 		glutReshapeFunc(Reshape);
+		glutKeyboardFunc(Keyboard);
+		glutMouseFunc(Mouse);
+		glutMotionFunc(MouseMotion);
 
 		glutMainLoop();
 	}
@@ -66,6 +69,7 @@ namespace HX3D
 	void HXGLRenderSystem::Display()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.5,0.5,0.5,1.0);
 
 		if (m_pDisplayListener)
 		{
@@ -79,15 +83,8 @@ namespace HX3D
 	void HXGLRenderSystem::Reshape(int nWidth, int nHeight)
 	{
 		glViewport(0, 0, nWidth, nHeight);
-		//gCurScreenWidth = nWidth;
-		//gCurScreenHeight = nHeight;
-		//gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;
-		if (m_pDisplayListener)
-		{
-			m_pDisplayListener->OnViewPortResize(nWidth, nHeight);
-		}
+		HXRenderSystem::Reshape(nWidth, nHeight);
 	}
-
 
 	HXRenderable* HXGLRenderSystem::GenerateRenderable(HXSubMesh* pSubMesh)
 	{

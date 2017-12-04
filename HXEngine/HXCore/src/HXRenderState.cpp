@@ -39,11 +39,12 @@ namespace HX3D
 		m_pMatInfo = pMatInfo;
 		if (pMatInfo)
 		{
+			// GDI默认只使用第一张贴图
 			HXGDITextureBMP* tex = (HXGDITextureBMP*)HXResourceManager::GetInstance()->GetTexture("GDI_" + pMatInfo->vctMatProperty[0].value);
 			if (NULL == tex)
 			{
 				tex = new HXGDITextureBMP();
-				tex->mBitmap = HXResourceManager::GetInstance()->GetBitmap(pMatInfo->vctMatProperty[0].value + ".bmp");
+				tex->mBitmap = HXResourceManager::GetInstance()->GetBitmap(pMatInfo->vctMatProperty[0].value);
 				HXResourceManager::GetInstance()->AddTexture("GDI_" + pMatInfo->vctMatProperty[0].value, tex);
 			}
 			m_pTex = tex;

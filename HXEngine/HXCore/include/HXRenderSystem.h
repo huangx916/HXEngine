@@ -28,6 +28,13 @@ namespace HX3D
 		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255, 255, 255, 255)) = 0;
 		virtual void EndText() {};
 
+		static void Reshape(int nWidth, int nHeight);
+		static void Keyboard(unsigned char key, int x, int y);
+		static void Mouse(int button, int state, int x, int y);
+		static void MouseMotion(int x, int y);
+		static int mLastX;
+		static int mLastY;
+
 		static HXDisplayListener* m_pDisplayListener;
 		//static int gCurScreenWidth;
 		//static int gCurScreenHeight;

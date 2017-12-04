@@ -15,5 +15,19 @@ namespace HX3D
 
 		virtual void Update() = 0;
 		virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight) = 0;
+
+
+		// 相机移动
+		virtual void move(const HXVector3D& mov) = 0;
+		// 绕Y轴旋转
+		virtual void yaw(float fDegree) = 0;
+		// 绕X轴旋转
+		virtual void pitch(float fDegree) = 0;
+
+		virtual void YawLockTarget(float fDegree) = 0;
+		virtual void PitchLockTarget(float fDegree) = 0;
+
+		virtual void Forward(float fDistance) = 0;
+
 	};
 }

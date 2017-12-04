@@ -93,6 +93,10 @@ namespace HX3D
 
 	HXBitmap* HXResourceManager::GetBitmap(std::string strBitmap)
 	{
+		// 把PNG  DDS 转 为BMP结尾的文件名
+		size_t size = strBitmap.length();
+		strBitmap = strBitmap.substr(0, size - 3) + "bmp";
+
 		std::map<std::string, HXBitmap*>::iterator itr = bitmapMap.find(strBitmap);
 		if (itr != bitmapMap.end())
 		{

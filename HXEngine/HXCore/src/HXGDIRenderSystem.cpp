@@ -42,11 +42,60 @@ namespace HX3D
 		case WM_KEYDOWN:
 		{
 			// HXWindow::GetInstance()->OnKeyDown(wParam);
+			/*if (m_pDisplayListener)
+			{
+				m_pDisplayListener->OnKeyboard(wParam, 0, 0);
+			}*/
+			Keyboard(wParam, 0, 0);
 			break;
 		}
 		case WM_KEYUP:
 		{
 			// HXWindow::GetInstance()->OnKeyUp(wParam);
+			break;
+		}
+		case WM_LBUTTONDOWN:
+		{
+			/*if (m_pDisplayListener)
+			{
+				int x = (int)LOWORD(lParam);
+				int y = (int)HIWORD(lParam);
+				m_pDisplayListener->OnMouseMove(x, y);
+			}*/
+			mouseLDown = true;
+			mLastX = (int)LOWORD(lParam);
+			mLastY = (int)HIWORD(lParam);
+			break;
+		}
+		case WM_LBUTTONUP:
+		{
+			mouseLDown = false;
+			break;
+		}
+		case WM_MOUSEMOVE:
+		{
+			if (mouseLDown)
+			{
+				int x = (int)LOWORD(lParam);
+				int y = (int)HIWORD(lParam);
+				/*std::cout << "x = " << x << ";     y = " << y << std::endl;*/
+				MouseMotion(x, y);
+			}
+			break;
+		}
+		case WM_MOUSEWHEEL:
+		{
+			short zDelta = (short)HIWORD(wParam);
+			if (zDelta < 0)
+			{
+				// 向后滚
+				Mouse(4, 0, 0, 0);
+			}
+			else if (zDelta > 0)
+			{
+				// 向前滚
+				Mouse(3, 0, 0, 0);
+			}
 			break;
 		}
 		case WM_DESTROY:	// 窗口销毁消息
@@ -65,6 +114,7 @@ namespace HX3D
 		return 0;
 	}
 
+	bool HXGDIRenderSystem::mouseLDown = false;
 	HXGDIRenderSystem::HXGDIRenderSystem()
 	{
 		HXGraphics::GetInstance()->InitGraphics();
@@ -168,7 +218,7 @@ namespace HX3D
 
 	void HXGDIRenderSystem::_DrawText(float x, float y, std::string text, const HXCOLOR& color)
 	{
-		HXGraphics::GetInstance()->DrawString(text, x, y, color);
+		HXGraphics::GetInstance()->DrawString(text, x, y, color, HXCOLOR(128,128,128,255));
 	}
 
 	/*void HXGDIRenderSystem::EndText()

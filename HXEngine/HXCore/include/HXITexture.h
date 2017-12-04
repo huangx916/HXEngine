@@ -7,6 +7,6 @@ namespace HX3D
 	{
 	public:
 		HXITexture() {};
-		~HXITexture() {};
+		virtual ~HXITexture() {};
 	};
 }

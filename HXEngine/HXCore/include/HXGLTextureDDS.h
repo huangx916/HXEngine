@@ -8,10 +8,11 @@ namespace HX3D
 	class HXGLTextureDDS : public HXITexture
 	{
 	public:
-		HXGLTextureDDS();
+		HXGLTextureDDS(std::string strDDSFile);
 		~HXGLTextureDDS();
 
-		vglImageData mImageData;
+		// 具体纹理数据保存在显存上了，系统内存不需要再保存一份
+		//vglImageData mImageData;
 		GLuint texId;
 	};
 }

@@ -20,6 +20,18 @@ namespace HX3D
 		virtual void Update();
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 	
+		// 相机移动
+		virtual void move(const HXVector3D& mov);
+		// 绕Y轴旋转
+		virtual void yaw(float fDegree);
+		// 绕X轴旋转
+		virtual void pitch(float fDegree);
+
+		virtual void YawLockTarget(float fDegree);
+		virtual void PitchLockTarget(float fDegree);
+
+		virtual void Forward(float fDistance);
+
 		vmath::mat4 mMatrixView;
 		vmath::mat4 mMatrixProjection;
 

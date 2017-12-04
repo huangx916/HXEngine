@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--0:Texture TYPE 1:Float 2:Float2 3:Float3 4:Float4-->
+<Material>  
+    <Shader File="FBX/Terrain/TerrainDiffuse">
+		<Property Type="0" Name="Layer1" Value="FBX/Terrain/Layer1" Value1="60" Value2="60" Value3="0" Value4="0"/>
+		<Property Type="0" Name="Layer2" Value="FBX/Terrain/Layer2" Value1="70" Value2="70" Value3="0" Value4="0"/>
+		<Property Type="0" Name="Layer3" Value="FBX/Terrain/Layer3" Value1="50" Value2="50" Value3="0" Value4="0"/>
+		<Property Type="0" Name="Layer4" Value="FBX/Terrain/Layer4" Value1="17.8" Value2="17.8" Value3="0" Value4="0"/>
+		<Property Type="0" Name="Control" Value="FBX/Terrain/Control" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="1" Value3="1" Value4="1"/>
+	</Shader>
+</Material>

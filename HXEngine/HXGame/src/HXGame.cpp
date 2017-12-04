@@ -142,8 +142,8 @@ void HXGame::CreateGameScene()
 	pGameObject->Pitch(270.0f);
 	//pGameObject->Roll(90.0f);
 	//pGameObject->SetPostion(HXVector3D(-4, -4, -10));
-	pGameObject->SetPostion(HXVector3D(0, 0, -50));
-	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -50));
+	pGameObject->SetPostion(HXVector3D(0, 0, -100));
+	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -100));
 
 
 	//pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXDog", "FBX\\Dog\\DogPrefab.xml");
@@ -155,8 +155,8 @@ void HXGame::CreateGameScene()
 	//pGameObject->Pitch(270.0f);
 	//pGameObject->Roll(90.0f);
 	////pGameObject->SetPostion(HXVector3D(-4, -4, -10));
-	//pGameObject->SetPostion(HXVector3D(-2, 0, -5));
-	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 0, 0), HXVector3D(0, 0, -1));
+	//pGameObject->SetPostion(HXVector3D(0, 0, -5));
+	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 0, 0), HXVector3D(0, 0, -5));
 
 
 	//// pGameObject = HXSceneManager::GetInstance()->CreateGameObject("HXCube", "cubeTexture.FBX");
@@ -182,9 +182,11 @@ void HXGame::CreateGameScene()
 	/*HXLight* pLight = HXSceneManager::GetInstance()->CreateLight(LIGHT_AMBIENT);
 	pLight->color = HXCOLOR(255,255,255);*/
 
-	HXLight* pLight = HXSceneManager::GetInstance()->CreateLight(LIGHT_DIRECTION);
+
+
+	/*HXLight* pLight = HXSceneManager::GetInstance()->CreateLight(LIGHT_DIRECTION);
 	pLight->color = HXCOLOR(255, 255, 255);
-	pLight->direct = HXVector3D(1, -1, 1);
+	pLight->direct = HXVector3D(1, -1, 1);*/
 
 	Test();
 }
@@ -250,6 +252,40 @@ void HXGame::OnDisplay()
 void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 {
 	HXSceneManager::GetInstance()->GetMainCamera()->OnViewPortResize(nScreenWidth, nScreenHeight);
+}
+
+void HXGame::OnKeyboard(unsigned char key, int x, int y)
+{
+	/*if (key == 'w' || key == 'W')
+	{
+		HXSceneManager::GetInstance()->GetMainCamera()->Forward(1);
+	}
+	if (key == 's' || key == 'S')
+	{
+		HXSceneManager::GetInstance()->GetMainCamera()->Forward(-1);
+	}
+	if (key == 'a' || key == 'A')
+	{
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(-1, 0, 0));
+	}
+	if (key == 'd' || key == 'D')
+	{
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(1, 0, 0));
+	}*/
+}
+
+void HXGame::OnMouseMove(int deltaX, int deltaY)
+{
+	//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
+	//HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
+	HXSceneManager::GetInstance()->GetMainCamera()->YawLockTarget(float(deltaX) / 5.0f);
+	//HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY)/10.0f);
+	HXSceneManager::GetInstance()->GetMainCamera()->PitchLockTarget(float(deltaY) / 5.0f);
+}
+
+void HXGame::OnMouseWheel(float fDistance)
+{
+	HXSceneManager::GetInstance()->GetMainCamera()->Forward(fDistance);
 }
 
 //void HXGame::OnKeyDown(int msg)

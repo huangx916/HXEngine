@@ -15,6 +15,7 @@ namespace HX3D
 		virtual void MainLoop();
 		static void Display(HDC hdc);
 		static void Reshape(int nWidth, int nHeight);
+		static bool mouseLDown;
 
 		virtual HXRenderable* GenerateRenderable(HXSubMesh* pSubMesh);
 		virtual void RenderSingle(HXRenderable* pRenderable);

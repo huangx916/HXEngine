@@ -6,7 +6,9 @@
 #include "HXGLCamera.h"
 #include "HXResourceManager.h"
 #include "HXLoadConfigMat.h"
-#include "HXGLTextureDDS.h"
+//#include "HXGLTextureDDS.h"
+//#include "HXGLTexturePNG.h"
+#include "HXGLTexture.h"
 
 namespace HX3D
 {
@@ -49,6 +51,9 @@ namespace HX3D
 		// mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
 		mMatrixProjection = ((HXGLCamera*)pCamera)->mMatrixProjection;
 	}
+
+
+	GLuint texture;
 
 	void HXGLRenderable::GenerateArguments(HXSubMesh* pSubMesh)
 	{
@@ -127,19 +132,32 @@ namespace HX3D
 					continue;
 				}
 
-				HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				/*HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				if(NULL == tex)
 				{
-					tex = new HXGLTextureDDS();
-					tex->texId = vglLoadTexture((itr->value + ".dds").c_str(), 0, &(tex->mImageData));
+					tex = new HXGLTextureDDS(itr->value);
+					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+				}*/
+				/*HXGLTexturePNG* tex = (HXGLTexturePNG*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				if (NULL == tex)
+				{
+					tex = new HXGLTexturePNG(itr->value);
+					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+				}*/
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				if (NULL == tex)
+				{
+					tex = new HXGLTexture(itr->value);
 					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
 				}
 				
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				glBindTexture(tex->mImageData.target, tex->texId);
+				// 暂时不用其他类型的Texture,这里只使用GL_TEXTURE_2D
+				/*glBindTexture(tex->mImageData.target, tex->texId);
 				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-				vglUnloadImage(&tex->mImageData);
+				vglUnloadImage(&tex->mImageData);*/
+				glBindTexture(GL_TEXTURE_2D, tex->texId);
 
 				GLint property_loc = glGetUniformLocation(program, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -196,11 +214,9 @@ namespace HX3D
 			//std::cerr << "Mesh over max triangle count" << std::endl;
 			return;
 		}
-		// 外层 HXGLRenderSystem 已调用
-		// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		//glEnable(GL_CULL_FACE);
-		//glFrontFace(GL_CCW);
+		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CCW);
 		//glFrontFace(GL_CW);
 
 		// TODO:提取到material配置文件中
@@ -209,9 +225,10 @@ namespace HX3D
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
+		
 		glBindVertexArray(mVAO);
 		glUseProgram(program);
+		glEnable(GL_TEXTURE_2D);
 
 		if (m_pSubMesh->IsStaticMesh == false)
 		{
@@ -262,7 +279,19 @@ namespace HX3D
 		//// 此矩阵向量乘法是正确的  
 		//vmath::vec4 vec4 = mMatrixModel * vec;		
 		//vmath::vec4 vec5 = mMatrixView * mMatrixModel * vec;
-		//vmath::vec4 vec6 = mMatrixProjection * mMatrixView * mMatrixModel * vec;
+		//vmath::vec4 vec6;
+		//for (std::vector<HXVertex>::iterator itr = m_pSubMesh->vertexList.begin(); itr != m_pSubMesh->vertexList.end(); ++itr)
+		//{
+		//	vec6 = vmath::vec4(itr->pos.x, itr->pos.y, itr->pos.z, 1);
+		//	vec6 = mMatrixProjection * mMatrixView * mMatrixModel * vec6;
+		//	vec6[0] /= vec6[3];
+		//	vec6[1] /= vec6[3];
+		//	vec6[2] /= vec6[3];
+		//	vec6[3] /= vec6[3];
+		//	// 转换到了NDC标准设备坐标系统下了
+		//	// shader顶点着色器变化后的坐标在[-1,+1]以外的都会被裁剪掉?(opengl: -w <= x <= w  -w <= y <= w  -w <= z <= w) (direct3d: -w <= x <= w  -w <= y <= w  0 <= z <= w) (标准齐次: w = 1)
+		//	int test = 0;
+		//}
 		//vmath::vec4 vec7 = matT * vec;
 		//// 矩阵间乘法正确
 		//mMatrixModel*mMatrixView;
@@ -285,7 +314,9 @@ namespace HX3D
 					continue;
 				}
 
-				HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				//HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				//HXGLTexturePNG* tex = (HXGLTexturePNG*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				/*if (NULL == tex)
 				{
 					tex = new HXGLTextureDDS();
@@ -295,9 +326,8 @@ namespace HX3D
 
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				glBindTexture(tex->mImageData.target, tex->texId);
-				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-				//vglUnloadImage(&tex->mImageData);
+				//glBindTexture(tex->mImageData.target, tex->texId);
+				glBindTexture(GL_TEXTURE_2D, tex->texId);
 
 				GLint property_loc = glGetUniformLocation(program, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);

@@ -1,4 +1,5 @@
 #include "..\include\HXGLCamera.h"
+#include "HXMath.h"
 
 namespace HX3D
 {
@@ -39,6 +40,80 @@ namespace HX3D
 		mBottom = -gAspect;
 		mTop = gAspect;
 		UpdateProjectionMatrix(mLeft, mRight, mBottom, mTop, mNear, mFar);
+	}
+
+	void HXGLCamera::move(const HXVector3D& mov)
+	{
+		mEye += mov;
+		mAt += mov;
+	}
+
+	void HXGLCamera::yaw(float fDegree)
+	{
+		HXVector3D distance = mAt - mEye;
+		HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
+		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
+		distance = HXVector3D(vec.x, vec.y, vec.z);
+		mAt = mEye + distance;
+	}
+
+	void HXGLCamera::pitch(float fDegree)
+	{
+		HXVector3D distance = mAt - mEye;
+		HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
+		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
+		distance = HXVector3D(vec.x, vec.y, vec.z);
+		mAt = mEye + distance;
+	}
+
+	void HXGLCamera::YawLockTarget(float fDegree)
+	{
+		HXVector3D distance = mEye - mAt;
+		HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
+		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
+		distance = HXVector3D(vec.x, vec.y, vec.z);
+		mEye = mAt + distance;
+	}
+
+	void HXGLCamera::PitchLockTarget(float fDegree)
+	{
+		HXVector3D distance = mEye - mAt;
+		HXVector4D vec = HXVector4D(distance, 1);
+		
+		float tanRadian = distance.x / distance.z;
+		float fRadian = atan(tanRadian);
+		float fDegreeY = Radian_TO_Degree(fRadian);
+		if (vec.z < 0)
+		{
+			fDegreeY += 180;
+		}
+		// 先旋转到朝Z轴负方向
+		HXMatrix44 matRotate = GetRotateMatrix44Y(-fDegreeY);
+		vec = GetVector4DMulMatrix44(vec, matRotate);
+		// pitch
+		matRotate = GetRotateMatrix44X(fDegree);
+		vec = GetVector4DMulMatrix44(vec, matRotate);
+		// 恢复
+		matRotate = GetRotateMatrix44Y(fDegreeY);
+		vec = GetVector4DMulMatrix44(vec, matRotate);
+
+		distance = HXVector3D(vec.x, vec.y, vec.z);
+		mEye = mAt + distance;
+
+		/*HXVector3D distance = mEye - mAt;
+		HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
+		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
+		distance = HXVector3D(vec.x, vec.y, vec.z);
+		mEye = mAt + distance;*/
+	}
+
+	void HXGLCamera::Forward(float fDistance)
+	{
+		HXVector3D direction = mAt - mEye;
+		direction.normalize();
+		HXVector3D forward = direction * fDistance;
+		mAt += forward;
+		mEye += forward;
 	}
 
 	void HXGLCamera::UpdateViewMatrix(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up)
