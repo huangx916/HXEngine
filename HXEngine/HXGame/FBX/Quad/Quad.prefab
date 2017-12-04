@@ -2,5 +2,5 @@
 <Prefab>
 	<Mesh File="FBX/Quad/Quad.FBX"/>
 	<Anim File=""/>
-	<Material File="FBX/Quad/QuadMaterial.xml"/>
+	<Material File="FBX/Quad/Quad.material"/>
 </Prefab>
