@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prefab>
-	<Mesh File="FBX/Dog/Dog.FBX"/>
-	<Anim File="FBX/Dog/Dog.anim"/>
-	<Material File="FBX/Dog/Dog.material"/>
+	<ModelGameObj Name="Dog01" Model="FBX/Dog/Dog.model">
+		<Postion Px="0" Py="0" Pz="0"/>
+		<Rotation Rx="0" Ry="90" Rz="90"/>
+		<Scale Sx="1" Sy="1" Sz="1"/>
+	</ModelGameObj>
 </Prefab>

@@ -146,6 +146,10 @@ void HXGame::CreateGameScene()
 		{
 			return;
 		}
+		if (pFatherGameObject->GetMesh())
+		{
+			pFatherGameObject->GetMesh()->PlayDefaultAnimation();
+		}
 		pFatherGameObject->SetScale(prefabgoinfo.scale);
 		pFatherGameObject->SetRotation(prefabgoinfo.rotation);
 		pFatherGameObject->SetPostion(prefabgoinfo.position);
@@ -160,6 +164,10 @@ void HXGame::CreateGameScene()
 			{
 				return;
 			}
+			if (pGameObject->GetMesh())
+			{
+				pGameObject->GetMesh()->PlayDefaultAnimation();
+			}
 			pGameObject->SetScale(modelgoinfo.scale);
 			pGameObject->SetRotation(modelgoinfo.rotation);
 			pGameObject->SetPostion(modelgoinfo.position);
@@ -167,7 +175,7 @@ void HXGame::CreateGameScene()
 			pGameObject->SetFather(pFatherGameObject);
 		}
 	}
-	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -100));
+	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 100), HXVector3D(0, 0, 0));
 
 
 

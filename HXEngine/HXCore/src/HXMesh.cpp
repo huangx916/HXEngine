@@ -226,6 +226,21 @@ namespace HX3D
 		}
 	}
 
+	void HXMesh::PlayDefaultAnimation()
+	{
+		if (animInst && skeleton)
+		{
+			std::vector<std::string> lt = skeleton->GetAnimNameList();
+			if (lt.size() > 0)
+			{
+				animInst->nCurKeyframe = 0;
+				animInst->nSpeed = 1;
+				animInst->strCurPlayAnim = lt[0];
+				return;
+			}
+		}
+	}
+
 	void HXMesh::PlayAnimation(std::string strAnimName, int nSpeed)
 	{
 		if (animInst)

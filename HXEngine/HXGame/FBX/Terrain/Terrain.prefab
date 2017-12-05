@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prefab>
 	<ModelGameObj Name="Terrain01" Model="FBX/Terrain/Terrain.model">
-		<Postion Px="0" Py="-40" Pz="-100"/>
+		<Postion Px="0" Py="0" Pz="0"/>
 		<Rotation Rx="270" Ry="0" Rz="0"/>
 		<Scale Sx="1" Sy="1" Sz="1"/>
 	</ModelGameObj>

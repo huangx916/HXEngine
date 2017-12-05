@@ -75,6 +75,8 @@ namespace HX3D
 		// ¼ÓÔØ¹Ç÷À¶¯»­
 		void LoadAnimationCurve(std::string strAnimName, FbxScene* pScene);
 
+		virtual std::vector<std::string> GetAnimNameList();
+
 	private:
 
 		void MatrixScale(FbxAMatrix& pMatrix, double pValue);

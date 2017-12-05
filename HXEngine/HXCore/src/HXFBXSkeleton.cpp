@@ -865,6 +865,16 @@ namespace HX3D
 		// bAnimationLoaded = true;
 	}
 
+	std::vector<std::string> HXFBXSkeleton::GetAnimNameList()
+	{
+		std::vector<std::string> lt;
+		for (std::map<std::string, HXJointAnim>::iterator itr = mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.begin(); itr != mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.end(); ++itr)
+		{
+			lt.push_back(itr->second.strAnimName);
+		}
+		return lt;
+	}
+
 	FbxMesh* HXFBXSkeleton::GetMeshNodeRecursive(FbxNode* pNode)
 	{
 		if (pNode->GetNodeAttribute())

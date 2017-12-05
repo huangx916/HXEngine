@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<PrefabGameObj Name="DuKangCun" Prefab="FBX/Terrain/Terrain.prefab">
-		<Postion Px="0" Py="40" Pz="0"/>
+		<Postion Px="0" Py="0" Pz="0"/>
+		<Rotation Rx="0" Ry="0" Rz="0"/>
+		<Scale Sx="1" Sy="1" Sz="1"/>
+	</PrefabGameObj>
+	<PrefabGameObj Name="DogPrefab" Prefab="FBX/Dog/Dog.prefab">
+		<Postion Px="0" Py="0" Pz="60"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="1" Sy="1" Sz="1"/>
 	</PrefabGameObj>
