@@ -4,7 +4,7 @@
 
 namespace HX3D
 {
-	struct HXGameObjInfo
+	struct HXPrefabGameObjInfo
 	{
 		std::string strGameObjName;
 		std::string strPrefabFile;
@@ -15,7 +15,7 @@ namespace HX3D
 	struct HXSceneInfo
 	{
 		// TODO: Add Camera etc.
-		std::vector<HXGameObjInfo> vctGameObjInfo;
+		std::vector<HXPrefabGameObjInfo> vctGameObjInfo;
 	};
 
 	class HXLoadConfigScene

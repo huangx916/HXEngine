@@ -16,10 +16,10 @@ namespace HX3D
 
 	}
 
-	void Local_To_World_RenderList(HXGameObject* pGameObject, HXRenderList* pRenderList)
+	/*void Local_To_World_RenderList(HXGameObject* pGameObject, HXRenderList* pRenderList)
 	{
 		pGameObject->Insert_To_RenderList(pRenderList);
-	}
+	}*/
 
 	void Culling_Backface_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum)
 	{

@@ -26,7 +26,7 @@ namespace HX3D
 		TiXmlElement* gameobjElement = rootElement->FirstChildElement();
 		for (; gameobjElement != NULL; gameobjElement = gameobjElement->NextSiblingElement())
 		{
-			HXGameObjInfo gameObjInfo;
+			HXPrefabGameObjInfo gameObjInfo;
 
 			gameObjInfo.strGameObjName = gameobjElement->Attribute("Name");
 			gameObjInfo.strPrefabFile = gameobjElement->Attribute("Prefab");
@@ -45,5 +45,7 @@ namespace HX3D
 		
 			mSceneInfo.vctGameObjInfo.push_back(gameObjInfo);
 		}
+
+		return true;
 	}
 }

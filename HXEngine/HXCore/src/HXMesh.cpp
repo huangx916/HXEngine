@@ -51,7 +51,7 @@ namespace HX3D
 		return pHXSubMesh;
 	}
 
-	void HXSubMesh::Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
+	/*void HXSubMesh::Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
 	{
 		if (useIndex)
 		{
@@ -61,9 +61,56 @@ namespace HX3D
 		{
 			Insert_To_RenderList_Without_Index(pos, eulerDegree, scale, pRenderList);
 		}
+	}*/
+
+	void HXSubMesh::Insert_To_RenderList(HXMatrix44& mat, HXRenderList* pRenderList)
+	{
+		if (useIndex)
+		{
+			//Insert_To_RenderList_With_Index(pos, eulerDegree, scale, pRenderList);
+			Insert_To_RenderList_With_Index(mat, pRenderList);
+		}
+		else
+		{
+			//Insert_To_RenderList_Without_Index(pos, eulerDegree, scale, pRenderList);
+			Insert_To_RenderList_Without_Index(mat, pRenderList);
+		}
 	}
 
-	void HXSubMesh::Insert_To_RenderList_Without_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
+	//void HXSubMesh::Insert_To_RenderList_Without_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
+	//{
+	//	for (std::vector<HXVertex>::iterator itr = vertexList.begin(); itr != vertexList.end(); ++itr)
+	//	{
+	//		HXTriangle triangle;
+	//		triangle.vertexList[0] = *itr;
+	//		triangle.vertexList[1] = *++itr;
+	//		triangle.vertexList[2] = *++itr;
+
+	//		// 缩放处理S
+	//		HXMatrix44 matS = GetScaleMatrix44(scale.x, scale.y, scale.z);
+	//		// 旋转处理Q
+	//		HXMatrix44 matX = GetRotateMatrix44X(eulerDegree.x);
+	//		HXMatrix44 matY = GetRotateMatrix44Y(eulerDegree.y);
+	//		HXMatrix44 matZ = GetRotateMatrix44Z(eulerDegree.z);
+	//		// 平移一定要最后处理T
+	//		HXMatrix44 matT = GetTranslateMatrix44(pos.x, pos.y, pos.z);
+
+	//		// 模型空间到世界空间转换 SQT
+	//		// HXMatrix44 mat = matS*matX*matY*matZ*matT;
+	//		HXMatrix44 mat = matS*matY*matZ*matX*matT;
+	//		triangle.vertexList[0].pos = GetVector3DMulMatrix44(triangle.vertexList[0].pos, mat);
+	//		triangle.vertexList[1].pos = GetVector3DMulMatrix44(triangle.vertexList[1].pos, mat);
+	//		triangle.vertexList[2].pos = GetVector3DMulMatrix44(triangle.vertexList[2].pos, mat);
+	//		// TODO: 非同一缩放计算法线要用逆转置矩阵(法线只有方向，不能平移)
+	//		triangle.vertexList[0].normal = GetVector3DMulMatrix33(triangle.vertexList[0].normal, HXMatrix33(mat));
+	//		triangle.vertexList[1].normal = GetVector3DMulMatrix33(triangle.vertexList[1].normal, HXMatrix33(mat));
+	//		triangle.vertexList[2].normal = GetVector3DMulMatrix33(triangle.vertexList[2].normal, HXMatrix33(mat));
+
+	//		pRenderList->triangleList.push_back(triangle);
+	//	}
+	//}
+
+	void HXSubMesh::Insert_To_RenderList_Without_Index(HXMatrix44& mat, HXRenderList* pRenderList)
 	{
 		for (std::vector<HXVertex>::iterator itr = vertexList.begin(); itr != vertexList.end(); ++itr)
 		{
@@ -72,18 +119,18 @@ namespace HX3D
 			triangle.vertexList[1] = *++itr;
 			triangle.vertexList[2] = *++itr;
 
-			// 缩放处理S
-			HXMatrix44 matS = GetScaleMatrix44(scale.x, scale.y, scale.z);
-			// 旋转处理Q
-			HXMatrix44 matX = GetRotateMatrix44X(eulerDegree.x);
-			HXMatrix44 matY = GetRotateMatrix44Y(eulerDegree.y);
-			HXMatrix44 matZ = GetRotateMatrix44Z(eulerDegree.z);
-			// 平移一定要最后处理T
-			HXMatrix44 matT = GetTranslateMatrix44(pos.x, pos.y, pos.z);
+			//// 缩放处理S
+			//HXMatrix44 matS = GetScaleMatrix44(scale.x, scale.y, scale.z);
+			//// 旋转处理Q
+			//HXMatrix44 matX = GetRotateMatrix44X(eulerDegree.x);
+			//HXMatrix44 matY = GetRotateMatrix44Y(eulerDegree.y);
+			//HXMatrix44 matZ = GetRotateMatrix44Z(eulerDegree.z);
+			//// 平移一定要最后处理T
+			//HXMatrix44 matT = GetTranslateMatrix44(pos.x, pos.y, pos.z);
 
-			// 模型空间到世界空间转换 SQT
-			// HXMatrix44 mat = matS*matX*matY*matZ*matT;
-			HXMatrix44 mat = matS*matY*matZ*matX*matT;
+			//// 模型空间到世界空间转换 SQT
+			//// HXMatrix44 mat = matS*matX*matY*matZ*matT;
+			//HXMatrix44 mat = matS*matY*matZ*matX*matT;
 			triangle.vertexList[0].pos = GetVector3DMulMatrix44(triangle.vertexList[0].pos, mat);
 			triangle.vertexList[1].pos = GetVector3DMulMatrix44(triangle.vertexList[1].pos, mat);
 			triangle.vertexList[2].pos = GetVector3DMulMatrix44(triangle.vertexList[2].pos, mat);
@@ -96,7 +143,39 @@ namespace HX3D
 		}
 	}
 
-	void HXSubMesh::Insert_To_RenderList_With_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
+	//void HXSubMesh::Insert_To_RenderList_With_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
+	//{
+	//	for (std::vector<int>::iterator itr = indexList.begin(); itr != indexList.end(); ++itr)
+	//	{
+	//		HXTriangle triangle;
+	//		triangle.vertexList[0] = vertexList[*itr];
+	//		triangle.vertexList[1] = vertexList[*++itr];
+	//		triangle.vertexList[2] = vertexList[*++itr];
+
+	//		// 缩放处理S
+	//		HXMatrix44 matS = GetScaleMatrix44(scale.x, scale.y, scale.z);
+	//		// 旋转处理Q
+	//		HXMatrix44 matX = GetRotateMatrix44X(eulerDegree.x);
+	//		HXMatrix44 matY = GetRotateMatrix44Y(eulerDegree.y);
+	//		HXMatrix44 matZ = GetRotateMatrix44Z(eulerDegree.z);
+	//		// 平移一定要最后处理T
+	//		HXMatrix44 matT = GetTranslateMatrix44(pos.x, pos.y, pos.z);
+
+	//		// 模型空间到世界空间转换 SQT
+	//		HXMatrix44 mat = matS*matX*matY*matZ*matT;
+	//		triangle.vertexList[0].pos = GetVector3DMulMatrix44(triangle.vertexList[0].pos, mat);
+	//		triangle.vertexList[1].pos = GetVector3DMulMatrix44(triangle.vertexList[1].pos, mat);
+	//		triangle.vertexList[2].pos = GetVector3DMulMatrix44(triangle.vertexList[2].pos, mat);
+	//		// TODO: 非同一缩放计算法线要用逆转置矩阵
+	//		triangle.vertexList[0].normal = GetVector3DMulMatrix44(triangle.vertexList[0].normal, mat);
+	//		triangle.vertexList[1].normal = GetVector3DMulMatrix44(triangle.vertexList[1].normal, mat);
+	//		triangle.vertexList[2].normal = GetVector3DMulMatrix44(triangle.vertexList[2].normal, mat);
+
+	//		pRenderList->triangleList.push_back(triangle);
+	//	}
+	//}
+
+	void HXSubMesh::Insert_To_RenderList_With_Index(HXMatrix44& mat, HXRenderList* pRenderList)
 	{
 		for (std::vector<int>::iterator itr = indexList.begin(); itr != indexList.end(); ++itr)
 		{
@@ -105,17 +184,17 @@ namespace HX3D
 			triangle.vertexList[1] = vertexList[*++itr];
 			triangle.vertexList[2] = vertexList[*++itr];
 
-			// 缩放处理S
-			HXMatrix44 matS = GetScaleMatrix44(scale.x, scale.y, scale.z);
-			// 旋转处理Q
-			HXMatrix44 matX = GetRotateMatrix44X(eulerDegree.x);
-			HXMatrix44 matY = GetRotateMatrix44Y(eulerDegree.y);
-			HXMatrix44 matZ = GetRotateMatrix44Z(eulerDegree.z);
-			// 平移一定要最后处理T
-			HXMatrix44 matT = GetTranslateMatrix44(pos.x, pos.y, pos.z);
+			//// 缩放处理S
+			//HXMatrix44 matS = GetScaleMatrix44(scale.x, scale.y, scale.z);
+			//// 旋转处理Q
+			//HXMatrix44 matX = GetRotateMatrix44X(eulerDegree.x);
+			//HXMatrix44 matY = GetRotateMatrix44Y(eulerDegree.y);
+			//HXMatrix44 matZ = GetRotateMatrix44Z(eulerDegree.z);
+			//// 平移一定要最后处理T
+			//HXMatrix44 matT = GetTranslateMatrix44(pos.x, pos.y, pos.z);
 
-			// 模型空间到世界空间转换 SQT
-			HXMatrix44 mat = matS*matX*matY*matZ*matT;
+			//// 模型空间到世界空间转换 SQT
+			//HXMatrix44 mat = matS*matX*matY*matZ*matT;
 			triangle.vertexList[0].pos = GetVector3DMulMatrix44(triangle.vertexList[0].pos, mat);
 			triangle.vertexList[1].pos = GetVector3DMulMatrix44(triangle.vertexList[1].pos, mat);
 			triangle.vertexList[2].pos = GetVector3DMulMatrix44(triangle.vertexList[2].pos, mat);
@@ -623,13 +702,13 @@ namespace HX3D
 		subMeshList.push_back(subMesh);
 	}
 
-	void HXMesh::Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
+	/*void HXMesh::Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList)
 	{
 		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
 		{
 			(*itr)->Insert_To_RenderList(pos, eulerDegree, scale, pRenderList);
 		}
-	}
+	}*/
 
 	void HXMesh::SetMeshNotStatic()
 	{

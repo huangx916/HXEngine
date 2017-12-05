@@ -26,7 +26,7 @@ namespace HX3D
 		~HXSceneManager();
 
 		//HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
-		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strPrefabName);
+		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strModelName);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
 		////HXCamera* GetMainCamera();
 		HXLight* CreateLight(LIGHT_TYPE lightType);

@@ -11,7 +11,7 @@
 #include "HXRenderSystem.h"
 #include "HXRenderable.h"
 #include "HXICamera.h"
-#include "HXLoadConfigPrefab.h"
+#include "HXLoadConfigModel.h"
 #include "HXLoadConfigMat.h"
 
 namespace HX3D
@@ -58,7 +58,7 @@ namespace HX3D
 		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(strMeshName);
 		if (NULL != pMesh)
 		{
-			HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()));
+			HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
 			return gameObject;
 		}
@@ -68,7 +68,7 @@ namespace HX3D
 		}
 	}*/
 
-	HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strPrefabName)
+	HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strModelName)
 	{
 		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
 		if (itr != gameObjectMap.end())
@@ -76,14 +76,17 @@ namespace HX3D
 			std::cerr << strGameObjectName + " alreay existed" << std::endl;
 			return itr->second;
 		}
-		HXPrefabInfo* pPrefabInfo = HXResourceManager::GetInstance()->GetPrefabInfo(strPrefabName);
-		if (NULL == pPrefabInfo)
+		HXModelInfo* pModelInfo = HXResourceManager::GetInstance()->GetModelInfo(strModelName);
+		if (NULL == pModelInfo)
 		{
-			return NULL;
+			// 当strModelName = “”时，创建不带renderable的gameobject。例如父物体空gameobject
+			HXGameObject* gameObject = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
+			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
+			return gameObject;
 		}
 
 		// 加载FBX
-		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(pPrefabInfo->m_strMeshFile, pPrefabInfo->m_strAnimFile);
+		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(pModelInfo->m_strMeshFile, pModelInfo->m_strAnimFile);
 		if (NULL == pMesh)
 		{
 			return NULL;
@@ -91,7 +94,7 @@ namespace HX3D
 		
 		// 加载材质
 		int nMatCount = 0;
-		for (std::vector<std::string>::iterator itr = pPrefabInfo->m_vctSubMeshMat.begin(); itr != pPrefabInfo->m_vctSubMeshMat.end(); ++itr)
+		for (std::vector<std::string>::iterator itr = pModelInfo->m_vctSubMeshMat.begin(); itr != pModelInfo->m_vctSubMeshMat.end(); ++itr)
 		{
 			HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo(*itr);
 			if (NULL == pMat)
@@ -105,7 +108,7 @@ namespace HX3D
 		// 如果没材质，则添加默认材质
 		if (nMatCount == 0)
 		{
-			pPrefabInfo->m_vctSubMeshMat.push_back("./builtin/ErrorMat.xml");
+			pModelInfo->m_vctSubMeshMat.push_back("./builtin/ErrorMat.xml");
 			HXResourceManager::GetInstance()->GetMaterialInfo("./builtin/ErrorMat.xml");
 		}
 		
@@ -115,18 +118,18 @@ namespace HX3D
 		{
 			if (nSubMeshIndex < nMatCount)
 			{
-				pMesh->subMeshList[nSubMeshIndex]->materialName = pPrefabInfo->m_vctSubMeshMat[nSubMeshIndex];
+				pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[nSubMeshIndex];
 			}
 			else
 			{
 				// 如果子网格数大于材质数，多出来的子网格使用第一个材质
-				pMesh->subMeshList[nSubMeshIndex]->materialName = pPrefabInfo->m_vctSubMeshMat[0];
+				pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[0];
 			}
 			++nSubMeshIndex;
 		}
 
 
-		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()));
+		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
 		return gameObject;
 
@@ -227,9 +230,16 @@ namespace HX3D
 			// itr->second->Yaw(itr->second->GetRotation().y + 1.0f);
 			// itr->second->Roll(itr->second->GetRotation().z + 1.0f);
 
+			// 更新坐标ModelMatrix 动作等
+			itr->second->Update();
+
 			HXMesh* pMesh = itr->second->GetMesh();
+			if (pMesh == NULL)
+			{
+				continue;
+			}
 			// 更新动作
-			pMesh->UpdateAnimation();
+			//pMesh->UpdateAnimation();
 
 			HXStatus::GetInstance()->nVertexCount += pMesh->vertexCount;
 			HXStatus::GetInstance()->nTriangleCount += pMesh->triangleCount;
@@ -239,7 +249,8 @@ namespace HX3D
 				HXRenderSystem* pRenderSystem = HXRoot::GetInstance()->GetRenderSystem();
 				if (pRenderSystem)
 				{
-					(*itr1)->renderable->SetModelMatrix(itr->second->GetPosition(), itr->second->GetRotation(), itr->second->GetScale());
+					//(*itr1)->renderable->SetModelMatrix(itr->second->GetPosition(), itr->second->GetRotation(), itr->second->GetScale());
+					(*itr1)->renderable->SetModelMatrix(itr->second->GetTransform()->mCurModelMatrix);
 					// TODO: 提取到外层Camera里增加效率   Just for test here
 					(*itr1)->renderable->SetViewMatrix(m_pMainCamera);
 					(*itr1)->renderable->SetProjectionMatrix(m_pMainCamera);

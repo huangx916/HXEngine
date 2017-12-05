@@ -4,6 +4,7 @@
 #include "HXGraphics.h"
 #include "HXGDIRenderable.h"
 #include "HXGDICamera.h"
+#include "HXGDITransform.h"
 
 namespace HX3D
 {
@@ -219,6 +220,11 @@ namespace HX3D
 	void HXGDIRenderSystem::_DrawText(float x, float y, std::string text, const HXCOLOR& color)
 	{
 		HXGraphics::GetInstance()->DrawString(text, x, y, color, HXCOLOR(128,128,128,255));
+	}
+
+	HXITransform* HXGDIRenderSystem::CreateTransform()
+	{
+		return new HXGDITransform();
 	}
 
 	/*void HXGDIRenderSystem::EndText()

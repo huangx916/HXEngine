@@ -9,6 +9,7 @@
 //#include "HXGLTextureDDS.h"
 //#include "HXGLTexturePNG.h"
 #include "HXGLTexture.h"
+#include "HXGLTransform.h"
 
 namespace HX3D
 {
@@ -21,20 +22,25 @@ namespace HX3D
 	{
 	}
 
-	void HXGLRenderable::SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale)
-	{
-		// 缩放处理S
-		vmath::mat4 matS = vmath::scale(scale.x, scale.y, scale.z);
-		// 旋转处理Q
-		vmath::mat4 matX = vmath::rotate(eulerDegree.x, 1.0f, 0.0f, 0.0f);
-		vmath::mat4 matY = vmath::rotate(eulerDegree.y, 0.0f, 1.0f, 0.0f);
-		vmath::mat4 matZ = vmath::rotate(eulerDegree.z, 0.0f, 0.0f, 1.0f);
-		// 平移一定要最后处理T
-		vmath::mat4 matT = vmath::translate(pos.x, pos.y, pos.z);
+	//void HXGLRenderable::SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale)
+	//{
+	//	// 缩放处理S
+	//	vmath::mat4 matS = vmath::scale(scale.x, scale.y, scale.z);
+	//	// 旋转处理Q
+	//	vmath::mat4 matX = vmath::rotate(eulerDegree.x, 1.0f, 0.0f, 0.0f);
+	//	vmath::mat4 matY = vmath::rotate(eulerDegree.y, 0.0f, 1.0f, 0.0f);
+	//	vmath::mat4 matZ = vmath::rotate(eulerDegree.z, 0.0f, 0.0f, 1.0f);
+	//	// 平移一定要最后处理T
+	//	vmath::mat4 matT = vmath::translate(pos.x, pos.y, pos.z);
 
-		// 模型空间到世界空间转换 SQT(OPENGL右手坐标系，从右往左结合)
-		mMatrixModel = matT*matX*matZ*matY*matS;
-		// mMatrixModel = matS * matY * matZ * matX * matT;
+	//	// 模型空间到世界空间转换 SQT(OPENGL右手坐标系，从右往左结合)
+	//	mMatrixModel = matT*matX*matZ*matY*matS;
+	//	// mMatrixModel = matS * matY * matZ * matX * matT;
+	//}
+
+	void HXGLRenderable::SetModelMatrix(HXMatrix44& mat)
+	{
+		mMatrixModel = HXGLTransform::ConvertMatrix(mat);
 	}
 
 	void HXGLRenderable::SetViewMatrix(HXICamera* pCamera)

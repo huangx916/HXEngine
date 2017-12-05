@@ -89,7 +89,8 @@ namespace HX3D
 
 		HXSubMesh* Clone(HXRenderSystem* pRenderSystem);
 
-		void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
+		/*void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);*/
+		void Insert_To_RenderList(HXMatrix44& mat, HXRenderList* pRenderList);
 
 		bool useIndex;
 		bool IsStaticMesh;
@@ -104,8 +105,10 @@ namespace HX3D
 		HXRenderable* renderable;
 
 	private:
-		void Insert_To_RenderList_Without_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
-		void Insert_To_RenderList_With_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
+		//void Insert_To_RenderList_Without_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
+		void Insert_To_RenderList_Without_Index(HXMatrix44& mat, HXRenderList* pRenderList);
+		//void Insert_To_RenderList_With_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
+		void Insert_To_RenderList_With_Index(HXMatrix44& mat ,HXRenderList* pRenderList);
 	};
 
 	class HXMesh
@@ -124,7 +127,7 @@ namespace HX3D
 		void CreateTriangleForTest();
 		void CreateQuadForTest();
 
-		void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
+		//void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
 
 		void SetMeshNotStatic();
 

@@ -16,21 +16,34 @@ namespace HX3D
 	{
 		TiXmlDocument doc(strFileName.c_str());
 		bool bLoaded = doc.LoadFile();
-		//doc.Print();
+		doc.Print();
 		if (!bLoaded)
 		{
 			return false;
 		}
 
 		TiXmlElement* rootElement = doc.RootElement();
-		TiXmlElement* meshElement = rootElement->FirstChildElement();
-		mPrefabInfo.m_strMeshFile = meshElement->Attribute("File");
-		TiXmlElement* animElement = meshElement->NextSiblingElement();
-		mPrefabInfo.m_strAnimFile = animElement->Attribute("File");
-		TiXmlElement* matElement = animElement->NextSiblingElement();
-		for (; matElement != NULL; matElement = matElement->NextSiblingElement())
+		TiXmlElement* gameobjElement = rootElement->FirstChildElement();
+		for (; gameobjElement != NULL; gameobjElement = gameobjElement->NextSiblingElement())
 		{
-			mPrefabInfo.m_vctSubMeshMat.push_back(matElement->Attribute("File"));
+			HXModelGameObjInfo gameObjInfo;
+
+			gameObjInfo.strGameObjName = gameobjElement->Attribute("Name");
+			gameObjInfo.strModelFile = gameobjElement->Attribute("Model");
+			TiXmlElement* positionElement = gameobjElement->FirstChildElement();
+			gameObjInfo.position.x = atof(positionElement->Attribute("Px"));
+			gameObjInfo.position.y = atof(positionElement->Attribute("Py"));
+			gameObjInfo.position.z = atof(positionElement->Attribute("Pz"));
+			TiXmlElement* rotationElement = positionElement->NextSiblingElement();
+			gameObjInfo.rotation.x = atof(rotationElement->Attribute("Rx"));
+			gameObjInfo.rotation.y = atof(rotationElement->Attribute("Ry"));
+			gameObjInfo.rotation.z = atof(rotationElement->Attribute("Rz"));
+			TiXmlElement* scaleElement = rotationElement->NextSiblingElement();
+			gameObjInfo.scale.x = atof(scaleElement->Attribute("Sx"));
+			gameObjInfo.scale.y = atof(scaleElement->Attribute("Sy"));
+			gameObjInfo.scale.z = atof(scaleElement->Attribute("Sz"));
+
+			mPrefabInfo.vctGameObjInfo.push_back(gameObjInfo);
 		}
 
 		return true;

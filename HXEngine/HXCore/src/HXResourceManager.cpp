@@ -5,7 +5,7 @@
 #include "HXIMeshLoader.h"
 #include "HXFBXLoader.h"
 
-#include "HXLoadConfigPrefab.h"
+#include "HXLoadConfigModel.h"
 #include "HXLoadConfigMat.h"
 
 namespace HX3D
@@ -123,21 +123,21 @@ namespace HX3D
 		materialMap.insert(make_pair(strMaterialName, pMaterial));
 	}
 
-	HXPrefabInfo* HXResourceManager::GetPrefabInfo(std::string strPrefabFile)
+	HXModelInfo* HXResourceManager::GetModelInfo(std::string strModelFile)
 	{
-		std::map<std::string, HXPrefabInfo*>::iterator itr = prefabMap.find(strPrefabFile);
-		if (itr != prefabMap.end())
+		std::map<std::string, HXModelInfo*>::iterator itr = ModelMap.find(strModelFile);
+		if (itr != ModelMap.end())
 		{
 			return itr->second;
 		}
 		else
 		{
-			HXLoadConfigPrefab cfg;
-			if (cfg.LoadFile(strPrefabFile))
+			HXLoadConfigModel cfg;
+			if (cfg.LoadFile(strModelFile))
 			{
-				HXPrefabInfo* pPrefabInfo = new HXPrefabInfo(cfg.mPrefabInfo);
-				prefabMap.insert(make_pair(strPrefabFile, pPrefabInfo));
-				return pPrefabInfo;
+				HXModelInfo* pModelInfo = new HXModelInfo(cfg.mModelInfo);
+				ModelMap.insert(make_pair(strModelFile, pModelInfo));
+				return pModelInfo;
 			}
 		}
 		return NULL;

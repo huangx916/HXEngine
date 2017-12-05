@@ -5,6 +5,7 @@
 
 namespace HX3D
 {
+	class HXITransform;
 	class HXGDIRenderSystem : public HXRenderSystem
 	{
 	public:
@@ -27,6 +28,8 @@ namespace HX3D
 		//virtual void BeginText();
 		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255,255,255,255));
 		//virtual void EndText();
+
+		virtual HXITransform* CreateTransform();
 
 	private:
 		// 2、窗口过程函数(必须要是全局函数)

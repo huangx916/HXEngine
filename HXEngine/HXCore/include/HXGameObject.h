@@ -1,22 +1,23 @@
 #pragma once
 #include "HXCommon.h"
 #include "HXVector.h"
-
+#include "HXMatrix.h"
+#include "HXITransform.h"
 
 namespace HX3D
 {
 	class HXMesh;
 	struct HXRenderList;
-
+	class HXRenderSystem;
 	class HXGameObject
 	{
 	public:
-		HXGameObject(HXMesh* pMesh);
+		HXGameObject(HXMesh* pMesh, HXRenderSystem* pRenderSystem);
 		~HXGameObject();
 	
 		void Update();
 
-		void Insert_To_RenderList(HXRenderList* pRenderList);
+		//void Insert_To_RenderList(HXRenderList* pRenderList);
 		void SetPostion(const HXVector3D& pos);
 		HXVector3D GetPosition();
 		void Move(const HXVector3D& mov);
@@ -31,13 +32,20 @@ namespace HX3D
 		HXVector3D GetScale();
 
 		HXMesh* GetMesh();
-
+		HXGameObject* GetFather();
+		void SetFather(HXGameObject* father);
+		HXITransform* GetTransform();
+		
 	private:
-		HXVector3D mPostion;
+		// Local Coordinate
+		/*HXVector3D mPostion;
 		HXVector3D mEulerDegree;
-		HXVector3D mScale;
+		HXVector3D mScale;*/
+		HXITransform* m_pTransform;
 
 		HXMesh* m_pMesh;
+		// TODO: config中暂时只支持两层 prefabgameobj--->modelgameobj
+		HXGameObject* m_pFather;	// 用作计算World Coordinate
 	};
 }
 

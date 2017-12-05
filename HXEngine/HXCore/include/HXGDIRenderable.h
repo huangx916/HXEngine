@@ -2,6 +2,7 @@
 #include "HXCommon.h"
 #include "HXRenderable.h"
 #include "HXVector.h"
+#include "HXMatrix.h"
 
 namespace HX3D
 {
@@ -14,7 +15,8 @@ namespace HX3D
 		HXGDIRenderable();
 		~HXGDIRenderable();
 
-		virtual void SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale);
+		//virtual void SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale);
+		virtual void SetModelMatrix(HXMatrix44& mat);
 		// 提取到外层计算提高效率
 		virtual void SetViewMatrix(HXICamera* pCamera);
 		// 提取到外层计算提高效率
@@ -25,9 +27,11 @@ namespace HX3D
 
 		HXRenderList*	mRenderList;
 
-		HXVector3D mPos;
+		/*HXVector3D mPos;
 		HXVector3D mEulerDegree;
-		HXVector3D mScale;
+		HXVector3D mScale;*/
+		HXMatrix44 mMatrixModel;
+
 
 		HXFrustum* mFrustum;
 	};

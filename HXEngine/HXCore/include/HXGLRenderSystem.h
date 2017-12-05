@@ -4,6 +4,7 @@
 
 namespace HX3D
 {
+	class HXITransform;
 	class HXIFreeTypeFont;
 	class HXGLRenderSystem : public HXRenderSystem
 	{
@@ -26,6 +27,8 @@ namespace HX3D
 		virtual void BeginText();
 		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255, 255, 255, 255));
 		virtual void EndText();
+
+		virtual HXITransform* CreateTransform();
 
 		HXIFreeTypeFont* mFont;
 	};

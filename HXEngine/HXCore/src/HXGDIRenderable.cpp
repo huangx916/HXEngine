@@ -18,11 +18,16 @@ namespace HX3D
 		delete mRenderList;
 	}
 
-	void HXGDIRenderable::SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale)
+	/*void HXGDIRenderable::SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale)
 	{
 		mPos = pos;		
 		mEulerDegree = eulerDegree;
 		mScale = scale;
+	}*/
+
+	void HXGDIRenderable::SetModelMatrix(HXMatrix44& mat)
+	{
+		mMatrixModel = mat;
 	}
 
 	void HXGDIRenderable::SetViewMatrix(HXICamera* pCamera)
@@ -51,7 +56,8 @@ namespace HX3D
 		//HXRenderState::SetMaterial(m_pSubMesh->materialName);
 		HXRenderState::SetMatInfoAndTexture(m_pSubMesh->materialName);
 
-		m_pSubMesh->Insert_To_RenderList(mPos, mEulerDegree, mScale, mRenderList);
+		//m_pSubMesh->Insert_To_RenderList(mPos, mEulerDegree, mScale, mRenderList);
+		m_pSubMesh->Insert_To_RenderList(mMatrixModel, mRenderList);
 		Culling_Backface_RenderList(mRenderList, mFrustum);
 		// TODO: π‚’’
 		// World_Space_Vertex_Lighting(mRenderList, &lightVct);

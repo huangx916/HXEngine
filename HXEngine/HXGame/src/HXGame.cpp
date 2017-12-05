@@ -30,6 +30,7 @@ HXGame::~HXGame()
 //#include "HXGLTest.h"
 #include "HXLoadConfigMat.h"
 #include "HXLoadConfigPrefab.h"
+#include "HXLoadConfigModel.h"
 #include "HXLoadConfigScene.h"
 
 HXBitmap* Gpbitmap = NULL;
@@ -137,18 +138,34 @@ void HXGame::CreateGameScene()
 
 	HXLoadConfigScene cfg;
 	cfg.LoadFile("./scene/DuKangCun.scene");
-	for (std::vector<HXGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
+	for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 	{
-		HXGameObjInfo& goinfo = *itr;
-
-		pGameObject = HXSceneManager::GetInstance()->CreateGameObject(goinfo.strGameObjName, goinfo.strPrefabFile);
-		if (NULL == pGameObject)
+		HXPrefabGameObjInfo& prefabgoinfo = *itr;
+		HXGameObject* pFatherGameObject = HXSceneManager::GetInstance()->CreateGameObject(prefabgoinfo.strGameObjName, "");
+		if (NULL == pFatherGameObject)
 		{
 			return;
 		}
-		pGameObject->SetScale(goinfo.scale);
-		pGameObject->SetRotation(goinfo.rotation);
-		pGameObject->SetPostion(goinfo.position);
+		pFatherGameObject->SetScale(prefabgoinfo.scale);
+		pFatherGameObject->SetRotation(prefabgoinfo.rotation);
+		pFatherGameObject->SetPostion(prefabgoinfo.position);
+
+		HXLoadConfigPrefab cfgPrefab;
+		cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
+		for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
+		{
+			HXModelGameObjInfo& modelgoinfo = *itr1;
+			pGameObject = HXSceneManager::GetInstance()->CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile);
+			if (NULL == pGameObject)
+			{
+				return;
+			}
+			pGameObject->SetScale(modelgoinfo.scale);
+			pGameObject->SetRotation(modelgoinfo.rotation);
+			pGameObject->SetPostion(modelgoinfo.position);
+
+			pGameObject->SetFather(pFatherGameObject);
+		}
 	}
 	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 0), HXVector3D(0, 0, -100));
 

@@ -7,6 +7,7 @@ namespace HX3D
 	class HXRenderable;
 	class HXSubMesh;
 	class HXICamera;
+	class HXITransform;
 	class HXRenderSystem
 	{
 	public:
@@ -23,6 +24,8 @@ namespace HX3D
 		virtual HXICamera* CreateCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
 			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
 			float left, float right, float bottom, float top) = 0;
+
+		virtual HXITransform* CreateTransform() = 0;
 
 		virtual void BeginText() {};
 		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255, 255, 255, 255)) = 0;

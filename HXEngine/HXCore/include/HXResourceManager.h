@@ -8,7 +8,7 @@ namespace HX3D
 	class HXMaterial;
 	class HXBitmap;
 	class HXIMeshLoader;
-	class HXPrefabInfo;
+	class HXModelInfo;
 	class HXMaterialInfo;
 	class HXITexture;
 	class HXResourceManager
@@ -33,7 +33,7 @@ namespace HX3D
 
 
 
-		HXPrefabInfo* GetPrefabInfo(std::string strPrefabFile);
+		HXModelInfo* GetModelInfo(std::string strModelFile);
 		HXMaterialInfo* GetMaterialInfo(std::string strMaterialFile);
 		HXITexture* GetTexture(std::string strTextureFile);
 		void AddTexture(std::string strTextureFile, HXITexture* pTexture);
@@ -47,7 +47,7 @@ namespace HX3D
 		std::map<std::string, HXMaterial*> materialMap;
 		std::map<std::string, HXBitmap*> bitmapMap;
 
-		std::map<std::string, HXPrefabInfo*> prefabMap;
+		std::map<std::string, HXModelInfo*> ModelMap;
 		std::map<std::string, HXMesh*>	meshMap;
 		std::map<std::string, HXMaterialInfo*> matMap;
 		std::map<std::string, HXITexture*> textureMap;

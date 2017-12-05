@@ -1,13 +1,21 @@
 #pragma once
 #include "HXCommon.h"
+#include "HXVector.h"
 
 namespace HX3D
 {
+	struct HXModelGameObjInfo
+	{
+		std::string strGameObjName;
+		std::string strModelFile;
+		HXVector3D position;
+		HXVector3D rotation;
+		HXVector3D scale;
+	};
 	struct HXPrefabInfo
 	{
-		std::string m_strMeshFile;
-		std::string m_strAnimFile;
-		std::vector<std::string> m_vctSubMeshMat;
+		// TODO: Add Camera etc.
+		std::vector<HXModelGameObjInfo> vctGameObjInfo;
 	};
 	class HXLoadConfigPrefab
 	{

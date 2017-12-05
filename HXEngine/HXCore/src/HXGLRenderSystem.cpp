@@ -4,6 +4,7 @@
 #include "HXGLRenderable.h"
 #include "HXGLCamera.h"
 #include "HXGLFreeTypeFont.h"
+#include "HXGLTransform.h"
 
 namespace HX3D
 {
@@ -131,5 +132,10 @@ namespace HX3D
 		{
 			mFont->EndText();
 		}
+	}
+
+	HXITransform* HXGLRenderSystem::CreateTransform()
+	{
+		return new HXGLTransform();
 	}
 }
