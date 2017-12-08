@@ -103,6 +103,7 @@ namespace HX3D
 		int triangleCount;
 
 		HXRenderable* renderable;
+		
 
 	private:
 		//void Insert_To_RenderList_Without_Index(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
@@ -121,7 +122,7 @@ namespace HX3D
 		void PlayAnimation(std::string strAnimName, int nSpeed = 1);
 		void UpdateAnimation();
 
-		HXMesh* Clone(HXRenderSystem* pRenderSystem);
+		virtual HXMesh* Clone(HXRenderSystem* pRenderSystem);
 
 		// For Test
 		void CreateCubeForTest();
@@ -138,6 +139,8 @@ namespace HX3D
 		int vertexCount;
 		HXISkeleton* skeleton;
 		HXAnimationInstance* animInst;	// 只有实例化到场景的MESH才会new
+
+		// 新的成员变量clone时要赋值
 	};
 }
 

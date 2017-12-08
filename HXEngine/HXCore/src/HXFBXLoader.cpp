@@ -112,6 +112,8 @@ namespace HX3D
 			return;
 		}
 
+		//FbxAMatrix mat1 = pFbxMesh->GetNode()->EvaluateGlobalTransform();
+
 		ProcessPolygons(pFbxMesh, pMesh);
 		//ProcessMaterial(pFbxMesh);
 	}
@@ -187,6 +189,7 @@ namespace HX3D
 			}			
 			// 加载网格数据
 			ProcessNode(m_pScene->GetRootNode(), (HXFBXMesh*)*ppMesh);
+
 			// 加载骨骼数据
 			if (HXFBXSkeleton::IsHaveSkeleton(m_pScene))
 			{

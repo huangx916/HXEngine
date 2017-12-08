@@ -1,5 +1,7 @@
 #include "..\include\HXFBXMesh.h"
 #include "HXFBXLoader.h"
+#include "HXMatrix.h"
+#include "HXISkeleton.h"
 
 namespace HX3D
 {
@@ -24,7 +26,10 @@ namespace HX3D
 		}*/
 		//double scale = sceneSystemUnit.GetScaleFactor();
 
-		FbxVector4 LclScaling = pFbxMesh->GetNode()->LclScaling;
+
+		matrixMeshGlobalPositionIn3DMax = pFbxMesh->GetNode()->EvaluateGlobalTransform();
+		// 缩放已经包含在matrixMeshGlobalPositionIn3DMax矩阵里了
+		//FbxVector4 LclScaling = pFbxMesh->GetNode()->LclScaling;
 
 		int nTriangleCount = pFbxMesh->GetPolygonCount();
 		int nVertexCounter = 0;
@@ -53,8 +58,8 @@ namespace HX3D
 					if (subMeshList[lMaterialIndex] == NULL)
 					{
 						subMeshList[lMaterialIndex] = new HXSubMesh();
-						subMeshList[lMaterialIndex]->triangleCount += 1;
 					}
+					subMeshList[lMaterialIndex]->triangleCount += 1;
 					// 关联材质
 					/*FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(lMaterialIndex);
 					std::string strMaterialName = HXFBXLoader::gCurPathFileName + "|" + lMaterial->GetName();
@@ -144,22 +149,57 @@ namespace HX3D
 		{
 			for (std::vector<HXVertex>::iterator itr1 = (*itr)->vertexList.begin(); itr1 != (*itr)->vertexList.end(); ++itr1)
 			{
-				float x = pVertices[(*itr1).ctrlPointIndex][0];
-				float y = pVertices[(*itr1).ctrlPointIndex][1];
-				float z = pVertices[(*itr1).ctrlPointIndex][2];
-				(*itr1).pos.x = x;
-				(*itr1).pos.y = y;
-				(*itr1).pos.z = z;
+				FbxVector4 curPoint = pVertices[(*itr1).ctrlPointIndex];
+				curPoint = matrixMeshGlobalPositionIn3DMax.MultT(curPoint);
+
+				/*(*itr1).pos.x = pVertices[(*itr1).ctrlPointIndex][0];
+				(*itr1).pos.y = pVertices[(*itr1).ctrlPointIndex][1];
+				(*itr1).pos.z = pVertices[(*itr1).ctrlPointIndex][2];*/
+				(*itr1).pos.x = curPoint[0];
+				(*itr1).pos.y = curPoint[1];
+				(*itr1).pos.z = curPoint[2];
 			}
 		}
+	}
+
+	HXMesh* HXFBXMesh::Clone(HXRenderSystem* pRenderSystem)
+	{
+		HXFBXMesh* pMesh = new HXFBXMesh();
+		for (std::vector<HXSubMesh*>::iterator itr = subMeshList.begin(); itr != subMeshList.end(); ++itr)
+		{
+			HXSubMesh* pHXSubMesh = (*itr)->Clone(pRenderSystem);
+			pMesh->subMeshList.push_back(pHXSubMesh);
+		}
+		pMesh->triangleCount = triangleCount;
+		pMesh->vertexCount = vertexCount;
+
+		// 骨骼用同一套，具体参数(如当前动画片段，时间等)自己控制
+		if (NULL != skeleton)
+		{
+			pMesh->skeleton = skeleton;
+			HXAnimationInstance* pAnimInst = new HXAnimationInstance();
+			pMesh->animInst = pAnimInst;
+			pMesh->animInst->mMesh = pMesh;
+		}
+
+		pMesh->matrixMeshGlobalPositionIn3DMax = matrixMeshGlobalPositionIn3DMax;
+
+		return pMesh;
 	}
 
 	void HXFBXMesh::ReadVertex(FbxMesh* pFbxMesh, int nCtrlPointIndex, HXVertex& vertex)
 	{
 		FbxVector4* pCtrlPoint = pFbxMesh->GetControlPoints();
-		vertex.pos.x = pCtrlPoint[nCtrlPointIndex][0];
+
+		FbxVector4 curPoint = pCtrlPoint[nCtrlPointIndex];
+		curPoint = matrixMeshGlobalPositionIn3DMax.MultT(curPoint);
+
+		/*vertex.pos.x = pCtrlPoint[nCtrlPointIndex][0];
 		vertex.pos.y = pCtrlPoint[nCtrlPointIndex][1];
-		vertex.pos.z = pCtrlPoint[nCtrlPointIndex][2];
+		vertex.pos.z = pCtrlPoint[nCtrlPointIndex][2];*/
+		vertex.pos.x = curPoint[0];
+		vertex.pos.y = curPoint[1];
+		vertex.pos.z = curPoint[2];
 		vertex.ctrlPointIndex = nCtrlPointIndex;
 	}
 

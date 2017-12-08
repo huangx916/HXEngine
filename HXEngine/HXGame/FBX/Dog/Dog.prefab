@@ -2,7 +2,7 @@
 <Prefab>
 	<ModelGameObj Name="Dog01" Model="FBX/Dog/Dog.model">
 		<Postion Px="0" Py="0" Pz="0"/>
-		<Rotation Rx="0" Ry="90" Rz="90"/>
+		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="1" Sy="1" Sz="1"/>
 	</ModelGameObj>
 </Prefab>

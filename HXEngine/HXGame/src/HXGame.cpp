@@ -175,7 +175,7 @@ void HXGame::CreateGameScene()
 			pGameObject->SetFather(pFatherGameObject);
 		}
 	}
-	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 20, 100), HXVector3D(0, 0, 0));
+	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0));
 
 
 
