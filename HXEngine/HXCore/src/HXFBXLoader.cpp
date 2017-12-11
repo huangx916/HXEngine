@@ -59,7 +59,6 @@ namespace HX3D
 		}
 
 		// Convert Axis System to what is used in this example, if needed
-		// TODO: 貌似不起作用 ?
 		FbxAxisSystem SceneAxisSystem = m_pScene->GetGlobalSettings().GetAxisSystem();
 		FbxAxisSystem OurAxisSystem(FbxAxisSystem::eYAxis, FbxAxisSystem::eParityOdd, FbxAxisSystem::eRightHanded);
 		if (SceneAxisSystem != OurAxisSystem)

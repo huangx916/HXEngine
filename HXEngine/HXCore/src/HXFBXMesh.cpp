@@ -120,9 +120,10 @@ namespace HX3D
 					// 控点和UV不同的顶点可能共享，和顶点不是一一对应关系
 					int nCtrlPointIndex = pFbxMesh->GetPolygonVertex(i, j);
 					int nTextureUVIndex = pFbxMesh->GetTextureUVIndex(i, j);
-					// TODO: 读取比例因子矩阵乘以顶点坐标（3DMAX系统单位设置不同，顶点坐标会不同，需要乘以比例因子LclScaling）
+					// 读取比例因子矩阵乘以顶点坐标（3DMAX系统单位设置不同，顶点坐标会不同，需要乘以比例因子LclScaling）
 					// 顶点坐标会转化为系统设置单位，乘以比例因子后是导出时选择的单位
 					// 3DMAX中调整单位及轴等，导出时需要重置变换
+					// 以上所有都包含在matrixMeshGlobalPositionIn3DMax矩阵中了
 					// Read the vertex
 					ReadVertex(pFbxMesh, nCtrlPointIndex, vertex);
 					// Read the color of each vertex
