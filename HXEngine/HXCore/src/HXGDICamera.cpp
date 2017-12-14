@@ -1,6 +1,7 @@
 #include "..\include\HXGDICamera.h"
 #include "HXFrustum.h"
 #include "HXMath.h"
+#include "HXQuaternion.h"
 
 namespace HX3D
 {
@@ -46,65 +47,94 @@ namespace HX3D
 
 	void HXGDICamera::yaw(float fDegree)
 	{
-		HXVector4D distance = mFrustum->lookTarget - mFrustum->camPosition;
+		/*HXVector4D distance = mFrustum->lookTarget - mFrustum->camPosition;
 		HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
 		distance = GetVector4DMulMatrix44(distance, matRotate);
-		mFrustum->lookTarget = mFrustum->camPosition + distance;
+		mFrustum->lookTarget = mFrustum->camPosition + distance;*/
+
+		mFrustum->mYaw += fDegree;
 	}
 
 	void HXGDICamera::pitch(float fDegree)
 	{
-		HXVector4D distance = mFrustum->lookTarget - mFrustum->camPosition;
+		/*HXVector4D distance = mFrustum->lookTarget - mFrustum->camPosition;
 		HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
 		distance = GetVector4DMulMatrix44(distance, matRotate);
-		mFrustum->lookTarget = mFrustum->camPosition + distance;
+		mFrustum->lookTarget = mFrustum->camPosition + distance;*/
+
+		mFrustum->mPitch += fDegree;
 	}
 
-	void HXGDICamera::YawLockTarget(float fDegree)
-	{
-		HXVector4D distance = mFrustum->camPosition - mFrustum->lookTarget;
-		HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
-		distance = GetVector4DMulMatrix44(distance, matRotate);
-		mFrustum->camPosition = mFrustum->lookTarget + distance;
-	}
+	//void HXGDICamera::YawLockTarget(float fDegree)
+	//{
+	//	HXVector4D distance = mFrustum->camPosition - mFrustum->lookTarget;
+	//	HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
+	//	distance = GetVector4DMulMatrix44(distance, matRotate);
+	//	mFrustum->camPosition = mFrustum->lookTarget + distance;
+	//}
 
-	void HXGDICamera::PitchLockTarget(float fDegree)
-	{
-		HXVector4D vec = mFrustum->camPosition - mFrustum->lookTarget;
+	//void HXGDICamera::PitchLockTarget(float fDegree)
+	//{
+	//	HXVector4D vec = mFrustum->camPosition - mFrustum->lookTarget;
 
-		float tanRadian = vec.x / vec.z;
-		float fRadian = atan(tanRadian);
-		float fDegreeY = Radian_TO_Degree(fRadian);
-		if (vec.z < 0)
-		{
-			fDegreeY += 180;
-		}
-		// 先旋转到朝Z轴负方向
-		HXMatrix44 matRotate = GetRotateMatrix44Y(-fDegreeY);
-		vec = GetVector4DMulMatrix44(vec, matRotate);
-		// pitch
-		matRotate = GetRotateMatrix44X(fDegree);
-		vec = GetVector4DMulMatrix44(vec, matRotate);
-		// 恢复
-		matRotate = GetRotateMatrix44Y(fDegreeY);
-		vec = GetVector4DMulMatrix44(vec, matRotate);
+	//	float tanRadian = vec.x / vec.z;
+	//	float fRadian = atan(tanRadian);
+	//	float fDegreeY = Radian_TO_Degree(fRadian);
+	//	if (vec.z < 0)
+	//	{
+	//		fDegreeY += 180;
+	//	}
+	//	// 先旋转到朝Z轴负方向
+	//	HXMatrix44 matRotate = GetRotateMatrix44Y(-fDegreeY);
+	//	vec = GetVector4DMulMatrix44(vec, matRotate);
+	//	// pitch
+	//	matRotate = GetRotateMatrix44X(fDegree);
+	//	vec = GetVector4DMulMatrix44(vec, matRotate);
+	//	// 恢复
+	//	matRotate = GetRotateMatrix44Y(fDegreeY);
+	//	vec = GetVector4DMulMatrix44(vec, matRotate);
 
-		mFrustum->camPosition = mFrustum->lookTarget + vec;
+	//	mFrustum->camPosition = mFrustum->lookTarget + vec;
 
-		/*HXVector4D distance = mFrustum->camPosition - mFrustum->lookTarget;
-		HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
-		distance = GetVector4DMulMatrix44(distance, matRotate);
-		mFrustum->camPosition = mFrustum->lookTarget + distance;*/
-	}
+	//	/*HXVector4D distance = mFrustum->camPosition - mFrustum->lookTarget;
+	//	HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
+	//	distance = GetVector4DMulMatrix44(distance, matRotate);
+	//	mFrustum->camPosition = mFrustum->lookTarget + distance;*/
+	//}
 
 	void HXGDICamera::Forward(float fDistance)
 	{
-		HXVector4D direction = mFrustum->lookTarget - mFrustum->camPosition;
+		/*HXVector4D direction = mFrustum->lookTarget - mFrustum->camPosition;
 		direction.normalize();
 		HXVector4D forward = direction * fDistance;
 		mFrustum->lookTarget += forward;
-		mFrustum->camPosition += forward;
+		mFrustum->lookTarget += forward;*/
+
+		HXQuaternion q;
+		q.FromEulerDegree(mFrustum->mPitch, mFrustum->mYaw, mFrustum->mRoll);
+		HXVector3D v(0, 0, -fDistance);
+		v = q.Transform(v);
+		mFrustum->lookTarget += HXVector4D(v,0);
+		mFrustum->lookTarget += HXVector4D(v, 0);
 	}
 
+	void HXGDICamera::MoveHorizon(float fDistance)
+	{
+		HXQuaternion q;
+		q.FromEulerDegree(mFrustum->mPitch, mFrustum->mYaw, mFrustum->mRoll);
+		HXVector3D v(fDistance, 0, 0);
+		v = q.Transform(v);
+		mFrustum->lookTarget += HXVector4D(v, 0);
+		mFrustum->lookTarget += HXVector4D(v, 0);
+	}
 
+	void HXGDICamera::MoveVertical(float fDistance)
+	{
+		HXQuaternion q;
+		q.FromEulerDegree(mFrustum->mPitch, mFrustum->mYaw, mFrustum->mRoll);
+		HXVector3D v(0, -fDistance, 0);
+		v = q.Transform(v);
+		mFrustum->lookTarget += HXVector4D(v, 0);
+		mFrustum->lookTarget += HXVector4D(v, 0);
+	}
 }

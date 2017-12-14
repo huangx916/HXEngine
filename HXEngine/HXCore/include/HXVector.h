@@ -187,6 +187,10 @@ namespace HX3D
 
 		// TODO: vec.xyz
 		// HXVector3D xyz
+		inline HXVector3D xyz()
+		{
+			return HXVector3D(x,y,z);
+		}
 
 		// 以下接口前提 w = 1
 		inline float length() const

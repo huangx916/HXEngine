@@ -15,8 +15,13 @@ namespace HX3D
 
 		void update();
 
+		// 不保存旋转
 		HXVector4D	camPosition;	// 相机世界坐标
 		HXVector4D	lookTarget;	// 相机注视点
+		// 旋转单独保存
+		float mYaw;
+		float mPitch;
+		float mRoll;
 
 		HXVector4D	camU;	// 右基向量
 		HXVector4D	camV;	// 上基向量

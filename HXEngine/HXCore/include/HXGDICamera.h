@@ -26,12 +26,12 @@ namespace HX3D
 		// ÈÆXÖáÐý×ª
 		virtual void pitch(float fDegree);
 
-		virtual void YawLockTarget(float fDegree);
-		virtual void PitchLockTarget(float fDegree);
+		/*virtual void YawLockTarget(float fDegree);
+		virtual void PitchLockTarget(float fDegree);*/
 
 		virtual void Forward(float fDistance);
-		virtual void MoveHorizon(float fDistance) {};
-		virtual void MoveVertical(float fDistance) {};
+		virtual void MoveHorizon(float fDistance);
+		virtual void MoveVertical(float fDistance);
 
 		HXFrustum* mFrustum;
 	};

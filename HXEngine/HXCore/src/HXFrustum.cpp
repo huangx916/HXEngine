@@ -1,11 +1,12 @@
 #include "..\include\HXFrustum.h"
 #include "HXMath.h"
+#include "HXQuaternion.h"
 
 namespace HX3D
 {
 	HXFrustum::HXFrustum(const HXVector4D& pos, const HXVector4D& target
 		, float ffov, float nearZ, float farZ
-		, float viewportWidth, float viewportHeigth)
+		, float viewportWidth, float viewportHeigth):mYaw(0), mPitch(0), mRoll(0)
 	{
 		camPosition = pos;
 		lookTarget = target;
@@ -44,9 +45,18 @@ namespace HX3D
 
 	void HXFrustum::update()
 	{
-		HXMatrix44 matTransInv = GetTranslateMatrix44(-camPosition.x, -camPosition.y, -camPosition.z);
+		HXQuaternion q;
+		q.FromEulerDegree(mPitch, mYaw, mRoll);
+		HXVector3D vec = camPosition.xyz() - lookTarget.xyz();
+		vec = q.Transform(vec);
+		HXVector4D camPositionNew = lookTarget + HXVector4D(vec, 0);
 
-		camN = lookTarget - camPosition;	// 此处N为相机前方，所以用左手坐标系
+
+		//HXMatrix44 matTransInv = GetTranslateMatrix44(-camPosition.x, -camPosition.y, -camPosition.z);
+		HXMatrix44 matTransInv = GetTranslateMatrix44(-camPositionNew.x, -camPositionNew.y, -camPositionNew.z);
+
+		//camN = lookTarget - camPosition;	// 此处N为相机前方，所以用左手坐标系
+		camN = lookTarget - camPositionNew;	// 此处N为相机前方，所以用左手坐标系
 		//camN = camPosition - lookTarget;	// 此处N为相机后方，所以用右手坐标系
 		camU = HXVector4D::UNIT_Y.crossProduct(camN);
 		camV = camN.crossProduct(camU);

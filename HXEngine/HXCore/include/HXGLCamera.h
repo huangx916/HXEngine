@@ -29,8 +29,8 @@ namespace HX3D
 		virtual void pitch(float fDegree);
 
 		// Obsolete/////////////////////////////////////
-		virtual void YawLockTarget(float fDegree);
-		virtual void PitchLockTarget(float fDegree);
+		//virtual void YawLockTarget(float fDegree);
+		//virtual void PitchLockTarget(float fDegree);
 		////////////////////////////////////////////////
 
 		virtual void Forward(float fDistance);

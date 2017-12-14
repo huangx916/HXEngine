@@ -66,16 +66,42 @@ namespace HX3D
 			mouseLDown = true;
 			mLastX = (int)LOWORD(lParam);
 			mLastY = (int)HIWORD(lParam);
+			Mouse(0, 0, mLastX, mLastY);
 			break;
 		}
 		case WM_LBUTTONUP:
 		{
 			mouseLDown = false;
+			mLastX = (int)LOWORD(lParam);
+			mLastY = (int)HIWORD(lParam);
+			Mouse(0, 1, mLastX, mLastY);
+			break;
+		}
+		case WM_RBUTTONDOWN:
+		{
+			/*if (m_pDisplayListener)
+			{
+			int x = (int)LOWORD(lParam);
+			int y = (int)HIWORD(lParam);
+			m_pDisplayListener->OnMouseMove(x, y);
+			}*/
+			mouseRDown = true;
+			mLastX = (int)LOWORD(lParam);
+			mLastY = (int)HIWORD(lParam);
+			Mouse(2, 0, mLastX, mLastY);
+			break;
+		}
+		case WM_RBUTTONUP:
+		{
+			mouseRDown = false;
+			mLastX = (int)LOWORD(lParam);
+			mLastY = (int)HIWORD(lParam);
+			Mouse(2, 1, mLastX, mLastY);
 			break;
 		}
 		case WM_MOUSEMOVE:
 		{
-			if (mouseLDown)
+			if (mouseLDown || mouseRDown)
 			{
 				int x = (int)LOWORD(lParam);
 				int y = (int)HIWORD(lParam);
@@ -116,6 +142,7 @@ namespace HX3D
 	}
 
 	bool HXGDIRenderSystem::mouseLDown = false;
+	bool HXGDIRenderSystem::mouseRDown = false;
 	HXGDIRenderSystem::HXGDIRenderSystem()
 	{
 		HXGraphics::GetInstance()->InitGraphics();
