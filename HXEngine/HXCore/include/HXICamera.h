@@ -28,6 +28,8 @@ namespace HX3D
 		virtual void PitchLockTarget(float fDegree) = 0;
 
 		virtual void Forward(float fDistance) = 0;
+		virtual void MoveHorizon(float fDistance) = 0;
+		virtual void MoveVertical(float fDistance) = 0;
 
 	};
 }

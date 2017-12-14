@@ -59,6 +59,7 @@
     <ClInclude Include="include\HXFBXLoader.h" />
     <ClInclude Include="include\HXFBXMesh.h" />
     <ClInclude Include="include\HXPlane.h" />
+    <ClInclude Include="include\HXQuaternion.h" />
     <ClInclude Include="include\HXRenderable.h" />
     <ClInclude Include="include\HXRenderState.h" />
     <ClInclude Include="include\HXRenderSystem.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="src\HXFBXLoader.cpp" />
     <ClCompile Include="src\HXFBXMesh.cpp" />
     <ClCompile Include="src\HXPlane.cpp" />
+    <ClCompile Include="src\HXQuaternion.cpp" />
     <ClCompile Include="src\HXRenderable.cpp" />
     <ClCompile Include="src\HXRenderState.cpp" />
     <ClCompile Include="src\HXRenderSystem.cpp" />

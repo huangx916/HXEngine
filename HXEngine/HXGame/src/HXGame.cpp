@@ -32,6 +32,7 @@ HXGame::~HXGame()
 #include "HXLoadConfigPrefab.h"
 #include "HXLoadConfigModel.h"
 #include "HXLoadConfigScene.h"
+#include "HXQuaternion.h"
 
 HXBitmap* Gpbitmap = NULL;
 //HXGLTest* pGLTest = NULL;
@@ -95,6 +96,11 @@ void Test()
 	/*pGLTest = new HXGLTest();
 	pGLTest->InitTriangle();*/
 
+	/*HXQuaternion q;
+	q.FromAngleAxis(90, HXVector3D(0,1,0));
+	HXVector3D P(1,0,1);
+	HXVector3D destP = q.Transform(P);
+	int nTest = 0;*/
 	//// for test end
 }
 
@@ -280,13 +286,24 @@ void HXGame::OnKeyboard(unsigned char key, int x, int y)
 	}*/
 }
 
-void HXGame::OnMouseMove(int deltaX, int deltaY)
+void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 {
-	//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
-	//HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
-	HXSceneManager::GetInstance()->GetMainCamera()->YawLockTarget(float(deltaX) / 5.0f);
-	//HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY)/10.0f);
-	HXSceneManager::GetInstance()->GetMainCamera()->PitchLockTarget(float(deltaY) / 5.0f);
+	if (nButton == 0)
+	{
+		// ×ó¼ü°´ÏÂ×´Ì¬
+		HXSceneManager::GetInstance()->GetMainCamera()->MoveHorizon(float(deltaX) / 10.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->MoveVertical(float(deltaY) / 10.0f);
+	}
+	else if (nButton == 2)
+	{
+		// ÓÒ¼ü°´ÏÂ×´Ì¬
+		//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
+		HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
+		//HXSceneManager::GetInstance()->GetMainCamera()->YawLockTarget(float(deltaX) / 5.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY) / 10.0f);
+		//HXSceneManager::GetInstance()->GetMainCamera()->PitchLockTarget(float(deltaY) / 5.0f);
+	}
+	
 }
 
 void HXGame::OnMouseWheel(float fDistance)

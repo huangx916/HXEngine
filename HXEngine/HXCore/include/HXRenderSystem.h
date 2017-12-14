@@ -37,6 +37,7 @@ namespace HX3D
 		static void MouseMotion(int x, int y);
 		static int mLastX;
 		static int mLastY;
+		static int mButtonDown;
 
 		static HXDisplayListener* m_pDisplayListener;
 		//static int gCurScreenWidth;

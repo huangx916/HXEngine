@@ -15,9 +15,9 @@ namespace HX3D
 		float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
 		float left, float right, float bottom, float top)
 	{
-		mEye = eye;
-		mAt = at;
-		mUp = up;
+		mSrcEye = eye;
+		mSrcAt = at;
+		mSrcUp = up;
 		mLeft = left;
 		mRight = right;
 		mBottom = bottom;
@@ -25,13 +25,25 @@ namespace HX3D
 		mNear = nearZ;
 		mFar = farZ;
 
-		UpdateViewMatrix(mEye, mAt, mUp);
+		mYaw = 0.0f;
+		mPitch = 0.0f;
+		mRoll = 0.0f;
+
+		UpdateViewMatrix(mSrcEye, mSrcAt, mSrcUp);
 		UpdateProjectionMatrix(mLeft, mRight, mBottom, mTop, mNear, mFar);
 	}
 
 	void HXGLCamera::Update()
 	{
-		UpdateViewMatrix(mEye, mAt, mUp);
+		HXQuaternion q;
+		q.FromEulerDegree(mPitch, mYaw, mRoll);
+		HXVector3D vec = mSrcEye - mSrcAt;
+		vec = q.Transform(vec);
+		//mSrcEye = mSrcAt + vec;
+		HXVector3D up = q.Transform(mSrcUp);
+
+		//UpdateViewMatrix(mSrcEye, mSrcAt, mSrcUp);
+		UpdateViewMatrix(mSrcAt + vec, mSrcAt, up);
 	}
 
 	void HXGLCamera::OnViewPortResize(int nScreenWidth, int nScreenHeight)
@@ -44,40 +56,46 @@ namespace HX3D
 
 	void HXGLCamera::move(const HXVector3D& mov)
 	{
-		mEye += mov;
-		mAt += mov;
+		mSrcEye += mov;
+		mSrcAt += mov;
 	}
 
 	void HXGLCamera::yaw(float fDegree)
 	{
-		HXVector3D distance = mAt - mEye;
+		/*HXVector3D distance = mSrcAt - mSrcEye;
 		HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
 		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
 		distance = HXVector3D(vec.x, vec.y, vec.z);
-		mAt = mEye + distance;
+		mSrcAt = mSrcEye + distance;*/
+
+		// 四元数形式
+		mYaw += fDegree;
 	}
 
 	void HXGLCamera::pitch(float fDegree)
 	{
-		HXVector3D distance = mAt - mEye;
+		/*HXVector3D distance = mSrcAt - mSrcEye;
 		HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
 		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
 		distance = HXVector3D(vec.x, vec.y, vec.z);
-		mAt = mEye + distance;
+		mSrcAt = mSrcEye + distance;*/
+
+		// 四元数形式
+		mPitch += fDegree;
 	}
 
 	void HXGLCamera::YawLockTarget(float fDegree)
 	{
-		HXVector3D distance = mEye - mAt;
+		HXVector3D distance = mSrcEye - mSrcAt;
 		HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
 		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
 		distance = HXVector3D(vec.x, vec.y, vec.z);
-		mEye = mAt + distance;
+		mSrcEye = mSrcAt + distance;
 	}
 
 	void HXGLCamera::PitchLockTarget(float fDegree)
 	{
-		HXVector3D distance = mEye - mAt;
+		HXVector3D distance = mSrcEye - mSrcAt;
 		HXVector4D vec = HXVector4D(distance, 1);
 		
 		float tanRadian = distance.x / distance.z;
@@ -98,22 +116,49 @@ namespace HX3D
 		vec = GetVector4DMulMatrix44(vec, matRotate);
 
 		distance = HXVector3D(vec.x, vec.y, vec.z);
-		mEye = mAt + distance;
+		mSrcEye = mSrcAt + distance;
 
-		/*HXVector3D distance = mEye - mAt;
+		/*HXVector3D distance = mSrcEye - mSrcAt;
 		HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
 		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
 		distance = HXVector3D(vec.x, vec.y, vec.z);
-		mEye = mAt + distance;*/
+		mSrcEye = mSrcAt + distance;*/
 	}
 
 	void HXGLCamera::Forward(float fDistance)
 	{
-		HXVector3D direction = mAt - mEye;
+		/*HXVector3D direction = mSrcAt - mSrcEye;
 		direction.normalize();
 		HXVector3D forward = direction * fDistance;
-		mAt += forward;
-		mEye += forward;
+		mSrcAt += forward;
+		mSrcEye += forward;*/
+
+		HXQuaternion q;
+		q.FromEulerDegree(mPitch, mYaw, mRoll);
+		HXVector3D v(0, 0, -fDistance);
+		v = q.Transform(v);
+		mSrcAt += v;
+		mSrcEye += v;
+	}
+
+	void HXGLCamera::MoveHorizon(float fDistance)
+	{
+		HXQuaternion q;
+		q.FromEulerDegree(mPitch, mYaw, mRoll);
+		HXVector3D v(fDistance, 0, 0);
+		v = q.Transform(v);
+		mSrcAt += v;
+		mSrcEye += v;
+	}
+
+	void HXGLCamera::MoveVertical(float fDistance)
+	{
+		HXQuaternion q;
+		q.FromEulerDegree(mPitch, mYaw, mRoll);
+		HXVector3D v(0, -fDistance, 0);
+		v = q.Transform(v);
+		mSrcAt += v;
+		mSrcEye += v;
 	}
 
 	void HXGLCamera::UpdateViewMatrix(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up)

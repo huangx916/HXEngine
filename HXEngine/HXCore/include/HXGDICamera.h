@@ -30,6 +30,8 @@ namespace HX3D
 		virtual void PitchLockTarget(float fDegree);
 
 		virtual void Forward(float fDistance);
+		virtual void MoveHorizon(float fDistance) {};
+		virtual void MoveVertical(float fDistance) {};
 
 		HXFrustum* mFrustum;
 	};

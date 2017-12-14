@@ -16,7 +16,7 @@ public:
 	virtual void OnDisplay();
 	virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 	virtual void OnKeyboard(unsigned char key, int x, int y);
-	virtual void OnMouseMove(int deltaX, int deltaY);
+	virtual void OnMouseMove(int nButton, int deltaX, int deltaY);
 	virtual void OnMouseWheel(float fDistance);
 	//virtual void OnKeyDown(int msg);
 	//virtual void OnKeyUp(int msg);

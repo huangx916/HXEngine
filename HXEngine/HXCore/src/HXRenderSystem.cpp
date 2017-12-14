@@ -9,6 +9,7 @@ namespace HX3D
 	float HXRenderSystem::gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;*/
 	int HXRenderSystem::mLastX = 0;
 	int HXRenderSystem::mLastY = 0;
+	int HXRenderSystem::mButtonDown = -1;
 	HXRenderSystem::HXRenderSystem()
 	{
 	}
@@ -67,13 +68,43 @@ namespace HX3D
 				m_pDisplayListener->OnMouseWheel(-1);
 			}
 		}
+
+		//std::cout << button << std::endl;
+		//std::cout << state << std::endl;
+
+		if (button == 0)
+		{
+			if (state == 0)
+			{
+				// ×ó¼ü°´ÏÂ
+				mButtonDown = 0;
+			}
+			else if (state == 1)
+			{
+				// ×ó¼üµ¯Æð
+				mButtonDown = -1;
+			}
+		}
+		if (button == 2)
+		{
+			if (state == 0)
+			{
+				// ÓÒ¼ü°´ÏÂ
+				mButtonDown = 2;
+			}
+			else if (state == 1)
+			{
+				// ÓÒ¼üµ¯Æð
+				mButtonDown = -1;
+			}
+		}
 	}
 
 	void HXRenderSystem::MouseMotion(int x, int y)
 	{
 		if (m_pDisplayListener)
 		{
-			m_pDisplayListener->OnMouseMove(mLastX - x, mLastY - y);
+			m_pDisplayListener->OnMouseMove(mButtonDown, mLastX - x, mLastY - y);
 		}
 		mLastX = x;
 		mLastY = y;
