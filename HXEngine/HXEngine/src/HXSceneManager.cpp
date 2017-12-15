@@ -174,6 +174,42 @@ namespace HX3D
 		return m_pMainCamera;
 	}
 
+
+	HXGameObject* HXSceneManager::CreateSkyBox(HXVector3D scale)
+	{
+		std::string strgoName = "HXSkyBox";
+
+		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strgoName);
+		if (itr != gameObjectMap.end())
+		{
+			std::cerr << "HXSkyBox alreay existed" << std::endl;
+			return itr->second;
+		}
+
+		// 创建mesh
+		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("HXSkyBoxMesh", "");
+		if (NULL == pMesh)
+		{
+			return NULL;
+		}
+
+		// 加载材质
+		HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo("./FBX/SkyBox/SkyBox.material");
+		if (NULL == pMat)
+		{
+			return NULL;
+		}
+
+		// 关联材质到SubMesh
+		pMesh->subMeshList[0]->materialName = "./FBX/SkyBox/SkyBox.material";
+
+		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
+		gameObject->SetScale(scale);
+		gameObjectMap.insert(make_pair(strgoName, gameObject));
+		return gameObject;
+	}
+
+
 	//void HXSceneManager::Update()
 	//{
 	//	mMainCamera->update();

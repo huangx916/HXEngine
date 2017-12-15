@@ -84,6 +84,7 @@ namespace HX3D
 		GLfloat* positions = new GLfloat[nVertexCount * 3];
 		GLfloat* colors = new GLfloat[nVertexCount * 4];
 		GLfloat* uvs = new GLfloat[nVertexCount * 2];
+		GLfloat* normals = new GLfloat[nVertexCount * 3];
 		int nIndex = 0;
 		for (std::vector<HXVertex>::iterator itr = m_pSubMesh->vertexList.begin(); itr != m_pSubMesh->vertexList.end(); ++itr)
 		{
@@ -96,20 +97,27 @@ namespace HX3D
 			colors[nIndex * 4 + 3] = itr->color.a / 255.0f;
 			uvs[nIndex * 2 + 0] = itr->u;
 			uvs[nIndex * 2 + 1] = 1.0f - itr->v;
+			normals[nIndex * 3 + 0] = itr->normal.x;
+			normals[nIndex * 3 + 1] = itr->normal.y;
+			normals[nIndex * 3 + 2] = itr->normal.z;
+
 			++nIndex;
 		}
 		
 		int nSizePositions = nVertexCount * 3 * sizeof(GLfloat);
 		int nSizeColors = nVertexCount * 4 * sizeof(GLfloat);
 		int nSizeUVs = nVertexCount * 2 * sizeof(GLfloat);
-		glBufferData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors + nSizeUVs, NULL, GL_STATIC_DRAW);
+		int nSizeNormals = nVertexCount * 3 * sizeof(GLfloat);
+		glBufferData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors + nSizeUVs + nSizeNormals, NULL, GL_STATIC_DRAW);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, nSizePositions, positions);
 		glBufferSubData(GL_ARRAY_BUFFER, nSizePositions, nSizeColors, colors);
 		glBufferSubData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors, nSizeUVs, uvs);
+		glBufferSubData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors + nSizeUVs, nSizeNormals, normals);
 
 		delete[] positions;
 		delete[] colors;
 		delete[] uvs;
+		delete[] normals;
 
 		HXMaterialInfo* pMatInfo = HXResourceManager::GetInstance()->GetMaterialInfo(pSubMesh->materialName);
 		std::string strVertShaderFile = pMatInfo->strShaderFile + ".vert";
@@ -211,6 +219,8 @@ namespace HX3D
 		glEnableVertexAttribArray(vColor);
 		glVertexAttribPointer(vUV, 2, GL_FLOAT, GL_FALSE, 0, (const void*)(nSizePositions + nSizeColors));
 		glEnableVertexAttribArray(vUV);
+		glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(nSizePositions + nSizeColors + nSizeUVs));
+		glEnableVertexAttribArray(vNormal);
 	}
 
 	void HXGLRenderable::Render()

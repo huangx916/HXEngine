@@ -3,6 +3,7 @@
 
 namespace HX3D
 {
+	class HXGameObject;
 	class HXICamera
 	{
 	public:
@@ -30,6 +31,10 @@ namespace HX3D
 		virtual void Forward(float fDistance) = 0;
 		virtual void MoveHorizon(float fDistance) = 0;
 		virtual void MoveVertical(float fDistance) = 0;
+
+		inline void AttachGameObject(HXGameObject* go) { followedGO.push_back(go); };
+		inline void DetachGameObject(HXGameObject* go) { followedGO.remove(go); };
+		std::list<HXGameObject*> followedGO;
 
 	};
 }

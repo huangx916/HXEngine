@@ -37,6 +37,8 @@ namespace HX3D
 			float bottom = -(float)SCREEN_HEIGHT / (float)SCREEN_WIDTH, float top = (float)SCREEN_HEIGHT / (float)SCREEN_WIDTH);
 		HXICamera* GetMainCamera();
 
+		HXGameObject* CreateSkyBox(HXVector3D scale);
+
 		//void Update();
 		void OnDisplay();
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);

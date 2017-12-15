@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prefab>
+	<Mesh File="FBX/Quad/Quad.FBX"/>
+	<Anim File=""/>
+	<Material File="FBX/Quad/Quad.material"/>
+</Prefab>
