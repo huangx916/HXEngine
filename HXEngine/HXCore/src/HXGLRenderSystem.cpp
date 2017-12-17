@@ -8,8 +8,6 @@
 
 namespace HX3D
 {
-	bool HXGLRenderSystem::useFog = true;
-
 	HXGLRenderSystem::HXGLRenderSystem():mFont(NULL)
 	{
 	}

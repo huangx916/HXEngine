@@ -209,6 +209,10 @@ namespace HX3D
 		return gameObject;
 	}
 
+	void HXSceneManager::UseFog(bool useFog)
+	{
+		HXRenderSystem::useFog = useFog;
+	}
 
 	//void HXSceneManager::Update()
 	//{

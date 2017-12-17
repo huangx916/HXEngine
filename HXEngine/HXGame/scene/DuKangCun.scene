@@ -19,11 +19,9 @@
 		<Scale Sx="1" Sy="1" Sz="1"/>
 	</PrefabGameObj>
 	-->
-	<!--
 	<PrefabGameObj Name="Building01Prefab" Prefab="FBX/Building01/Building01.prefab">
 		<Postion Px="0" Py="-2.5" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="1" Sy="1" Sz="1"/>
 	</PrefabGameObj>
-	-->
 </Scene>

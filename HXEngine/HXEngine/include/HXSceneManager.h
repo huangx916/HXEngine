@@ -38,6 +38,7 @@ namespace HX3D
 		HXICamera* GetMainCamera();
 
 		HXGameObject* CreateSkyBox(HXVector3D scale);
+		void UseFog(bool useFog);
 
 		//void Update();
 		void OnDisplay();

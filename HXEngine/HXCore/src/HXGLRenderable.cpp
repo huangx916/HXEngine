@@ -10,6 +10,7 @@
 //#include "HXGLTexturePNG.h"
 #include "HXGLTexture.h"
 #include "HXGLTransform.h"
+#include "HXRenderSystem.h"
 
 namespace HX3D
 {
@@ -213,6 +214,10 @@ namespace HX3D
 		render_projection_matrix_loc = glGetUniformLocation(program, "projection_matrix");
 		render_mvp_matrix_loc = glGetUniformLocation(program, "mvp_matrix");
 
+		GLint property_loc = glGetUniformLocation(program, "useFog");
+		GLint nUseFog = (GLint)HXRenderSystem::useFog;
+		glUniform1i(property_loc, nUseFog);
+
 		glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(0));
 		glEnableVertexAttribArray(vPosition);
 		glVertexAttribPointer(vColor, 4, GL_FLOAT, GL_FALSE, 0, (const void*)(nSizePositions));
@@ -389,6 +394,10 @@ namespace HX3D
 		glUniformMatrix4fv(render_view_matrix_loc, 1, GL_FALSE, mMatrixView);
 		glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, mMatrixProjection);
 		glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, mMatrixProjection * mMatrixView * mMatrixModel);
+
+		GLint property_loc = glGetUniformLocation(program, "useFog");
+		GLint nUseFog = (GLint)HXRenderSystem::useFog;
+		glUniform1i(property_loc, nUseFog);
 
 		glDrawArrays(GL_TRIANGLES, 0, m_pSubMesh->triangleCount * 3);
 		

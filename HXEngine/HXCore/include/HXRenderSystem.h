@@ -43,5 +43,6 @@ namespace HX3D
 		//static int gCurScreenWidth;
 		//static int gCurScreenHeight;
 		//static float gAspect;	// ×Ýºá±È
+		static bool useFog;
 	};
 }

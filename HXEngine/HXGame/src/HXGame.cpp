@@ -5,6 +5,7 @@
 #include "HXGameObject.h"
 #include "HXMesh.h"
 #include "HXICamera.h"
+#include "HXRenderSystem.h"
 
 HXGame::HXGame()
 {
@@ -184,6 +185,7 @@ void HXGame::CreateGameScene()
 	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0));
 	// ´´½¨Ìì¿ÕºÐ
 	HXSceneManager::GetInstance()->CreateSkyBox(HXVector3D(200,200,200));
+	HXSceneManager::GetInstance()->UseFog(true);
 
 
 	/*HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
@@ -284,6 +286,10 @@ void HXGame::OnKeyboard(unsigned char key, int x, int y)
 	{
 		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(1, 0, 0));
 	}*/
+	if (key == 'f' || key == 'F')
+	{
+		HXSceneManager::GetInstance()->UseFog(!HXRenderSystem::useFog);
+	}
 }
 
 void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)

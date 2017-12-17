@@ -31,6 +31,5 @@ namespace HX3D
 		virtual HXITransform* CreateTransform();
 
 		HXIFreeTypeFont* mFont;
-		static bool useFog;
 	};
 }
