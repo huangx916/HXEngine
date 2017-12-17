@@ -148,7 +148,7 @@ void HXGame::CreateGameScene()
 	for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 	{
 		HXPrefabGameObjInfo& prefabgoinfo = *itr;
-		HXGameObject* pFatherGameObject = HXSceneManager::GetInstance()->CreateGameObject(prefabgoinfo.strGameObjName, "");
+		HXGameObject* pFatherGameObject = HXSceneManager::GetInstance()->CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority);
 		if (NULL == pFatherGameObject)
 		{
 			return;
@@ -166,7 +166,7 @@ void HXGame::CreateGameScene()
 		for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
 		{
 			HXModelGameObjInfo& modelgoinfo = *itr1;
-			pGameObject = HXSceneManager::GetInstance()->CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile);
+			pGameObject = HXSceneManager::GetInstance()->CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority);
 			if (NULL == pGameObject)
 			{
 				return;

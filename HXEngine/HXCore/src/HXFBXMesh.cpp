@@ -336,17 +336,24 @@ namespace HX3D
 			{
 			case FbxGeometryElement::eDirect:
 			{
-				vertex.normal.x = pNormal->GetDirectArray().GetAt(nCtrlPointIndex)[0];
-				vertex.normal.y = pNormal->GetDirectArray().GetAt(nCtrlPointIndex)[1];
-				vertex.normal.z = pNormal->GetDirectArray().GetAt(nCtrlPointIndex)[2];
+				FbxVector4 curNormal = pNormal->GetDirectArray().GetAt(nCtrlPointIndex);
+				curNormal = matrixMeshGlobalPositionIn3DMax.MultT(curNormal);
+
+				vertex.normal.x = curNormal[0];
+				vertex.normal.y = curNormal[1];
+				vertex.normal.z = curNormal[2];
 			}
 			break;
 			case FbxGeometryElement::eIndexToDirect:
 			{
 				int nId = pNormal->GetIndexArray().GetAt(nCtrlPointIndex);
-				vertex.normal.x = pNormal->GetDirectArray().GetAt(nId)[0];
-				vertex.normal.y = pNormal->GetDirectArray().GetAt(nId)[1];
-				vertex.normal.z = pNormal->GetDirectArray().GetAt(nId)[2];
+
+				FbxVector4 curNormal = pNormal->GetDirectArray().GetAt(nId);
+				curNormal = matrixMeshGlobalPositionIn3DMax.MultT(curNormal);
+
+				vertex.normal.x = curNormal[0];
+				vertex.normal.y = curNormal[1];
+				vertex.normal.z = curNormal[2];
 			}
 			break;
 			default:
@@ -360,17 +367,24 @@ namespace HX3D
 			{
 			case FbxGeometryElement::eDirect:
 			{
-				vertex.normal.x = pNormal->GetDirectArray().GetAt(nVertexCounter)[0];
-				vertex.normal.y = pNormal->GetDirectArray().GetAt(nVertexCounter)[1];
-				vertex.normal.z = pNormal->GetDirectArray().GetAt(nVertexCounter)[2];
+				FbxVector4 curNormal = pNormal->GetDirectArray().GetAt(nVertexCounter);
+				curNormal = matrixMeshGlobalPositionIn3DMax.MultT(curNormal);
+
+				vertex.normal.x = curNormal[0];
+				vertex.normal.y = curNormal[1];
+				vertex.normal.z = curNormal[2];
 			}
 			break;
 			case FbxGeometryElement::eIndexToDirect:
 			{
 				int nId = pNormal->GetIndexArray().GetAt(nVertexCounter);
-				vertex.normal.x = pNormal->GetDirectArray().GetAt(nId)[0];
-				vertex.normal.y = pNormal->GetDirectArray().GetAt(nId)[1];
-				vertex.normal.z = pNormal->GetDirectArray().GetAt(nId)[2];
+
+				FbxVector4 curNormal = pNormal->GetDirectArray().GetAt(nId);
+				curNormal = matrixMeshGlobalPositionIn3DMax.MultT(curNormal);
+
+				vertex.normal.x = curNormal[0];
+				vertex.normal.y = curNormal[1];
+				vertex.normal.z = curNormal[2];
 			}
 			break;
 			default:

@@ -11,6 +11,7 @@
 #include "HXGLTexture.h"
 #include "HXGLTransform.h"
 #include "HXRenderSystem.h"
+#include "HXSceneManager.h"
 
 namespace HX3D
 {
@@ -214,9 +215,14 @@ namespace HX3D
 		render_projection_matrix_loc = glGetUniformLocation(program, "projection_matrix");
 		render_mvp_matrix_loc = glGetUniformLocation(program, "mvp_matrix");
 
+		// TODO: 提取到外层
 		GLint property_loc = glGetUniformLocation(program, "useFog");
 		GLint nUseFog = (GLint)HXRenderSystem::useFog;
 		glUniform1i(property_loc, nUseFog);
+
+		property_loc = glGetUniformLocation(program, "ambient");
+		HXCOLOR color = HXSceneManager::GetInstance()->lightAmbient->color;
+		glUniform3f(property_loc, color.r, color.g, color.b);
 
 		glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(0));
 		glEnableVertexAttribArray(vPosition);
@@ -395,9 +401,14 @@ namespace HX3D
 		glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, mMatrixProjection);
 		glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, mMatrixProjection * mMatrixView * mMatrixModel);
 
+		// TODO: 提取到外层
 		GLint property_loc = glGetUniformLocation(program, "useFog");
 		GLint nUseFog = (GLint)HXRenderSystem::useFog;
 		glUniform1i(property_loc, nUseFog);
+
+		property_loc = glGetUniformLocation(program, "ambient");
+		HXCOLOR color = HXSceneManager::GetInstance()->lightAmbient->color;
+		glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
 		glDrawArrays(GL_TRIANGLES, 0, m_pSubMesh->triangleCount * 3);
 		

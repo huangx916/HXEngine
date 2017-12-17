@@ -8,6 +8,7 @@ namespace HX3D
 	{
 		std::string strGameObjName;
 		std::string strPrefabFile;
+		int nPriority;
 		HXVector3D position;
 		HXVector3D rotation;
 		HXVector3D scale;

@@ -35,6 +35,9 @@ namespace HX3D
 		HXGameObject* GetFather();
 		void SetFather(HXGameObject* father);
 		HXITransform* GetTransform();
+
+		// ‰÷»æ”≈œ»º∂
+		int m_nPriority;
 		
 	private:
 		// Local Coordinate

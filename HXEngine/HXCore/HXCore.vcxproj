@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\DiscardHXCamera.h" />
+    <ClInclude Include="include\DiscardHXInputListener.h" />
+    <ClInclude Include="include\DiscardHXPaintListener.h" />
+    <ClInclude Include="include\DiscardHXWindow.h" />
     <ClInclude Include="include\HX3DHeader.h" />
     <ClInclude Include="include\HXBitmap.h" />
     <ClInclude Include="include\HXGDITextureBMP.h" />
@@ -65,6 +69,9 @@
     <ClInclude Include="include\HXRenderSystem.h" />
     <ClInclude Include="include\HXResourceManager.h" />
     <ClInclude Include="include\HXFBXSkeleton.h" />
+    <ClInclude Include="include\HXRoot.h" />
+    <ClInclude Include="include\HXSceneManager.h" />
+    <ClInclude Include="include\HXStatus.h" />
     <ClInclude Include="include\hxtest.h" />
     <ClInclude Include="include\HXUtil.h" />
     <ClInclude Include="include\HXVector.h" />
@@ -76,6 +83,8 @@
     <ClCompile Include="opengl\lib\LoadShaders.cpp" />
     <ClCompile Include="opengl\lib\loadtexture.cpp" />
     <ClCompile Include="opengl\lib\vdds.cpp" />
+    <ClCompile Include="src\DiscardHXCamera.cpp" />
+    <ClCompile Include="src\DiscardHXWindow.cpp" />
     <ClCompile Include="src\HXBitmap.cpp" />
     <ClCompile Include="src\HXCore.cpp" />
     <ClCompile Include="src\HXFrustum.cpp" />
@@ -114,6 +123,9 @@
     <ClCompile Include="src\HXRenderSystem.cpp" />
     <ClCompile Include="src\HXResourceManager.cpp" />
     <ClCompile Include="src\HXFBXSkeleton.cpp" />
+    <ClCompile Include="src\HXRoot.cpp" />
+    <ClCompile Include="src\HXSceneManager.cpp" />
+    <ClCompile Include="src\HXStatus.cpp" />
     <ClCompile Include="src\hxtest.cpp" />
     <ClCompile Include="src\HXVector.cpp" />
     <ClCompile Include="src\tinystr.cpp" />

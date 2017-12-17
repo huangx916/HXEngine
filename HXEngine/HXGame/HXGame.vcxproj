@@ -74,7 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\HXCore\include;..\HXEngine\include;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\HXCore\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\HXCore\opengl\lib</AdditionalLibraryDirectories>
@@ -119,12 +119,12 @@
     <ClCompile Include="src\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HXEngine\HXEngine.vcxproj">
-      <Project>{4d10fe88-2f6d-444d-bca0-f9bd029a941a}</Project>
-    </ProjectReference>
+    <ClInclude Include="include\HXGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\HXGame.h" />
+    <ProjectReference Include="..\HXCore\HXCore.vcxproj">
+      <Project>{7772c6af-71b0-44f8-9f31-e44a139c0f23}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
