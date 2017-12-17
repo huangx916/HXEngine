@@ -182,7 +182,7 @@ void HXGame::CreateGameScene()
 		}
 	}
 	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0));
-
+	// ´´½¨Ìì¿ÕºÐ
 	HXSceneManager::GetInstance()->CreateSkyBox(HXVector3D(200,200,200));
 
 

@@ -221,6 +221,11 @@ namespace HX3D
 		glEnableVertexAttribArray(vUV);
 		glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(nSizePositions + nSizeColors + nSizeUVs));
 		glEnableVertexAttribArray(vNormal);
+
+		// 一定要加上，不然后续不是VBO绘制的物体无法显示
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glUseProgram(0);
 	}
 
 	void HXGLRenderable::Render()
@@ -387,6 +392,10 @@ namespace HX3D
 
 		glDrawArrays(GL_TRIANGLES, 0, m_pSubMesh->triangleCount * 3);
 		
+		glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glUseProgram(0);
+
 		// 外层 HXGLRenderSystem 已调用
 		//glutSwapBuffers();
 		//glutPostRedisplay();

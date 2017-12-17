@@ -8,10 +8,11 @@
 
 namespace HX3D
 {
+	bool HXGLRenderSystem::useFog = true;
+
 	HXGLRenderSystem::HXGLRenderSystem():mFont(NULL)
 	{
 	}
-
 
 	HXGLRenderSystem::~HXGLRenderSystem()
 	{
@@ -51,6 +52,8 @@ namespace HX3D
 			exit(EXIT_FAILURE);
 		}
 
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+
 		// InitTriangle();
 		mFont = new HXGLFreeTypeFont();
 		mFont->Initialize("default.ttf", 16);
@@ -70,10 +73,10 @@ namespace HX3D
 	void HXGLRenderSystem::Display()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.5,0.5,0.5,1.0);
 
 		if (m_pDisplayListener)
 		{
+			// TODO: gameobjectºÍUI·ÖÀë
 			m_pDisplayListener->OnDisplay();
 		}
 

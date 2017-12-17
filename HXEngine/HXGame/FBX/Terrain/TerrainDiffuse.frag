@@ -13,6 +13,8 @@ in vec2 vs_fs_ControlTexcoord;
 in vec4 vs_fs_Layer12Texcoord;
 in vec4 vs_fs_Layer34Texcoord;
 
+in float vs_fs_distance;
+
 out vec4 fColor;
 
 void main()
@@ -25,4 +27,11 @@ void main()
 	fColor += controlColor.g * texture(Layer2, vs_fs_Layer12Texcoord.zw);
 	fColor += controlColor.b * texture(Layer3, vs_fs_Layer34Texcoord.xy);
 	fColor += controlColor.a * texture(Layer4, vs_fs_Layer34Texcoord.zw);
+	
+	// 线性雾
+	vec4 fogColor = vec4(0.5, 0.5, 0.5, 1.0);
+	float fog  = (vs_fs_distance - 10)/30;
+	fog = clamp(fog, 0.0, 1.0);
+	pow(fog, 4);
+	fColor = mix(fColor, fogColor, fog);
 }

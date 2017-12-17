@@ -23,6 +23,8 @@ out vec2 vs_fs_ControlTexcoord;
 out vec4 vs_fs_Layer12Texcoord;
 out vec4 vs_fs_Layer34Texcoord;
 
+out float vs_fs_distance;
+
 void main()
 {
 	gl_Position = mvp_matrix * position;
@@ -36,4 +38,6 @@ void main()
 	vs_fs_Layer34Texcoord.xy = texcoord * Layer3_ST.xy + Layer3_ST.zw;
 	vs_fs_Layer34Texcoord.zw = texcoord * Layer4_ST.xy + Layer4_ST.zw;
 	
+	vec4 mvPosition = view_matrix * model_matrix * position;
+	vs_fs_distance = sqrt(mvPosition.x * mvPosition.x + mvPosition.y * mvPosition.y + mvPosition.z * mvPosition.z);
 }
