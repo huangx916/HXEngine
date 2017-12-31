@@ -25,6 +25,8 @@
     <ClInclude Include="include\DiscardHXWindow.h" />
     <ClInclude Include="include\HX3DHeader.h" />
     <ClInclude Include="include\HXBitmap.h" />
+    <ClInclude Include="include\HXFogBase.h" />
+    <ClInclude Include="include\HXFogLinear.h" />
     <ClInclude Include="include\HXGDITextureBMP.h" />
     <ClInclude Include="include\HXGDITransform.h" />
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
@@ -87,6 +89,7 @@
     <ClCompile Include="src\DiscardHXWindow.cpp" />
     <ClCompile Include="src\HXBitmap.cpp" />
     <ClCompile Include="src\HXCore.cpp" />
+    <ClCompile Include="src\HXFogLinear.cpp" />
     <ClCompile Include="src\HXFrustum.cpp" />
     <ClCompile Include="src\HXGameObject.cpp" />
     <ClCompile Include="src\HXGDICamera.cpp" />

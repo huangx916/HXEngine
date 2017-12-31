@@ -2,7 +2,7 @@
 #include "HXCommon.h"
 #include <map>
 #include "HXLight.h"
-
+#include "HXFogBase.h"
 
 namespace HX3D
 {
@@ -11,6 +11,7 @@ namespace HX3D
 	class HXLight;
 	struct HXRenderList;
 	class HXICamera;
+	struct HXFogInfo;
 	class HXSceneManager
 	{
 	public:
@@ -41,6 +42,7 @@ namespace HX3D
 		HXICamera* GetMainCamera();
 
 		HXGameObject* CreateSkyBox(HXVector3D scale);
+		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
 		//void Update();
@@ -52,6 +54,8 @@ namespace HX3D
 		std::vector<HXLight*>		lightVct;
 		// 环境光单独保存 保证唯一性
 		HXLight* lightAmbient;
+
+		HXFogBase* fog;
 	private:
 		static HXSceneManager* m_pInstance;
 		HXSceneManager();

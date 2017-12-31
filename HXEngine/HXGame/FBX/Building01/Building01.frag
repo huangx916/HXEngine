@@ -2,8 +2,12 @@
 
 uniform sampler2D MainTexture;
 
-// 线性雾
+// fog
 uniform int useFog;
+uniform int fogType;
+uniform vec3 fogColor;
+uniform float fogStart;
+uniform float fogEnd;
 
 // 光照 世界空间
 uniform vec3 ambient;
@@ -14,19 +18,17 @@ uniform vec3 eyePos;
 in vec4 vs_fs_diffuse_color;
 in vec2 vs_fs_texcoord;
 
+// fog
+in float vs_fs_distance;
+
 // 光照 世界空间
 in vec4 vs_fs_normal;
 in vec4 vs_fs_position;
-
-// 线性雾
-in float vs_fs_distance;
 
 out vec4 fColor;
 
 void main()
 {
-	//fColor = vec4(0.0, 1.0, 0.0, 1.0);
-	//fColor = vec4(vs_fs_texcoord.x, vs_fs_texcoord.y, 0, 1);
 	fColor = texture(MainTexture, vs_fs_texcoord) * vs_fs_diffuse_color;
 	
 	// 光照处理 世界坐标系下
@@ -43,11 +45,14 @@ void main()
 	// 线性雾
 	if(useFog == 1)
 	{
-		vec4 fogColor = vec4(0.5, 0.5, 0.5, 1.0);
-		float fog  = (vs_fs_distance - 10)/30;
-		fog = clamp(fog, 0.0, 1.0);
-		pow(fog, 4);
-		fColor = mix(fColor, fogColor, fog);
+		// linear fog
+		if(fogType == 0)
+		{
+			vec4 _fogColor = vec4(fogColor, 1.0);
+			float fog  = (vs_fs_distance - fogStart)/fogEnd;
+			fog = clamp(fog, 0.0, 1.0);
+			fColor = mix(fColor, _fogColor, fog);
+		}
 	}
 	
 	//fColor = vec4(vs_fs_normal.xyz, 1);

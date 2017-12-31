@@ -12,6 +12,7 @@
 #include "HXGLTransform.h"
 #include "HXRenderSystem.h"
 #include "HXSceneManager.h"
+#include "HXFogLinear.h"
 
 namespace HX3D
 {
@@ -215,10 +216,33 @@ namespace HX3D
 		render_projection_matrix_loc = glGetUniformLocation(program, "projection_matrix");
 		render_mvp_matrix_loc = glGetUniformLocation(program, "mvp_matrix");
 
-		// TODO: 提取到外层
+		// FOG TODO: 提取到外层
 		GLint property_loc = glGetUniformLocation(program, "useFog");
-		GLint nUseFog = (GLint)HXRenderSystem::useFog;
+		GLint nUseFog = HXSceneManager::GetInstance()->fog->useFog;
 		glUniform1i(property_loc, nUseFog);
+		if (nUseFog == 1)
+		{
+			property_loc = glGetUniformLocation(program, "fogType");
+			GLint nfogType = HXSceneManager::GetInstance()->fog->fogType;
+			glUniform1i(property_loc, nfogType);
+
+			property_loc = glGetUniformLocation(program, "fogColor");
+			HXCOLOR color = HXSceneManager::GetInstance()->fog->fogColor;
+			glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
+
+			if (nfogType == FOG_Linear)
+			{
+				HXFogLinear* fogLinear = (HXFogLinear*)HXSceneManager::GetInstance()->fog;
+
+				property_loc = glGetUniformLocation(program, "fogStart");
+				GLfloat nfogStart = fogLinear->fogStart;
+				glUniform1f(property_loc, nfogStart);
+
+				property_loc = glGetUniformLocation(program, "fogEnd");
+				GLfloat nfogEnd = fogLinear->fogEnd;
+				glUniform1f(property_loc, nfogEnd);
+			}
+		}
 
 		property_loc = glGetUniformLocation(program, "ambient");
 		HXCOLOR color = HXSceneManager::GetInstance()->lightAmbient->color;
@@ -401,10 +425,33 @@ namespace HX3D
 		glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, mMatrixProjection);
 		glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, mMatrixProjection * mMatrixView * mMatrixModel);
 
-		// TODO: 提取到外层
+		// FOG TODO: 提取到外层
 		GLint property_loc = glGetUniformLocation(program, "useFog");
-		GLint nUseFog = (GLint)HXRenderSystem::useFog;
+		GLint nUseFog = HXSceneManager::GetInstance()->fog->useFog;
 		glUniform1i(property_loc, nUseFog);
+		if (nUseFog == 1)
+		{
+			property_loc = glGetUniformLocation(program, "fogType");
+			GLint nfogType = HXSceneManager::GetInstance()->fog->fogType;
+			glUniform1i(property_loc, nfogType);
+
+			property_loc = glGetUniformLocation(program, "fogColor");
+			HXCOLOR color = HXSceneManager::GetInstance()->fog->fogColor;
+			glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
+
+			if (nfogType == FOG_Linear)
+			{
+				HXFogLinear* fogLinear = (HXFogLinear*)HXSceneManager::GetInstance()->fog;
+
+				property_loc = glGetUniformLocation(program, "fogStart");
+				GLfloat nfogStart = fogLinear->fogStart;
+				glUniform1f(property_loc, nfogStart);
+
+				property_loc = glGetUniformLocation(program, "fogEnd");
+				GLfloat nfogEnd = fogLinear->fogEnd;
+				glUniform1f(property_loc, nfogEnd);
+			}
+		}
 
 		property_loc = glGetUniformLocation(program, "ambient");
 		HXCOLOR color = HXSceneManager::GetInstance()->lightAmbient->color;

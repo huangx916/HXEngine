@@ -6,8 +6,12 @@ uniform sampler2D Layer3;
 uniform sampler2D Layer4;
 uniform sampler2D Control;
 
-// 线性雾
+// fog
 uniform int useFog;
+uniform int fogType;
+uniform vec3 fogColor;
+uniform float fogStart;
+uniform float fogEnd;
 
 in vec4 vs_fs_diffuse_color;
 in vec4 vs_fs_vertex_color;
@@ -16,7 +20,7 @@ in vec2 vs_fs_ControlTexcoord;
 in vec4 vs_fs_Layer12Texcoord;
 in vec4 vs_fs_Layer34Texcoord;
 
-// 线性雾
+// fog
 in float vs_fs_distance;
 
 out vec4 fColor;
@@ -32,13 +36,15 @@ void main()
 	fColor += controlColor.b * texture(Layer3, vs_fs_Layer34Texcoord.xy);
 	fColor += controlColor.a * texture(Layer4, vs_fs_Layer34Texcoord.zw);
 	
-	// 线性雾
 	if(useFog == 1)
 	{
-		vec4 fogColor = vec4(0.5, 0.5, 0.5, 1.0);
-		float fog  = (vs_fs_distance - 10)/30;
-		fog = clamp(fog, 0.0, 1.0);
-		pow(fog, 4);
-		fColor = mix(fColor, fogColor, fog);
+		// linear fog
+		if(fogType == 0)
+		{
+			vec4 _fogColor = vec4(fogColor, 1.0);
+			float fog  = (vs_fs_distance - fogStart)/fogEnd;
+			fog = clamp(fog, 0.0, 1.0);
+			fColor = mix(fColor, _fogColor, fog);
+		}
 	}	
 }

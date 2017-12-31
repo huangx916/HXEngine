@@ -5,7 +5,7 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 uniform mat4 mvp_matrix;
 
-// 线性雾
+// fog
 uniform int useFog;
 
 uniform vec4 DiffuseColor;
@@ -23,7 +23,7 @@ out vec2 vs_fs_texcoord;
 out vec4 vs_fs_normal;
 out vec4 vs_fs_position;
 
-// 线性雾
+// fog
 out float vs_fs_distance;
 
 void main()
@@ -35,7 +35,7 @@ void main()
 	vs_fs_normal = model_matrix * vec4(normal,0);
 	vs_fs_position = model_matrix * position;
 	
-	// 线性雾
+	// fog
 	if(useFog == 1)
 	{
 		vec4 mvPosition = view_matrix * model_matrix * position;

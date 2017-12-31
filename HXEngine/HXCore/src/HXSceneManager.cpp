@@ -14,12 +14,14 @@
 #include "HXLoadConfigModel.h"
 #include "HXLoadConfigMat.h"
 #include <algorithm>
+#include "HXFogLinear.h"
+#include "HXLoadConfigScene.h"
 
 namespace HX3D
 {
 	HXSceneManager* HXSceneManager::m_pInstance = NULL;
 
-	HXSceneManager::HXSceneManager():m_pMainCamera(NULL)
+	HXSceneManager::HXSceneManager():m_pMainCamera(NULL), fog(NULL)
 	{
 		mRenderList = new HXRenderList();
 		////mMainCamera = new HXCamera();
@@ -50,6 +52,11 @@ namespace HX3D
 		}
 
 		delete lightAmbient;
+
+		if (fog)
+		{
+			delete fog;
+		}
 	}
 
 	/*HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strMeshName)
@@ -222,9 +229,20 @@ namespace HX3D
 		return gameObject;
 	}
 
+	void HXSceneManager::CreateFog(HXFogInfo* info)
+	{
+		if (info->type == FOG_Linear)
+		{
+			fog = new HXFogLinear(info);
+		}
+	}
+
 	void HXSceneManager::UseFog(bool useFog)
 	{
-		HXRenderSystem::useFog = useFog;
+		if (fog)
+		{
+			fog->useFog = useFog;
+		}
 	}
 
 	//void HXSceneManager::Update()

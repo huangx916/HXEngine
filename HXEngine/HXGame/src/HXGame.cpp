@@ -143,8 +143,12 @@ void HXGame::CreateGameScene()
 
 
 
+	// TODO: 新建LoadScene(string strSceneCfg) 提取到 HXSceneManager里
 	HXLoadConfigScene cfg;
 	cfg.LoadFile("./scene/DuKangCun.scene");
+	// fog 要放在HXPrefabGameObjInfo之前加载
+	HXSceneManager::GetInstance()->CreateFog(&cfg.mSceneInfo.fogInfo);
+
 	for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 	{
 		HXPrefabGameObjInfo& prefabgoinfo = *itr;
@@ -182,10 +186,10 @@ void HXGame::CreateGameScene()
 			pGameObject->SetFather(pFatherGameObject);
 		}
 	}
+	
 	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0));
 	// 创建天空盒
 	HXSceneManager::GetInstance()->CreateSkyBox(HXVector3D(200,200,200));
-	HXSceneManager::GetInstance()->UseFog(true);
 
 
 	/*HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
@@ -288,7 +292,7 @@ void HXGame::OnKeyboard(unsigned char key, int x, int y)
 	}*/
 	if (key == 'f' || key == 'F')
 	{
-		HXSceneManager::GetInstance()->UseFog(!HXRenderSystem::useFog);
+		HXSceneManager::GetInstance()->UseFog(!HXSceneManager::GetInstance()->fog->useFog);
 	}
 }
 

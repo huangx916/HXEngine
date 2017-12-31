@@ -10,7 +10,6 @@ namespace HX3D
 	int HXRenderSystem::mLastX = 0;
 	int HXRenderSystem::mLastY = 0;
 	int HXRenderSystem::mButtonDown = -1;
-	bool HXRenderSystem::useFog = false;
 	HXRenderSystem::HXRenderSystem()
 	{
 	}

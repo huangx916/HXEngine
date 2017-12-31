@@ -23,7 +23,8 @@ namespace HX3D
 		}
 
 		TiXmlElement* rootElement = doc.RootElement();
-		TiXmlElement* gameobjElement = rootElement->FirstChildElement();
+		TiXmlElement* prefabs = rootElement->FirstChildElement();
+		TiXmlElement* gameobjElement = prefabs->FirstChildElement();
 		for (; gameobjElement != NULL; gameobjElement = gameobjElement->NextSiblingElement())
 		{
 			HXPrefabGameObjInfo gameObjInfo;
@@ -46,7 +47,14 @@ namespace HX3D
 		
 			mSceneInfo.vctGameObjInfo.push_back(gameObjInfo);
 		}
-
+		TiXmlElement* fogElement = prefabs->NextSiblingElement();
+		mSceneInfo.fogInfo.bUse = atoi(fogElement->Attribute("Use"));
+		mSceneInfo.fogInfo.type = (HXFogType)atoi(fogElement->Attribute("Type"));
+		mSceneInfo.fogInfo.color.r = atof(fogElement->Attribute("R"));
+		mSceneInfo.fogInfo.color.g = atof(fogElement->Attribute("G"));
+		mSceneInfo.fogInfo.color.b = atof(fogElement->Attribute("B"));
+		mSceneInfo.fogInfo.start = atof(fogElement->Attribute("Start"));
+		mSceneInfo.fogInfo.end = atof(fogElement->Attribute("End"));
 		return true;
 	}
 }

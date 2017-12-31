@@ -5,7 +5,7 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 uniform mat4 mvp_matrix;
 
-// 线性雾
+// fog
 uniform int useFog;
 
 uniform vec4 DiffuseColor;
@@ -26,7 +26,7 @@ out vec2 vs_fs_ControlTexcoord;
 out vec4 vs_fs_Layer12Texcoord;
 out vec4 vs_fs_Layer34Texcoord;
 
-// 线性雾
+// fog
 out float vs_fs_distance;
 
 void main()
@@ -42,7 +42,7 @@ void main()
 	vs_fs_Layer34Texcoord.xy = texcoord * Layer3_ST.xy + Layer3_ST.zw;
 	vs_fs_Layer34Texcoord.zw = texcoord * Layer4_ST.xy + Layer4_ST.zw;
 	
-	// 线性雾
+	// fog
 	if(useFog == 1)
 	{
 		vec4 mvPosition = view_matrix * model_matrix * position;

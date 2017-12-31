@@ -1,6 +1,7 @@
 #pragma once
 #include "HXCommon.h"
 #include "HXVector.h"
+#include "HXFogBase.h"
 
 namespace HX3D
 {
@@ -13,10 +14,19 @@ namespace HX3D
 		HXVector3D rotation;
 		HXVector3D scale;
 	};
+	struct HXFogInfo
+	{
+		bool bUse;
+		HXFogType type;
+		HXCOLOR color;
+		float start;
+		float end;
+	};
 	struct HXSceneInfo
 	{
 		// TODO: Add Camera etc.
 		std::vector<HXPrefabGameObjInfo> vctGameObjInfo;
+		HXFogInfo fogInfo;
 	};
 
 	class HXLoadConfigScene
