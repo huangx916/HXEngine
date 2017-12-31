@@ -16,6 +16,7 @@
 #include <algorithm>
 #include "HXFogLinear.h"
 #include "HXLoadConfigScene.h"
+#include "HXLoadConfigPrefab.h"
 
 namespace HX3D
 {
@@ -56,6 +57,54 @@ namespace HX3D
 		if (fog)
 		{
 			delete fog;
+		}
+	}
+
+	void HXSceneManager::LoadScene(std::string strSceneCfgFile)
+	{
+		HXLoadConfigScene cfg;
+		cfg.LoadFile(strSceneCfgFile);
+		// fog 要放在HXPrefabGameObjInfo之前加载
+		HXSceneManager::GetInstance()->CreateFog(&cfg.mSceneInfo.fogInfo);
+		// 创建天空盒
+		HXSceneManager::GetInstance()->CreateSkyBox(HXVector3D(200, 200, 200));
+		// GameObject
+		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
+		{
+			HXPrefabGameObjInfo& prefabgoinfo = *itr;
+			HXGameObject* pFatherGameObject = HXSceneManager::GetInstance()->CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority);
+			if (NULL == pFatherGameObject)
+			{
+				return;
+			}
+			if (pFatherGameObject->GetMesh())
+			{
+				pFatherGameObject->GetMesh()->PlayDefaultAnimation();
+			}
+			pFatherGameObject->SetScale(prefabgoinfo.scale);
+			pFatherGameObject->SetRotation(prefabgoinfo.rotation);
+			pFatherGameObject->SetPostion(prefabgoinfo.position);
+
+			HXLoadConfigPrefab cfgPrefab;
+			cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
+			for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
+			{
+				HXModelGameObjInfo& modelgoinfo = *itr1;
+				HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority);
+				if (NULL == pGameObject)
+				{
+					return;
+				}
+				if (pGameObject->GetMesh())
+				{
+					pGameObject->GetMesh()->PlayDefaultAnimation();
+				}
+				pGameObject->SetScale(modelgoinfo.scale);
+				pGameObject->SetRotation(modelgoinfo.rotation);
+				pGameObject->SetPostion(modelgoinfo.position);
+
+				pGameObject->SetFather(pFatherGameObject);
+			}
 		}
 	}
 

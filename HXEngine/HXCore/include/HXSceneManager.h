@@ -26,6 +26,8 @@ namespace HX3D
 
 		~HXSceneManager();
 
+		void LoadScene(std::string strSceneCfgFile);
+
 		//HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
 		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority);
 		HXGameObject* GetGameObject(std::string strGameObjectName);

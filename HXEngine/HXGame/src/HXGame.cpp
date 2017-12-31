@@ -142,54 +142,8 @@ void HXGame::CreateGameScene()
 	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 0, 0), HXVector3D(0, 0, -5));
 
 
-
-	// TODO: 新建LoadScene(string strSceneCfg) 提取到 HXSceneManager里
-	HXLoadConfigScene cfg;
-	cfg.LoadFile("./scene/DuKangCun.scene");
-	// fog 要放在HXPrefabGameObjInfo之前加载
-	HXSceneManager::GetInstance()->CreateFog(&cfg.mSceneInfo.fogInfo);
-
-	for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
-	{
-		HXPrefabGameObjInfo& prefabgoinfo = *itr;
-		HXGameObject* pFatherGameObject = HXSceneManager::GetInstance()->CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority);
-		if (NULL == pFatherGameObject)
-		{
-			return;
-		}
-		if (pFatherGameObject->GetMesh())
-		{
-			pFatherGameObject->GetMesh()->PlayDefaultAnimation();
-		}
-		pFatherGameObject->SetScale(prefabgoinfo.scale);
-		pFatherGameObject->SetRotation(prefabgoinfo.rotation);
-		pFatherGameObject->SetPostion(prefabgoinfo.position);
-
-		HXLoadConfigPrefab cfgPrefab;
-		cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
-		for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
-		{
-			HXModelGameObjInfo& modelgoinfo = *itr1;
-			pGameObject = HXSceneManager::GetInstance()->CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority);
-			if (NULL == pGameObject)
-			{
-				return;
-			}
-			if (pGameObject->GetMesh())
-			{
-				pGameObject->GetMesh()->PlayDefaultAnimation();
-			}
-			pGameObject->SetScale(modelgoinfo.scale);
-			pGameObject->SetRotation(modelgoinfo.rotation);
-			pGameObject->SetPostion(modelgoinfo.position);
-
-			pGameObject->SetFather(pFatherGameObject);
-		}
-	}
-	
+	HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
 	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0));
-	// 创建天空盒
-	HXSceneManager::GetInstance()->CreateSkyBox(HXVector3D(200,200,200));
 
 
 	/*HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
