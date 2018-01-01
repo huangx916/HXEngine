@@ -216,7 +216,7 @@ namespace HX3D
 		render_projection_matrix_loc = glGetUniformLocation(program, "projection_matrix");
 		render_mvp_matrix_loc = glGetUniformLocation(program, "mvp_matrix");
 
-		// FOG TODO: 提取到外层
+		// FOG TODO: 提取到外层				Uniform Block 共享
 		GLint property_loc = glGetUniformLocation(program, "useFog");
 		GLint nUseFog = HXSceneManager::GetInstance()->fog->useFog;
 		glUniform1i(property_loc, nUseFog);
@@ -230,7 +230,7 @@ namespace HX3D
 			HXCOLOR color = HXSceneManager::GetInstance()->fog->fogColor;
 			glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
-			if (nfogType == FOG_Linear)
+			if (nfogType == HXFogType::FOG_Linear)
 			{
 				HXFogLinear* fogLinear = (HXFogLinear*)HXSceneManager::GetInstance()->fog;
 
@@ -245,8 +245,83 @@ namespace HX3D
 		}
 
 		property_loc = glGetUniformLocation(program, "ambient");
-		HXCOLOR color = HXSceneManager::GetInstance()->lightAmbient->color;
-		glUniform3f(property_loc, color.r, color.g, color.b);
+		HXCOLOR color = HXSceneManager::GetInstance()->Ambient;
+		glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
+
+		property_loc = glGetUniformLocation(program, "eyePos");
+		HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
+		if (pCamera)
+		{
+			HXVector3D eyePos = pCamera->mSrcEye;
+			glUniform3f(property_loc, eyePos.x, eyePos.y, eyePos.z);
+		}
+		
+
+		// light
+		for (int index = 0; index < HXSceneManager::GetInstance()->lightVct.size(); ++index)
+		{
+			HXLight* light = HXSceneManager::GetInstance()->lightVct[index];
+			if (light)
+			{
+				std::stringstream ss;
+				std::string strIndex;
+				ss << index;
+				ss >> strIndex;
+				std::string strLight = "Lights[" + strIndex + "]";
+				property_loc = glGetUniformLocation(program, (strLight + ".isEnable").c_str());
+				GLint isEnable = light->enable;
+				glUniform1i(property_loc, isEnable);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".lightType").c_str());
+				GLint lightType = light->lightType;
+				glUniform1i(property_loc, lightType);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".lightColor").c_str());
+				HXCOLOR lightColor = light->color;
+				glUniform3f(property_loc, lightColor.r / 255.0f, lightColor.g / 255.0f, lightColor.b / 255.0f);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".lightDir").c_str());
+				HXVector3D lightDir = light->direct;
+				glUniform3f(property_loc, lightDir.x, lightDir.y, lightDir.z);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".shininess").c_str());
+				GLfloat shininess = light->shininess;
+				glUniform1f(property_loc, shininess);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".strength").c_str());
+				GLfloat strength = light->strength;
+				glUniform1f(property_loc, strength);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".lightPos").c_str());
+				HXVector3D lightPos = light->position;
+				glUniform3f(property_loc, lightPos.x, lightPos.y, lightPos.z);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".constantAttenuation").c_str());
+				GLfloat constantAttenuation = light->constantAttenuation;
+				glUniform1f(property_loc, constantAttenuation);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".LinearAttenuation").c_str());
+				GLfloat LinearAttenuation = light->LinearAttenuation;
+				glUniform1f(property_loc, LinearAttenuation);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".QuadraticAttenuation").c_str());
+				GLfloat QuadraticAttenuation = light->QuadraticAttenuation;
+				glUniform1f(property_loc, QuadraticAttenuation);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".SpotCosCutoff").c_str());
+				GLfloat SpotCosCutoff = light->SpotCosCutoff;
+				glUniform1f(property_loc, SpotCosCutoff);
+
+				property_loc = glGetUniformLocation(program, (strLight + ".SpotExponent").c_str());
+				GLfloat SpotExponent = light->SpotExponent;
+				glUniform1f(property_loc, SpotExponent);
+				
+				property_loc = glGetUniformLocation(program, (strLight + ".ConeDirection").c_str());
+				HXVector3D ConeDirection = light->ConeDirection;
+				glUniform3f(property_loc, ConeDirection.x, ConeDirection.y, ConeDirection.z);
+			}
+		}
+
 
 		glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(0));
 		glEnableVertexAttribArray(vPosition);
@@ -425,7 +500,7 @@ namespace HX3D
 		glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, mMatrixProjection);
 		glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, mMatrixProjection * mMatrixView * mMatrixModel);
 
-		// FOG TODO: 提取到外层
+		// FOG TODO: 提取到外层				Uniform Block 共享
 		GLint property_loc = glGetUniformLocation(program, "useFog");
 		GLint nUseFog = HXSceneManager::GetInstance()->fog->useFog;
 		glUniform1i(property_loc, nUseFog);
@@ -439,7 +514,7 @@ namespace HX3D
 			HXCOLOR color = HXSceneManager::GetInstance()->fog->fogColor;
 			glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
-			if (nfogType == FOG_Linear)
+			if (nfogType == HXFogType::FOG_Linear)
 			{
 				HXFogLinear* fogLinear = (HXFogLinear*)HXSceneManager::GetInstance()->fog;
 
@@ -454,8 +529,13 @@ namespace HX3D
 		}
 
 		property_loc = glGetUniformLocation(program, "ambient");
-		HXCOLOR color = HXSceneManager::GetInstance()->lightAmbient->color;
+		HXCOLOR color = HXSceneManager::GetInstance()->Ambient;
 		glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
+
+		property_loc = glGetUniformLocation(program, "eyePos");
+		HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
+		HXVector3D eyePos = pCamera->mSrcEye;
+		glUniform3f(property_loc, eyePos.x, eyePos.y, eyePos.z);
 
 		glDrawArrays(GL_TRIANGLES, 0, m_pSubMesh->triangleCount * 3);
 		

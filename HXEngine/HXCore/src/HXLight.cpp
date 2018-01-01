@@ -1,18 +1,35 @@
 #include "..\include\HXLight.h"
 #include "HXMesh.h"
+#include "HXLoadConfigScene.h"
 
 namespace HX3D
 {
-	HXLight::HXLight(LIGHT_TYPE lightType_):lightType(lightType_), enable(true)
+	HXLight::HXLight()
 	{
 	}
 
+	HXLight::HXLight(HXLightInfo* lightInfo)
+	{
+		enable = lightInfo->isEnable;
+		lightType = lightInfo->lightType;
+		color = lightInfo->lightColor;
+		direct = lightInfo->lightDir;
+		shininess = lightInfo->shininess;
+		strength = lightInfo->strength;
+		position = lightInfo->lightPos;
+		constantAttenuation = lightInfo->constantAttenuation;
+		LinearAttenuation = lightInfo->LinearAttenuation;
+		QuadraticAttenuation = lightInfo->QuadraticAttenuation;
+		ConeDirection = lightInfo->ConeDirection;
+		SpotCosCutoff = lightInfo->SpotCosCutoff;
+		SpotExponent = lightInfo->SpotExponent;
+	}
 
 	HXLight::~HXLight()
 	{
 	}
 
-	HXCOLOR HXLight::VertexLighting(HXVertex* pVertex)
+	/*HXCOLOR HXLight::VertexLighting(HXVertex* pVertex)
 	{
 		HXCOLOR col;
 		if (lightType == LIGHT_DIRECTION)
@@ -35,5 +52,7 @@ namespace HX3D
 			col = color * pVertex->color;
 		}
 		return col;
-	}
+	}*/
+
+
 }

@@ -40,7 +40,7 @@ namespace HX3D
 		vmath::mat4 mMatrixView;
 		vmath::mat4 mMatrixProjection;
 
-	private:
+	
 		void UpdateViewMatrix(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up);
 		void UpdateProjectionMatrix(float left, float right, float bottom, float top, float n, float f);
 

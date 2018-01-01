@@ -5,9 +5,9 @@ namespace HX3D
 {
 	enum HXFogType
 	{
-		FOG_Linear,
-		FOG_EXP,
-		FOG_EXPX
+		FOG_Linear = 0,
+		FOG_EXP = 1,
+		FOG_EXPX = 2,
 	};
 
 	class HXFogBase

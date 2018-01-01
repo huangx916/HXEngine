@@ -8,22 +8,35 @@ namespace HX3D
 	{
 		LIGHT_AMBIENT = 0,		// 环境光
 		LIGHT_DIRECTION	= 1,	// 平行光
+		LIGHT_POINT = 2,		// 点光源
+		LIGHT_SPOT = 3,			// 聚光灯
 	};
 
 	struct HXVertex;
-
+	struct HXLightInfo;
 	class HXLight
 	{
 	public:
-		HXLight(LIGHT_TYPE lightType);
+		HXLight();
+		HXLight(HXLightInfo* lightInfo);
 		~HXLight();
 		
-		HXCOLOR VertexLighting(HXVertex* pVertex);
+		//HXCOLOR VertexLighting(HXVertex* pVertex);
 
 		bool enable;
 		LIGHT_TYPE lightType;
-		HXVector3D position;
-		HXVector3D direct;
 		HXCOLOR color;
+		HXVector3D direct;
+		float shininess;
+		float strength;
+
+		HXVector3D position;
+		float constantAttenuation;
+		float LinearAttenuation;
+		float QuadraticAttenuation;
+
+		HXVector3D ConeDirection;
+		float SpotCosCutoff;
+		float SpotExponent;
 	};
 }

@@ -9,7 +9,7 @@ namespace HX3D
 	}
 	HXFogLinear::HXFogLinear(HXFogInfo* info)
 	{
-		fogType = FOG_Linear;
+		fogType = HXFogType::FOG_Linear;
 		useFog = info->bUse;
 		fogColor = info->color;
 		fogStart = info->start;

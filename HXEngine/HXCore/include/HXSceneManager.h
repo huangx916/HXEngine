@@ -33,9 +33,7 @@ namespace HX3D
 		HXGameObject* GetGameObject(std::string strGameObjectName);
 		////HXCamera* GetMainCamera();
 		// 平行光、点光源、聚光灯
-		HXLight* CreateLight(LIGHT_TYPE lightType);
-		// 环境光单独保存
-		void CreateAmbient(const HXCOLOR& color);
+		HXLight* CreateLight(HXLightInfo* lightInfo);
 		HXICamera* CreateMainCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up = HXVector3D(0, 1, 0),
 			float ffov = 90.0f, float nearZ = 1.0f, float farZ = 1000.0f, 
 			float viewportWidth = SCREEN_WIDTH, float viewportHeigth = SCREEN_HEIGHT,
@@ -55,7 +53,7 @@ namespace HX3D
 		// 平行光、点光源、聚光灯
 		std::vector<HXLight*>		lightVct;
 		// 环境光单独保存 保证唯一性
-		HXLight* lightAmbient;
+		HXCOLOR Ambient;
 
 		HXFogBase* fog;
 	private:

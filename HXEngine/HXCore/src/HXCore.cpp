@@ -43,7 +43,7 @@ namespace HX3D
 		}
 	}
 
-	void World_Space_Vertex_Lighting(HXRenderList* pRenderList, std::vector<HXLight*>* pLightVct)
+	/*void World_Space_Vertex_Lighting(HXRenderList* pRenderList, std::vector<HXLight*>* pLightVct)
 	{
 		for (std::list<HXTriangle>::iterator itr = pRenderList->triangleList.begin(); itr != pRenderList->triangleList.end(); ++itr)
 		{
@@ -57,7 +57,7 @@ namespace HX3D
 				(*itr).vertexList[i].color = col;
 			}
 		}
-	}
+	}*/
 
 	void World_To_Camera_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum)
 	{

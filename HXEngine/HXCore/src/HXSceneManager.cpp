@@ -25,9 +25,8 @@ namespace HX3D
 	HXSceneManager::HXSceneManager():m_pMainCamera(NULL), fog(NULL)
 	{
 		mRenderList = new HXRenderList();
+		Ambient = HXCOLOR(0,0,0,255);
 		////mMainCamera = new HXCamera();
-		lightAmbient = new HXLight(LIGHT_AMBIENT);
-		lightAmbient->color = HXCOLOR(50, 50, 50);
 	}
 
 
@@ -52,8 +51,6 @@ namespace HX3D
 			delete m_pMainCamera;
 		}
 
-		delete lightAmbient;
-
 		if (fog)
 		{
 			delete fog;
@@ -64,15 +61,23 @@ namespace HX3D
 	{
 		HXLoadConfigScene cfg;
 		cfg.LoadFile(strSceneCfgFile);
-		// fog 要放在HXPrefabGameObjInfo之前加载
-		HXSceneManager::GetInstance()->CreateFog(&cfg.mSceneInfo.fogInfo);
+		// fog
+		CreateFog(&cfg.mSceneInfo.fogInfo);
+		// ambient
+		Ambient = cfg.mSceneInfo.ambient;
+		// light
+		for (std::vector<HXLightInfo>::iterator itr = cfg.mSceneInfo.vctLight.begin(); itr != cfg.mSceneInfo.vctLight.end(); ++itr)
+		{
+			HXLightInfo info = *itr;
+			CreateLight(&info);
+		}
 		// 创建天空盒
-		HXSceneManager::GetInstance()->CreateSkyBox(HXVector3D(200, 200, 200));
+		CreateSkyBox(HXVector3D(200, 200, 200));
 		// GameObject
 		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 		{
 			HXPrefabGameObjInfo& prefabgoinfo = *itr;
-			HXGameObject* pFatherGameObject = HXSceneManager::GetInstance()->CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority);
+			HXGameObject* pFatherGameObject = CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority);
 			if (NULL == pFatherGameObject)
 			{
 				return;
@@ -90,7 +95,7 @@ namespace HX3D
 			for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
 			{
 				HXModelGameObjInfo& modelgoinfo = *itr1;
-				HXGameObject* pGameObject = HXSceneManager::GetInstance()->CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority);
+				HXGameObject* pGameObject = CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority);
 				if (NULL == pGameObject)
 				{
 					return;
@@ -213,16 +218,11 @@ namespace HX3D
 		return mMainCamera;
 	}*/
 
-	HXLight* HXSceneManager::CreateLight(LIGHT_TYPE lightType)
+	HXLight* HXSceneManager::CreateLight(HXLightInfo* lightInfo)
 	{
-		HXLight* pLight = new HXLight(lightType);
+		HXLight* pLight = new HXLight(lightInfo);
 		lightVct.push_back(pLight);
 		return pLight;
-	}
-
-	void HXSceneManager::CreateAmbient(const HXCOLOR& color)
-	{
-		lightAmbient->color = color;
 	}
 
 	HXICamera* HXSceneManager::CreateMainCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
@@ -280,7 +280,7 @@ namespace HX3D
 
 	void HXSceneManager::CreateFog(HXFogInfo* info)
 	{
-		if (info->type == FOG_Linear)
+		if (info->type == HXFogType::FOG_Linear)
 		{
 			fog = new HXFogLinear(info);
 		}

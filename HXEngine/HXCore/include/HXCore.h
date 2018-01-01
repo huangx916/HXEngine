@@ -28,7 +28,7 @@ namespace HX3D
 	void Local_To_World_RenderList(HXGameObject* pGameObject, HXRenderList* pRenderList);
 	// 世界空间背面三角形剔除
 	void Culling_Backface_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);
-	void World_Space_Vertex_Lighting(HXRenderList* pRenderList, std::vector<HXLight*>* pLightVct);
+	//void World_Space_Vertex_Lighting(HXRenderList* pRenderList, std::vector<HXLight*>* pLightVct);
 	void World_To_Camera_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);
 	void Camera_To_Project_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);
 	void Project_To_ViewPort_RenderList(HXRenderList* pRenderList, HXFrustum* pFrustum);
