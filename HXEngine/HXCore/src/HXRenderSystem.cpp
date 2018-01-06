@@ -4,9 +4,9 @@
 namespace HX3D
 {
 	HXDisplayListener* HXRenderSystem::m_pDisplayListener = NULL;
-	/*int HXRenderSystem::gCurScreenWidth = SCREEN_WIDTH;
+	int HXRenderSystem::gCurScreenWidth = SCREEN_WIDTH;
 	int HXRenderSystem::gCurScreenHeight = SCREEN_HEIGHT;
-	float HXRenderSystem::gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;*/
+	//float HXRenderSystem::gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;
 	int HXRenderSystem::mLastX = 0;
 	int HXRenderSystem::mLastY = 0;
 	int HXRenderSystem::mButtonDown = -1;
@@ -31,8 +31,8 @@ namespace HX3D
 	
 	void HXRenderSystem::Reshape(int nWidth, int nHeight)
 	{
-		//gCurScreenWidth = nWidth;
-		//gCurScreenHeight = nHeight;
+		gCurScreenWidth = nWidth;
+		gCurScreenHeight = nHeight;
 		//gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;
 		if (m_pDisplayListener)
 		{

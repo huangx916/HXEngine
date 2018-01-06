@@ -1939,7 +1939,7 @@ typedef void GLvoid;
 
 #include <stddef.h>
 #ifndef GL_VERSION_2_0
-/* GL type for program/shader text */
+/* GL type for render_scene_prog/shader text */
 typedef char GLchar;
 #endif
 
@@ -1956,7 +1956,7 @@ typedef ptrdiff_t GLsizeiptrARB;
 #endif
 
 #ifndef GL_ARB_shader_objects
-/* GL types for program/shader text and shader object handles */
+/* GL types for render_scene_prog/shader text and shader object handles */
 typedef char GLcharARB;
 typedef unsigned int GLhandleARB;
 #endif

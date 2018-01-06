@@ -5,21 +5,126 @@ uniform sampler2D Layer2;
 uniform sampler2D Layer3;
 uniform sampler2D Layer4;
 uniform sampler2D Control;
-
-// 线性雾
-uniform int useFog;
-
 in vec4 vs_fs_diffuse_color;
 in vec4 vs_fs_vertex_color;
-
 in vec2 vs_fs_ControlTexcoord;
 in vec4 vs_fs_Layer12Texcoord;
 in vec4 vs_fs_Layer34Texcoord;
-
-// 线性雾
-in float vs_fs_distance;
-
 out vec4 fColor;
+
+/////////////////////////////////////////////////////
+// fog
+uniform int useFog;
+uniform int fogType;
+uniform vec3 fogColor;
+uniform float fogStart;
+uniform float fogEnd;
+in float vs_fs_distance;
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+// lighting world space
+uniform vec3 ambient;
+uniform vec3 eyePos;
+in vec4 vs_fs_normal;
+in vec4 vs_fs_position;
+struct LightInfo
+{
+	bool isEnable;
+	int lightType;
+	vec3 lightColor;
+	vec3 lightDir;
+	float shininess;
+	float strength;
+	vec3 lightPos;
+	float constantAttenuation;	// 衰减系数
+	float LinearAttenuation;
+	float QuadraticAttenuation;
+	vec3 ConeDirection;
+	float SpotCosCutoff;
+	float SpotExponent;
+};
+const int MaxLights = 10;
+uniform LightInfo Lights[MaxLights];
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+// shadow
+uniform sampler2DShadow depth_texture;
+in vec4 shadow_coord;
+/////////////////////////////////////////////////////
+
+void DirectionalLight(vec3 eyeDir, vec3 lightDir, vec3 normal, vec3 lightColor, float shininess, float strength, inout vec3 diff, inout vec3 spec)
+{
+	vec3 halfDir = normalize(eyeDir + lightDir);
+	float diffuse = max(0.0, dot(normal, lightDir));
+	float specular = max(0.0, dot(normal, halfDir));
+	if(diffuse == 0.0)
+	{
+		specular = 0.0;
+	}
+	else
+	{
+		specular = pow(specular, shininess) * strength;
+	}
+	
+	diff += lightColor * diffuse;
+	spec += lightColor * specular;
+}
+
+void PointLight(vec3 eyeDir, vec3 lightDir, vec3 normal, vec3 lightColor, float shininess, float strength,
+float constantAttenuation, float LinearAttenuation, float QuadraticAttenuation, inout vec3 diff, inout vec3 spec)
+{
+	float lightDistance = length(lightDir);
+	lightDir = lightDir/lightDistance;
+	float attenuation = 1.0 / (constantAttenuation + LinearAttenuation*lightDistance + QuadraticAttenuation*lightDistance*lightDistance);
+	vec3 halfDir = normalize(lightDir + eyeDir);
+	float diffuse = max(0.0, dot(normal, lightDir));
+	float specular = max(0.0, dot(normal, halfDir));
+	if(diffuse == 0.0)
+	{
+		specular = 0.0;
+	}
+	else
+	{
+		specular = pow(specular, shininess) * strength;
+	}
+	
+	diff += lightColor * diffuse * attenuation;
+	spec += lightColor * specular * attenuation;
+}
+
+void SpotLight(vec3 eyeDir, vec3 lightDir, vec3 normal, vec3 lightColor, float shininess, float strength,
+float constantAttenuation, float LinearAttenuation, float QuadraticAttenuation, 
+vec3 ConeDirection, float SpotCosCutoff, float SpotExponent, inout vec3 diff, inout vec3 spec)
+{
+	float lightDistance = length(lightDir);
+	lightDir = lightDir/lightDistance;
+	float attenuation = 1.0 / (constantAttenuation + LinearAttenuation*lightDistance + QuadraticAttenuation*lightDistance*lightDistance);
+	float spotCos = dot(lightDir, -ConeDirection);
+	if(spotCos < SpotCosCutoff)
+	{
+		attenuation = 0.0;
+	}
+	else
+	{
+		attenuation *= pow(spotCos, SpotExponent);
+	}
+	vec3 halfDir = normalize(lightDir + eyeDir);
+	float diffuse = max(0.0, dot(normal, lightDir));
+	float specular = max(0.0, dot(normal, halfDir));
+	if(diffuse == 0.0)
+	{
+		specular = 0.0;
+	}
+	else
+	{
+		specular = pow(specular, shininess) * strength;
+	}
+	
+	diff += lightColor * diffuse * attenuation;
+	spec += lightColor * specular * attenuation;
+}
 
 void main()
 {
@@ -32,13 +137,59 @@ void main()
 	fColor += controlColor.b * texture(Layer3, vs_fs_Layer34Texcoord.xy);
 	fColor += controlColor.a * texture(Layer4, vs_fs_Layer34Texcoord.zw);
 	
-	// 线性雾
+	//////////////////////////////////////////////////////////////////////////////////////
+	// 光照处理 世界坐标系下
+	vec3 ambi = ambient;
+	vec3 diff = vec3(0);
+	vec3 spec = vec3(0);
+	vec3 eyeDir = eyePos - vs_fs_position.xyz;
+	for(int i = 0; i < MaxLights; ++i)
+	{
+		if(!Lights[i].isEnable)
+		{
+			continue;
+		}
+		if(Lights[i].lightType == 1)
+		{
+			// 平行光
+			DirectionalLight(normalize(eyeDir), normalize(Lights[i].lightDir), normalize(vs_fs_normal.xyz), Lights[i].lightColor, Lights[i].shininess, Lights[i].strength, diff, spec);
+		}
+		else if(Lights[i].lightType == 2)
+		{
+			// 点光源
+			vec3 lightDir = Lights[i].lightPos - vs_fs_position.xyz;
+			PointLight(normalize(eyeDir), lightDir, normalize(vs_fs_normal.xyz), Lights[i].lightColor, Lights[i].shininess, Lights[i].strength, Lights[i].constantAttenuation, Lights[i].LinearAttenuation, Lights[i].QuadraticAttenuation, diff, spec);
+		}
+		else if(Lights[i].lightType == 3)
+		{
+			// 聚光灯
+			vec3 lightDir = Lights[i].lightPos - vs_fs_position.xyz;
+			SpotLight(normalize(eyeDir), lightDir, normalize(vs_fs_normal.xyz), Lights[i].lightColor, Lights[i].shininess, Lights[i].strength, 
+			Lights[i].constantAttenuation, Lights[i].LinearAttenuation, Lights[i].QuadraticAttenuation, 
+			normalize(Lights[i].ConeDirection), Lights[i].SpotCosCutoff, Lights[i].SpotExponent, diff, spec);
+		}
+	}
+	
+	// shadow
+	float f = textureProj(depth_texture, shadow_coord);
+	
+	vec3 scatteredLight = ambi + diff * f;
+	vec3 reflactedLight = spec * f;
+	vec3 rgb = min(fColor.rgb * scatteredLight + reflactedLight, vec3(1.0));
+	fColor = vec4(rgb, fColor.a);
+	//////////////////////////////////////////////////////////////////////////////////////
+	
+	//////////////////////////////////////////////////////////////////////////////////////
 	if(useFog == 1)
 	{
-		vec4 fogColor = vec4(0.5, 0.5, 0.5, 1.0);
-		float fog  = (vs_fs_distance - 10)/30;
-		fog = clamp(fog, 0.0, 1.0);
-		pow(fog, 4);
-		fColor = mix(fColor, fogColor, fog);
-	}	
+		// linear fog
+		if(fogType == 0)
+		{
+			vec4 _fogColor = vec4(fogColor, 1.0);
+			float fog  = (vs_fs_distance - fogStart)/fogEnd;
+			fog = clamp(fog, 0.0, 1.0);
+			fColor = mix(fColor, _fogColor, fog);
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////////////////
 }

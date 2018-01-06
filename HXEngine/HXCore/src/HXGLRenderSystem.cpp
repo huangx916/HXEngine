@@ -5,9 +5,11 @@
 #include "HXGLCamera.h"
 #include "HXGLFreeTypeFont.h"
 #include "HXGLTransform.h"
+#include "HXGLShadowMap.h"
 
 namespace HX3D
 {
+	HXGLShadowMap* HXGLRenderSystem::mShadowMap = NULL;
 	HXGLRenderSystem::HXGLRenderSystem():mFont(NULL)
 	{
 	}
@@ -18,6 +20,11 @@ namespace HX3D
 		{
 			delete mFont;
 			mFont = NULL;
+		}
+		if (mShadowMap)
+		{
+			delete mShadowMap;
+			mShadowMap = NULL;
 		}
 	}
 
@@ -32,9 +39,9 @@ namespace HX3D
 #endif
 
 		glutInitWindowSize(nWidth, nHeight);
-		/*gCurScreenWidth = nWidth;
+		gCurScreenWidth = nWidth;
 		gCurScreenHeight = nHeight;
-		gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;*/
+		//gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;
 		// glutInitWindowPosition(140, 140);
 		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);	// 双缓存
 		// glutInitContextVersion(4, 3);	// 使用后会宕 ?
@@ -55,6 +62,8 @@ namespace HX3D
 		// InitTriangle();
 		mFont = new HXGLFreeTypeFont();
 		mFont->Initialize("default.ttf", 16);
+		mShadowMap = new HXGLShadowMap();
+		mShadowMap->Initialize();
 	}
 
 	void HXGLRenderSystem::MainLoop()
@@ -70,12 +79,26 @@ namespace HX3D
 
 	void HXGLRenderSystem::Display()
 	{
+		//begin shadow
+		if (mShadowMap)
+		{
+			mShadowMap->PreRender();
+			// TODO: draw
+			if (m_pDisplayListener)
+			{
+				// TODO: gameobject和UI分离
+				m_pDisplayListener->OnDisplay(true);
+			}
+			mShadowMap->PostRender();
+		}
+		//end shadow
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		if (m_pDisplayListener)
 		{
 			// TODO: gameobject和UI分离
-			m_pDisplayListener->OnDisplay();
+			m_pDisplayListener->OnDisplay(false);
 		}
 
 		glutSwapBuffers();
@@ -96,9 +119,16 @@ namespace HX3D
 	}
 
 
-	void HXGLRenderSystem::RenderSingle(HXRenderable* pRenderable)
+	void HXGLRenderSystem::RenderSingle(HXRenderable* pRenderable, bool shadow)
 	{
-		pRenderable->Render();
+		if (shadow)
+		{
+			pRenderable->RenderShadowMap();
+		}
+		else
+		{
+			pRenderable->Render();
+		}
 	}
 
 	HXICamera* HXGLRenderSystem::CreateCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,

@@ -6,6 +6,7 @@ namespace HX3D
 {
 	class HXITransform;
 	class HXIFreeTypeFont;
+	class HXGLShadowMap;
 	class HXGLRenderSystem : public HXRenderSystem
 	{
 	public:
@@ -18,7 +19,7 @@ namespace HX3D
 		static void Reshape(int nWidth, int nHeight);
 
 		virtual HXRenderable* GenerateRenderable(HXSubMesh* pSubMesh);
-		virtual void RenderSingle(HXRenderable* pRenderable);
+		virtual void RenderSingle(HXRenderable* pRenderable, bool shadow);
 
 		virtual HXICamera* CreateCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
 			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
@@ -31,5 +32,6 @@ namespace HX3D
 		virtual HXITransform* CreateTransform();
 
 		HXIFreeTypeFont* mFont;
+		static HXGLShadowMap* mShadowMap;
 	};
 }

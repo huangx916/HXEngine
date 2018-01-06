@@ -24,7 +24,7 @@
 
 class FbxCameraManipulationState;
 
-/** This class can be used to provide basic camera manipulation in any program using this library.
+/** This class can be used to provide basic camera manipulation in any render_scene_prog using this library.
   * \nosubgrouping
   */
 class FBXSDK_DLL FbxCameraManipulator : public FbxObject

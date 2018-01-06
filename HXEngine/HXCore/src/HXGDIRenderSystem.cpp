@@ -205,7 +205,7 @@ namespace HX3D
 		{
 			HXGraphics::GetInstance()->ClearBuffer();
 
-			m_pDisplayListener->OnDisplay();
+			m_pDisplayListener->OnDisplay(false);
 			// HXStatus::GetInstance()->ShowStatusInfo();
 
 			// Ë«»º³å¼¼Êõ·ÀÖ¹ÉÁË¸
@@ -225,7 +225,7 @@ namespace HX3D
 		return pRenderable;
 	}
 
-	void HXGDIRenderSystem::RenderSingle(HXRenderable* pRenderable)
+	void HXGDIRenderSystem::RenderSingle(HXRenderable* pRenderable, bool shadow)
 	{
 		pRenderable->Render();
 	}

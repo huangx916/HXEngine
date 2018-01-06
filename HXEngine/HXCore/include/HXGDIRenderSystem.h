@@ -20,7 +20,7 @@ namespace HX3D
 		static bool mouseRDown;
 
 		virtual HXRenderable* GenerateRenderable(HXSubMesh* pSubMesh);
-		virtual void RenderSingle(HXRenderable* pRenderable);
+		virtual void RenderSingle(HXRenderable* pRenderable, bool shadow);
 
 		virtual HXICamera* CreateCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
 			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,

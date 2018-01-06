@@ -36,6 +36,12 @@ uniform int useFog;
 out float vs_fs_distance;
 ///////////////////////////////////////////////////////
 
+/////////////////////////////////////////
+//shadow
+uniform mat4 shadow_matrix;
+out vec4 shadow_coord;
+/////////////////////////////////////////
+
 void main()
 {
 	gl_Position = mvp_matrix * position;
@@ -62,5 +68,11 @@ void main()
 		vec4 mvPosition = view_matrix * model_matrix * position;
 		vs_fs_distance = sqrt(mvPosition.x * mvPosition.x + mvPosition.y * mvPosition.y + mvPosition.z * mvPosition.z);
 	}
+	/////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////
+	// shadow
+	vec4 world_pos = model_matrix * position;
+	shadow_coord = shadow_matrix * world_pos;
 	/////////////////////////////////////////////////////////////////
 }

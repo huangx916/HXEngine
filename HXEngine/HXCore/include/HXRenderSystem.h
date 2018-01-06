@@ -19,7 +19,7 @@ namespace HX3D
 		virtual void MainLoop() = 0;
 
 		virtual HXRenderable* GenerateRenderable(HXSubMesh* pSubMesh) = 0;
-		virtual void RenderSingle(HXRenderable* pRenderable) = 0;
+		virtual void RenderSingle(HXRenderable* pRenderable, bool shadow) = 0;
 
 		virtual HXICamera* CreateCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
 			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
@@ -40,8 +40,8 @@ namespace HX3D
 		static int mButtonDown;
 
 		static HXDisplayListener* m_pDisplayListener;
-		//static int gCurScreenWidth;
-		//static int gCurScreenHeight;
+		static int gCurScreenWidth;
+		static int gCurScreenHeight;
 		//static float gAspect;	// ×Ýºá±È
 	};
 }

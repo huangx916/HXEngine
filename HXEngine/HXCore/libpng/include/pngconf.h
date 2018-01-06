@@ -146,7 +146,7 @@
  * compiler dependent way.  Some systems can do either.
  *
  * A small number of older systems also require a symbol from a DLL to
- * be flagged to the program that calls it.  This is a problem because
+ * be flagged to the render_scene_prog that calls it.  This is a problem because
  * we do not know in the header file included by application code that
  * the symbol will come from a shared library, as opposed to a statically
  * linked one.  For this reason the application must tell us by setting

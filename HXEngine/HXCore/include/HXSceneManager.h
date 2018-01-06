@@ -46,7 +46,7 @@ namespace HX3D
 		void UseFog(bool useFog);
 
 		//void Update();
-		void OnDisplay();
+		void OnDisplay(bool shadow);
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
 

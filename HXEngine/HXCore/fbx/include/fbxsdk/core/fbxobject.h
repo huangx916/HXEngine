@@ -120,7 +120,7 @@ private: /* end of object declaration, put back private */\
   * objects in a scene. Properties may be either static or dynamic. Static properties are defined in the class direction 
   * and can be accessed directly by their name on the object exposing them without
   * the need for a search in the property list of the object. Dynamic properties can be added during run-time,
-  * while the program is running. Objects can have an unlimited amount of properties. 
+  * while the render_scene_prog is running. Objects can have an unlimited amount of properties. 
   * Properties can be listed at run-time, allowing for a flexible support of custom data
   * on objects, since they might be considered by the FBX file readers/writers depending on the flags set.
   *

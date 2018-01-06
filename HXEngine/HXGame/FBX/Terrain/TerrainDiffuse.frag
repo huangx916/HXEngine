@@ -48,6 +48,12 @@ const int MaxLights = 10;
 uniform LightInfo Lights[MaxLights];
 /////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////
+// shadow
+uniform sampler2DShadow depth_texture;
+in vec4 shadow_coord;
+/////////////////////////////////////////////////////
+
 void DirectionalLight(vec3 eyeDir, vec3 lightDir, vec3 normal, vec3 lightColor, float shininess, float strength, inout vec3 diff, inout vec3 spec)
 {
 	vec3 halfDir = normalize(eyeDir + lightDir);
@@ -163,8 +169,12 @@ void main()
 			normalize(Lights[i].ConeDirection), Lights[i].SpotCosCutoff, Lights[i].SpotExponent, diff, spec);
 		}
 	}
-	vec3 scatteredLight = ambi + diff;
-	vec3 reflactedLight = spec;
+	
+	// shadow
+	float f = textureProj(depth_texture, shadow_coord);
+	
+	vec3 scatteredLight = ambi + diff * f;
+	vec3 reflactedLight = spec * f;
 	vec3 rgb = min(fColor.rgb * scatteredLight + reflactedLight, vec3(1.0));
 	fColor = vec4(rgb, fColor.a);
 	//////////////////////////////////////////////////////////////////////////////////////

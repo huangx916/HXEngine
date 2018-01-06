@@ -23,7 +23,7 @@ extern "C" {
 //  The array of structures is terminated by a final Shader with the
 //    "type" field set to GL_NONE.
 //
-//  LoadShaders() returns the shader program value (as returned by
+//  LoadShaders() returns the shader render_scene_prog value (as returned by
 //    glCreateProgram()) on success, or zero on failure. 
 //
 

@@ -274,7 +274,7 @@ public:
     };
 
     /** Send the accumulator entries to the output devices.
-      * This method needs to be explicitly called by the program that uses this
+      * This method needs to be explicitly called by the render_scene_prog that uses this
       * class. 
       * \param pOutSrc               Specify which data has to be sent to the output devices. Set to SEQUENCED_DETAILS
       *                              to send the Details in the recorded order. Set to ACCUMULATOR_ENTRY to send

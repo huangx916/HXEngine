@@ -2667,7 +2667,7 @@ PNG_EXPORT(243, int, png_get_palette_max, (png_const_structp png_ptr,
  *
  * 1) Declare a 'png_image' structure (see below) on the stack, set the
  *    version field to PNG_IMAGE_VERSION and the 'opaque' pointer to NULL
- *    (this is REQUIRED, your program may crash if you don't do it.)
+ *    (this is REQUIRED, your render_scene_prog may crash if you don't do it.)
  * 2) Call the appropriate png_image_begin_read... function.
  * 3) Set the png_image 'format' member to the required sample format.
  * 4) Allocate a buffer for the image and, if required, the color-map.

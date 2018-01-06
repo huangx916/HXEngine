@@ -101,7 +101,7 @@ LoadShaders( ShaderInfo* shaders )
 
 #ifdef GL_VERSION_4_1
     if ( GLEW_VERSION_4_1 ) {
-        // glProgramParameteri( program, GL_PROGRAM_SEPARABLE, GL_TRUE );
+        // glProgramParameteri( render_scene_prog, GL_PROGRAM_SEPARABLE, GL_TRUE );
     }
 #endif /* GL_VERSION_4_1 */
     

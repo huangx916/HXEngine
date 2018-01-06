@@ -216,9 +216,9 @@ void HXGame::CreateGameScene()
 //
 //}
 
-void HXGame::OnDisplay()
+void HXGame::OnDisplay(bool shadow)
 {
-	HXSceneManager::GetInstance()->OnDisplay();
+	HXSceneManager::GetInstance()->OnDisplay(shadow);
 }
 
 void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)

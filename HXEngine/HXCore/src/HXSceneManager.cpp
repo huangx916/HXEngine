@@ -72,7 +72,7 @@ namespace HX3D
 			CreateLight(&info);
 		}
 		// 创建天空盒
-		CreateSkyBox(HXVector3D(200, 200, 200));
+		 CreateSkyBox(HXVector3D(200, 200, 200));
 		// GameObject
 		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 		{
@@ -344,11 +344,17 @@ namespace HX3D
 		return( i->m_nPriority < j->m_nPriority );
 	}
 
-	void HXSceneManager::OnDisplay()
+	void HXSceneManager::OnDisplay(bool shadow)
 	{
-		HXStatus::GetInstance()->ResetStatus();
-
-		m_pMainCamera->Update();
+		if (shadow)
+		{
+			m_pMainCamera->Update();
+		}
+		else
+		{
+			HXStatus::GetInstance()->ResetStatus();
+		}
+		
 
 		// TODO: OIT排序，暂时先简单排序
 		std::vector<HXGameObject*> sortGameObject;
@@ -388,12 +394,15 @@ namespace HX3D
 					// TODO: 提取到外层Camera里增加效率   Just for test here
 					(*itr1)->renderable->SetViewMatrix(m_pMainCamera);
 					(*itr1)->renderable->SetProjectionMatrix(m_pMainCamera);
-					pRenderSystem->RenderSingle((*itr1)->renderable);
+					pRenderSystem->RenderSingle((*itr1)->renderable, shadow);
 				}
 			}
 		}
 
-		HXStatus::GetInstance()->ShowStatusInfo();
+		if (!shadow)
+		{
+			HXStatus::GetInstance()->ShowStatusInfo();
+		}
 	}
 
 	void HXSceneManager::OnViewPortResize(int nScreenWidth, int nScreenHeight)

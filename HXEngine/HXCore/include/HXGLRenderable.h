@@ -30,6 +30,7 @@ namespace HX3D
 		virtual void SetProjectionMatrix(HXICamera* pCamera);
 		// 生成渲染系统需要的内容（例如 OPENGL 的 VBO等）
 		virtual void GenerateArguments(HXSubMesh* pSubMesh);
+		virtual void RenderShadowMap();
 		virtual void Render();
 
 		vmath::mat4 mMatrixModel;
@@ -38,10 +39,15 @@ namespace HX3D
 
 		GLuint mVAO;
 		GLuint mVBO;
-		GLuint program;
-		GLint render_model_matrix_loc;
-		GLint render_view_matrix_loc;
-		GLint render_projection_matrix_loc;
-		GLint render_mvp_matrix_loc;
+
+		GLuint render_scene_prog;
+		struct
+		{
+			GLint render_model_matrix_loc;
+			GLint render_view_matrix_loc;
+			GLint render_projection_matrix_loc;
+			GLint render_mvp_matrix_loc;
+			GLint render_shadow_matrix_loc;
+		}render_scene_uniforms;
 	};
 }

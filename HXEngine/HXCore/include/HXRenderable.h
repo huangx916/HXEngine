@@ -17,6 +17,7 @@ namespace HX3D
 		virtual void SetProjectionMatrix(HXICamera* pCamera) = 0;
 		// 生成具体渲染系统需要的内容（例如 OPENGL 的 VBO等）
 		virtual void GenerateArguments(HXSubMesh* pSubMesh);
+		virtual void RenderShadowMap() {};
 		virtual void Render() = 0;
 
 		HXSubMesh* m_pSubMesh;
