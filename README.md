@@ -47,6 +47,5 @@ D3D RenderSystem:
 
 Vulkan RenderSystem:
 ================================================================================
-待加入...
 
 <img class="shadow" src="./1.png" width="600">
