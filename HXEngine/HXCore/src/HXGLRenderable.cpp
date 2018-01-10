@@ -152,26 +152,15 @@ namespace HX3D
 					continue;
 				}
 
-				/*HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
-				if(NULL == tex)
-				{
-					tex = new HXGLTextureDDS(itr->value);
-					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
-				}*/
-				/*HXGLTexturePNG* tex = (HXGLTexturePNG*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
-				if (NULL == tex)
-				{
-					tex = new HXGLTexturePNG(itr->value);
-					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
-				}*/
 				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				if (NULL == tex)
 				{
 					tex = new HXGLTexture(itr->value);
 					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
 				}
-				
+				// 采样器
 				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				// 暂时不用其他类型的Texture,这里只使用GL_TEXTURE_2D
 				/*glBindTexture(tex->mImageData.target, tex->texId);
@@ -494,15 +483,7 @@ namespace HX3D
 					continue;
 				}
 
-				//HXGLTextureDDS* tex = (HXGLTextureDDS*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
-				//HXGLTexturePNG* tex = (HXGLTexturePNG*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
-				/*if (NULL == tex)
-				{
-					tex = new HXGLTextureDDS();
-					tex->texId = vglLoadTexture((itr->value + ".dds").c_str(), 0, &(tex->mImageData));
-					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
-				}*/
 
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
