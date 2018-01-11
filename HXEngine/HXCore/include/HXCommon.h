@@ -30,7 +30,7 @@ namespace HX3D
 	#define EPSILON_E6	((float)(1E-6))
 
 	// shadow mapping
-	#define FRUSTUM_DEPTH       100.0f
+	#define FRUSTUM_DEPTH       80.0f
 	#define DEPTH_TEXTURE_SIZE  4096
 
 	//#define HXCOLOR_TO_24BIT(r,g,b)		(((r) & 0xff) << 16 | ((g) & 0xff) << 8 | ((b) & 0xff))

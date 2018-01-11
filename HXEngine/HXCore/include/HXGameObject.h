@@ -38,6 +38,7 @@ namespace HX3D
 
 		// ‰÷»æ”≈œ»º∂
 		int m_nPriority;
+		bool m_bCastShadow;
 		
 	private:
 		// Local Coordinate

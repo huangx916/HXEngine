@@ -77,7 +77,7 @@ namespace HX3D
 		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 		{
 			HXPrefabGameObjInfo& prefabgoinfo = *itr;
-			HXGameObject* pFatherGameObject = CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority);
+			HXGameObject* pFatherGameObject = CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
 			if (NULL == pFatherGameObject)
 			{
 				return;
@@ -95,7 +95,7 @@ namespace HX3D
 			for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
 			{
 				HXModelGameObjInfo& modelgoinfo = *itr1;
-				HXGameObject* pGameObject = CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority);
+				HXGameObject* pGameObject = CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
 				if (NULL == pGameObject)
 				{
 					return;
@@ -134,7 +134,7 @@ namespace HX3D
 		}
 	}*/
 
-	HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority)
+	HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow)
 	{
 		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
 		if (itr != gameObjectMap.end())
@@ -148,6 +148,7 @@ namespace HX3D
 			// 当strModelName = “”时，创建不带renderable的gameobject。例如父物体空gameobject
 			HXGameObject* gameObject = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
 			gameObject->m_nPriority = nPriority;
+			gameObject->m_bCastShadow = bCastShadow;
 			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
 			return gameObject;
 		}
@@ -198,6 +199,7 @@ namespace HX3D
 
 		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->m_nPriority = nPriority;
+		gameObject->m_bCastShadow = bCastShadow;
 		gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
 		return gameObject;
 
@@ -274,6 +276,7 @@ namespace HX3D
 		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->SetScale(scale);
 		gameObject->m_nPriority = 0;
+		gameObject->m_bCastShadow = false;
 		gameObjectMap.insert(make_pair(strgoName, gameObject));
 		return gameObject;
 	}
@@ -371,7 +374,15 @@ namespace HX3D
 			// itr->second->Roll(itr->second->GetRotation().z + 1.0f);
 
 			// 更新坐标ModelMatrix 动作等
-			(*itr)->Update();
+			if (shadow)
+			{
+				(*itr)->Update();
+			}
+			
+			if (shadow && !(*itr)->m_bCastShadow)
+			{
+				continue;
+			}
 
 			HXMesh* pMesh = (*itr)->GetMesh();
 			if (pMesh == NULL)

@@ -60,7 +60,7 @@ namespace HX3D
 		//vmath::vec3 light_position = vmath::vec3(sinf(t * 6.0f * 3.141592f) * 300.0f, 200.0f, cosf(t * 4.0f * 3.141592f) * 100.0f + 250.0f);
 		//vec3 light_position = vec3(sinf(t * 6.0f * 3.141592f) * 150.0f, 100.0f, cosf(t * 4.0f * 3.141592f) * 50.0f + 125.0f);
 		//vmath::vec3 light_position = vmath::vec3(sinf(t * 6.0f * 3.141592f) * 40,40, cosf(t * 4.0f * 3.141592f) * 40);
-		vmath::vec3 light_position = vmath::vec3(30, 30, 30);
+		vmath::vec3 light_position = vmath::vec3(20, 20, 20);
 		// Setup
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);

@@ -32,6 +32,7 @@ namespace HX3D
 			gameObjInfo.strGameObjName = gameobjElement->Attribute("Name");
 			gameObjInfo.strPrefabFile = gameobjElement->Attribute("Prefab");
 			gameObjInfo.nPriority = atoi(gameobjElement->Attribute("Priority"));
+			gameObjInfo.bCastShadow = atoi(gameobjElement->Attribute("CastShadow"));
 			TiXmlElement* positionElement = gameobjElement->FirstChildElement();
 			gameObjInfo.position.x = atof(positionElement->Attribute("Px"));
 			gameObjInfo.position.y = atof(positionElement->Attribute("Py"));

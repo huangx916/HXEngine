@@ -29,7 +29,7 @@ namespace HX3D
 		void LoadScene(std::string strSceneCfgFile);
 
 		//HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
-		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority);
+		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
 		////HXCamera* GetMainCamera();
 		// 平行光、点光源、聚光灯

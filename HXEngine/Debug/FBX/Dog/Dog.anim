@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Animations>  
-    <Anim name="run" File="FBX/Dog/Dog@run.fbx"/>   
 	<Anim name="walk" File="FBX/Dog/Dog@walk.fbx"/>
+	<Anim name="run" File="FBX/Dog/Dog@run.fbx"/>
 </Animations>
