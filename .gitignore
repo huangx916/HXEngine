@@ -16,3 +16,6 @@ HXEngine/.vs/HXEngine/v14/.suo
 *.tlog
 !*gl*.lib
 !vermilion*.lib
+!freetyped.lib
+!libpng16.lib
+!zlib.lib
