@@ -7,7 +7,6 @@
 *.tlog*.obj
 *.db
 *.cache
-*.filters
 *.log
 *.user
 HXEngine/.vs/HXEngine/v14/.suo

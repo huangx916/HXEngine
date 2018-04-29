@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\HXLoadConfigAnim.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXLoadConfigMat.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXLoadConfigModel.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXLoadConfigPrefab.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXLoadConfigScene.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DiscardHXFBXMaterial.cpp">
+      <Filter>FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXFBXLoader.cpp">
+      <Filter>FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXFBXMesh.cpp">
+      <Filter>FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXFBXSkeleton.cpp">
+      <Filter>FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hxtest.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinystr.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxmlerror.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxmlparser.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXITransform.cpp">
+      <Filter>RenderSystem\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXRenderable.cpp">
+      <Filter>RenderSystem\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXRenderSystem.cpp">
+      <Filter>RenderSystem\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXBitmap.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXCore.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXFrustum.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGDICamera.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGDIRenderable.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGDIRenderSystem.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGDITextureBMP.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGDITransform.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGraphics.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXRenderState.cpp">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLCamera.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLFreeTypeFont.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLRenderable.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLRenderSystem.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLShadowMap.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLTest.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLTexture.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLTransform.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\LoadShaders.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\loadtexture.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\vdds.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DiscardHXCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DiscardHXMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DiscardHXWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXFogLinear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXPlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXQuaternion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXRoot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXSceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\HXLoadConfigAnim.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXLoadConfigMat.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXLoadConfigModel.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXLoadConfigPrefab.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXLoadConfigScene.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DiscardHXFBXMaterial.h">
+      <Filter>FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXFBXLoader.h">
+      <Filter>FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXFBXMesh.h">
+      <Filter>FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXFBXSkeleton.h">
+      <Filter>FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hxtest.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinystr.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinyxml.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXICamera.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXIFreeTypeFont.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXITexture.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXITransform.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXRenderable.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXRenderSystem.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXBitmap.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXCore.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXFrustum.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGDICamera.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGDIRenderable.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGDIRenderSystem.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGDITextureBMP.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGDITransform.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGraphics.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXRenderState.h">
+      <Filter>RenderSystem\GDI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLCamera.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLFreeTypeFont.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLRenderable.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLRenderSystem.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLShadowMap.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLTest.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLTexture.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLTransform.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl\include\LoadShaders.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DiscardHXCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DiscardHXInputListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DiscardHXMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DiscardHXPaintListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DiscardHXWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HX3DHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXDisplayListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXFogBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXFogLinear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXIMeshLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXISkeleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXPlane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXQuaternion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXRoot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXSceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXStatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Config">
+      <UniqueIdentifier>{2f823a1b-0269-4d6d-9268-25f0aad3642f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FBX">
+      <UniqueIdentifier>{f6d5d896-01e2-4968-aea5-eb9ff658d3a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{79176824-38c9-4339-8865-d6872038214f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSystem">
+      <UniqueIdentifier>{02ffcf7e-f51f-44ca-b9a0-551880c2e75f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{f1b78185-5a17-4a04-9c5e-6555b64969aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TinyXML">
+      <UniqueIdentifier>{bc11d5b9-53ef-47c8-aba4-3af4be76f03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSystem\Common">
+      <UniqueIdentifier>{3a3f265a-d1df-42e8-9eee-e074573dc1ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSystem\GDI">
+      <UniqueIdentifier>{eb9c9dad-a3dd-4a1c-a9f5-be9edbd61a5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSystem\OpenGL">
+      <UniqueIdentifier>{55d96d19-fd9c-4823-889a-8ef33bef0cdd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
