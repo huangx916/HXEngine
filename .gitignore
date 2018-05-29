@@ -8,7 +8,7 @@
 *.db
 *.cache
 *.log
-*.user
+!*.user
 HXEngine/.vs/HXEngine/v14/.suo
 *.opendb
 *.obj
