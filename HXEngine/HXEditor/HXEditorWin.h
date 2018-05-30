@@ -4,6 +4,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_HXEditorWin.h"
 
+#include <QVBoxLayout>
+
+class GameWidget;
 class HXEditorWin : public QMainWindow
 {
 	Q_OBJECT
@@ -14,6 +17,9 @@ public:
 
 private:
 	Ui::HXEditorWinClass ui;
+
+	GameWidget* m_pGameWidget;
+	QVBoxLayout* m_pCentralLayout;
 };
 
 #endif // HXEDITORWIN_H

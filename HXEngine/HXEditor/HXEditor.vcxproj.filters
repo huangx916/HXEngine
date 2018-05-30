@@ -50,6 +50,15 @@
     <ClCompile Include="GeneratedFiles\qrc_HXEditorWin.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GameWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GameWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="HXEditorWin.h">
@@ -60,6 +69,9 @@
     </CustomBuild>
     <CustomBuild Include="HXEditorWin.qrc">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GameWidget.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
