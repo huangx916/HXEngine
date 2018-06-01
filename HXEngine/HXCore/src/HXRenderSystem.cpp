@@ -19,11 +19,6 @@ namespace HX3D
 	{
 	}
 
-	void HXRenderSystem::CreateRenderWindow(std::string strName, int nWidth, int nHeight, bool bFullScreen)
-	{
-
-	}
-
 	void HXRenderSystem::SetDisplayListener(HXDisplayListener* pDisplayListener)
 	{
 		m_pDisplayListener = pDisplayListener;

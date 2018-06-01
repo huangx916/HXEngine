@@ -55,6 +55,8 @@ namespace HX3D
 		::DeleteObject(mBufferHandle);
 		// ::DeleteObject(mPenHandle);
 		::DeleteObject(mBrushHandle);
+
+		delete m_pZBuffer;
 	}
 
 	void HXGraphics::ClearBuffer()

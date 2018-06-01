@@ -14,7 +14,7 @@ namespace HX3D
 		HXRenderSystem();
 		virtual ~HXRenderSystem();
 
-		virtual void CreateRenderWindow(std::string strName, int nWidth, int nHeight, bool bFullScreen);
+		virtual void CreateRenderWindow(std::string strName, int nWidth, int nHeight, bool bFullScreen) = 0;
 		void SetDisplayListener(HXDisplayListener* pDisplayListener);
 		virtual void MainLoop() = 0;
 
