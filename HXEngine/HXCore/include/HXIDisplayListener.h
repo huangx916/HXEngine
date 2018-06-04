@@ -3,7 +3,7 @@
 
 namespace HX3D
 {
-	class HXDisplayListener
+	class HXIDisplayListener
 	{
 	public:
 		virtual void OnDisplay(bool shadow) = 0;

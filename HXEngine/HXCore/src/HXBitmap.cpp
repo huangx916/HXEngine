@@ -10,13 +10,12 @@ namespace HX3D
 		
 	}
 
-
 	HXBitmap::~HXBitmap()
 	{
 		if (mPixels)
 		{
 			delete mPixels;
-			mPixels = 0;
+			mPixels = NULL;
 		}
 	}
 

@@ -1,6 +1,6 @@
 #include "..\include\HXGLRenderSystem.h"
 #include "vgl.h"
-#include "HXDisplayListener.h"
+#include "HXIDisplayListener.h"
 #include "HXGLRenderable.h"
 #include "HXGLCamera.h"
 #include "HXGLFreeTypeFont.h"

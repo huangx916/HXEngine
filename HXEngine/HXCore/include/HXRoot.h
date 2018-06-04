@@ -4,7 +4,7 @@
 namespace HX3D
 {
 	class HXRenderSystem;
-	class HXDisplayListener;
+	class HXIDisplayListener;
 	class HXRoot
 	{
 	public:
@@ -21,7 +21,7 @@ namespace HX3D
 
 		void Initialize(ERenderSystem rs);
 		void CreateRenderWindow(std::string strName, int nWidth, int nHeight, bool bFullScreen);
-		void SetDisplayListener(HXDisplayListener* pDisplayListener);
+		void SetDisplayListener(HXIDisplayListener* pDisplayListener);
 		void MainLoop();
 
 		HXRenderSystem* GetRenderSystem();

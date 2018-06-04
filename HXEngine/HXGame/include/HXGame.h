@@ -1,10 +1,10 @@
 #pragma once
 #include "DiscardHXPaintListener.h"
 #include "DiscardHXInputListener.h"
-#include "HXDisplayListener.h"
+#include "HXIDisplayListener.h"
 
 using namespace HX3D;
-class HXGame : /*public HXPaintListener, public HXInputListener , */public HXDisplayListener
+class HXGame : /*public HXPaintListener, public HXInputListener , */public HXIDisplayListener
 {
 public:
 	HXGame();

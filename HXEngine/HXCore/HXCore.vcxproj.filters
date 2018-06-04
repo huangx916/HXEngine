@@ -133,19 +133,10 @@
     <ClCompile Include="src\HXLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HXMath.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\HXMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HXPlane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\HXQuaternion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HXResourceManager.cpp">
@@ -160,8 +151,17 @@
     <ClCompile Include="src\HXStatus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXMath.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXMatrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXQuaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
     <ClCompile Include="src\HXVector.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +297,6 @@
     <ClInclude Include="include\HXCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXDisplayListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXFogBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -318,19 +315,10 @@
     <ClInclude Include="include\HXLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXMath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\HXMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\HXPlane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\HXQuaternion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\HXResourceManager.h">
@@ -348,8 +336,20 @@
     <ClInclude Include="include\HXUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXVector.h">
+    <ClInclude Include="include\HXIDisplayListener.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXMath.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXMatrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXQuaternion.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXVector.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -379,6 +379,9 @@
     </Filter>
     <Filter Include="RenderSystem\OpenGL">
       <UniqueIdentifier>{55d96d19-fd9c-4823-889a-8ef33bef0cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{5ad0cd63-dbf2-40ba-a63f-3ab019de6230}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ namespace HX3D
 		if (mFrustum)
 		{
 			delete mFrustum;
+			mFrustum = NULL;
 		}
 	}
 
@@ -107,14 +108,14 @@ namespace HX3D
 		/*HXVector4D direction = mFrustum->lookTarget - mFrustum->camPosition;
 		direction.normalize();
 		HXVector4D forward = direction * fDistance;
-		mFrustum->lookTarget += forward;
+		mFrustum->camPosition += forward;
 		mFrustum->lookTarget += forward;*/
 
 		HXQuaternion q;
 		q.FromEulerDegree(mFrustum->mPitch, mFrustum->mYaw, mFrustum->mRoll);
 		HXVector3D v(0, 0, -fDistance);
 		v = q.Transform(v);
-		mFrustum->lookTarget += HXVector4D(v,0);
+		mFrustum->camPosition += HXVector4D(v,0);
 		mFrustum->lookTarget += HXVector4D(v, 0);
 	}
 
@@ -124,7 +125,7 @@ namespace HX3D
 		q.FromEulerDegree(mFrustum->mPitch, mFrustum->mYaw, mFrustum->mRoll);
 		HXVector3D v(fDistance, 0, 0);
 		v = q.Transform(v);
-		mFrustum->lookTarget += HXVector4D(v, 0);
+		mFrustum->camPosition += HXVector4D(v, 0);
 		mFrustum->lookTarget += HXVector4D(v, 0);
 	}
 
@@ -134,7 +135,7 @@ namespace HX3D
 		q.FromEulerDegree(mFrustum->mPitch, mFrustum->mYaw, mFrustum->mRoll);
 		HXVector3D v(0, -fDistance, 0);
 		v = q.Transform(v);
-		mFrustum->lookTarget += HXVector4D(v, 0);
+		mFrustum->camPosition += HXVector4D(v, 0);
 		mFrustum->lookTarget += HXVector4D(v, 0);
 	}
 }

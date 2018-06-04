@@ -1,9 +1,9 @@
 #include "..\include\HXRenderSystem.h"
-#include "HXDisplayListener.h"
+#include "HXIDisplayListener.h"
 
 namespace HX3D
 {
-	HXDisplayListener* HXRenderSystem::m_pDisplayListener = NULL;
+	HXIDisplayListener* HXRenderSystem::m_pDisplayListener = NULL;
 	int HXRenderSystem::gCurScreenWidth = SCREEN_WIDTH;
 	int HXRenderSystem::gCurScreenHeight = SCREEN_HEIGHT;
 	//float HXRenderSystem::gAspect = (float)gCurScreenHeight / (float)gCurScreenWidth;
@@ -19,7 +19,7 @@ namespace HX3D
 	{
 	}
 
-	void HXRenderSystem::SetDisplayListener(HXDisplayListener* pDisplayListener)
+	void HXRenderSystem::SetDisplayListener(HXIDisplayListener* pDisplayListener)
 	{
 		m_pDisplayListener = pDisplayListener;
 	}

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--0:Texture TYPE 1:Float 2:Float2 3:Float3 4:Float4-->
+<!--TYPE 
+0:Texture  
+1:Float 
+2:Float2 
+3:Float3 
+4:Float4
+-->
 <Material>  
     <Shader File="FBX/Building01/Building01">
 		<Property Type="0" Name="MainTexture" Value="FBX/Building01/wangyougu01.dds" Value1="1" Value2="1" Value3="0" Value4="0"/>

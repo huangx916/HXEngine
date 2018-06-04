@@ -1,6 +1,6 @@
 #include "..\include\HXGDIRenderSystem.h"
 #include<ctime>
-#include "HXDisplayListener.h"
+#include "HXIDisplayListener.h"
 #include "HXGraphics.h"
 #include "HXGDIRenderable.h"
 #include "HXGDICamera.h"

@@ -39,7 +39,7 @@ namespace HX3D
 		}
 	}
 
-	void HXRoot::SetDisplayListener(HXDisplayListener* pDisplayListener)
+	void HXRoot::SetDisplayListener(HXIDisplayListener* pDisplayListener)
 	{
 		if (m_pRenderSystem)
 		{

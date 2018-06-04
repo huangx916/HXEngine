@@ -36,7 +36,7 @@
     <ClInclude Include="include\HXICamera.h" />
     <ClInclude Include="include\HXCommon.h" />
     <ClInclude Include="include\HXCore.h" />
-    <ClInclude Include="include\HXDisplayListener.h" />
+    <ClInclude Include="include\HXIDisplayListener.h" />
     <ClInclude Include="include\HXFrustum.h" />
     <ClInclude Include="include\HXGameObject.h" />
     <ClInclude Include="include\HXGDICamera.h" />

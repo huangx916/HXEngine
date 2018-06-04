@@ -3,7 +3,7 @@
 
 namespace HX3D
 {
-	class HXDisplayListener;
+	class HXIDisplayListener;
 	class HXRenderable;
 	class HXSubMesh;
 	class HXICamera;
@@ -15,7 +15,7 @@ namespace HX3D
 		virtual ~HXRenderSystem();
 
 		virtual void CreateRenderWindow(std::string strName, int nWidth, int nHeight, bool bFullScreen) = 0;
-		void SetDisplayListener(HXDisplayListener* pDisplayListener);
+		void SetDisplayListener(HXIDisplayListener* pDisplayListener);
 		virtual void MainLoop() = 0;
 
 		virtual HXRenderable* GenerateRenderable(HXSubMesh* pSubMesh) = 0;
@@ -39,7 +39,7 @@ namespace HX3D
 		static int mLastY;
 		static int mButtonDown;
 
-		static HXDisplayListener* m_pDisplayListener;
+		static HXIDisplayListener* m_pDisplayListener;
 		static int gCurScreenWidth;
 		static int gCurScreenHeight;
 		//static float gAspect;	// ×Ýºá±È
