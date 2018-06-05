@@ -40,10 +40,10 @@ public:
      */
     FbxPropertyT<FbxDouble> EmissiveFactor;
 
-    //! Ambient color property.
+    //! ambient color property.
     FbxPropertyT<FbxDouble3> Ambient;
 
-    /** Ambient factor property. This factor is used to
+    /** ambient factor property. This factor is used to
 	 * attenuate the ambient color.
      */
     FbxPropertyT<FbxDouble> AmbientFactor;

@@ -53,7 +53,7 @@ namespace HX3D
 		// 平行光、点光源、聚光灯
 		std::vector<HXLight*>		lightVct;
 		// 环境光单独保存 保证唯一性
-		HXCOLOR Ambient;
+		HXCOLOR ambient;
 
 		HXFogBase* fog;
 	private:

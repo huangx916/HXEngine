@@ -225,7 +225,7 @@ public:
 		* \param pLayer Index of the layer.
 		* \return Array with the channel descriptor.
 		* \remark Only the channels that have UVs associated are reported in the array. For example, let's assume that we have defined UVs for the Diffuse,
-		* Ambient and Bump channels on layer 0. The resulting array will have the following three entries:
+		* ambient and Bump channels on layer 0. The resulting array will have the following three entries:
 		* \li FbxLayerElement::eDIFFUSE_TEXTURE
 		* \li FbxLayerElement::eAMBIENT_TEXTURE
 		* \li FbxLayerElement::eBUMP_TEXTURE */

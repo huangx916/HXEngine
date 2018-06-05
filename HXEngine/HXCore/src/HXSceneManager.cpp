@@ -25,7 +25,7 @@ namespace HX3D
 	HXSceneManager::HXSceneManager():m_pMainCamera(NULL), fog(NULL)
 	{
 		mRenderList = new HXRenderList();
-		Ambient = HXCOLOR(0,0,0,255);
+		ambient = HXCOLOR(0,0,0,255);
 		////mMainCamera = new HXCamera();
 	}
 
@@ -64,7 +64,7 @@ namespace HX3D
 		// fog
 		CreateFog(&cfg.mSceneInfo.fogInfo);
 		// ambient
-		Ambient = cfg.mSceneInfo.ambient;
+		ambient = cfg.mSceneInfo.ambient;
 		// light
 		for (std::vector<HXLightInfo>::iterator itr = cfg.mSceneInfo.vctLight.begin(); itr != cfg.mSceneInfo.vctLight.end(); ++itr)
 		{

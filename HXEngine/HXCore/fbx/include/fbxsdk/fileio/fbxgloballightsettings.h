@@ -33,7 +33,7 @@ class FBXSDK_DLL FbxGlobalLightSettings
 public:
     FBXSDK_FRIEND_NEW();
     /**
-      * \name Ambient Color
+      * \name ambient Color
       */
     //@{
 

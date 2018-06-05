@@ -56,7 +56,7 @@
 //		{
 //			shadingModel = MAT_SHADING_MODEL::Phong;
 //
-//			lKFbxDouble3 = ((FbxSurfacePhong *)pMaterial)->Ambient;
+//			lKFbxDouble3 = ((FbxSurfacePhong *)pMaterial)->ambient;
 //			ambient.r = lKFbxDouble3.Get()[0];
 //			ambient.g = lKFbxDouble3.Get()[1];
 //			ambient.b = lKFbxDouble3.Get()[2];
@@ -89,7 +89,7 @@
 //		{
 //			shadingModel = MAT_SHADING_MODEL::Lambert;
 //
-//			lKFbxDouble3 = ((FbxSurfaceLambert *)pMaterial)->Ambient;
+//			lKFbxDouble3 = ((FbxSurfaceLambert *)pMaterial)->ambient;
 //			ambient.r = lKFbxDouble3.Get()[0];
 //			ambient.g = lKFbxDouble3.Get()[1];
 //			ambient.b = lKFbxDouble3.Get()[2];

@@ -238,7 +238,7 @@ namespace HX3D
 		}
 
 		property_loc = glGetUniformLocation(render_scene_prog, "ambient");
-		HXCOLOR color = HXSceneManager::GetInstance()->Ambient;
+		HXCOLOR color = HXSceneManager::GetInstance()->ambient;
 		glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
 		property_loc = glGetUniformLocation(render_scene_prog, "eyePos");
@@ -559,7 +559,7 @@ namespace HX3D
 		}
 
 		property_loc = glGetUniformLocation(render_scene_prog, "ambient");
-		HXCOLOR color = HXSceneManager::GetInstance()->Ambient;
+		HXCOLOR color = HXSceneManager::GetInstance()->ambient;
 		glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
 		property_loc = glGetUniformLocation(render_scene_prog, "eyePos");
