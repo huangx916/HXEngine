@@ -65,7 +65,7 @@ namespace HX3D
 	}
 
 
-	GLuint texture;
+	// GLuint texture;
 
 	void HXGLRenderable::GenerateArguments(HXSubMesh* pSubMesh)
 	{
@@ -335,6 +335,12 @@ namespace HX3D
 	// TODO: 提取到rendersystem，只留 modelMatrix glDrawArrays
 	void HXGLRenderable::RenderShadowMap()
 	{
+		if (m_pSubMesh->triangleCount > MAX_TRIANGLE_COUNT)
+		{
+			//std::cerr << "Mesh over max triangle count" << std::endl;
+			return;
+		}
+
 		// TODO: 解耦
 		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
 		HXGLShadowMap* sm = rs->mShadowMap;
@@ -428,7 +434,7 @@ namespace HX3D
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////
-		//// for test  MVP后是投影平面上的坐标，之后(光栅化时?)渲染管线会自动映射到屏幕坐标
+		//// for test  MVP后是投影平面上的坐标，透视除法后NDC坐标，之后(光栅化之前)渲染管线会自动映射到屏幕坐标
 		//vmath::vec4 vec(0.5f, 0.5f, 0.5f, 1.0f);
 		//vmath::mat4 matT = vmath::translate(100.0f, 0.0f, 0.0f);
 		//// 为什么应用程序不能右乘，着色器里是右乘 ?  

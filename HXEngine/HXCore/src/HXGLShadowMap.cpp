@@ -38,6 +38,11 @@ namespace HX3D
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		/*GLfloat border[] = { 1.0f, 0.0f,0.0f,0.0f };
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);*/
+
 		// Create FBO to render depth into
 		glGenFramebuffers(1, &depth_fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, depth_fbo);
@@ -60,6 +65,7 @@ namespace HX3D
 		//vmath::vec3 light_position = vmath::vec3(sinf(t * 6.0f * 3.141592f) * 300.0f, 200.0f, cosf(t * 4.0f * 3.141592f) * 100.0f + 250.0f);
 		//vec3 light_position = vec3(sinf(t * 6.0f * 3.141592f) * 150.0f, 100.0f, cosf(t * 4.0f * 3.141592f) * 50.0f + 125.0f);
 		//vmath::vec3 light_position = vmath::vec3(sinf(t * 6.0f * 3.141592f) * 40,40, cosf(t * 4.0f * 3.141592f) * 40);
+		// TODO:
 		vmath::vec3 light_position = vmath::vec3(20, 20, 20);
 		// Setup
 		glEnable(GL_CULL_FACE);
