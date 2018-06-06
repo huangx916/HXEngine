@@ -13,7 +13,6 @@ extern "C" void vglLoadDDS(const char* filename, vglImageData* image);
 
 void vglLoadImage(const char* filename, vglImageData* image)
 {
-
     vglLoadDDS(filename, image);
 }
 

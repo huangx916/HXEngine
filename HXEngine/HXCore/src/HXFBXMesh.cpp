@@ -105,11 +105,11 @@ namespace HX3D
 			subMeshList[0] = new HXSubMesh();
 			subMeshList[0]->triangleCount = nTriangleCount;
 			// ¹ØÁª²ÄÖÊ
-			FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(0);
+			/*FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(0);
 			if (lMaterial)
 			{
 				subMeshList[0]->materialName = HXFBXLoader::gCurPathFileName + "|" + lMaterial->GetName();
-			}
+			}*/
 			
 			for (int i = 0; i < nTriangleCount; i++)
 			{

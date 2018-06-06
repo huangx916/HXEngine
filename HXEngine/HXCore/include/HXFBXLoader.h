@@ -33,6 +33,6 @@ namespace HX3D
 	private:
 		FbxManager* m_pFbxManager;
 		FbxScene* m_pScene;
-		
+		FbxIOSettings *m_pIos;
 	};
 }

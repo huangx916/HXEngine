@@ -22,7 +22,6 @@ namespace HX3D
 		~HXGLTexture();
 
 		// PNG
-		
 		GLuint LoadPNGTexture(const char *filename);
 		gl_texture_t * ReadPNGFromFile(const char *filename);
 		void GetPNGtextureInfo(int color_type, gl_texture_t *texinfo);

@@ -198,6 +198,6 @@ namespace HX3D
 
 	GLuint HXGLTexture::LoadDDSTexture(const char *filename)
 	{
-		return vglLoadTexture(filename, 0, 0);
+		return vglLoadTexture(filename, 0, NULL);
 	}
 }

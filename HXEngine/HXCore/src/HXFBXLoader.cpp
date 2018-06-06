@@ -17,8 +17,8 @@ namespace HX3D
 		if (m_pFbxManager)
 		{
 			m_pScene = FbxScene::Create(m_pFbxManager, "HXScene");
-			FbxIOSettings *ios = FbxIOSettings::Create(m_pFbxManager, IOSROOT);
-			m_pFbxManager->SetIOSettings(ios);
+			m_pIos = FbxIOSettings::Create(m_pFbxManager, IOSROOT);
+			m_pFbxManager->SetIOSettings(m_pIos);
 		}
 	}
 
@@ -31,6 +31,10 @@ namespace HX3D
 		if (m_pScene)
 		{
 			m_pScene->Destroy();
+		}
+		if (m_pIos)
+		{
+			m_pIos->Destroy();
 		}
 	}
 

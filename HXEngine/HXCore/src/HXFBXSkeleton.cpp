@@ -15,7 +15,10 @@ namespace HX3D
 
 	HXFBXSkeleton::~HXFBXSkeleton()
 	{
-		delete mSkinSkeleton;
+		if (mSkinSkeleton)
+		{
+			delete mSkinSkeleton;
+		}
 		if (srcControlPoints)
 		{
 			delete[] srcControlPoints;
