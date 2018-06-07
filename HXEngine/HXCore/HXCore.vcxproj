@@ -26,6 +26,7 @@
     <ClInclude Include="include\HXGDITextureBMP.h" />
     <ClInclude Include="include\HXGDITransform.h" />
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
+    <ClInclude Include="include\HXGLLoadPNG.h" />
     <ClInclude Include="include\HXGLShadowMap.h" />
     <ClInclude Include="include\HXGLTexture.h" />
     <ClInclude Include="include\HXGLTransform.h" />
@@ -123,6 +124,7 @@
     <ClCompile Include="src\HXStatus.cpp" />
     <ClCompile Include="src\hxtest.cpp" />
     <ClCompile Include="src\HXVector.cpp" />
+    <ClCompile Include="src\HXGLLoadPNG.cpp" />
     <ClCompile Include="src\tinystr.cpp" />
     <ClCompile Include="src\tinyxml.cpp" />
     <ClCompile Include="src\tinyxmlerror.cpp" />

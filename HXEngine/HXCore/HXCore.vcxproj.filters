@@ -103,15 +103,6 @@
     <ClCompile Include="src\HXGLTransform.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\lib\LoadShaders.cpp">
-      <Filter>RenderSystem\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="opengl\lib\loadtexture.cpp">
-      <Filter>RenderSystem\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="opengl\lib\vdds.cpp">
-      <Filter>RenderSystem\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXFogLinear.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -150,6 +141,18 @@
     </ClCompile>
     <ClCompile Include="src\HXVector.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\vdds.cpp">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\loadtexture.cpp">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\LoadShaders.cpp">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLLoadPNG.cpp">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -258,9 +261,6 @@
     <ClInclude Include="include\HXGLTransform.h">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\include\LoadShaders.h">
-      <Filter>RenderSystem\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="include\HX3DHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -321,6 +321,12 @@
     <ClInclude Include="include\HXVector.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="opengl\include\LoadShaders.h">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLLoadPNG.h">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
@@ -352,6 +358,9 @@
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{5ad0cd63-dbf2-40ba-a63f-3ab019de6230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSystem\OpenGL\Util">
+      <UniqueIdentifier>{6e7e0e62-8643-4506-9b83-475e2874bdb0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
