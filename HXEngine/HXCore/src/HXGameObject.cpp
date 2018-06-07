@@ -6,8 +6,9 @@
 
 namespace HX3D
 {
-	HXGameObject::HXGameObject(HXMesh* pMesh, HXRenderSystem* pRenderSystem)
+	HXGameObject::HXGameObject(std::string strName, HXMesh* pMesh, HXRenderSystem* pRenderSystem)
 	{
+		m_strName = strName;
 		m_pMesh = pMesh;
 		m_pFather = NULL;
 		m_pTransform = pRenderSystem->CreateTransform();
@@ -15,7 +16,6 @@ namespace HX3D
 		mEulerDegree = HXVector3D(0,0,0);
 		mScale = HXVector3D(1,1,1);*/
 	}
-
 
 	HXGameObject::~HXGameObject()
 	{

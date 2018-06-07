@@ -155,7 +155,7 @@ namespace HX3D
 		if (NULL == pModelInfo)
 		{
 			// 当strModelName = “”时，创建不带renderable的gameobject。例如父物体空gameobject
-			HXGameObject* gameObject = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
+			HXGameObject* gameObject = new HXGameObject(strGameObjectName, NULL, HXRoot::GetInstance()->GetRenderSystem());
 			gameObject->m_nPriority = nPriority;
 			gameObject->m_bCastShadow = bCastShadow;
 			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
@@ -206,7 +206,7 @@ namespace HX3D
 		}
 
 
-		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
+		HXGameObject* gameObject = new HXGameObject(strGameObjectName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->m_nPriority = nPriority;
 		gameObject->m_bCastShadow = bCastShadow;
 		gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
@@ -288,7 +288,7 @@ namespace HX3D
 		// 关联材质到SubMesh
 		pMesh->subMeshList[0]->materialName = "./FBX/SkyBox/SkyBox.material";
 
-		HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
+		HXGameObject* gameObject = new HXGameObject(strgoName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->SetScale(scale);
 		gameObject->m_nPriority = 0;
 		gameObject->m_bCastShadow = false;

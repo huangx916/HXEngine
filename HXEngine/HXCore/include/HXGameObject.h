@@ -12,7 +12,7 @@ namespace HX3D
 	class HXGameObject
 	{
 	public:
-		HXGameObject(HXMesh* pMesh, HXRenderSystem* pRenderSystem);
+		HXGameObject(std::string strName, HXMesh* pMesh, HXRenderSystem* pRenderSystem);
 		~HXGameObject();
 	
 		void Update();
@@ -41,6 +41,7 @@ namespace HX3D
 		bool m_bCastShadow;
 		
 	private:
+		std::string m_strName;
 		// Local Coordinate
 		/*HXVector3D mPostion;
 		HXVector3D mEulerDegree;

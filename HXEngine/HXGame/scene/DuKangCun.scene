@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Prefabs>
-		<PrefabGameObj Name="DuKangCun" Prefab="FBX/Terrain/Terrain.prefab" Priority="10" CastShadow="0">
+		<PrefabGameObj Name="TerrainPrefab" Prefab="FBX/Terrain/Terrain.prefab" Priority="10" CastShadow="0">
 			<Postion Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
