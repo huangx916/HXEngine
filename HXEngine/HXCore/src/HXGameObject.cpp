@@ -52,55 +52,6 @@ namespace HX3D
 		m_pMesh->Insert_To_RenderList(mPostion, mEulerDegree, mScale, pRenderList);
 	}*/
 
-	void HXGameObject::SetPostion(const HXVector3D& pos)
-	{
-		m_pTransform->mPostion = pos;
-	}
-
-	HXVector3D HXGameObject::GetPosition()
-	{
-		return m_pTransform->mPostion;
-	}
-
-	void HXGameObject::Move(const HXVector3D& mov)
-	{
-		m_pTransform->mPostion += mov;
-	}
-
-	void HXGameObject::SetRotation(const HXVector3D& rotation)
-	{
-		m_pTransform->mEulerDegree = rotation;
-	}
-
-	HXVector3D HXGameObject::GetRotation()
-	{
-		return m_pTransform->mEulerDegree;
-	}
-
-	void HXGameObject::Pitch(float fDegree)
-	{
-		m_pTransform->mEulerDegree.x = fDegree;
-	}
-
-	void HXGameObject::Yaw(float fDegree)
-	{
-		m_pTransform->mEulerDegree.y = fDegree;
-	}
-
-	void HXGameObject::Roll(float fDegree)
-	{
-		m_pTransform->mEulerDegree.z = fDegree;
-	}
-
-	void HXGameObject::SetScale(const HXVector3D& scale)
-	{
-		m_pTransform->mScale = scale;
-	}
-	HXVector3D HXGameObject::GetScale()
-	{
-		return m_pTransform->mScale;
-	}
-
 	HXMesh* HXGameObject::GetMesh()
 	{
 		return m_pMesh;

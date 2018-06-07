@@ -95,9 +95,9 @@ namespace HX3D
 			{
 				pFatherGameObject->GetMesh()->PlayDefaultAnimation();
 			}
-			pFatherGameObject->SetScale(prefabgoinfo.scale);
-			pFatherGameObject->SetRotation(prefabgoinfo.rotation);
-			pFatherGameObject->SetPostion(prefabgoinfo.position);
+			pFatherGameObject->GetTransform()->SetScale(prefabgoinfo.scale);
+			pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
+			pFatherGameObject->GetTransform()->SetPostion(prefabgoinfo.position);
 
 			HXLoadConfigPrefab cfgPrefab;
 			cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
@@ -113,9 +113,9 @@ namespace HX3D
 				{
 					pGameObject->GetMesh()->PlayDefaultAnimation();
 				}
-				pGameObject->SetScale(modelgoinfo.scale);
-				pGameObject->SetRotation(modelgoinfo.rotation);
-				pGameObject->SetPostion(modelgoinfo.position);
+				pGameObject->GetTransform()->SetScale(modelgoinfo.scale);
+				pGameObject->GetTransform()->SetRotation(modelgoinfo.rotation);
+				pGameObject->GetTransform()->SetPostion(modelgoinfo.position);
 
 				pGameObject->SetFather(pFatherGameObject);
 			}
@@ -289,7 +289,7 @@ namespace HX3D
 		pMesh->subMeshList[0]->materialName = "./FBX/SkyBox/SkyBox.material";
 
 		HXGameObject* gameObject = new HXGameObject(strgoName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
-		gameObject->SetScale(scale);
+		gameObject->GetTransform()->SetScale(scale);
 		gameObject->m_nPriority = 0;
 		gameObject->m_bCastShadow = false;
 		gameObjectMap.insert(make_pair(strgoName, gameObject));
