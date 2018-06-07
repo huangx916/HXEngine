@@ -56,8 +56,12 @@ namespace HX3D
 
 	void HXGLCamera::move(const HXVector3D& mov)
 	{
-		mSrcEye += mov;
-		mSrcAt += mov;
+		HXQuaternion q;
+		q.FromEulerDegree(mPitch, mYaw, mRoll);
+		HXVector3D v = mov;
+		v = q.Transform(v);
+		mSrcAt += v;
+		mSrcEye += v;
 	}
 
 	void HXGLCamera::yaw(float fDegree)

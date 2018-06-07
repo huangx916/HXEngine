@@ -255,8 +255,10 @@ void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 	if (nButton == 0)
 	{
 		// ×ó¼ü°´ÏÂ×´Ì¬
-		HXSceneManager::GetInstance()->GetMainCamera()->MoveHorizon(float(deltaX) / 10.0f);
-		HXSceneManager::GetInstance()->GetMainCamera()->MoveVertical(float(deltaY) / 10.0f);
+		//HXSceneManager::GetInstance()->GetMainCamera()->MoveHorizon(float(deltaX) / 10.0f);
+		//HXSceneManager::GetInstance()->GetMainCamera()->MoveVertical(float(deltaY) / 10.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D((deltaX) / 10.0f, 0, 0));
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, -float(deltaY) / 10.0f, 0));
 	}
 	else if (nButton == 2)
 	{
@@ -272,7 +274,8 @@ void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 
 void HXGame::OnMouseWheel(float fDistance)
 {
-	HXSceneManager::GetInstance()->GetMainCamera()->Forward(fDistance);
+	//HXSceneManager::GetInstance()->GetMainCamera()->Forward(fDistance);
+	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, 0, -fDistance));
 }
 
 //void HXGame::OnKeyDown(int msg)

@@ -59,8 +59,6 @@ namespace HX3D
 		float mTop;
 		float mNear;
 		float mFar;
-
-		
 	};
 }
 

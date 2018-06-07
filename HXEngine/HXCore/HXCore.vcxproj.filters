@@ -16,9 +16,6 @@
     <ClCompile Include="src\HXLoadConfigScene.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="src\DiscardHXFBXMaterial.cpp">
-      <Filter>FBX</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXFBXLoader.cpp">
       <Filter>FBX</Filter>
     </ClCompile>
@@ -115,15 +112,6 @@
     <ClCompile Include="opengl\lib\vdds.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\DiscardHXCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DiscardHXMaterial.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DiscardHXWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXFogLinear.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -179,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="include\HXLoadConfigScene.h">
       <Filter>Config</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DiscardHXFBXMaterial.h">
-      <Filter>FBX</Filter>
     </ClInclude>
     <ClInclude Include="include\HXFBXLoader.h">
       <Filter>FBX</Filter>
@@ -275,21 +260,6 @@
     </ClInclude>
     <ClInclude Include="opengl\include\LoadShaders.h">
       <Filter>RenderSystem\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DiscardHXCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DiscardHXInputListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DiscardHXMaterial.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DiscardHXPaintListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DiscardHXWindow.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\HX3DHeader.h">
       <Filter>Header Files</Filter>
