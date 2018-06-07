@@ -25,11 +25,10 @@ namespace HX3D
 		void MainLoop();
 
 		HXRenderSystem* GetRenderSystem();
-		ERenderSystem GetRenderSystemType();
+		
 	private:
 		HXRoot();
 		static HXRoot* m_pInstance;
 		HXRenderSystem* m_pRenderSystem;
-		ERenderSystem m_eRenderSystemType;
 	};
 }

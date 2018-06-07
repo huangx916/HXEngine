@@ -27,6 +27,9 @@ namespace HX3D
 
 		virtual HXITransform* CreateTransform() = 0;
 
+		ERenderSystem GetRenderSystemType();
+		void SetRenderSystemType(ERenderSystem rs);
+
 		virtual void BeginText() {};
 		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255, 255, 255, 255)) = 0;
 		virtual void EndText() {};
@@ -43,5 +46,7 @@ namespace HX3D
 		static int gCurScreenWidth;
 		static int gCurScreenHeight;
 		//static float gAspect;	// ×Ýºá±È
+	private:
+		ERenderSystem m_eRenderSystemType;
 	};
 }

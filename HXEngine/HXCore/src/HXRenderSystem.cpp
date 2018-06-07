@@ -24,6 +24,16 @@ namespace HX3D
 		m_pDisplayListener = pDisplayListener;
 	}
 	
+	ERenderSystem HXRenderSystem::GetRenderSystemType()
+	{
+		return m_eRenderSystemType;
+	}
+
+	void HXRenderSystem::SetRenderSystemType(ERenderSystem rs)
+	{
+		m_eRenderSystemType = rs;
+	}
+
 	void HXRenderSystem::Reshape(int nWidth, int nHeight)
 	{
 		gCurScreenWidth = nWidth;

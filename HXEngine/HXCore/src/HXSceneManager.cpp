@@ -59,7 +59,8 @@ namespace HX3D
 	void HXSceneManager::LoadScene(std::string strSceneCfgFile)
 	{
 		// GDI由于性能原因使用场景简单版本
-		if (HXRoot::GetInstance()->GetRenderSystemType() == RenderSystem_GDI)
+		if (HXRoot::GetInstance()->GetRenderSystem() && 
+			HXRoot::GetInstance()->GetRenderSystem()->GetRenderSystemType() == RenderSystem_GDI)
 		{
 			strSceneCfgFile.insert(strSceneCfgFile.length() - 6, "_GDI");
 		}
@@ -255,7 +256,8 @@ namespace HX3D
 
 	HXGameObject* HXSceneManager::CreateSkyBox(HXVector3D scale)
 	{
-		if (HXRoot::GetInstance()->GetRenderSystemType() == RenderSystem_GDI)
+		if (HXRoot::GetInstance()->GetRenderSystem() && 
+			HXRoot::GetInstance()->GetRenderSystem()->GetRenderSystemType() == RenderSystem_GDI)
 		{
 			return NULL;
 		}
