@@ -19,6 +19,7 @@ namespace HX3D
 		//doc.Print();
 		if (!bLoaded)
 		{
+			std::cout << "can not load file : " + strFileName << std::endl;
 			return false;
 		}
 
@@ -48,7 +49,27 @@ namespace HX3D
 		
 			mSceneInfo.vctGameObjInfo.push_back(gameObjInfo);
 		}
-		TiXmlElement* fogElement = prefabs->NextSiblingElement();
+
+		// camera
+		TiXmlElement* cameraElement = prefabs->NextSiblingElement();
+		mSceneInfo.cameraInfo.ffov = atof(cameraElement->Attribute("Ffov"));
+		mSceneInfo.cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
+		mSceneInfo.cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));
+		TiXmlElement* eyeElement = cameraElement->FirstChildElement();
+		mSceneInfo.cameraInfo.eye.x = atof(eyeElement->Attribute("Ex"));
+		mSceneInfo.cameraInfo.eye.y = atof(eyeElement->Attribute("Ey"));
+		mSceneInfo.cameraInfo.eye.z = atof(eyeElement->Attribute("Ez"));
+		TiXmlElement* atElement = eyeElement->NextSiblingElement();
+		mSceneInfo.cameraInfo.at.x = atof(atElement->Attribute("Ax"));
+		mSceneInfo.cameraInfo.at.y = atof(atElement->Attribute("Ay"));
+		mSceneInfo.cameraInfo.at.z = atof(atElement->Attribute("Az"));
+		TiXmlElement* upElement = atElement->NextSiblingElement();
+		mSceneInfo.cameraInfo.up.x = atof(upElement->Attribute("Ux"));
+		mSceneInfo.cameraInfo.up.y = atof(upElement->Attribute("Uy"));
+		mSceneInfo.cameraInfo.up.z = atof(upElement->Attribute("Uz"));
+
+		// fog
+		TiXmlElement* fogElement = cameraElement->NextSiblingElement();
 		mSceneInfo.fogInfo.bUse = atoi(fogElement->Attribute("Use"));
 		mSceneInfo.fogInfo.type = (HXFogType)atoi(fogElement->Attribute("Type"));
 		mSceneInfo.fogInfo.color.r = atof(fogElement->Attribute("R"));
@@ -57,11 +78,13 @@ namespace HX3D
 		mSceneInfo.fogInfo.start = atof(fogElement->Attribute("Start"));
 		mSceneInfo.fogInfo.end = atof(fogElement->Attribute("End"));
 
+		// ambient
 		TiXmlElement* ambientElement = fogElement->NextSiblingElement();
 		mSceneInfo.ambient.r = atof(ambientElement->Attribute("R"));
 		mSceneInfo.ambient.g = atof(ambientElement->Attribute("G"));
 		mSceneInfo.ambient.b = atof(ambientElement->Attribute("B"));
 
+		// lights
 		TiXmlElement* lights = ambientElement->NextSiblingElement();
 		TiXmlElement* lightElement = lights->FirstChildElement();
 		for (; lightElement != NULL; lightElement = lightElement->NextSiblingElement())

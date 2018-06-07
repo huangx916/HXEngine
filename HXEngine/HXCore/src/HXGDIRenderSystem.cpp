@@ -205,6 +205,9 @@ namespace HX3D
 		{
 			HXGraphics::GetInstance()->ClearBuffer();
 
+			// 仅用作相机和gameobject状态更新
+			m_pDisplayListener->OnDisplay(true);
+
 			m_pDisplayListener->OnDisplay(false);
 			// HXStatus::GetInstance()->ShowStatusInfo();
 

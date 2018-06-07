@@ -16,6 +16,15 @@ namespace HX3D
 		HXVector3D rotation;
 		HXVector3D scale;
 	};
+	struct HXCameraInfo
+	{
+		HXVector3D eye;
+		HXVector3D at;
+		HXVector3D up;
+		float ffov;
+		float nearZ;
+		float farZ;
+	};
 	struct HXFogInfo
 	{
 		bool bUse;
@@ -44,8 +53,9 @@ namespace HX3D
 	};
 	struct HXSceneInfo
 	{
-		// TODO: Add Camera etc.
+		// TODO: Add other etc.
 		std::vector<HXPrefabGameObjInfo> vctGameObjInfo;
+		HXCameraInfo cameraInfo;
 		HXFogInfo fogInfo;
 		HXCOLOR ambient;
 		std::vector<HXLightInfo> vctLight;

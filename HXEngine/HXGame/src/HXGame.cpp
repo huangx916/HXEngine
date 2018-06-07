@@ -143,8 +143,8 @@ void HXGame::CreateGameScene()
 
 
 	HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
-	HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0));
-
+	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0), HXVector3D(0, 1, 0), 90.0F, 0.1F);
+	//HXICamera* pMainCamera = HXSceneManager::GetInstance()->CreateMainCamera(HXVector3D(0, 5, 10), HXVector3D(0, 0, 0), HXVector3D(0,1,0), 90.0F, 0.1F);
 
 	/*HXCamera* pMainCamera = HXSceneManager::GetInstance()->GetMainCamera();
 	pMainCamera->setPosition(HXVector4D(0, 0, -10, 1));*/

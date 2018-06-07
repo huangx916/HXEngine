@@ -29,6 +29,7 @@ namespace HX3D
 		default:
 			break;
 		}
+		m_eRenderSystemType = rs;
 	}
 
 	void HXRoot::CreateRenderWindow(std::string strName, int nWidth, int nHeight, bool bFullScreen)
@@ -58,5 +59,10 @@ namespace HX3D
 	HXRenderSystem* HXRoot::GetRenderSystem()
 	{
 		return m_pRenderSystem;
+	}
+
+	ERenderSystem HXRoot::GetRenderSystemType()
+	{
+		return m_eRenderSystemType;
 	}
 }

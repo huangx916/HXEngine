@@ -29,7 +29,6 @@ namespace HX3D
 		////mMainCamera = new HXCamera();
 	}
 
-
 	HXSceneManager::~HXSceneManager()
 	{
 		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
@@ -59,8 +58,17 @@ namespace HX3D
 
 	void HXSceneManager::LoadScene(std::string strSceneCfgFile)
 	{
+		// GDI由于性能原因使用场景简单版本
+		if (HXRoot::GetInstance()->GetRenderSystemType() == RenderSystem_GDI)
+		{
+			strSceneCfgFile.insert(strSceneCfgFile.length() - 6, "_GDI");
+		}
+
 		HXLoadConfigScene cfg;
 		cfg.LoadFile(strSceneCfgFile);
+		// camera
+		CreateMainCamera(cfg.mSceneInfo.cameraInfo.eye, cfg.mSceneInfo.cameraInfo.at, cfg.mSceneInfo.cameraInfo.up
+			, cfg.mSceneInfo.cameraInfo.ffov, cfg.mSceneInfo.cameraInfo.nearZ, cfg.mSceneInfo.cameraInfo.farZ);
 		// fog
 		CreateFog(&cfg.mSceneInfo.fogInfo);
 		// ambient
@@ -72,7 +80,7 @@ namespace HX3D
 			CreateLight(&info);
 		}
 		// 创建天空盒
-		 CreateSkyBox(HXVector3D(200, 200, 200));
+		CreateSkyBox(HXVector3D(200, 200, 200));
 		// GameObject
 		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 		{
@@ -247,6 +255,11 @@ namespace HX3D
 
 	HXGameObject* HXSceneManager::CreateSkyBox(HXVector3D scale)
 	{
+		if (HXRoot::GetInstance()->GetRenderSystemType() == RenderSystem_GDI)
+		{
+			return NULL;
+		}
+
 		std::string strgoName = "HXSkyBox";
 
 		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strgoName);
