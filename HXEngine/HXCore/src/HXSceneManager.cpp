@@ -2,7 +2,6 @@
 #include "HXMesh.h"
 #include "HXGameObject.h"
 #include "HXCore.h"
-#include "DiscardHXCamera.h"
 #include "HXFrustum.h"
 #include "HXResourceManager.h"
 #include "HXRenderState.h"
