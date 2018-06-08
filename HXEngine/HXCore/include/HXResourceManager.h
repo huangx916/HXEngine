@@ -26,13 +26,6 @@ namespace HX3D
 
 		HXMesh* GetMesh(std::string strMeshName, std::string strAnimName);
 
-		//HXMaterial* GetMaterial(std::string strMaterialName);
-		HXBitmap* GetBitmap(std::string strBitmap);
-		// 加载FBX时使用FBX材质生成，以后用引擎编辑器生成的材质加载
-		//void AddMaterial(std::string strMaterialName, HXMaterial* pMaterial);
-
-
-
 		HXModelInfo* GetModelInfo(std::string strModelFile);
 		HXMaterialInfo* GetMaterialInfo(std::string strMaterialFile);
 		HXITexture* GetTexture(std::string strTextureFile);
@@ -43,9 +36,6 @@ namespace HX3D
 		static HXResourceManager* m_pInstance;
 
 		HXIMeshLoader*	m_pMeshLoader;
-		
-		//std::map<std::string, HXMaterial*> materialMap;
-		std::map<std::string, HXBitmap*> bitmapMap;
 
 		std::map<std::string, HXModelInfo*> ModelMap;
 		std::map<std::string, HXMesh*>	meshMap;

@@ -43,8 +43,7 @@ namespace HX3D
 			HXGDITextureBMP* tex = (HXGDITextureBMP*)HXResourceManager::GetInstance()->GetTexture("GDI_" + pMatInfo->vctMatProperty[0].value);
 			if (NULL == tex)
 			{
-				tex = new HXGDITextureBMP();
-				tex->mBitmap = HXResourceManager::GetInstance()->GetBitmap(pMatInfo->vctMatProperty[0].value);
+				tex = new HXGDITextureBMP(pMatInfo->vctMatProperty[0].value);
 				HXResourceManager::GetInstance()->AddTexture("GDI_" + pMatInfo->vctMatProperty[0].value, tex);
 			}
 			m_pTex = tex;

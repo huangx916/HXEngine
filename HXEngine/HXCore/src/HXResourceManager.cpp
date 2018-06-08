@@ -1,6 +1,5 @@
 #include "..\include\HXResourceManager.h"
 #include "HXMesh.h"
-//#include "HXMaterial.h"
 #include "HXBitmap.h"
 #include "HXIMeshLoader.h"
 #include "HXFBXLoader.h"
@@ -25,18 +24,6 @@ namespace HX3D
 			delete(itr->second);
 		}
 		meshMap.clear();
-
-		/*for (std::map<std::string, HXMaterial*>::iterator itr = materialMap.begin(); itr != materialMap.end(); itr++)
-		{
-			delete itr->second;
-		}
-		materialMap.clear();*/
-
-		for (std::map<std::string, HXBitmap*>::iterator itr = bitmapMap.begin(); itr != bitmapMap.end(); itr++)
-		{
-			delete itr->second;
-		}
-		bitmapMap.clear();
 
 		if (m_pMeshLoader)
 		{
@@ -67,61 +54,6 @@ namespace HX3D
 			}
 		}
 	}
-
-	/*HXMaterial* HXResourceManager::GetMaterial(std::string strMaterialName)
-	{
-		std::map<std::string, HXMaterial*>::iterator itr = materialMap.find(strMaterialName);
-		if (itr != materialMap.end())
-		{
-			return itr->second;
-		}
-		else
-		{
-			HXMaterial* pMaterial = new HXMaterial;
-			if (pMaterial->LoadMaterialFile(strMaterialName))
-			{
-				materialMap.insert(make_pair(strMaterialName, pMaterial));
-				return pMaterial;
-			}
-			else
-			{
-				delete pMaterial;
-				return NULL;
-			}
-		}
-	}*/
-
-	HXBitmap* HXResourceManager::GetBitmap(std::string strBitmap)
-	{
-		// 把PNG  DDS 转 为BMP结尾的文件名
-		size_t size = strBitmap.length();
-		strBitmap = strBitmap.substr(0, size - 3) + "bmp";
-
-		std::map<std::string, HXBitmap*>::iterator itr = bitmapMap.find(strBitmap);
-		if (itr != bitmapMap.end())
-		{
-			return itr->second;
-		}
-		else
-		{
-			HXBitmap* pBitmap = new HXBitmap;
-			if (pBitmap->LoadBitmapFile(strBitmap))
-			{
-				bitmapMap.insert(make_pair(strBitmap, pBitmap));
-				return pBitmap;
-			}
-			else
-			{
-				delete pBitmap;
-				return NULL;
-			}
-		}
-	}
-
-	/*void HXResourceManager::AddMaterial(std::string strMaterialName, HXMaterial* pMaterial)
-	{
-		materialMap.insert(make_pair(strMaterialName, pMaterial));
-	}*/
 
 	HXModelInfo* HXResourceManager::GetModelInfo(std::string strModelFile)
 	{

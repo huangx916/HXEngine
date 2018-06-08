@@ -8,7 +8,7 @@ namespace HX3D
 	class HXGDITextureBMP : public HXITexture
 	{
 	public:
-		HXGDITextureBMP();
+		HXGDITextureBMP(std::string strTextureFile);
 		~HXGDITextureBMP();
 		
 		HXBitmap* mBitmap;

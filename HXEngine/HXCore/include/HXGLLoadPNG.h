@@ -1,6 +1,5 @@
 #pragma once
 #include "HXCommon.h"
-#include "HXITexture.h"
 #include "vgl.h"
 
 namespace HX3D
