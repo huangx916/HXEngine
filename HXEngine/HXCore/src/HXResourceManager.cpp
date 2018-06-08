@@ -26,11 +26,11 @@ namespace HX3D
 		}
 		meshMap.clear();
 
-		for (std::map<std::string, HXMaterial*>::iterator itr = materialMap.begin(); itr != materialMap.end(); itr++)
+		/*for (std::map<std::string, HXMaterial*>::iterator itr = materialMap.begin(); itr != materialMap.end(); itr++)
 		{
 			delete itr->second;
 		}
-		materialMap.clear();
+		materialMap.clear();*/
 
 		for (std::map<std::string, HXBitmap*>::iterator itr = bitmapMap.begin(); itr != bitmapMap.end(); itr++)
 		{
@@ -118,10 +118,10 @@ namespace HX3D
 		}
 	}
 
-	void HXResourceManager::AddMaterial(std::string strMaterialName, HXMaterial* pMaterial)
+	/*void HXResourceManager::AddMaterial(std::string strMaterialName, HXMaterial* pMaterial)
 	{
 		materialMap.insert(make_pair(strMaterialName, pMaterial));
-	}
+	}*/
 
 	HXModelInfo* HXResourceManager::GetModelInfo(std::string strModelFile)
 	{
