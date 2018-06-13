@@ -30,6 +30,8 @@ namespace HX3D
 		ERenderSystem GetRenderSystemType();
 		void SetRenderSystemType(ERenderSystem rs);
 
+		virtual void InitForEditor() {};
+
 		virtual void BeginText() {};
 		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255, 255, 255, 255)) = 0;
 		virtual void EndText() {};

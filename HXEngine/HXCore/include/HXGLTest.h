@@ -36,6 +36,7 @@ namespace HX3D
 
 		
 		void CreateGLWindow(int argc, char* argv[]);
+		static void RenderWireCube();
 
 	private:
 		void InitTriangle();

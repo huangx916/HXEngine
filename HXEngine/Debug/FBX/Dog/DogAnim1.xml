@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Animations>  
-    <Anim name="run" File="Dog@run"/>   
-	<Anim name="walk" File="Dog@walk"/>
-</Animations>

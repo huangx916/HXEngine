@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="FBX/Terrain/Terrain.FBX"/>
+	<Anim File=""/>
+	<Material File="FBX/Terrain/Terrain.material"/>
+</Model>

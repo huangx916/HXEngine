@@ -26,6 +26,7 @@ namespace HX3D
 
 		HXRenderSystem* GetRenderSystem();
 		
+		void InitForEditor();
 	private:
 		HXRoot();
 		static HXRoot* m_pInstance;

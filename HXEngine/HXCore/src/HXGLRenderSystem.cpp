@@ -12,6 +12,7 @@ namespace HX3D
 	HXGLShadowMap* HXGLRenderSystem::mShadowMap = NULL;
 	HXGLRenderSystem::HXGLRenderSystem():mFont(NULL)
 	{
+		
 	}
 
 	HXGLRenderSystem::~HXGLRenderSystem()
@@ -34,9 +35,9 @@ namespace HX3D
 		char * name = "name";
 		strName += "-GL";
 
-#ifdef _DEBUG
-		glutInitContextFlags(GLUT_DEBUG);
-#endif
+//#ifdef _DEBUG
+//		glutInitContextFlags(GLUT_DEBUG);
+//#endif
 
 		glutInitWindowSize(nWidth, nHeight);
 		gCurScreenWidth = nWidth;
@@ -45,7 +46,7 @@ namespace HX3D
 		// glutInitWindowPosition(140, 140);
 		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);	// 双缓存
 		// glutInitContextVersion(4, 3);	// 使用后会宕 ?
-		glutInitContextProfile(GLUT_CORE_PROFILE);
+		//glutInitContextProfile(GLUT_CORE_PROFILE);
 
 		glutInit(&one, &name);
 
@@ -59,11 +60,7 @@ namespace HX3D
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-		// InitTriangle();
-		mFont = new HXGLFreeTypeFont();
-		mFont->Initialize("default.ttf", 16);
-		mShadowMap = new HXGLShadowMap();
-		mShadowMap->Initialize();
+		Initialize();
 	}
 
 	void HXGLRenderSystem::MainLoop()
@@ -168,5 +165,19 @@ namespace HX3D
 	HXITransform* HXGLRenderSystem::CreateTransform()
 	{
 		return new HXGLTransform();
+	}
+
+	void HXGLRenderSystem::Initialize()
+	{
+		// InitTriangle();
+		mFont = new HXGLFreeTypeFont();
+		mFont->Initialize("default.ttf", 16);
+		mShadowMap = new HXGLShadowMap();
+		mShadowMap->Initialize();
+	}
+
+	void HXGLRenderSystem::InitForEditor()
+	{
+		Initialize();
 	}
 }

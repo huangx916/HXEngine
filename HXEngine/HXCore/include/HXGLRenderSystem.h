@@ -31,6 +31,9 @@ namespace HX3D
 
 		virtual HXITransform* CreateTransform();
 
+		void Initialize();
+		virtual void InitForEditor();
+
 		HXIFreeTypeFont* mFont;
 		static HXGLShadowMap* mShadowMap;
 	};

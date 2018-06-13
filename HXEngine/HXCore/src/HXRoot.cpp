@@ -63,4 +63,12 @@ namespace HX3D
 	{
 		return m_pRenderSystem;
 	}
+
+	void HXRoot::InitForEditor()
+	{
+		if (m_pRenderSystem)
+		{
+			m_pRenderSystem->InitForEditor();
+		}
+	}
 }

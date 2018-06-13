@@ -32,15 +32,15 @@ namespace HX3D
 		int one = 1;
 		char * name = "name";
 
-#ifdef _DEBUG
-		glutInitContextFlags(GLUT_DEBUG);
-#endif
+//#ifdef _DEBUG
+//		glutInitContextFlags(GLUT_DEBUG);
+//#endif
 
 		glutInitWindowSize(_nWidth, _nHeight);
 		glutInitWindowPosition(140, 140);
 		glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);	// Ë«»º´æ
 														// glutInitContextVersion(4, 3);
-		glutInitContextProfile(GLUT_CORE_PROFILE);
+		//glutInitContextProfile(GLUT_CORE_PROFILE);
 
 		glutInit(&one, &name);
 
@@ -85,6 +85,11 @@ namespace HX3D
 		////glFlush();	// µ¥»º´æ
 		//glutSwapBuffers();	// Ë«»º´æ
 		//glutPostRedisplay();
+	}
+
+	void HXGLTest::RenderWireCube()
+	{
+		glutWireCube(2);
 	}
 
 	void HXGLTest::RenderFont()

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--0:Texture TYPE 1:Float 2:Float2 3:Float3 4:Float4-->
+<Material>  
+    <Shader File="FBX/Quad/QuadDiffuse">
+		<Property Type="0" Name="MainTexture" Value="FBX/Quad/QuadTex.dds" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="0.5" Value3="0.3" Value4="1"/>
+	</Shader>
+</Material>

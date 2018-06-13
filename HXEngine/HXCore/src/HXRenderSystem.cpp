@@ -55,6 +55,8 @@ namespace HX3D
 
 	void HXRenderSystem::Mouse(int button, int state, int x, int y)
 	{
+		// std::cout << button << std::endl;
+		// glut库不支持鼠标滚轮，freeglut库支持
 		mLastX = x;
 		mLastY = y;
 		if (button == 3)

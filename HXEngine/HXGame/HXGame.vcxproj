@@ -77,8 +77,8 @@
       <AdditionalIncludeDirectories>..\HXCore\include;include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\HXCore\opengl\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew_static_vs2010_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\HXCore\opengl\lib;..\HXCore\freeglut\lib;..\HXCore\glew\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

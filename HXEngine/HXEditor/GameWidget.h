@@ -1,9 +1,11 @@
 ﻿#pragma once
-#include <QWidget>
+//#include <QWidget>
+#include "vgl.h"
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+//#include <QTimer>
 
-class GameWidget : public QOpenGLWidget, protected QOpenGLFunctions 
+class GameWidget : public QOpenGLWidget, protected QOpenGLFunctions// : public QGLWidget
 {
 	Q_OBJECT
 
@@ -17,5 +19,9 @@ protected:
 	virtual void paintGL();
 
 private:
-	
+	GLuint vao;
+	GLuint vbo;
+	GLuint program;
+	void InitTriangle();
+	void RenderTriangle();
 };

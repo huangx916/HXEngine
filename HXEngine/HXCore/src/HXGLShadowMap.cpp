@@ -56,7 +56,7 @@ namespace HX3D
 
 	void HXGLShadowMap::PreRender()
 	{
-		float t = float(GetTickCount() & 0xFFFF) / float(0xFFFF);
+		//float t = float(GetTickCount() & 0xFFFF) / float(0xFFFF);
 		static float q = 0.0f;
 		static const vmath::vec3 X(1.0f, 0.0f, 0.0f);
 		static const vmath::vec3 Y(0.0f, 1.0f, 0.0f);
