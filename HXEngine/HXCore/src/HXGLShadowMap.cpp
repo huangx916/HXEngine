@@ -15,6 +15,7 @@ namespace HX3D
 
 	void HXGLShadowMap::Initialize()
 	{
+		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &original_fbo);
 		// shadow //////////////////////////////////////////////////////////////////////
 		ShaderInfo light_shaders[] =
 		{
@@ -51,13 +52,14 @@ namespace HX3D
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_texture, 0);
 		glDrawBuffer(GL_NONE);
 
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
 	}
 
 	void HXGLShadowMap::PreRender()
 	{
+		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &original_fbo);
 		//float t = float(GetTickCount() & 0xFFFF) / float(0xFFFF);
-		static float q = 0.0f;
+		//static float q = 0.0f;
 		static const vmath::vec3 X(1.0f, 0.0f, 0.0f);
 		static const vmath::vec3 Y(0.0f, 1.0f, 0.0f);
 		static const vmath::vec3 Z(0.0f, 0.0f, 1.0f);
@@ -95,7 +97,7 @@ namespace HX3D
 
 		// Bind the 'depth only' FBO and set the viewport to the size of the depth texture
 		glBindFramebuffer(GL_FRAMEBUFFER, depth_fbo);
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		//glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
 		glViewport(0, 0, DEPTH_TEXTURE_SIZE, DEPTH_TEXTURE_SIZE);
 		//glViewport(0, 0, current_width, current_height);
 
@@ -115,7 +117,7 @@ namespace HX3D
 		glDisable(GL_POLYGON_OFFSET_FILL);
 
 		// Restore the default framebuffer and field of view
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
 		glViewport(0, 0, HXGLRenderSystem::gCurScreenWidth, HXGLRenderSystem::gCurScreenHeight);
 	}
 }

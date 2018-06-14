@@ -31,6 +31,7 @@ namespace HX3D
 
 		virtual HXITransform* CreateTransform();
 
+		static void RenderScene();
 		void Initialize();
 		virtual void InitForEditor();
 

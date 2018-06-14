@@ -80,6 +80,8 @@ void *GameWidget::qt_metacast(const char *_clname)
         return static_cast<void*>(this);
     if (!strcmp(_clname, "QOpenGLFunctions"))
         return static_cast< QOpenGLFunctions*>(this);
+    if (!strcmp(_clname, "HXIDisplayListener"))
+        return static_cast< HXIDisplayListener*>(this);
     return QOpenGLWidget::qt_metacast(_clname);
 }
 

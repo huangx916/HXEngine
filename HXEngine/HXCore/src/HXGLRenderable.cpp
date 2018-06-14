@@ -577,20 +577,21 @@ namespace HX3D
 		// TODO: Ѕвсо
 		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
 		HXGLShadowMap* sm = rs->mShadowMap;
-		const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
-			vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
-			vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
-			vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
-		glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);
+		if (sm)
+		{
+			const vmath::mat4 scale_bias_matrix = vmath::mat4(	vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+																vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+																vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+																vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+			glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);
 
-		GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, "depth_texture");
-		glUniform1i(tex_uniform_loc, nTexIndex);
-		glActiveTexture(GL_TEXTURE0 + nTexIndex);
-		//glBindTexture(tex->mImageData.target, tex->texId);
-		glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
-		++nTexIndex;
-
-
+			GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, "depth_texture");
+			glUniform1i(tex_uniform_loc, nTexIndex);
+			glActiveTexture(GL_TEXTURE0 + nTexIndex);
+			//glBindTexture(tex->mImageData.target, tex->texId);
+			glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
+			++nTexIndex;
+		}
 
 
 		glDrawArrays(GL_TRIANGLES, 0, m_pSubMesh->triangleCount * 3);

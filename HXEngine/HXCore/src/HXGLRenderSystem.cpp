@@ -76,27 +76,7 @@ namespace HX3D
 
 	void HXGLRenderSystem::Display()
 	{
-		//begin shadow
-		if (mShadowMap)
-		{
-			mShadowMap->PreRender();
-			// TODO: draw
-			if (m_pDisplayListener)
-			{
-				// TODO: gameobject和UI分离
-				m_pDisplayListener->OnDisplay(true);
-			}
-			mShadowMap->PostRender();
-		}
-		//end shadow
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		if (m_pDisplayListener)
-		{
-			// TODO: gameobject和UI分离
-			m_pDisplayListener->OnDisplay(false);
-		}
+		RenderScene();
 
 		glutSwapBuffers();
 		glutPostRedisplay();
@@ -118,7 +98,7 @@ namespace HX3D
 
 	void HXGLRenderSystem::RenderSingle(HXRenderable* pRenderable, bool shadow)
 	{
-		if (shadow)
+		if (shadow && mShadowMap)
 		{
 			pRenderable->RenderShadowMap();
 		}
@@ -179,5 +159,30 @@ namespace HX3D
 	void HXGLRenderSystem::InitForEditor()
 	{
 		Initialize();
+	}
+
+	void HXGLRenderSystem::RenderScene()
+	{
+		//begin shadow
+		if (mShadowMap)
+		{
+			mShadowMap->PreRender();
+			// TODO: draw
+			if (m_pDisplayListener)
+			{
+				// TODO: gameobject和UI分离
+				m_pDisplayListener->OnDisplay(true);
+			}
+			mShadowMap->PostRender();
+		}
+		//end shadow
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		if (m_pDisplayListener)
+		{
+			// TODO: gameobject和UI分离
+			m_pDisplayListener->OnDisplay(false);
+		}
 	}
 }

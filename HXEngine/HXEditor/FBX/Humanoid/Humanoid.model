@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Model>
-	<Mesh File="FBX/Humanoid/Humanoid.FBX"/>
-	<Anim File="FBX/Humanoid/Humanoid.anim"/>
-	<Material File="FBX/Humanoid/Humanoid.material"/>
-</Model>

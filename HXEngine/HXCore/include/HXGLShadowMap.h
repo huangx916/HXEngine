@@ -16,6 +16,8 @@ namespace HX3D
 		void PostRender();
 
 		// shadow mapping
+		GLint original_fbo;
+
 		GLuint render_light_prog;
 		struct
 		{

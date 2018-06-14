@@ -13,29 +13,7 @@
   <property name="windowTitle">
    <string>HXEditorWin</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>160</width>
-      <height>321</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QSpinBox" name="spinBox"/>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
-     </item>
-    </layout>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
