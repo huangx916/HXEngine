@@ -31,6 +31,7 @@ namespace HX3D
 		HXITexture* GetTexture(std::string strTextureFile);
 		void AddTexture(std::string strTextureFile, HXITexture* pTexture);
 
+		void UnLoadAll();
 	private:
 		HXResourceManager();
 		static HXResourceManager* m_pInstance;

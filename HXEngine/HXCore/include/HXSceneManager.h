@@ -28,6 +28,8 @@ namespace HX3D
 
 		void LoadScene(std::string strSceneCfgFile);
 
+		void UnLoadScene();
+
 		//HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
 		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow);
 		HXGameObject* GetGameObject(std::string strGameObjectName);

@@ -1,5 +1,6 @@
 #include "HXEditorWin.h"
 #include <QApplication>
+//#include "vgl.h"
 
 int main(int argc, char *argv[])
 {

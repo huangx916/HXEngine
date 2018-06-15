@@ -178,6 +178,7 @@ namespace HX3D
 		if (NULL != skeleton)
 		{
 			pMesh->skeleton = skeleton;
+			skeleton->AddReference(pMesh);
 			HXAnimationInstance* pAnimInst = new HXAnimationInstance();
 			pMesh->animInst = pAnimInst;
 			pMesh->animInst->mMesh = pMesh;

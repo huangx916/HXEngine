@@ -204,6 +204,7 @@ namespace HX3D
 				HXFBXSkeleton* pSkeleton = new HXFBXSkeleton();
 				pSkeleton->LoadSkeleton(m_pScene);
 				(*ppMesh)->skeleton = pSkeleton;
+				pSkeleton->AddReference(*ppMesh);
 				(*ppMesh)->SetMeshNotStatic();
 				// ¼ÓÔØ¹Ç÷À¶¯»­
 				/*std::string strAnimConfigFile;

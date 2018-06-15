@@ -110,4 +110,28 @@ namespace HX3D
 	{
 		textureMap.insert(make_pair(strTextureFile, pTexture));
 	}
+
+	void HXResourceManager::UnLoadAll()
+	{
+		for (std::map<std::string, HXModelInfo*>::iterator itr = ModelMap.begin(); itr != ModelMap.end(); ++itr)
+		{
+			delete itr->second;
+		}
+		ModelMap.clear();
+		for (std::map<std::string, HXMesh*>::iterator itr = meshMap.begin(); itr != meshMap.end(); ++itr)
+		{
+			delete itr->second;
+		}
+		meshMap.clear();
+		for (std::map<std::string, HXMaterialInfo*>::iterator itr = matMap.begin(); itr != matMap.end(); ++itr)
+		{
+			delete itr->second;
+		}
+		matMap.clear();
+		for (std::map<std::string, HXITexture*>::iterator itr = textureMap.begin(); itr != textureMap.end(); ++itr)
+		{
+			delete itr->second;
+		}
+		textureMap.clear();
+	}
 }

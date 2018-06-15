@@ -10,8 +10,8 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	m_pGameWidget = new GameWidget();
 	m_pCentralLayout = new QVBoxLayout();
 	m_pCentralLayout->addWidget(m_pGameWidget);
-	//ui.centralWidget->setLayout(m_pCentralLayout);
-	ui.gameWidget->setLayout(m_pCentralLayout);
+	ui.centralWidget->setLayout(m_pCentralLayout);
+	//ui.gameWidget->setLayout(m_pCentralLayout);
 
 	connect(ui.actionOpenScene, &QAction::triggered, this, &HXEditorWin::openScene);
 }
@@ -46,8 +46,8 @@ void HXEditorWin::openScene()
 		}
 		//QTextStream in(&file);
 		//textEdit->setText(in.readAll());
-		//ui.label->setText(path);
-		//ui.label->adjustSize();
+		setWindowTitle(path);
+		m_pGameWidget->LoadScene(path);
 		file.close();
 	}
 	else {

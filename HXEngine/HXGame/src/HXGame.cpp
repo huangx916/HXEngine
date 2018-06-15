@@ -43,7 +43,10 @@ void HXGame::OnDisplay(bool shadow)
 
 void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 {
-	HXSceneManager::GetInstance()->GetMainCamera()->OnViewPortResize(nScreenWidth, nScreenHeight);
+	if (HXSceneManager::GetInstance()->GetMainCamera())
+	{
+		HXSceneManager::GetInstance()->GetMainCamera()->OnViewPortResize(nScreenWidth, nScreenHeight);
+	}
 }
 
 void HXGame::OnKeyboard(unsigned char key, int x, int y)
@@ -68,10 +71,18 @@ void HXGame::OnKeyboard(unsigned char key, int x, int y)
 	{
 		HXSceneManager::GetInstance()->UseFog(!HXSceneManager::GetInstance()->fog->useFog);
 	}
+	if (key == 'c' || key == 'C')
+	{
+		//HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
+	}
 }
 
 void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 {
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
+	{
+		return;
+	}
 	if (nButton == 0)
 	{
 		// ×ó¼ü°´ÏÂ×´Ì¬
@@ -93,6 +104,10 @@ void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 
 void HXGame::OnMouseWheel(float fDistance)
 {
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
+	{
+		return;
+	}
 	//HXSceneManager::GetInstance()->GetMainCamera()->Forward(fDistance);
 	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, 0, -fDistance));
 }

@@ -208,10 +208,10 @@ namespace HX3D
 	}
 
 	//----------------------------------Mesh-------------------------------------------
-	HXMesh::HXMesh()
+	HXMesh::HXMesh() : skeleton(NULL), animInst(NULL)
 	{
-	}
 
+	}
 
 	HXMesh::~HXMesh()
 	{
@@ -219,11 +219,11 @@ namespace HX3D
 		{
 			delete (*itr);
 		}
-		if (skeleton)
+		if (skeleton && skeleton->ReduceReference(this))
 		{
 			delete skeleton;
-			skeleton = NULL;
 		}
+		skeleton = NULL;
 	}
 
 	void HXMesh::PlayDefaultAnimation()
@@ -274,6 +274,7 @@ namespace HX3D
 		if (NULL != skeleton)
 		{
 			pMesh->skeleton = skeleton;
+			skeleton->AddReference(pMesh);
 			HXAnimationInstance* pAnimInst = new HXAnimationInstance();
 			pMesh->animInst = pAnimInst;
 			pMesh->animInst->mMesh = pMesh;

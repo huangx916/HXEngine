@@ -57,7 +57,7 @@ void TestTriangle::InitTriangle()
 
 void TestTriangle::RenderTriangle()
 {
-	//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glBindVertexArray(vao);
 	glUseProgram(program);
 	const GLuint NumVertices = 6;

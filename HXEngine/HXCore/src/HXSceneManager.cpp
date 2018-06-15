@@ -121,6 +121,30 @@ namespace HX3D
 		}
 	}
 
+	void HXSceneManager::UnLoadScene()
+	{
+		if (m_pMainCamera)
+		{
+			delete m_pMainCamera;
+			m_pMainCamera = NULL;
+		}
+		if (fog)
+		{
+			delete fog;
+			fog = NULL;
+		}
+		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); ++itr)
+		{
+			delete *itr;
+		}
+		lightVct.clear();
+		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); ++itr)
+		{
+			delete itr->second;
+		}
+		gameObjectMap.clear();
+	}
+
 	/*HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strMeshName)
 	{
 		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
@@ -363,6 +387,11 @@ namespace HX3D
 
 	void HXSceneManager::OnDisplay(bool shadow)
 	{
+		if (!m_pMainCamera)
+		{
+			return;
+		}
+
 		if (shadow)
 		{
 			m_pMainCamera->Update();
@@ -372,7 +401,6 @@ namespace HX3D
 			HXStatus::GetInstance()->ResetStatus();
 		}
 		
-
 		// TODO: OIT≈≈–Ú£¨‘› ±œ»ºÚµ•≈≈–Ú
 		std::vector<HXGameObject*> sortGameObject;
 		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
