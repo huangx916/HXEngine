@@ -16,8 +16,9 @@ public:
 	~HXEditorWin();
 
 private:
-	Ui::HXEditorWinClass ui;
+	void openScene();
 
+	Ui::HXEditorWinClass ui;
 	GameWidget* m_pGameWidget;
 	QVBoxLayout* m_pCentralLayout;
 };
