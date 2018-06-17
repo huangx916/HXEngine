@@ -21,7 +21,7 @@ private:
 
 	Ui::HXEditorWinClass ui;
 	GameWidget* m_pGameWidget;
-	QVBoxLayout* m_pCentralLayout;
+	QVBoxLayout* m_pGameLayout;
 };
 
 #endif // HXEDITORWIN_H

@@ -29,7 +29,6 @@ public:
     QAction *actionLoadScene;
     QAction *actionLoadGameObject;
     QWidget *centralWidget;
-    QWidget *gameWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuGameObject;
@@ -40,20 +39,17 @@ public:
     {
         if (HXEditorWinClass->objectName().isEmpty())
             HXEditorWinClass->setObjectName(QStringLiteral("HXEditorWinClass"));
-        HXEditorWinClass->resize(800, 600);
+        HXEditorWinClass->resize(1000, 600);
         actionLoadScene = new QAction(HXEditorWinClass);
         actionLoadScene->setObjectName(QStringLiteral("actionLoadScene"));
         actionLoadGameObject = new QAction(HXEditorWinClass);
         actionLoadGameObject->setObjectName(QStringLiteral("actionLoadGameObject"));
         centralWidget = new QWidget(HXEditorWinClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gameWidget = new QWidget(centralWidget);
-        gameWidget->setObjectName(QStringLiteral("gameWidget"));
-        gameWidget->setGeometry(QRect(180, 0, 411, 341));
         HXEditorWinClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(HXEditorWinClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 23));
+        menuBar->setGeometry(QRect(0, 0, 1000, 23));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuGameObject = new QMenu(menuBar);

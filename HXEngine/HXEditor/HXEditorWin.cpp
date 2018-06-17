@@ -4,14 +4,14 @@
 #include <QMessageBox.h>
 
 HXEditorWin::HXEditorWin(QWidget *parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent), m_pGameWidget(NULL), m_pGameLayout(NULL)
 {
 	ui.setupUi(this);
 	m_pGameWidget = new GameWidget();
-	m_pCentralLayout = new QVBoxLayout();
-	m_pCentralLayout->addWidget(m_pGameWidget);
-	ui.centralWidget->setLayout(m_pCentralLayout);
-	//ui.gameWidget->setLayout(m_pCentralLayout);
+	m_pGameLayout = new QVBoxLayout();
+	m_pGameLayout->setContentsMargins(QMargins(200, 0, 0, 0));
+	m_pGameLayout->addWidget(m_pGameWidget);
+	ui.centralWidget->setLayout(m_pGameLayout);
 
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
@@ -24,10 +24,10 @@ HXEditorWin::~HXEditorWin()
 		delete m_pGameWidget;
 		m_pGameWidget = NULL;
 	}
-	if (m_pCentralLayout)
+	if (m_pGameLayout)
 	{
-		delete m_pCentralLayout;
-		m_pCentralLayout = NULL;
+		delete m_pGameLayout;
+		m_pGameLayout = NULL;
 	}
 }
 
