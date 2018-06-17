@@ -4,6 +4,7 @@
 #include <QFileDialog.h>
 #include <QMessageBox.h>
 
+HXEditorWin* HXEditorWin::m_pInstance = NULL;
 HXEditorWin::HXEditorWin(QWidget *parent)
 	: QMainWindow(parent)
 	, m_pMainLayout(NULL)
@@ -41,6 +42,14 @@ HXEditorWin::~HXEditorWin()
 	}
 }
 
+HXEditorWin* HXEditorWin::GetInstance()
+{
+	if (NULL == m_pInstance)
+	{
+		m_pInstance = new HXEditorWin();
+	}
+	return m_pInstance;
+}
 
 void HXEditorWin::loadScene()
 {
@@ -58,7 +67,7 @@ void HXEditorWin::loadScene()
 		//QTextStream in(&file);
 		//textEdit->setText(in.readAll());
 		setWindowTitle(path);
-		m_pGameWidget->LoadScene(path);
+		m_pGameWidget->LoadScene(path, HXEditorWin::updateHierarchy);
 		file.close();
 	}
 	else {
@@ -97,4 +106,9 @@ void HXEditorWin::loadGameObject()
 		QMessageBox::warning(this, tr("Path"),
 			tr("You did not select any file."));
 	}
+}
+
+void HXEditorWin::updateHierarchy()
+{
+	HXEditorWin::GetInstance()->m_pGameObjectTreeWidget->UpdateGameObjectTree();
 }

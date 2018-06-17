@@ -242,6 +242,11 @@ namespace HX3D
 		return NULL;
 	}
 
+	std::vector<HXGameObject*> HXSceneManager::GetGameObjectList()
+	{
+		return gameObjectList;
+	}
+
 	HXLight* HXSceneManager::CreateLight(HXLightInfo* lightInfo)
 	{
 		HXLight* pLight = new HXLight(lightInfo);

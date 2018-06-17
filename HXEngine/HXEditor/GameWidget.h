@@ -10,10 +10,10 @@
 #include "TestTriangle.h"
 
 using namespace HX3D;
+typedef void(*FPtr)(void);
 class GameWidget : public QOpenGLWidget, protected QOpenGLFunctions, public HXIDisplayListener
 {
 	Q_OBJECT
-
 public:
 	GameWidget(QWidget * parent = 0);
 	~GameWidget();
@@ -25,7 +25,7 @@ public:
 	virtual void OnMouseWheel(float fDistance) {};
 
 	QString GetCurScene();
-	void LoadScene(QString path);
+	void LoadScene(QString path, FPtr callback);
 	void LoadGameObject(QString path);
 protected:
 	virtual void initializeGL();
@@ -40,6 +40,7 @@ private:
 
 	bool bLoadScene;	// QT OpenGL相关处理(如:模型加载后的VBO生成等)必须在继承QOpenGLWidget的函数里处理
 	QString scenePath;
+	FPtr loadCallback;
 
 	bool bLoadGameObject;
 	QString gameObjectPath;

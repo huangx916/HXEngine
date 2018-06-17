@@ -1,21 +1,58 @@
 #include "GameObjectTreeWidget.h"
+#include "HXSceneManager.h"
+
+using namespace HX3D;
 
 GameObjectTreeWidget::GameObjectTreeWidget(QWidget * parent) : QTreeWidget(parent)
 {
-	setColumnCount(1);
+	//setColumnCount(1);
 
-	QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Root")));
+	QStringList headers;
+	headers << "Hierarchy";// << "Number";
+	setHeaderLabels(headers);
 
-	new QTreeWidgetItem(root, QStringList(QString("Leaf 1")));
-	QTreeWidgetItem *leaf2 = new QTreeWidgetItem(root, QStringList(QString("Leaf 2")));
-	leaf2->setCheckState(0, Qt::Checked);
+	//QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Root")));
 
-	QList<QTreeWidgetItem *> rootList;
-	rootList << root;
-	insertTopLevelItems(0, rootList);
+	//new QTreeWidgetItem(root, QStringList(QString("Leaf 1")));
+	//QTreeWidgetItem *leaf2 = new QTreeWidgetItem(root, QStringList(QString("Leaf 2")));
+	////leaf2->setCheckState(0, Qt::Checked);
+
+	//QList<QTreeWidgetItem *> rootList;
+	//rootList << root;
+	//insertTopLevelItems(0, rootList);
 }
 
 GameObjectTreeWidget::~GameObjectTreeWidget()
 {
 
+}
+
+void GameObjectTreeWidget::UpdateGameObjectTree()
+{
+	QTreeWidgetItem *preRoot = topLevelItem(0);
+	delete preRoot;
+
+	QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Scene")));
+
+	std::vector<HXGameObject*> gameObjectList = HXSceneManager::GetInstance()->GetGameObjectList();
+	for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
+	{
+		AddLeafRecurve(root, *itr);
+	}
+
+	//QList<QTreeWidgetItem *> rootList;
+	//rootList << root;
+	//insertTopLevelItems(0, rootList);
+	insertTopLevelItem(0, root);
+}
+
+void GameObjectTreeWidget::AddLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)
+{
+	std::string name = go->GetName();
+	QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));
+	std::vector<HXGameObject*> childList = go->GetChildren();
+	for (std::vector<HXGameObject*>::iterator itr = childList.begin(); itr != childList.end(); ++itr)
+	{
+		AddLeafRecurve(tw, *itr);
+	}
 }

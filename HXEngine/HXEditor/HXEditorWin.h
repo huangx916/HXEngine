@@ -12,12 +12,16 @@ class HXEditorWin : public QMainWindow
 	Q_OBJECT
 
 public:
-	HXEditorWin(QWidget *parent = 0);
+	static HXEditorWin* GetInstance();
 	~HXEditorWin();
-
 private:
+	HXEditorWin(QWidget *parent = 0);
+	static HXEditorWin* m_pInstance;
+
 	void loadScene();
 	void loadGameObject();
+
+	static void updateHierarchy();
 
 	Ui::HXEditorWinClass ui;
 	QHBoxLayout* m_pMainLayout;

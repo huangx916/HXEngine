@@ -31,6 +31,7 @@ namespace HX3D
 
 		HXGameObject* CreateGameObject(HXGameObject* pFather, std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
+		std::vector<HXGameObject*> GetGameObjectList();
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
 		HXICamera* CreateMainCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up = HXVector3D(0, 1, 0),

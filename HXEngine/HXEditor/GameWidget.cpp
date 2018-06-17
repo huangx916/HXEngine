@@ -8,7 +8,11 @@
 #include "HXResourceManager.h"
 #include <QMessageBox.h>
 
-GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent), bLoadScene(false), bLoadGameObject(false)
+GameWidget::GameWidget(QWidget * parent)
+ : QOpenGLWidget(parent)
+, bLoadScene(false)
+, bLoadGameObject(false)
+, loadCallback(NULL)
 {
 	connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer.start(16);
@@ -24,10 +28,11 @@ QString GameWidget::GetCurScene()
 	return scenePath;
 }
 
-void GameWidget::LoadScene(QString path)
+void GameWidget::LoadScene(QString path, FPtr callback)
 {
 	scenePath = path;
 	bLoadScene = true;
+	loadCallback = callback;
 }
 
 void GameWidget::LoadGameObject(QString path)
@@ -68,6 +73,11 @@ void GameWidget::paintGL()
 		HXSceneManager::GetInstance()->UnLoadScene();
 		HXResourceManager::GetInstance()->UnLoadAll();
 		HXSceneManager::GetInstance()->LoadScene(scenePath.toStdString());
+		if (loadCallback != NULL)
+		{
+			loadCallback();
+			loadCallback = NULL;
+		}
 	}
 	if (bLoadGameObject)
 	{

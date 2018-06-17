@@ -6,8 +6,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	//glutInit(&argc, argv);
-	HXEditorWin w;
-	w.show();
+	HXEditorWin::GetInstance()->show();
 
 	return a.exec();
 }
