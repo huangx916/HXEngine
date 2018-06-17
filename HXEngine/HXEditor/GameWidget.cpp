@@ -1,6 +1,6 @@
 ﻿#include "GameWidget.h"
 
-#include "LoadShaders.h"
+//#include "LoadShaders.h"
 
 #include "HXRoot.h"
 #include "HXSceneManager.h"
@@ -8,7 +8,7 @@
 #include "HXResourceManager.h"
 #include <QMessageBox.h>
 
-GameWidget::GameWidget(QWidget * parent) : bLoadScene(false), bLoadGameObject(false)
+GameWidget::GameWidget(QWidget * parent) : QOpenGLWidget(parent), bLoadScene(false), bLoadGameObject(false)
 {
 	connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer.start(16);

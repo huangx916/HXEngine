@@ -1,17 +1,22 @@
 #include "HXEditorWin.h"
 #include "GameWidget.h"
+#include "GameObjectTreeWidget.h"
 #include <QFileDialog.h>
 #include <QMessageBox.h>
 
 HXEditorWin::HXEditorWin(QWidget *parent)
-	: QMainWindow(parent), m_pGameWidget(NULL), m_pGameLayout(NULL)
+	: QMainWindow(parent)
+	, m_pMainLayout(NULL)
+	, m_pGameWidget(NULL)
+	, m_pGameObjectTreeWidget(NULL)
 {
 	ui.setupUi(this);
 	m_pGameWidget = new GameWidget();
-	m_pGameLayout = new QVBoxLayout();
-	m_pGameLayout->setContentsMargins(QMargins(200, 0, 0, 0));
-	m_pGameLayout->addWidget(m_pGameWidget);
-	ui.centralWidget->setLayout(m_pGameLayout);
+	m_pGameObjectTreeWidget = new GameObjectTreeWidget();
+	m_pMainLayout = new QHBoxLayout();
+	m_pMainLayout->addWidget(m_pGameObjectTreeWidget,2);
+	m_pMainLayout->addWidget(m_pGameWidget,8);
+	ui.centralWidget->setLayout(m_pMainLayout);
 
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
@@ -19,15 +24,20 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 
 HXEditorWin::~HXEditorWin()
 {
+	if (m_pMainLayout)
+	{
+		delete m_pMainLayout;
+		m_pMainLayout = NULL;
+	}
 	if (m_pGameWidget)
 	{
 		delete m_pGameWidget;
 		m_pGameWidget = NULL;
 	}
-	if (m_pGameLayout)
+	if (m_pGameObjectTreeWidget)
 	{
-		delete m_pGameLayout;
-		m_pGameLayout = NULL;
+		delete m_pGameObjectTreeWidget;
+		m_pGameObjectTreeWidget = NULL;
 	}
 }
 

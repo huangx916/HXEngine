@@ -3,10 +3,10 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_HXEditorWin.h"
-
 #include <QVBoxLayout>
 
 class GameWidget;
+class GameObjectTreeWidget;
 class HXEditorWin : public QMainWindow
 {
 	Q_OBJECT
@@ -20,8 +20,10 @@ private:
 	void loadGameObject();
 
 	Ui::HXEditorWinClass ui;
+	QHBoxLayout* m_pMainLayout;
+
 	GameWidget* m_pGameWidget;
-	QVBoxLayout* m_pGameLayout;
+	GameObjectTreeWidget* m_pGameObjectTreeWidget;
 };
 
 #endif // HXEDITORWIN_H
