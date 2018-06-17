@@ -1,9 +1,9 @@
-#include "GameObjectTreeWidget.h"
+#include "HierarchyWidget.h"
 #include "HXSceneManager.h"
 
 using namespace HX3D;
 
-GameObjectTreeWidget::GameObjectTreeWidget(QWidget * parent) : QTreeWidget(parent)
+HierarchyWidget::HierarchyWidget(QWidget * parent) : QTreeWidget(parent)
 {
 	//setColumnCount(1);
 
@@ -22,12 +22,12 @@ GameObjectTreeWidget::GameObjectTreeWidget(QWidget * parent) : QTreeWidget(paren
 	//insertTopLevelItems(0, rootList);
 }
 
-GameObjectTreeWidget::~GameObjectTreeWidget()
+HierarchyWidget::~HierarchyWidget()
 {
 
 }
 
-void GameObjectTreeWidget::UpdateGameObjectTree()
+void HierarchyWidget::UpdateGameObjectTree()
 {
 	QTreeWidgetItem *preRoot = topLevelItem(0);
 	delete preRoot;
@@ -46,7 +46,7 @@ void GameObjectTreeWidget::UpdateGameObjectTree()
 	insertTopLevelItem(0, root);
 }
 
-void GameObjectTreeWidget::AddLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)
+void HierarchyWidget::AddLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)
 {
 	std::string name = go->GetName();
 	QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));

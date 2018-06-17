@@ -1,6 +1,6 @@
 #include "HXEditorWin.h"
 #include "GameWidget.h"
-#include "GameObjectTreeWidget.h"
+#include "HierarchyWidget.h"
 #include <QFileDialog.h>
 #include <QMessageBox.h>
 
@@ -13,7 +13,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 {
 	ui.setupUi(this);
 	m_pGameWidget = new GameWidget();
-	m_pGameObjectTreeWidget = new GameObjectTreeWidget();
+	m_pGameObjectTreeWidget = new HierarchyWidget();
 	m_pMainLayout = new QHBoxLayout();
 	m_pMainLayout->addWidget(m_pGameObjectTreeWidget,2);
 	m_pMainLayout->addWidget(m_pGameWidget,8);

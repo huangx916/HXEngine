@@ -6,7 +6,7 @@
 #include <QVBoxLayout>
 
 class GameWidget;
-class GameObjectTreeWidget;
+class HierarchyWidget;
 class HXEditorWin : public QMainWindow
 {
 	Q_OBJECT
@@ -27,7 +27,7 @@ private:
 	QHBoxLayout* m_pMainLayout;
 
 	GameWidget* m_pGameWidget;
-	GameObjectTreeWidget* m_pGameObjectTreeWidget;
+	HierarchyWidget* m_pGameObjectTreeWidget;
 };
 
 #endif // HXEDITORWIN_H

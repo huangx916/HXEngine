@@ -2,12 +2,12 @@
 #include <QTreeWidget.h>
 #include "HXGameObject.h"
 
-class GameObjectTreeWidget : public QTreeWidget
+class HierarchyWidget : public QTreeWidget
 {
 	Q_OBJECT
 public:
-	GameObjectTreeWidget(QWidget * parent = 0);
-	~GameObjectTreeWidget();
+	HierarchyWidget(QWidget * parent = 0);
+	~HierarchyWidget();
 
 	void UpdateGameObjectTree();
 
