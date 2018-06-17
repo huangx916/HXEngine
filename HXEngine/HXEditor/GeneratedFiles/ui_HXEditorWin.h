@@ -26,11 +26,13 @@ QT_BEGIN_NAMESPACE
 class Ui_HXEditorWinClass
 {
 public:
-    QAction *actionOpenScene;
+    QAction *actionLoadScene;
+    QAction *actionLoadGameObject;
     QWidget *centralWidget;
     QWidget *gameWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
+    QMenu *menuGameObject;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -38,9 +40,11 @@ public:
     {
         if (HXEditorWinClass->objectName().isEmpty())
             HXEditorWinClass->setObjectName(QStringLiteral("HXEditorWinClass"));
-        HXEditorWinClass->resize(600, 400);
-        actionOpenScene = new QAction(HXEditorWinClass);
-        actionOpenScene->setObjectName(QStringLiteral("actionOpenScene"));
+        HXEditorWinClass->resize(800, 600);
+        actionLoadScene = new QAction(HXEditorWinClass);
+        actionLoadScene->setObjectName(QStringLiteral("actionLoadScene"));
+        actionLoadGameObject = new QAction(HXEditorWinClass);
+        actionLoadGameObject->setObjectName(QStringLiteral("actionLoadGameObject"));
         centralWidget = new QWidget(HXEditorWinClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gameWidget = new QWidget(centralWidget);
@@ -49,9 +53,11 @@ public:
         HXEditorWinClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(HXEditorWinClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 23));
+        menuBar->setGeometry(QRect(0, 0, 800, 23));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
+        menuGameObject = new QMenu(menuBar);
+        menuGameObject->setObjectName(QStringLiteral("menuGameObject"));
         HXEditorWinClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(HXEditorWinClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -61,7 +67,9 @@ public:
         HXEditorWinClass->setStatusBar(statusBar);
 
         menuBar->addAction(menuFile->menuAction());
-        menuFile->addAction(actionOpenScene);
+        menuBar->addAction(menuGameObject->menuAction());
+        menuFile->addAction(actionLoadScene);
+        menuGameObject->addAction(actionLoadGameObject);
 
         retranslateUi(HXEditorWinClass);
 
@@ -71,8 +79,10 @@ public:
     void retranslateUi(QMainWindow *HXEditorWinClass)
     {
         HXEditorWinClass->setWindowTitle(QApplication::translate("HXEditorWinClass", "HXEditorWin", nullptr));
-        actionOpenScene->setText(QApplication::translate("HXEditorWinClass", "OpenScene", nullptr));
-        menuFile->setTitle(QApplication::translate("HXEditorWinClass", "File", nullptr));
+        actionLoadScene->setText(QApplication::translate("HXEditorWinClass", "Load...", nullptr));
+        actionLoadGameObject->setText(QApplication::translate("HXEditorWinClass", "Load...", nullptr));
+        menuFile->setTitle(QApplication::translate("HXEditorWinClass", "Scene", nullptr));
+        menuGameObject->setTitle(QApplication::translate("HXEditorWinClass", "GameObject", nullptr));
     } // retranslateUi
 
 };

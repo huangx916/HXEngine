@@ -21,20 +21,19 @@ namespace HX3D
 {
 	HXSceneManager* HXSceneManager::m_pInstance = NULL;
 
-	HXSceneManager::HXSceneManager():m_pMainCamera(NULL), fog(NULL)
+	HXSceneManager::HXSceneManager():m_pMainCamera(NULL), fog(NULL), nameSuffix(0)
 	{
 		mRenderList = new HXRenderList();
 		ambient = HXCOLOR(0,0,0,255);
-		////mMainCamera = new HXCamera();
 	}
 
 	HXSceneManager::~HXSceneManager()
 	{
-		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
+		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); itr++)
 		{
-			delete(itr->second);
+			delete(*itr);
 		}
-		gameObjectMap.clear();
+		gameObjectList.clear();
 		
 		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); itr++)
 		{
@@ -43,7 +42,7 @@ namespace HX3D
 		lightVct.clear();
 
 		delete mRenderList;
-		////delete mMainCamera;
+
 		if (m_pMainCamera)
 		{
 			delete m_pMainCamera;
@@ -61,7 +60,8 @@ namespace HX3D
 		if (HXRoot::GetInstance()->GetRenderSystem() && 
 			HXRoot::GetInstance()->GetRenderSystem()->GetRenderSystemType() == RenderSystem_GDI)
 		{
-			strSceneCfgFile.insert(strSceneCfgFile.length() - 6, "_GDI");
+			//strSceneCfgFile.insert(strSceneCfgFile.length() - 6, "_GDI");
+			strSceneCfgFile += ".gdi";
 		}
 
 		HXLoadConfigScene cfg;
@@ -85,15 +85,15 @@ namespace HX3D
 		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 		{
 			HXPrefabGameObjInfo& prefabgoinfo = *itr;
-			HXGameObject* pFatherGameObject = CreateGameObject(prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
+			HXGameObject* pFatherGameObject = CreateGameObject(NULL, prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
 			if (NULL == pFatherGameObject)
 			{
 				return;
 			}
-			if (pFatherGameObject->GetMesh())
+			/*if (pFatherGameObject->GetMesh())
 			{
 				pFatherGameObject->GetMesh()->PlayDefaultAnimation();
-			}
+			}*/
 			pFatherGameObject->GetTransform()->SetScale(prefabgoinfo.scale);
 			pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
 			pFatherGameObject->GetTransform()->SetPostion(prefabgoinfo.position);
@@ -103,7 +103,7 @@ namespace HX3D
 			for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
 			{
 				HXModelGameObjInfo& modelgoinfo = *itr1;
-				HXGameObject* pGameObject = CreateGameObject(modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
+				HXGameObject* pGameObject = CreateGameObject(pFatherGameObject, modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
 				if (NULL == pGameObject)
 				{
 					return;
@@ -138,42 +138,21 @@ namespace HX3D
 			delete *itr;
 		}
 		lightVct.clear();
-		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); ++itr)
+		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
 		{
-			delete itr->second;
+			delete *itr;
 		}
-		gameObjectMap.clear();
+		gameObjectList.clear();
 	}
 
-	/*HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strMeshName)
+	HXGameObject* HXSceneManager::CreateGameObject(HXGameObject* pFather, std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow)
 	{
-		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
-		if (itr != gameObjectMap.end())
-		{
-			return itr->second;
-		}
-
-		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(strMeshName);
-		if (NULL != pMesh)
-		{
-			HXGameObject* gameObject = new HXGameObject(pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
-			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
-			return gameObject;
-		}
-		else
-		{
-			return NULL;
-		}
-	}*/
-
-	HXGameObject* HXSceneManager::CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow)
-	{
-		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
-		if (itr != gameObjectMap.end())
+		/*std::map<std::string, HXGameObject*>::iterator itr = gameObjectList.find(strGameObjectName);
+		if (itr != gameObjectList.end() && pFather == NULL)
 		{
 			std::cerr << strGameObjectName + " alreay existed" << std::endl;
 			return itr->second;
-		}
+		}*/
 		HXModelInfo* pModelInfo = HXResourceManager::GetInstance()->GetModelInfo(strModelName);
 		if (NULL == pModelInfo)
 		{
@@ -181,7 +160,14 @@ namespace HX3D
 			HXGameObject* gameObject = new HXGameObject(strGameObjectName, NULL, HXRoot::GetInstance()->GetRenderSystem());
 			gameObject->m_nPriority = nPriority;
 			gameObject->m_bCastShadow = bCastShadow;
-			gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
+			if (pFather == NULL)
+			{
+				gameObjectList.push_back(gameObject);
+			}
+			else
+			{
+				pFather->AddChild(gameObject);
+			}
 			return gameObject;
 		}
 
@@ -232,25 +218,29 @@ namespace HX3D
 		HXGameObject* gameObject = new HXGameObject(strGameObjectName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->m_nPriority = nPriority;
 		gameObject->m_bCastShadow = bCastShadow;
-		gameObjectMap.insert(make_pair(strGameObjectName, gameObject));
+		if (pFather == NULL)
+		{
+			gameObjectList.push_back(gameObject);
+		}
+		else
+		{
+			pFather->AddChild(gameObject);
+		}
 		return gameObject;
 
 	}
 
 	HXGameObject* HXSceneManager::GetGameObject(std::string strGameObjectName)
 	{
-		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strGameObjectName);
-		if (itr != gameObjectMap.end())
+		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
 		{
-			return itr->second;
+			if ((*itr)->GetName() == strGameObjectName)
+			{
+				return *itr;
+			}
 		}
 		return NULL;
 	}
-
-	/*HXCamera* HXSceneManager::GetMainCamera()
-	{
-		return mMainCamera;
-	}*/
 
 	HXLight* HXSceneManager::CreateLight(HXLightInfo* lightInfo)
 	{
@@ -287,12 +277,12 @@ namespace HX3D
 
 		std::string strgoName = "HXSkyBox";
 
-		std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.find(strgoName);
-		if (itr != gameObjectMap.end())
+		/*std::map<std::string, HXGameObject*>::iterator itr = gameObjectList.find(strgoName);
+		if (itr != gameObjectList.end())
 		{
 			std::cerr << "HXSkyBox alreay existed" << std::endl;
 			return itr->second;
-		}
+		}*/
 
 		// 创建mesh
 		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("HXSkyBoxMesh", "");
@@ -315,7 +305,7 @@ namespace HX3D
 		gameObject->GetTransform()->SetScale(scale);
 		gameObject->m_nPriority = 0;
 		gameObject->m_bCastShadow = false;
-		gameObjectMap.insert(make_pair(strgoName, gameObject));
+		gameObjectList.push_back(gameObject);
 		return gameObject;
 	}
 
@@ -334,51 +324,6 @@ namespace HX3D
 			fog->useFog = useFog;
 		}
 	}
-
-	//void HXSceneManager::Update()
-	//{
-	//	mMainCamera->update();
-
-	//	//for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
-	//	//{
-	//	//	Local_To_World_RenderList(itr->second, mRenderList);
-	//	//}
-	//	//Culling_Backface_RenderList(mRenderList, mMainCamera->mFrustum);
-	//	//World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
-	//	//Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
-	//	//Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);
-	//	////Draw_RenderList_Wire(mRenderList);
-	//	//Draw_RenderList_Texture_Solid(mRenderList);
-
-	//	HXStatus::GetInstance()->nVertexCount = 0;
-	//	HXStatus::GetInstance()->nTriangleCount = 0;
-	//	// TODO: 以DrawCall为单位提交渲染，以便设置渲染状态。现在暂时以SubMesh为单位提交渲染
-	//	// batch处理 先填充map<Pass*,RenderableList*>，然后遍历一个pass就是一个batch
-	//	for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
-	//	{
-	//		HXMesh* pMesh = itr->second->GetMesh();
-	//		// 更新动作
-	//		pMesh->UpdateAnimation();
-	//		
-	//		HXStatus::GetInstance()->nVertexCount += pMesh->vertexCount;
-	//		HXStatus::GetInstance()->nTriangleCount += pMesh->triangleCount;
-
-	//		for (std::vector<HXSubMesh*>::iterator itr1 = pMesh->subMeshList.begin(); itr1 != pMesh->subMeshList.end(); itr1++)
-	//		{
-	//			HXRenderState::Reset();
-	//			HXRenderState::SetMaterial((*itr1)->materialName);
-
-	//			(*itr1)->Insert_To_RenderList(itr->second->GetPosition(), itr->second->GetRotation(), itr->second->GetScale(), mRenderList);
-	//			Culling_Backface_RenderList(mRenderList, mMainCamera->mFrustum);
-	//			World_Space_Vertex_Lighting(mRenderList, &lightVct);
-	//			World_To_Camera_RenderList(mRenderList, mMainCamera->mFrustum);
-	//			Camera_To_Project_RenderList(mRenderList, mMainCamera->mFrustum);
-	//			Project_To_ViewPort_RenderList(mRenderList, mMainCamera->mFrustum);
-	//			//Draw_RenderList_Wire(mRenderList);
-	//			Draw_RenderList_Texture_Solid(mRenderList);
-	//		}
-	//	}
-	//}
 
 	bool mycompare(HXGameObject* i, HXGameObject* j)
 	{
@@ -402,10 +347,16 @@ namespace HX3D
 		}
 		
 		// TODO: OIT排序，暂时先简单排序
+		// TODO: 迭代push children
 		std::vector<HXGameObject*> sortGameObject;
-		for (std::map<std::string, HXGameObject*>::iterator itr = gameObjectMap.begin(); itr != gameObjectMap.end(); itr++)
+		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); itr++)
 		{
-			sortGameObject.push_back(itr->second);
+			sortGameObject.push_back(*itr);
+			std::vector<HXGameObject*> children = (*itr)->GetChildren();
+			for (std::vector<HXGameObject*>::iterator itr1 = children.begin(); itr1 != children.end(); ++itr1)
+			{
+				sortGameObject.push_back(*itr1);
+			}
 		}
 		std::sort(sortGameObject.begin(), sortGameObject.end(), mycompare);
 
@@ -466,5 +417,51 @@ namespace HX3D
 		}
 	}
 
+	void HXSceneManager::LoadGameObjectInEditor(std::string strPath)
+	{
+		HXPrefabGameObjInfo prefabgoinfo;
+		// TODO: 防止重名
+		prefabgoinfo.strGameObjName = "GameObject" + IntToString(nameSuffix++);
+		prefabgoinfo.strPrefabFile = strPath;
+		prefabgoinfo.nPriority = 20;
+		prefabgoinfo.bCastShadow = true;
+		prefabgoinfo.position = HXVector3D(0,0,0);
+		prefabgoinfo.rotation = HXVector3D(0,0,0);
+		prefabgoinfo.scale = HXVector3D(1,1,1);
+
+		HXGameObject* pFatherGameObject = CreateGameObject(NULL, prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
+		if (NULL == pFatherGameObject)
+		{
+			return;
+		}
+		/*if (pFatherGameObject->GetMesh())
+		{
+			pFatherGameObject->GetMesh()->PlayDefaultAnimation();
+		}*/
+		pFatherGameObject->GetTransform()->SetScale(prefabgoinfo.scale);
+		pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
+		pFatherGameObject->GetTransform()->SetPostion(prefabgoinfo.position);
+
+		HXLoadConfigPrefab cfgPrefab;
+		cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
+		for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
+		{
+			HXModelGameObjInfo& modelgoinfo = *itr1;
+			HXGameObject* pGameObject = CreateGameObject(pFatherGameObject, modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
+			if (NULL == pGameObject)
+			{
+				return;
+			}
+			if (pGameObject->GetMesh())
+			{
+				pGameObject->GetMesh()->PlayDefaultAnimation();
+			}
+			pGameObject->GetTransform()->SetScale(modelgoinfo.scale);
+			pGameObject->GetTransform()->SetRotation(modelgoinfo.rotation);
+			pGameObject->GetTransform()->SetPostion(modelgoinfo.position);
+
+			pGameObject->SetFather(pFatherGameObject);
+		}
+	}
 }
 

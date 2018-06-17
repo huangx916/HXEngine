@@ -4,6 +4,15 @@
 
 namespace HX3D
 {
+	inline std::string IntToString(int nIN)
+	{
+		std::stringstream ss;
+		ss << nIN;
+		std::string strOUT;
+		ss >> strOUT;
+		return strOUT;
+	}
+
 	inline std::string FloatToString(float fIN)
 	{
 		std::stringstream ss;

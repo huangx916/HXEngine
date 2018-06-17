@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,17 +30,24 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>800</width>
      <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Scene</string>
     </property>
-    <addaction name="actionOpenScene"/>
+    <addaction name="actionLoadScene"/>
+   </widget>
+   <widget class="QMenu" name="menuGameObject">
+    <property name="title">
+     <string>GameObject</string>
+    </property>
+    <addaction name="actionLoadGameObject"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuGameObject"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -51,9 +58,14 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionOpenScene">
+  <action name="actionLoadScene">
    <property name="text">
-    <string>OpenScene</string>
+    <string>Load...</string>
+   </property>
+  </action>
+  <action name="actionLoadGameObject">
+   <property name="text">
+    <string>Load...</string>
    </property>
   </action>
  </widget>

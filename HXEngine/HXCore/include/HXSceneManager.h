@@ -6,7 +6,6 @@
 
 namespace HX3D
 {
-	////class HXCamera;
 	class HXGameObject;
 	class HXLight;
 	struct HXRenderList;
@@ -30,10 +29,8 @@ namespace HX3D
 
 		void UnLoadScene();
 
-		//HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strMeshName);
-		HXGameObject* CreateGameObject(std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow);
+		HXGameObject* CreateGameObject(HXGameObject* pFather, std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
-		////HXCamera* GetMainCamera();
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
 		HXICamera* CreateMainCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up = HXVector3D(0, 1, 0),
@@ -47,10 +44,12 @@ namespace HX3D
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
-		//void Update();
 		void OnDisplay(bool shadow);
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
+
+		void LoadGameObjectInEditor(std::string strPath);
+		int nameSuffix;
 
 		// 平行光、点光源、聚光灯
 		std::vector<HXLight*>		lightVct;
@@ -62,8 +61,7 @@ namespace HX3D
 		static HXSceneManager* m_pInstance;
 		HXSceneManager();
 
-		std::map<std::string, HXGameObject*>	gameObjectMap;
-		////HXCamera*	mMainCamera;
+		std::vector<HXGameObject*>	gameObjectList;
 		HXRenderList*	mRenderList;
 		HXICamera* m_pMainCamera;
 	};

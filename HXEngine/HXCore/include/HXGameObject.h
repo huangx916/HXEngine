@@ -19,9 +19,12 @@ namespace HX3D
 
 		//void Insert_To_RenderList(HXRenderList* pRenderList);
 
+		std::string GetName() { return m_strName; }
 		HXMesh* GetMesh();
 		HXGameObject* GetFather();
 		void SetFather(HXGameObject* father);
+		void AddChild(HXGameObject* child);
+		std::vector<HXGameObject*> GetChildren();
 		HXITransform* GetTransform();
 
 		// 渲染优先级
@@ -39,6 +42,7 @@ namespace HX3D
 		HXMesh* m_pMesh;
 		// TODO: config中暂时只支持两层 prefabgameobj--->modelgameobj
 		HXGameObject* m_pFather;	// 用作计算World Coordinate
+		std::vector<HXGameObject*> vctChildren;
 	};
 }
 

@@ -16,7 +16,8 @@ public:
 	~HXEditorWin();
 
 private:
-	void openScene();
+	void loadScene();
+	void loadGameObject();
 
 	Ui::HXEditorWinClass ui;
 	GameWidget* m_pGameWidget;

@@ -6,8 +6,9 @@
 #include "HXSceneManager.h"
 #include "HXGLRenderSystem.h"
 #include "HXResourceManager.h"
+#include <QMessageBox.h>
 
-GameWidget::GameWidget(QWidget * parent) : bLoadScene(false)
+GameWidget::GameWidget(QWidget * parent) : bLoadScene(false), bLoadGameObject(false)
 {
 	connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer.start(16);
@@ -18,10 +19,21 @@ GameWidget::~GameWidget()
 	
 }
 
+QString GameWidget::GetCurScene()
+{
+	return scenePath;
+}
+
 void GameWidget::LoadScene(QString path)
 {
 	scenePath = path;
 	bLoadScene = true;
+}
+
+void GameWidget::LoadGameObject(QString path)
+{
+	gameObjectPath = path;
+	bLoadGameObject = true;
 }
 
 void GameWidget::initializeGL()
@@ -56,6 +68,11 @@ void GameWidget::paintGL()
 		HXSceneManager::GetInstance()->UnLoadScene();
 		HXResourceManager::GetInstance()->UnLoadAll();
 		HXSceneManager::GetInstance()->LoadScene(scenePath.toStdString());
+	}
+	if (bLoadGameObject)
+	{
+		bLoadGameObject = false;
+		HXSceneManager::GetInstance()->LoadGameObjectInEditor(gameObjectPath.toStdString());
 	}
 	HXGLRenderSystem::RenderScene();
 }

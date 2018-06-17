@@ -24,7 +24,9 @@ public:
 	virtual void OnMouseMove(int nButton, int deltaX, int deltaY) {};
 	virtual void OnMouseWheel(float fDistance) {};
 
+	QString GetCurScene();
 	void LoadScene(QString path);
+	void LoadGameObject(QString path);
 protected:
 	virtual void initializeGL();
 	virtual void resizeGL(int w, int h);
@@ -38,4 +40,7 @@ private:
 
 	bool bLoadScene;	// QT OpenGL相关处理(如:模型加载后的VBO生成等)必须在继承QOpenGLWidget的函数里处理
 	QString scenePath;
+
+	bool bLoadGameObject;
+	QString gameObjectPath;
 };

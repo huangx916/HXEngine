@@ -29,6 +29,11 @@ namespace HX3D
 			delete m_pTransform;
 			m_pTransform = NULL;
 		}
+		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		{
+			delete *itr;
+		}
+		vctChildren.clear();
 	}
 
 	void HXGameObject::Update()
@@ -65,6 +70,16 @@ namespace HX3D
 	void HXGameObject::SetFather(HXGameObject* father)
 	{
 		m_pFather = father;
+	}
+
+	void HXGameObject::AddChild(HXGameObject* child)
+	{
+		vctChildren.push_back(child);
+	}
+
+	std::vector<HXGameObject*> HXGameObject::GetChildren()
+	{
+		return vctChildren;
 	}
 
 	HXITransform* HXGameObject::GetTransform()

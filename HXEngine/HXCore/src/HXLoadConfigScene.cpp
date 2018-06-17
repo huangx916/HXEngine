@@ -24,6 +24,8 @@ namespace HX3D
 		}
 
 		TiXmlElement* rootElement = doc.RootElement();
+
+		// gameObject
 		TiXmlElement* prefabs = rootElement->FirstChildElement();
 		TiXmlElement* gameobjElement = prefabs->FirstChildElement();
 		for (; gameobjElement != NULL; gameobjElement = gameobjElement->NextSiblingElement())
