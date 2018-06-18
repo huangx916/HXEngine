@@ -6,6 +6,7 @@
 #include "HXSceneManager.h"
 #include "HXGLRenderSystem.h"
 #include "HXResourceManager.h"
+#include "HXICamera.h"
 #include <QMessageBox.h>
 
 HXGameWidget::HXGameWidget(QWidget * parent)
@@ -90,6 +91,67 @@ void HXGameWidget::paintGL()
 	HXGLRenderSystem::RenderScene();
 }
 
+void HXGameWidget::mouseMoveEvent(QMouseEvent *event)
+{
+	HXRenderSystem::MouseMotion(event->localPos().x(), event->localPos().y());
+}
+
+void HXGameWidget::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		HXRenderSystem::Mouse(0, 0, event->localPos().x(), event->localPos().y());
+		setFocus();
+	}
+	else if (event->button() == Qt::RightButton)
+	{
+		HXRenderSystem::Mouse(2, 0, event->localPos().x(), event->localPos().y());
+	}
+	else if (event->button() == Qt::MidButton)
+	{
+		HXRenderSystem::Mouse(1, 0, event->localPos().x(), event->localPos().y());
+	}
+}
+
+void HXGameWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+	{
+		HXRenderSystem::Mouse(0, 1, event->localPos().x(), event->localPos().y());
+	}
+	else if (event->button() == Qt::RightButton)
+	{
+		HXRenderSystem::Mouse(2, 1, event->localPos().x(), event->localPos().y());
+	}
+	else if (event->button() == Qt::MidButton)
+	{
+		HXRenderSystem::Mouse(1, 1, event->localPos().x(), event->localPos().y());
+	}
+}
+
+void HXGameWidget::wheelEvent(QWheelEvent* event)
+{
+	if (event->delta() > 0)
+	{
+		HXRenderSystem::Mouse(3, 0, 0, 0);
+	}
+	else
+	{
+		HXRenderSystem::Mouse(4, 0, 0, 0);
+	}
+}
+
+void HXGameWidget::keyPressEvent(QKeyEvent *event)
+{
+	HXRenderSystem::Keyboard(event->key(), 0, 0);
+}
+
+void HXGameWidget::keyReleaseEvent(QKeyEvent *event)
+{
+	//HXRenderSystem::Keyboard(event->key(), 0, 0);
+}
+
+
 
 
 void HXGameWidget::OnDisplay(bool shadow)
@@ -100,4 +162,66 @@ void HXGameWidget::OnDisplay(bool shadow)
 void HXGameWidget::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 {
 	HXSceneManager::GetInstance()->OnViewPortResize(nScreenWidth, nScreenHeight);
+}
+
+void HXGameWidget::OnKeyboard(unsigned char key, int x, int y)
+{
+	/*if (key == 'w' || key == 'W')
+	{
+	HXSceneManager::GetInstance()->GetMainCamera()->Forward(1);
+	}
+	if (key == 's' || key == 'S')
+	{
+	HXSceneManager::GetInstance()->GetMainCamera()->Forward(-1);
+	}
+	if (key == 'a' || key == 'A')
+	{
+	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(-1, 0, 0));
+	}
+	if (key == 'd' || key == 'D')
+	{
+	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(1, 0, 0));
+	}*/
+	if (key == 'f' || key == 'F')
+	{
+		if (HXSceneManager::GetInstance()->fog)
+		{
+			HXSceneManager::GetInstance()->UseFog(!HXSceneManager::GetInstance()->fog->useFog);
+		}
+	}
+}
+
+void HXGameWidget::OnMouseMove(int nButton, int deltaX, int deltaY)
+{
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
+	{
+		return;
+	}
+	if (nButton == 0)
+	{
+		// 左键按下状态
+		//HXSceneManager::GetInstance()->GetMainCamera()->MoveHorizon(float(deltaX) / 10.0f);
+		//HXSceneManager::GetInstance()->GetMainCamera()->MoveVertical(float(deltaY) / 10.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D((deltaX) / 10.0f, 0, 0));
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, -float(deltaY) / 10.0f, 0));
+	}
+	else if (nButton == 2)
+	{
+		// 右键按下状态
+		//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
+		HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
+		//HXSceneManager::GetInstance()->GetMainCamera()->YawLockTarget(float(deltaX) / 5.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY) / 10.0f);
+		//HXSceneManager::GetInstance()->GetMainCamera()->PitchLockTarget(float(deltaY) / 5.0f);
+	}
+}
+
+void HXGameWidget::OnMouseWheel(float fDistance)
+{
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
+	{
+		return;
+	}
+	//HXSceneManager::GetInstance()->GetMainCamera()->Forward(fDistance);
+	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, 0, -fDistance));
 }
