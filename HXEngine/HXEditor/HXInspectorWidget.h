@@ -3,6 +3,7 @@
 #include "HXGameObject.h"
 #include "HXITransform.h"
 #include <QSpinBox>
+#include <QLineEdit.h>
 
 using namespace HX3D;
 class HXInspectorWidget : public QWidget
@@ -19,8 +20,10 @@ public:
 	
 
 private:
+	void SetGameObjectName(QString name);
 	void SetGameObjectTransform(HXITransform* pTransform);
 
+	QLineEdit* editGameObjectName;
 	QDoubleSpinBox* spinboxPositionX;
 	QDoubleSpinBox* spinboxPositionY;
 	QDoubleSpinBox* spinboxPositionZ;

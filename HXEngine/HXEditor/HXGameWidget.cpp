@@ -76,13 +76,16 @@ void HXGameWidget::paintGL()
 		if (loadCallback != NULL)
 		{
 			loadCallback();
-			loadCallback = NULL;
 		}
 	}
 	if (bLoadGameObject)
 	{
 		bLoadGameObject = false;
 		HXSceneManager::GetInstance()->LoadGameObjectInEditor(gameObjectPath.toStdString());
+		if (loadCallback != NULL)
+		{
+			loadCallback();
+		}
 	}
 	HXGLRenderSystem::RenderScene();
 }
