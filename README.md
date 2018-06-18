@@ -1,10 +1,10 @@
 "# HXEngine note" 
 
-引擎框架UML图：
+引擎框架UML图：  
 <img class="shadow" src="./HXEngine UML.png" width="1024">
-Game视图：
+Game视图：  
 <img class="shadow" src="./1.png" width="600">
-Editor视图：
+Editor视图：  
 <img class="shadow" src="./2.png" width="600">
 
 configuration
