@@ -1,6 +1,7 @@
 #include "HXEditorWin.h"
-#include "GameWidget.h"
-#include "HierarchyWidget.h"
+#include "HXGameWidget.h"
+#include "HXHierarchyWidget.h"
+#include "HXInspectorWidget.h"
 #include <QFileDialog.h>
 #include <QMessageBox.h>
 
@@ -9,14 +10,18 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	: QMainWindow(parent)
 	, m_pMainLayout(NULL)
 	, m_pGameWidget(NULL)
-	, m_pGameObjectTreeWidget(NULL)
+	, m_pHierarchyWidget(NULL)
+	, m_pInspectorWidget(NULL)
 {
 	ui.setupUi(this);
-	m_pGameWidget = new GameWidget();
-	m_pGameObjectTreeWidget = new HierarchyWidget();
+	m_pGameWidget = new HXGameWidget();
+	m_pHierarchyWidget = new HXHierarchyWidget(HXEditorWin::updateInspector);
+	m_pInspectorWidget = new HXInspectorWidget();
+
 	m_pMainLayout = new QHBoxLayout();
-	m_pMainLayout->addWidget(m_pGameObjectTreeWidget,2);
-	m_pMainLayout->addWidget(m_pGameWidget,8);
+	m_pMainLayout->addWidget(m_pHierarchyWidget,2);
+	m_pMainLayout->addWidget(m_pInspectorWidget, 2);
+	m_pMainLayout->addWidget(m_pGameWidget,6);
 	ui.centralWidget->setLayout(m_pMainLayout);
 
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
@@ -35,10 +40,15 @@ HXEditorWin::~HXEditorWin()
 		delete m_pGameWidget;
 		m_pGameWidget = NULL;
 	}
-	if (m_pGameObjectTreeWidget)
+	if (m_pHierarchyWidget)
 	{
-		delete m_pGameObjectTreeWidget;
-		m_pGameObjectTreeWidget = NULL;
+		delete m_pHierarchyWidget;
+		m_pHierarchyWidget = NULL;
+	}
+	if (m_pInspectorWidget)
+	{
+		delete m_pInspectorWidget;
+		m_pInspectorWidget = NULL;
 	}
 }
 
@@ -110,5 +120,10 @@ void HXEditorWin::loadGameObject()
 
 void HXEditorWin::updateHierarchy()
 {
-	HXEditorWin::GetInstance()->m_pGameObjectTreeWidget->UpdateGameObjectTree();
+	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateGameObjectTree();
+}
+
+void HXEditorWin::updateInspector(HX3D::HXGameObject* gameObject)
+{
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetGameObjectInfo(gameObject);
 }

@@ -4,9 +4,11 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_HXEditorWin.h"
 #include <QVBoxLayout>
+#include "HXGameObject.h"
 
-class GameWidget;
-class HierarchyWidget;
+class HXGameWidget;
+class HXHierarchyWidget;
+class HXInspectorWidget;
 class HXEditorWin : public QMainWindow
 {
 	Q_OBJECT
@@ -22,12 +24,14 @@ private:
 	void loadGameObject();
 
 	static void updateHierarchy();
+	static void updateInspector(HX3D::HXGameObject* gameObject);
 
 	Ui::HXEditorWinClass ui;
 	QHBoxLayout* m_pMainLayout;
 
-	GameWidget* m_pGameWidget;
-	HierarchyWidget* m_pGameObjectTreeWidget;
+	HXGameWidget* m_pGameWidget;
+	HXHierarchyWidget* m_pHierarchyWidget;
+	HXInspectorWidget* m_pInspectorWidget;
 };
 
 #endif // HXEDITORWIN_H

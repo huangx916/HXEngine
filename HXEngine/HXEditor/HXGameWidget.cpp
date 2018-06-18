@@ -1,4 +1,4 @@
-﻿#include "GameWidget.h"
+﻿#include "HXGameWidget.h"
 
 //#include "LoadShaders.h"
 
@@ -8,7 +8,7 @@
 #include "HXResourceManager.h"
 #include <QMessageBox.h>
 
-GameWidget::GameWidget(QWidget * parent)
+HXGameWidget::HXGameWidget(QWidget * parent)
  : QOpenGLWidget(parent)
 , bLoadScene(false)
 , bLoadGameObject(false)
@@ -18,30 +18,30 @@ GameWidget::GameWidget(QWidget * parent)
 	timer.start(16);
 }
 
-GameWidget::~GameWidget() 
+HXGameWidget::~HXGameWidget()
 {
 	
 }
 
-QString GameWidget::GetCurScene()
+QString HXGameWidget::GetCurScene()
 {
 	return scenePath;
 }
 
-void GameWidget::LoadScene(QString path, FPtr callback)
+void HXGameWidget::LoadScene(QString path, FPtr callback)
 {
 	scenePath = path;
 	bLoadScene = true;
 	loadCallback = callback;
 }
 
-void GameWidget::LoadGameObject(QString path)
+void HXGameWidget::LoadGameObject(QString path)
 {
 	gameObjectPath = path;
 	bLoadGameObject = true;
 }
 
-void GameWidget::initializeGL()
+void HXGameWidget::initializeGL()
 {
 	glewInit();
 
@@ -57,14 +57,14 @@ void GameWidget::initializeGL()
 	//QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection);
 }
 
-void GameWidget::resizeGL(int w, int h)
+void HXGameWidget::resizeGL(int w, int h)
 {
 	//glViewport(0, 0, w, h);
 	HXRenderSystem::Reshape(w, h);
 	update();
 }
 
-void GameWidget::paintGL()
+void HXGameWidget::paintGL()
 {
 	if (bLoadScene)
 	{
@@ -89,12 +89,12 @@ void GameWidget::paintGL()
 
 
 
-void GameWidget::OnDisplay(bool shadow)
+void HXGameWidget::OnDisplay(bool shadow)
 {
 	HXSceneManager::GetInstance()->OnDisplay(shadow);
 }
 
-void GameWidget::OnViewPortResize(int nScreenWidth, int nScreenHeight)
+void HXGameWidget::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 {
 	HXSceneManager::GetInstance()->OnViewPortResize(nScreenWidth, nScreenHeight);
 }

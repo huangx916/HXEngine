@@ -10,13 +10,15 @@
 #include "TestTriangle.h"
 
 using namespace HX3D;
-typedef void(*FPtr)(void);
-class GameWidget : public QOpenGLWidget, protected QOpenGLFunctions, public HXIDisplayListener
+
+class HXGameWidget : public QOpenGLWidget, protected QOpenGLFunctions, public HXIDisplayListener
 {
 	Q_OBJECT
 public:
-	GameWidget(QWidget * parent = 0);
-	~GameWidget();
+	HXGameWidget(QWidget * parent = 0);
+	~HXGameWidget();
+
+	typedef void(*FPtr)(void);
 
 	virtual void OnDisplay(bool shadow);
 	virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight);
