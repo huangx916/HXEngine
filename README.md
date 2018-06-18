@@ -10,7 +10,7 @@ Editor视图：
 configuration
 ================================================================================
 visual studio 2015  x86 debug 环境下运行  
-libfbxsdk-md.lib[自行下载](https://pan.baidu.com/s/1UBC71Z-8Dlq4hy7Nak7qzA)放入HXCore\fbx\lib\vs2015\x86\debug目录下（超过100M Github不让上传）
+libfbxsdk-md.lib[自行下载](https://pan.baidu.com/s/1oCiEz5Ol3jDkzU6Ut0FoQg)放入HXCore\fbx\lib\vs2015\x86\debug目录下（超过100M Github不让上传）
 
 OpenGL RenderSystem:
 ================================================================================
