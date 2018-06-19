@@ -26,7 +26,6 @@ namespace HX3D
 		~HXSceneManager();
 
 		void LoadScene(std::string strSceneCfgFile);
-
 		void UnLoadScene();
 
 		HXGameObject* CreateGameObject(HXGameObject* pFather, std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow);

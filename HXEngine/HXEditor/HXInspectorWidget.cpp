@@ -62,6 +62,9 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent)
 	inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
 
 	setLayout(inspectorLayout);
+
+
+	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
 }
 
 HXInspectorWidget::~HXInspectorWidget()
@@ -118,4 +121,9 @@ void HXInspectorWidget::SetGameObjectTransform(HXITransform* pTransform)
 		spinboxScaleY->setValue(0);
 		spinboxScaleZ->setValue(0);
 	}
+}
+
+void HXInspectorWidget::GameObjectNameChanged(const QString& name)
+{
+	
 }

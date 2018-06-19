@@ -23,6 +23,8 @@ private:
 	void SetGameObjectName(QString name);
 	void SetGameObjectTransform(HXITransform* pTransform);
 
+	void GameObjectNameChanged(const QString& name);
+
 	QLineEdit* editGameObjectName;
 	QDoubleSpinBox* spinboxPositionX;
 	QDoubleSpinBox* spinboxPositionY;

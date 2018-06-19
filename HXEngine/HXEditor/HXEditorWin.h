@@ -5,6 +5,7 @@
 #include "ui_HXEditorWin.h"
 #include <QVBoxLayout>
 #include "HXGameObject.h"
+#include <QTextStream.h>
 
 class HXGameWidget;
 class HXHierarchyWidget;
@@ -21,7 +22,10 @@ private:
 	static HXEditorWin* m_pInstance;
 
 	void loadScene();
+	void saveScene();
 	void loadGameObject();
+
+	void serializeScene(QTextStream& out);
 
 	static void updateHierarchy();
 	static void updateInspector(HX3D::HXGameObject* gameObject);

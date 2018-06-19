@@ -98,6 +98,8 @@ namespace HX3D
 			pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
 			pFatherGameObject->GetTransform()->SetPostion(prefabgoinfo.position);
 
+			pFatherGameObject->m_strPrefab = prefabgoinfo.strPrefabFile;
+
 			HXLoadConfigPrefab cfgPrefab;
 			cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
 			for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)

@@ -28,6 +28,7 @@ class Ui_HXEditorWinClass
 public:
     QAction *actionLoadScene;
     QAction *actionLoadGameObject;
+    QAction *actionSaveScene;
     QWidget *centralWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -44,6 +45,8 @@ public:
         actionLoadScene->setObjectName(QStringLiteral("actionLoadScene"));
         actionLoadGameObject = new QAction(HXEditorWinClass);
         actionLoadGameObject->setObjectName(QStringLiteral("actionLoadGameObject"));
+        actionSaveScene = new QAction(HXEditorWinClass);
+        actionSaveScene->setObjectName(QStringLiteral("actionSaveScene"));
         centralWidget = new QWidget(HXEditorWinClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         HXEditorWinClass->setCentralWidget(centralWidget);
@@ -65,6 +68,7 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuGameObject->menuAction());
         menuFile->addAction(actionLoadScene);
+        menuFile->addAction(actionSaveScene);
         menuGameObject->addAction(actionLoadGameObject);
 
         retranslateUi(HXEditorWinClass);
@@ -77,6 +81,7 @@ public:
         HXEditorWinClass->setWindowTitle(QApplication::translate("HXEditorWinClass", "HXEditorWin", nullptr));
         actionLoadScene->setText(QApplication::translate("HXEditorWinClass", "Load...", nullptr));
         actionLoadGameObject->setText(QApplication::translate("HXEditorWinClass", "Load...", nullptr));
+        actionSaveScene->setText(QApplication::translate("HXEditorWinClass", "Save as...", nullptr));
         menuFile->setTitle(QApplication::translate("HXEditorWinClass", "Scene", nullptr));
         menuGameObject->setTitle(QApplication::translate("HXEditorWinClass", "GameObject", nullptr));
     } // retranslateUi

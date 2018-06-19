@@ -4,6 +4,7 @@
 #include "HXInspectorWidget.h"
 #include <QFileDialog.h>
 #include <QMessageBox.h>
+#include "HXSceneManager.h"
 
 HXEditorWin* HXEditorWin::m_pInstance = NULL;
 HXEditorWin::HXEditorWin(QWidget *parent)
@@ -25,6 +26,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	ui.centralWidget->setLayout(m_pMainLayout);
 
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
+	connect(ui.actionSaveScene, &QAction::triggered, this, &HXEditorWin::saveScene);
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
 }
 
@@ -84,6 +86,161 @@ void HXEditorWin::loadScene()
 		QMessageBox::warning(this, tr("Path"),
 			tr("You did not select any file."));
 	}
+}
+
+void HXEditorWin::saveScene()
+{
+	QString path = QFileDialog::getSaveFileName(this,
+		tr("Open File"),
+		".",
+		tr("Text Files(*.txt)"));
+	if (!path.isEmpty()) {
+		QFile file(path);
+		if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+			QMessageBox::warning(this, tr("Write File"),
+				tr("Cannot open file:\n%1").arg(path));
+			return;
+		}
+		QTextStream out(&file);
+		serializeScene(out);
+		file.close();
+	}
+	else {
+		QMessageBox::warning(this, tr("Path"),
+			tr("You did not select any file."));
+	}
+}
+
+void HXEditorWin::serializeScene(QTextStream& out)
+{
+	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	out << "<Scene>\n";
+	out << "	<Prefabs>\n";
+
+	std::vector<HXGameObject*> gameObjectList = HXSceneManager::GetInstance()->GetGameObjectList();
+	for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
+	{
+		if ((*itr)->GetName() == "HXSkyBox")
+		{
+			continue;
+		}
+
+		// Prefabs
+		out << "		<PrefabGameObj Name=\"";
+		out << (*itr)->GetName().c_str();
+		out << "\" Prefab=\"";
+		out << (*itr)->m_strPrefab.c_str();
+		out << "\" Priority=\"";
+		out << (*itr)->m_nPriority;
+		out << "\" CastShadow=\"";
+		out << (*itr)->m_bCastShadow;
+		out << "\">\n";
+
+		out << "			<Position Px=\"";
+		out << (*itr)->GetTransform()->GetPosition().x;
+		out << "\" Py=\"";
+		out << (*itr)->GetTransform()->GetPosition().y;
+		out << "\" Pz=\"";
+		out << (*itr)->GetTransform()->GetPosition().z;
+		out << "\"/>\n";
+
+		out << "			<Rotation Rx=\"";
+		out << (*itr)->GetTransform()->GetRotation().x;
+		out << "\" Ry=\"";
+		out << (*itr)->GetTransform()->GetRotation().y;
+		out << "\" Rz=\"";
+		out << (*itr)->GetTransform()->GetRotation().z;
+		out << "\"/>\n";
+
+		out << "			<Scale Sx=\"";
+		out << (*itr)->GetTransform()->GetScale().x;
+		out << "\" Sy=\"";
+		out << (*itr)->GetTransform()->GetScale().y;
+		out << "\" Sz=\"";
+		out << (*itr)->GetTransform()->GetScale().z;
+		out << "\"/>\n";
+
+		out << "		</PrefabGameObj>\n";
+	}
+	out << "	</Prefabs>\n";
+
+	//TODO: Camera
+	out << "	<Camera Ffov=\"90\" NearZ=\"1\" FarZ=\"1000\">\n";
+	out << "		<Eye Ex=\"0\" Ey=\"4\" Ez=\"15\"/>\n";
+	out << "		<At Ax=\"0\" Ay=\"0\" Az=\"0\"/>\n";
+	out << "		<Up Ux=\"0\" Uy=\"1\" Uz=\"0\"/>\n";
+	out << "	</Camera>\n";
+
+	//TODO: Fog
+	out << "	<Fog Use=\"1\" Type=\"0\" R=\"128\" G=\"128\" B=\"128\" Start=\"10\" End=\"30\"/>\n";
+
+	//TODO: Ambient
+	out << "	<Ambient R=\"50\" G=\"50\" B=\"50\"/>\n";
+
+	// Lights
+	out << "	<Lights>\n";
+	std::vector<HXLight*> lightVct = HXSceneManager::GetInstance()->lightVct;
+	for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); ++itr)
+	{
+		out << "		<Light Enable=\"";
+		int enable = (*itr)->enable ? 1 : 0;
+		out << enable;
+		out << "\" LightType=\"";
+		out << (*itr)->lightType;
+		out << "\" Shininess=\"";
+		out << (*itr)->shininess;
+		out << "\" Strength=\"";
+		out << (*itr)->strength;
+		out << "\" constantAttenuation=\"";
+		out << (*itr)->constantAttenuation;
+		out << "\" LinearAttenuation=\"";
+		out << (*itr)->LinearAttenuation;
+		out << "\" QuadraticAttenuation=\"";
+		out << (*itr)->QuadraticAttenuation;
+		out << "\" SpotCosCutoff=\"";
+		out << (*itr)->SpotCosCutoff;
+		out << "\" SpotExponent=\"";
+		out << (*itr)->SpotExponent;
+		out << "\">\n";
+
+		out << "			<Color Cr=\"";
+		out << (*itr)->color.r;
+		out << "\" Cg=\"";
+		out << (*itr)->color.g;
+		out << "\" Cb=\"";
+		out << (*itr)->color.b;
+		out << "\"/>\n";
+
+		out << "			<Position Px=\"";
+		out << (*itr)->position.x;
+		out << "\" Py=\"";
+		out << (*itr)->position.y;
+		out << "\" Pz=\"";
+		out << (*itr)->position.z;
+		out << "\"/>\n";
+
+		out << "			<Direct Dx=\"";
+		out << (*itr)->direct.x;
+		out << "\" Dy=\"";
+		out << (*itr)->direct.y;
+		out << "\" Dz=\"";
+		out << (*itr)->direct.z;
+		out << "\"/>\n";
+
+		out << "			<ConeDirection Cx=\"";
+		out << (*itr)->ConeDirection.x;
+		out << "\" Cy=\"";
+		out << (*itr)->ConeDirection.y;
+		out << "\" Cz=\"";
+		out << (*itr)->ConeDirection.z;
+		out << "\"/>\n";
+
+		out << "		</Light>\n";
+	}
+	out << "	</Lights>\n";
+
+
+	out << "</Scene>";
 }
 
 void HXEditorWin::loadGameObject()

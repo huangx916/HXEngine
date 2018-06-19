@@ -28,6 +28,7 @@
      <string>Scene</string>
     </property>
     <addaction name="actionLoadScene"/>
+    <addaction name="actionSaveScene"/>
    </widget>
    <widget class="QMenu" name="menuGameObject">
     <property name="title">
@@ -55,6 +56,11 @@
   <action name="actionLoadGameObject">
    <property name="text">
     <string>Load...</string>
+   </property>
+  </action>
+  <action name="actionSaveScene">
+   <property name="text">
+    <string>Save as...</string>
    </property>
   </action>
  </widget>

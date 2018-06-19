@@ -30,13 +30,11 @@ namespace HX3D
 		// ‰÷»æ”≈œ»º∂
 		int m_nPriority;
 		bool m_bCastShadow;
+		std::string m_strPrefab;
 		
 	private:
 		std::string m_strName;
 		// Local Coordinate
-		/*HXVector3D mPostion;
-		HXVector3D mEulerDegree;
-		HXVector3D mScale;*/
 		HXITransform* m_pTransform;
 
 		HXMesh* m_pMesh;
