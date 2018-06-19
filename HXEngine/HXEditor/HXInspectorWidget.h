@@ -20,10 +20,8 @@ public:
 	
 
 private:
-	void SetGameObjectName(QString name);
-	void SetGameObjectTransform(HXITransform* pTransform);
-
-	void GameObjectNameChanged(const QString& name);
+	void SetGameObjectName();
+	void SetGameObjectTransform();
 
 	QLineEdit* editGameObjectName;
 	QDoubleSpinBox* spinboxPositionX;
@@ -35,4 +33,20 @@ private:
 	QDoubleSpinBox* spinboxScaleX;
 	QDoubleSpinBox* spinboxScaleY;
 	QDoubleSpinBox* spinboxScaleZ;
+
+	HXGameObject* selectedGameObject;
+
+	void GameObjectNameChanged(const QString& name);
+	public Q_SLOTS:
+	void PositionXValueChanged(double value);
+	void PositionYValueChanged(double value);
+	void PositionZValueChanged(double value);
+
+	void RotationXValueChanged(double value);
+	void RotationYValueChanged(double value);
+	void RotationZValueChanged(double value);
+
+	void ScaleXValueChanged(double value);
+	void ScaleYValueChanged(double value);
+	void ScaleZValueChanged(double value);
 };

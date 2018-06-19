@@ -96,7 +96,7 @@ namespace HX3D
 			}*/
 			pFatherGameObject->GetTransform()->SetScale(prefabgoinfo.scale);
 			pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
-			pFatherGameObject->GetTransform()->SetPostion(prefabgoinfo.position);
+			pFatherGameObject->GetTransform()->SetPosition(prefabgoinfo.position);
 
 			pFatherGameObject->m_strPrefab = prefabgoinfo.strPrefabFile;
 
@@ -116,7 +116,7 @@ namespace HX3D
 				}
 				pGameObject->GetTransform()->SetScale(modelgoinfo.scale);
 				pGameObject->GetTransform()->SetRotation(modelgoinfo.rotation);
-				pGameObject->GetTransform()->SetPostion(modelgoinfo.position);
+				pGameObject->GetTransform()->SetPosition(modelgoinfo.position);
 
 				pGameObject->SetFather(pFatherGameObject);
 			}
@@ -447,7 +447,7 @@ namespace HX3D
 		}*/
 		pFatherGameObject->GetTransform()->SetScale(prefabgoinfo.scale);
 		pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
-		pFatherGameObject->GetTransform()->SetPostion(prefabgoinfo.position);
+		pFatherGameObject->GetTransform()->SetPosition(prefabgoinfo.position);
 
 		HXLoadConfigPrefab cfgPrefab;
 		cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
@@ -465,7 +465,7 @@ namespace HX3D
 			}
 			pGameObject->GetTransform()->SetScale(modelgoinfo.scale);
 			pGameObject->GetTransform()->SetRotation(modelgoinfo.rotation);
-			pGameObject->GetTransform()->SetPostion(modelgoinfo.position);
+			pGameObject->GetTransform()->SetPosition(modelgoinfo.position);
 
 			pGameObject->SetFather(pFatherGameObject);
 		}

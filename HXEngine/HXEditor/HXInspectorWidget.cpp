@@ -4,7 +4,7 @@
 #include <QBoxLayout.h>
 #include <QFormLayout>
 
-HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent)
+HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent), selectedGameObject(NULL)
 {
 	editGameObjectName = new QLineEdit();
 
@@ -65,6 +65,17 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent)
 
 
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
+	connect(spinboxPositionX, SIGNAL(valueChanged(double)), this, SLOT(PositionXValueChanged(double)));
+	connect(spinboxPositionY, SIGNAL(valueChanged(double)), this, SLOT(PositionYValueChanged(double)));
+	connect(spinboxPositionZ, SIGNAL(valueChanged(double)), this, SLOT(PositionZValueChanged(double)));
+
+	connect(spinboxRotationX, SIGNAL(valueChanged(double)), this, SLOT(RotationXValueChanged(double)));
+	connect(spinboxRotationY, SIGNAL(valueChanged(double)), this, SLOT(RotationYValueChanged(double)));
+	connect(spinboxRotationZ, SIGNAL(valueChanged(double)), this, SLOT(RotationZValueChanged(double)));
+
+	connect(spinboxScaleX, SIGNAL(valueChanged(double)), this, SLOT(ScaleXValueChanged(double)));
+	connect(spinboxScaleY, SIGNAL(valueChanged(double)), this, SLOT(ScaleYValueChanged(double)));
+	connect(spinboxScaleZ, SIGNAL(valueChanged(double)), this, SLOT(ScaleZValueChanged(double)));
 }
 
 HXInspectorWidget::~HXInspectorWidget()
@@ -74,27 +85,29 @@ HXInspectorWidget::~HXInspectorWidget()
 
 void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 {
-	if (pGameObject == NULL)
+	selectedGameObject = pGameObject;
+	SetGameObjectName();
+	SetGameObjectTransform();
+}
+
+void HXInspectorWidget::SetGameObjectName()
+{
+	if (selectedGameObject)
 	{
-		SetGameObjectTransform(NULL); 
-		SetGameObjectName("");
+		editGameObjectName->setText(selectedGameObject->GetName().c_str());
 	}
 	else
 	{
-		SetGameObjectTransform(pGameObject->GetTransform());
-		SetGameObjectName(pGameObject->GetName().c_str());
+		editGameObjectName->setText("");
 	}
 }
 
-void HXInspectorWidget::SetGameObjectName(QString name)
+void HXInspectorWidget::SetGameObjectTransform()
 {
-	editGameObjectName->setText(name);
-}
-
-void HXInspectorWidget::SetGameObjectTransform(HXITransform* pTransform)
-{
-	if (pTransform)
+	if (selectedGameObject && selectedGameObject->GetTransform())
 	{
+		HXITransform* pTransform = selectedGameObject->GetTransform();
+
 		spinboxPositionX->setValue(pTransform->GetPosition().x);
 		spinboxPositionY->setValue(pTransform->GetPosition().y);
 		spinboxPositionZ->setValue(pTransform->GetPosition().z);
@@ -125,5 +138,83 @@ void HXInspectorWidget::SetGameObjectTransform(HXITransform* pTransform)
 
 void HXInspectorWidget::GameObjectNameChanged(const QString& name)
 {
-	
+	if (selectedGameObject)
+	{
+		selectedGameObject->SetName(name.toStdString());
+	}
+}
+
+void HXInspectorWidget::PositionXValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
+		selectedGameObject->GetTransform()->SetPosition(HXVector3D(value, pos.y, pos.z));
+	}
+}
+void HXInspectorWidget::PositionYValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
+		selectedGameObject->GetTransform()->SetPosition(HXVector3D(pos.x, value, pos.z));
+	}
+}
+void HXInspectorWidget::PositionZValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
+		selectedGameObject->GetTransform()->SetPosition(HXVector3D(pos.x, pos.y, value));
+	}
+}
+
+void HXInspectorWidget::RotationXValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
+		selectedGameObject->GetTransform()->SetRotation(HXVector3D(value, rotate.y, rotate.z));
+	}
+}
+void HXInspectorWidget::RotationYValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
+		selectedGameObject->GetTransform()->SetRotation(HXVector3D(rotate.x, value, rotate.z));
+	}
+}
+void HXInspectorWidget::RotationZValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
+		selectedGameObject->GetTransform()->SetRotation(HXVector3D(rotate.x, rotate.y, value));
+	}
+}
+
+void HXInspectorWidget::ScaleXValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D scale = selectedGameObject->GetTransform()->GetScale();
+		selectedGameObject->GetTransform()->SetScale(HXVector3D(value, scale.y, scale.z));
+	}
+}
+void HXInspectorWidget::ScaleYValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D scale = selectedGameObject->GetTransform()->GetScale();
+		selectedGameObject->GetTransform()->SetScale(HXVector3D(scale.x, value, scale.z));
+	}
+}
+void HXInspectorWidget::ScaleZValueChanged(double value)
+{
+	if (selectedGameObject)
+	{
+		HXVector3D scale = selectedGameObject->GetTransform()->GetScale();
+		selectedGameObject->GetTransform()->SetScale(HXVector3D(scale.x, scale.y, value));
+	}
 }

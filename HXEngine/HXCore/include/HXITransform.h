@@ -11,7 +11,7 @@ namespace HX3D
 		HXITransform();
 		virtual ~HXITransform();
 
-		void SetPostion(const HXVector3D& pos);
+		void SetPosition(const HXVector3D& pos);
 		HXVector3D GetPosition();
 		void Move(const HXVector3D& mov);
 

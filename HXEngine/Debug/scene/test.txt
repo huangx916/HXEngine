@@ -6,10 +6,10 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</PrefabGameObj>
-		<PrefabGameObj Name="DogPrefab" Prefab="FBX/Dog/Dog.prefab" Priority="20" CastShadow="1">
-			<Position Px="5" Py="-2.5" Pz="5"/>
-			<Rotation Rx="0" Ry="-90" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
+		<PrefabGameObj Name="xxxPrefab" Prefab="FBX/Dog/Dog.prefab" Priority="20" CastShadow="1">
+			<Position Px="2" Py="2" Pz="2"/>
+			<Rotation Rx="2" Ry="2" Rz="2"/>
+			<Scale Sx="2" Sy="2" Sz="2"/>
 		</PrefabGameObj>
 		<PrefabGameObj Name="Building01Prefab" Prefab="FBX/Building01/Building01.prefab" Priority="20" CastShadow="1">
 			<Position Px="0" Py="-2.5" Pz="5"/>

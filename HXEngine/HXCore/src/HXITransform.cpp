@@ -13,7 +13,7 @@ namespace HX3D
 	{
 	}
 
-	void HXITransform::SetPostion(const HXVector3D& pos)
+	void HXITransform::SetPosition(const HXVector3D& pos)
 	{
 		mPostion = pos;
 	}

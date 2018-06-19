@@ -20,6 +20,7 @@ namespace HX3D
 		//void Insert_To_RenderList(HXRenderList* pRenderList);
 
 		std::string GetName() { return m_strName; }
+		void SetName(std::string strName) { m_strName = strName; }
 		HXMesh* GetMesh();
 		HXGameObject* GetFather();
 		void SetFather(HXGameObject* father);
