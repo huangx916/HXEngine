@@ -31,7 +31,7 @@ namespace HX3D
 		// 渲染优先级
 		int m_nPriority;
 		bool m_bCastShadow;
-		std::string m_strPrefab;
+		std::string m_strModelFile;
 		
 	private:
 		std::string m_strName;
@@ -39,7 +39,6 @@ namespace HX3D
 		HXITransform* m_pTransform;
 
 		HXMesh* m_pMesh;
-		// TODO: config中暂时只支持两层 prefabgameobj--->modelgameobj
 		HXGameObject* m_pFather;	// 用作计算World Coordinate
 		std::vector<HXGameObject*> vctChildren;
 	};

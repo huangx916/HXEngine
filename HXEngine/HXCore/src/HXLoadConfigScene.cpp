@@ -1,5 +1,4 @@
 #include "..\include\HXLoadConfigScene.h"
-#include "tinyxml.h"
 
 namespace HX3D
 {
@@ -10,6 +9,40 @@ namespace HX3D
 
 	HXLoadConfigScene::~HXLoadConfigScene()
 	{
+	}
+
+	bool HXLoadConfigScene::ReadGameObjectRecurve(TiXmlElement* gameobjElement, std::vector<HXGameObjectInfo*>& list, int fatherPriority)
+	{
+		for (; gameobjElement != NULL; gameobjElement = gameobjElement->NextSiblingElement())
+		{
+			HXGameObjectInfo* gameObjInfo = new HXGameObjectInfo();
+
+			gameObjInfo->strGameObjName = gameobjElement->Attribute("Name");
+			gameObjInfo->strModelFile = gameobjElement->Attribute("Model");
+			gameObjInfo->nPriority = atoi(gameobjElement->Attribute("Priority")) + fatherPriority;
+			gameObjInfo->bCastShadow = atoi(gameobjElement->Attribute("CastShadow"));
+			TiXmlElement* positionElement = gameobjElement->FirstChildElement();
+			gameObjInfo->position.x = atof(positionElement->Attribute("Px"));
+			gameObjInfo->position.y = atof(positionElement->Attribute("Py"));
+			gameObjInfo->position.z = atof(positionElement->Attribute("Pz"));
+			TiXmlElement* rotationElement = positionElement->NextSiblingElement();
+			gameObjInfo->rotation.x = atof(rotationElement->Attribute("Rx"));
+			gameObjInfo->rotation.y = atof(rotationElement->Attribute("Ry"));
+			gameObjInfo->rotation.z = atof(rotationElement->Attribute("Rz"));
+			TiXmlElement* scaleElement = rotationElement->NextSiblingElement();
+			gameObjInfo->scale.x = atof(scaleElement->Attribute("Sx"));
+			gameObjInfo->scale.y = atof(scaleElement->Attribute("Sy"));
+			gameObjInfo->scale.z = atof(scaleElement->Attribute("Sz"));
+
+			list.push_back(gameObjInfo);
+
+			TiXmlElement* child = scaleElement->NextSiblingElement();
+			ReadGameObjectRecurve(child, gameObjInfo->children, gameObjInfo->nPriority);
+		}
+
+
+
+		return true;
 	}
 
 	bool HXLoadConfigScene::LoadFile(std::string strFileName)
@@ -26,34 +59,12 @@ namespace HX3D
 		TiXmlElement* rootElement = doc.RootElement();
 
 		// gameObject
-		TiXmlElement* prefabs = rootElement->FirstChildElement();
-		TiXmlElement* gameobjElement = prefabs->FirstChildElement();
-		for (; gameobjElement != NULL; gameobjElement = gameobjElement->NextSiblingElement())
-		{
-			HXPrefabGameObjInfo gameObjInfo;
-
-			gameObjInfo.strGameObjName = gameobjElement->Attribute("Name");
-			gameObjInfo.strPrefabFile = gameobjElement->Attribute("Prefab");
-			gameObjInfo.nPriority = atoi(gameobjElement->Attribute("Priority"));
-			gameObjInfo.bCastShadow = atoi(gameobjElement->Attribute("CastShadow"));
-			TiXmlElement* positionElement = gameobjElement->FirstChildElement();
-			gameObjInfo.position.x = atof(positionElement->Attribute("Px"));
-			gameObjInfo.position.y = atof(positionElement->Attribute("Py"));
-			gameObjInfo.position.z = atof(positionElement->Attribute("Pz"));
-			TiXmlElement* rotationElement = positionElement->NextSiblingElement();
-			gameObjInfo.rotation.x = atof(rotationElement->Attribute("Rx"));
-			gameObjInfo.rotation.y = atof(rotationElement->Attribute("Ry"));
-			gameObjInfo.rotation.z = atof(rotationElement->Attribute("Rz"));
-			TiXmlElement* scaleElement = rotationElement->NextSiblingElement();
-			gameObjInfo.scale.x = atof(scaleElement->Attribute("Sx"));
-			gameObjInfo.scale.y = atof(scaleElement->Attribute("Sy"));
-			gameObjInfo.scale.z = atof(scaleElement->Attribute("Sz"));
-		
-			mSceneInfo.vctGameObjInfo.push_back(gameObjInfo);
-		}
+		TiXmlElement* gameobjects = rootElement->FirstChildElement();
+		TiXmlElement* gameobjElement = gameobjects->FirstChildElement();
+		ReadGameObjectRecurve(gameobjElement, mSceneInfo.vctGameObjInfo, 0);
 
 		// camera
-		TiXmlElement* cameraElement = prefabs->NextSiblingElement();
+		TiXmlElement* cameraElement = gameobjects->NextSiblingElement();
 		mSceneInfo.cameraInfo.ffov = atof(cameraElement->Attribute("Ffov"));
 		mSceneInfo.cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
 		mSceneInfo.cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));

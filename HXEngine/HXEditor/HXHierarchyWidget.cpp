@@ -69,13 +69,11 @@ void HXHierarchyWidget::AddLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObje
 //void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 //{
 //	HXGameObject* gameObject = current->data(0, Qt::UserRole).value<HXGameObject*>();
-//	int test = 0;
 //}
 
 void HXHierarchyWidget::GameObjectClick(QTreeWidgetItem *item, int column)
 {
 	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
-	int test = 0;
 	if (clickCallback)
 	{
 		clickCallback(gameObject);

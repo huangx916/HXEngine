@@ -80,49 +80,11 @@ namespace HX3D
 			CreateLight(&info);
 		}
 
-		// 创建天空盒 改为从场景加载
+		// 创建天空盒 已经改为从场景加载
 		// CreateSkyBox(HXVector3D(200, 200, 200));
 
 		// GameObject
-		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
-		{
-			HXPrefabGameObjInfo& prefabgoinfo = *itr;
-			HXGameObject* pFatherGameObject = CreateGameObject(NULL, prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
-			if (NULL == pFatherGameObject)
-			{
-				return;
-			}
-			/*if (pFatherGameObject->GetMesh())
-			{
-				pFatherGameObject->GetMesh()->PlayDefaultAnimation();
-			}*/
-			pFatherGameObject->GetTransform()->SetScale(prefabgoinfo.scale);
-			pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
-			pFatherGameObject->GetTransform()->SetPosition(prefabgoinfo.position);
-
-			pFatherGameObject->m_strPrefab = prefabgoinfo.strPrefabFile;
-
-			HXLoadConfigPrefab cfgPrefab;
-			cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
-			for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
-			{
-				HXModelGameObjInfo& modelgoinfo = *itr1;
-				HXGameObject* pGameObject = CreateGameObject(pFatherGameObject, modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
-				if (NULL == pGameObject)
-				{
-					return;
-				}
-				if (pGameObject->GetMesh())
-				{
-					pGameObject->GetMesh()->PlayDefaultAnimation();
-				}
-				pGameObject->GetTransform()->SetScale(modelgoinfo.scale);
-				pGameObject->GetTransform()->SetRotation(modelgoinfo.rotation);
-				pGameObject->GetTransform()->SetPosition(modelgoinfo.position);
-
-				pGameObject->SetFather(pFatherGameObject);
-			}
-		}
+		CreateGameObjectRecurve(cfg.mSceneInfo.vctGameObjInfo, NULL);
 	}
 
 	void HXSceneManager::UnLoadScene()
@@ -149,21 +111,29 @@ namespace HX3D
 		gameObjectList.clear();
 	}
 
-	HXGameObject* HXSceneManager::CreateGameObject(HXGameObject* pFather, std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow)
+	void HXSceneManager::CreateGameObjectRecurve(std::vector<HXGameObjectInfo*>& list, HXGameObject* father)
 	{
-		/*std::map<std::string, HXGameObject*>::iterator itr = gameObjectList.find(strGameObjectName);
-		if (itr != gameObjectList.end() && pFather == NULL)
+		for (std::vector<HXGameObjectInfo*>::iterator itr = list.begin(); itr != list.end(); ++itr)
 		{
-			std::cerr << strGameObjectName + " alreay existed" << std::endl;
-			return itr->second;
-		}*/
-		HXModelInfo* pModelInfo = HXResourceManager::GetInstance()->GetModelInfo(strModelName);
+			HXGameObjectInfo* gameobjectinfo = *itr;
+			HXGameObject* gameobject = CreateGameObject(father, gameobjectinfo);
+			if (NULL == gameobject)
+			{
+				continue;
+			}
+			CreateGameObjectRecurve(gameobjectinfo->children, gameobject);
+		}
+	}
+
+	HXGameObject* HXSceneManager::CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo)
+	{
+		HXModelInfo* pModelInfo = HXResourceManager::GetInstance()->GetModelInfo(gameobjectinfo->strModelFile);
 		if (NULL == pModelInfo)
 		{
-			// 当strModelName = “”时，创建不带renderable的gameobject。例如父物体空gameobject
-			HXGameObject* gameObject = new HXGameObject(strGameObjectName, NULL, HXRoot::GetInstance()->GetRenderSystem());
-			gameObject->m_nPriority = nPriority;
-			gameObject->m_bCastShadow = bCastShadow;
+			// 当strModelName = ""时，创建不带renderable的gameobject。例如父物体空gameobject
+			HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, NULL, HXRoot::GetInstance()->GetRenderSystem());
+			gameObject->m_nPriority = gameobjectinfo->nPriority;
+			gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
 			if (pFather == NULL)
 			{
 				gameObjectList.push_back(gameObject);
@@ -172,6 +142,14 @@ namespace HX3D
 			{
 				pFather->AddChild(gameObject);
 			}
+			gameObject->SetFather(pFather);
+
+			gameObject->GetTransform()->SetScale(gameobjectinfo->scale);
+			gameObject->GetTransform()->SetRotation(gameobjectinfo->rotation);
+			gameObject->GetTransform()->SetPosition(gameobjectinfo->position);
+
+			gameObject->m_strModelFile = gameobjectinfo->strModelFile;
+
 			return gameObject;
 		}
 
@@ -179,6 +157,7 @@ namespace HX3D
 		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(pModelInfo->m_strMeshFile, pModelInfo->m_strAnimFile);
 		if (NULL == pMesh)
 		{
+			std::cout << pModelInfo->m_strMeshFile << " not exist" << std::endl;
 			return NULL;
 		}
 		
@@ -218,10 +197,9 @@ namespace HX3D
 			++nSubMeshIndex;
 		}
 
-
-		HXGameObject* gameObject = new HXGameObject(strGameObjectName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
-		gameObject->m_nPriority = nPriority;
-		gameObject->m_bCastShadow = bCastShadow;
+		HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
+		gameObject->m_nPriority = gameobjectinfo->nPriority;
+		gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
 		if (pFather == NULL)
 		{
 			gameObjectList.push_back(gameObject);
@@ -230,8 +208,17 @@ namespace HX3D
 		{
 			pFather->AddChild(gameObject);
 		}
-		return gameObject;
+		gameObject->SetFather(pFather);
 
+		gameObject->GetTransform()->SetScale(gameobjectinfo->scale);
+		gameObject->GetTransform()->SetRotation(gameobjectinfo->rotation);
+		gameObject->GetTransform()->SetPosition(gameobjectinfo->position);
+
+		gameObject->m_strModelFile = gameobjectinfo->strModelFile;
+
+		gameObject->GetMesh()->PlayDefaultAnimation();
+
+		return gameObject;
 	}
 
 	HXGameObject* HXSceneManager::GetGameObject(std::string strGameObjectName)
@@ -339,6 +326,15 @@ namespace HX3D
 		return( i->m_nPriority < j->m_nPriority );
 	}
 
+	void HXSceneManager::PushSortListRecurve(std::vector<HXGameObject*>& src, std::vector<HXGameObject*>& dest)
+	{
+		for (std::vector<HXGameObject*>::iterator itr = src.begin(); itr != src.end(); itr++)
+		{
+			dest.push_back(*itr);
+			PushSortListRecurve((*itr)->GetChildren(), dest);
+		}
+	}
+
 	void HXSceneManager::OnDisplay(bool shadow)
 	{
 		if (!m_pMainCamera)
@@ -355,18 +351,9 @@ namespace HX3D
 			HXStatus::GetInstance()->ResetStatus();
 		}
 		
-		// TODO: OIT排序，暂时先简单排序
-		// TODO: 迭代push children
+		// TODO: 暂时先简单排序
 		std::vector<HXGameObject*> sortGameObject;
-		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); itr++)
-		{
-			sortGameObject.push_back(*itr);
-			std::vector<HXGameObject*> children = (*itr)->GetChildren();
-			for (std::vector<HXGameObject*>::iterator itr1 = children.begin(); itr1 != children.end(); ++itr1)
-			{
-				sortGameObject.push_back(*itr1);
-			}
-		}
+		PushSortListRecurve(gameObjectList, sortGameObject);
 		std::sort(sortGameObject.begin(), sortGameObject.end(), mycompare);
 
 		for (std::vector<HXGameObject*>::iterator itr = sortGameObject.begin(); itr != sortGameObject.end(); itr++)
@@ -428,17 +415,17 @@ namespace HX3D
 
 	void HXSceneManager::LoadGameObjectInEditor(std::string strPath)
 	{
-		HXPrefabGameObjInfo prefabgoinfo;
+		HXGameObjectInfo prefabgoinfo;
 		// TODO: 防止重名
 		prefabgoinfo.strGameObjName = "GameObject" + IntToString(nameSuffix++);
-		prefabgoinfo.strPrefabFile = strPath;
+		prefabgoinfo.strModelFile = strPath;
 		prefabgoinfo.nPriority = 20;
 		prefabgoinfo.bCastShadow = true;
 		prefabgoinfo.position = HXVector3D(0,0,0);
 		prefabgoinfo.rotation = HXVector3D(0,0,0);
 		prefabgoinfo.scale = HXVector3D(1,1,1);
 
-		HXGameObject* pFatherGameObject = CreateGameObject(NULL, prefabgoinfo.strGameObjName, "", prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
+		HXGameObject* pFatherGameObject = CreateGameObject(NULL, &prefabgoinfo);
 		if (NULL == pFatherGameObject)
 		{
 			return;
@@ -452,11 +439,11 @@ namespace HX3D
 		pFatherGameObject->GetTransform()->SetPosition(prefabgoinfo.position);
 
 		HXLoadConfigPrefab cfgPrefab;
-		cfgPrefab.LoadFile(prefabgoinfo.strPrefabFile);
+		cfgPrefab.LoadFile(prefabgoinfo.strModelFile);
 		for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
 		{
 			HXModelGameObjInfo& modelgoinfo = *itr1;
-			HXGameObject* pGameObject = CreateGameObject(pFatherGameObject, modelgoinfo.strGameObjName, modelgoinfo.strModelFile, prefabgoinfo.nPriority, prefabgoinfo.bCastShadow);
+			HXGameObject* pGameObject = CreateGameObject(pFatherGameObject, &prefabgoinfo);
 			if (NULL == pGameObject)
 			{
 				return;

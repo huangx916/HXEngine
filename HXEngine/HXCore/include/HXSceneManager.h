@@ -11,6 +11,7 @@ namespace HX3D
 	struct HXRenderList;
 	class HXICamera;
 	struct HXFogInfo;
+	struct HXGameObjectInfo;
 	class HXSceneManager
 	{
 	public:
@@ -28,7 +29,8 @@ namespace HX3D
 		void LoadScene(std::string strSceneCfgFile);
 		void UnLoadScene();
 
-		HXGameObject* CreateGameObject(HXGameObject* pFather, std::string strGameObjectName, std::string strModelName, int nPriority, bool bCastShadow);
+		void CreateGameObjectRecurve(std::vector<HXGameObjectInfo*>& list, HXGameObject* father);
+		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
 		std::vector<HXGameObject*> GetGameObjectList();
 		// 平行光、点光源、聚光灯
@@ -44,6 +46,7 @@ namespace HX3D
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
+		void PushSortListRecurve(std::vector<HXGameObject*>& src, std::vector<HXGameObject*>& dest);
 		void OnDisplay(bool shadow);
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
