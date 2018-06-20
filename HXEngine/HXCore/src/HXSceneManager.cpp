@@ -299,14 +299,14 @@ namespace HX3D
 		}
 
 		// 加载材质
-		HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo("./FBX/SkyBox/SkyBox.material");
+		HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo("./prefab/SkyBox/SkyBox.material");
 		if (NULL == pMat)
 		{
 			return NULL;
 		}
 
 		// 关联材质到SubMesh
-		pMesh->subMeshList[0]->materialName = "./FBX/SkyBox/SkyBox.material";
+		pMesh->subMeshList[0]->materialName = "./prefab/SkyBox/SkyBox.material";
 
 		HXGameObject* gameObject = new HXGameObject(strgoName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->GetTransform()->SetScale(scale);

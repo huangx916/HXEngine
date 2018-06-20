@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Model>
-	<Mesh File="FBX/Building01/Building01.FBX"/>
-	<Anim File="FBX/Building01/Building01.anim"/>
-	<Material File="FBX/Building01/Building01_1.material"/>
-	<Material File="FBX/Building01/Building01_2.material"/>
-	<Material File="FBX/Building01/Building01_3.material"/>
-</Model>

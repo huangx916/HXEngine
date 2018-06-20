@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/Dog/Dog.FBX"/>
+	<Anim File="prefab/Dog/Dog.anim"/>
+	<Material File="prefab/Dog/Dog.material"/>
+</Model>

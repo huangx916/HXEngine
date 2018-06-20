@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Model>
-	<Mesh File="FBX/Dog/Dog.FBX"/>
-	<Anim File="FBX/Dog/Dog.anim"/>
-	<Material File="FBX/Dog/Dog.material"/>
-</Model>

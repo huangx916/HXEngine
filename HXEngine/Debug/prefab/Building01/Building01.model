@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/Building01/Building01.FBX"/>
+	<Anim File="prefab/Building01/Building01.anim"/>
+	<Material File="prefab/Building01/Building01_1.material"/>
+	<Material File="prefab/Building01/Building01_2.material"/>
+	<Material File="prefab/Building01/Building01_3.material"/>
+</Model>
