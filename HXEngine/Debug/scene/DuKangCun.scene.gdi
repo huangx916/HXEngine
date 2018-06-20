@@ -2,6 +2,13 @@
 <Scene>
 	<Prefabs>
 		<!--
+		<PrefabGameObj Name="SkyBoxGO" Prefab="prefab/SkyBox/SkyBox.prefab" Priority="0" CastShadow="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+		</PrefabGameObj>
+		-->
+		<!--
 		<PrefabGameObj Name="DuKangCun" Prefab="prefab/Terrain/Terrain.prefab" Priority="10" CastShadow="0">
 			<Postion Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>

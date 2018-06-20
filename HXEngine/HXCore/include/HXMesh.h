@@ -129,7 +129,7 @@ namespace HX3D
 		void CreateTriangleForTest();
 		void CreateQuadForTest();
 
-		void CreateSkyBox();
+		//void CreateSkyBox();
 
 		//void Insert_To_RenderList(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale, HXRenderList* pRenderList);
 

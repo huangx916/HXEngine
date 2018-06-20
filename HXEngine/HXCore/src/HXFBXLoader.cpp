@@ -183,10 +183,10 @@ namespace HX3D
 		{
 			(*ppMesh)->CreateQuadForTest();
 		}
-		else if (strFileName == "HXSkyBoxMesh")
+		/*else if (strFileName == "HXSkyBoxMesh")
 		{
 			(*ppMesh)->CreateSkyBox();
-		}
+		}*/
 		else
 		{
 			// 读取模型文本文档

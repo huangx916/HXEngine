@@ -79,8 +79,10 @@ namespace HX3D
 			HXLightInfo info = *itr;
 			CreateLight(&info);
 		}
-		// 创建天空盒
-		CreateSkyBox(HXVector3D(200, 200, 200));
+
+		// 创建天空盒 改为从场景加载
+		// CreateSkyBox(HXVector3D(200, 200, 200));
+
 		// GameObject
 		for (std::vector<HXPrefabGameObjInfo>::iterator itr = cfg.mSceneInfo.vctGameObjInfo.begin(); itr != cfg.mSceneInfo.vctGameObjInfo.end(); ++itr)
 		{
@@ -274,47 +276,47 @@ namespace HX3D
 	}
 
 
-	HXGameObject* HXSceneManager::CreateSkyBox(HXVector3D scale)
-	{
-		if (HXRoot::GetInstance()->GetRenderSystem() && 
-			HXRoot::GetInstance()->GetRenderSystem()->GetRenderSystemType() == RenderSystem_GDI)
-		{
-			return NULL;
-		}
+	//HXGameObject* HXSceneManager::CreateSkyBox(HXVector3D scale)
+	//{
+	//	if (HXRoot::GetInstance()->GetRenderSystem() && 
+	//		HXRoot::GetInstance()->GetRenderSystem()->GetRenderSystemType() == RenderSystem_GDI)
+	//	{
+	//		return NULL;
+	//	}
 
-		std::string strgoName = "HXSkyBox";
+	//	std::string strgoName = "HXSkyBox";
 
-		/*std::map<std::string, HXGameObject*>::iterator itr = gameObjectList.find(strgoName);
-		if (itr != gameObjectList.end())
-		{
-			std::cerr << "HXSkyBox alreay existed" << std::endl;
-			return itr->second;
-		}*/
+	//	/*std::map<std::string, HXGameObject*>::iterator itr = gameObjectList.find(strgoName);
+	//	if (itr != gameObjectList.end())
+	//	{
+	//		std::cerr << "HXSkyBox alreay existed" << std::endl;
+	//		return itr->second;
+	//	}*/
 
-		// 创建mesh
-		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("HXSkyBoxMesh", "");
-		if (NULL == pMesh)
-		{
-			return NULL;
-		}
+	//	// 创建mesh
+	//	HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("HXSkyBoxMesh", "");
+	//	if (NULL == pMesh)
+	//	{
+	//		return NULL;
+	//	}
 
-		// 加载材质
-		HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo("./prefab/SkyBox/SkyBox.material");
-		if (NULL == pMat)
-		{
-			return NULL;
-		}
+	//	// 加载材质
+	//	HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo("./prefab/SkyBox/SkyBox.material");
+	//	if (NULL == pMat)
+	//	{
+	//		return NULL;
+	//	}
 
-		// 关联材质到SubMesh
-		pMesh->subMeshList[0]->materialName = "./prefab/SkyBox/SkyBox.material";
+	//	// 关联材质到SubMesh
+	//	pMesh->subMeshList[0]->materialName = "./prefab/SkyBox/SkyBox.material";
 
-		HXGameObject* gameObject = new HXGameObject(strgoName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
-		gameObject->GetTransform()->SetScale(scale);
-		gameObject->m_nPriority = 0;
-		gameObject->m_bCastShadow = false;
-		gameObjectList.push_back(gameObject);
-		return gameObject;
-	}
+	//	HXGameObject* gameObject = new HXGameObject(strgoName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
+	//	gameObject->GetTransform()->SetScale(scale);
+	//	gameObject->m_nPriority = 0;
+	//	gameObject->m_bCastShadow = false;
+	//	gameObjectList.push_back(gameObject);
+	//	return gameObject;
+	//}
 
 	void HXSceneManager::CreateFog(HXFogInfo* info)
 	{

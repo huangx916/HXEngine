@@ -40,7 +40,7 @@ namespace HX3D
 			float bottom = -(float)SCREEN_HEIGHT / (float)SCREEN_WIDTH, float top = (float)SCREEN_HEIGHT / (float)SCREEN_WIDTH);
 		HXICamera* GetMainCamera();
 
-		HXGameObject* CreateSkyBox(HXVector3D scale);
+		//HXGameObject* CreateSkyBox(HXVector3D scale);
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
