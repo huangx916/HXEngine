@@ -3,9 +3,36 @@
 //#include <QSpinBox.h>
 #include <QBoxLayout.h>
 #include <QFormLayout>
+#include "HXFogLinear.h"
 
-HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent), selectedGameObject(NULL)
+HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent), selectedGameObject(NULL), fog(NULL)
 {
+	// fog
+	checkboxFog = new QCheckBox();
+	checkboxFog->setText("use fog");
+
+	comboboxFogType = new QComboBox();
+	comboboxFogType->addItem("FOG_Linear");
+	comboboxFogType->addItem("FOG_EXP");
+	comboboxFogType->addItem("FOG_EXPX");
+
+	spinboxFogColorR = new QSpinBox();
+	spinboxFogColorR->setRange(COLOR_MIN, COLOR_MAX);
+
+	spinboxFogColorG = new QSpinBox();
+	spinboxFogColorG->setRange(COLOR_MIN, COLOR_MAX);
+
+	spinboxFogColorB = new QSpinBox();
+	spinboxFogColorB->setRange(COLOR_MIN, COLOR_MAX);
+
+	spinboxFogStart = new QDoubleSpinBox();
+	spinboxFogStart->setRange(MIN, MAX);
+
+	spinboxFogEnd = new QDoubleSpinBox();
+	spinboxFogEnd->setRange(MIN, MAX);
+
+
+	// gameobject
 	editGameObjectName = new QLineEdit();
 
 	spinboxPositionX = new QDoubleSpinBox();
@@ -35,18 +62,39 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent), selecte
 	spinboxScaleZ = new QDoubleSpinBox();
 	spinboxScaleZ->setRange(MIN, MAX);
 
+	// ------------------------------------Layout--------------------------------------------
 	QFormLayout* inspectorLayout = new QFormLayout();
 	QFont font("Microsoft YaHei", 10, 75);
+	QFont subFont("Microsoft YaHei", 8, 75);
 
+	// fog
+	QLabel* fog = new QLabel(tr("Fog"));
+	fog->setFont(font);
+	inspectorLayout->addRow(fog);
+	inspectorLayout->addRow(checkboxFog);
+	inspectorLayout->addRow(QStringLiteral("fog type"), comboboxFogType);
+
+	inspectorLayout->addRow(QStringLiteral("Color R"), spinboxFogColorR);
+	inspectorLayout->addRow(QStringLiteral("Color G"), spinboxFogColorG);
+	inspectorLayout->addRow(QStringLiteral("Color B"), spinboxFogColorB);
+
+	inspectorLayout->addRow(QStringLiteral("Color Start"), spinboxFogStart);
+	inspectorLayout->addRow(QStringLiteral("Color End"), spinboxFogEnd);
+
+
+
+	inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
+
+	// gameobject
 	QLabel* gameobject = new QLabel(tr("GameObject"));
 	gameobject->setFont(font);
 	inspectorLayout->addRow(gameobject);
 	inspectorLayout->addRow(editGameObjectName);
 
-	inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
+	//inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
 
 	QLabel* transform = new QLabel(tr("Transform"));
-	transform->setFont(font);
+	transform->setFont(subFont);
 	inspectorLayout->addRow(transform);
 	inspectorLayout->addRow(QStringLiteral("Position X"), spinboxPositionX);
 	inspectorLayout->addRow(QStringLiteral("Position Y"), spinboxPositionY);
@@ -64,6 +112,19 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent), selecte
 	setLayout(inspectorLayout);
 
 
+	// fog
+	connect(checkboxFog, SIGNAL(toggled(bool)), this, SLOT(FogToggled(bool)));
+	connect(comboboxFogType, SIGNAL(activated(int)), this, SLOT(FogTypeActivated(int)));
+
+	connect(spinboxFogColorR, SIGNAL(valueChanged(int)), this, SLOT(FogColorRChanged(int)));
+	connect(spinboxFogColorG, SIGNAL(valueChanged(int)), this, SLOT(FogColorGChanged(int)));
+	connect(spinboxFogColorB, SIGNAL(valueChanged(int)), this, SLOT(FogColorBChanged(int)));
+
+	connect(spinboxFogStart, SIGNAL(valueChanged(double)), this, SLOT(FogStartChanged(double)));
+	connect(spinboxFogEnd, SIGNAL(valueChanged(double)), this, SLOT(FogEndChanged(double)));
+
+
+	// gameobject
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
 	connect(spinboxPositionX, SIGNAL(valueChanged(double)), this, SLOT(PositionXValueChanged(double)));
 	connect(spinboxPositionY, SIGNAL(valueChanged(double)), this, SLOT(PositionYValueChanged(double)));
@@ -88,6 +149,35 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	selectedGameObject = pGameObject;
 	SetGameObjectName();
 	SetGameObjectTransform();
+}
+
+void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
+{
+	fog = pFog;
+	if (pFog)
+	{
+		//checkboxFog->setCheckable(pFog->useFog);
+		//checkboxFog->toggled(pFog->useFog);
+		if (pFog->useFog)
+		{
+			checkboxFog->setCheckState(Qt::Checked);
+		}
+		else
+		{
+			checkboxFog->setCheckState(Qt::Unchecked);
+		}
+
+		spinboxFogColorR->setValue(pFog->fogColor.r);
+		spinboxFogColorG->setValue(pFog->fogColor.g);
+		spinboxFogColorB->setValue(pFog->fogColor.b);
+		if (pFog->fogType == HXFogType::FOG_Linear)
+		{
+			comboboxFogType->setCurrentIndex(0);
+			HXFogLinear* pFogLinear = (HXFogLinear*)pFog;
+			spinboxFogStart->setValue(pFogLinear->fogStart);
+			spinboxFogEnd->setValue(pFogLinear->fogEnd);
+		}
+	}
 }
 
 void HXInspectorWidget::SetGameObjectName()
@@ -216,5 +306,58 @@ void HXInspectorWidget::ScaleZValueChanged(double value)
 	{
 		HXVector3D scale = selectedGameObject->GetTransform()->GetScale();
 		selectedGameObject->GetTransform()->SetScale(HXVector3D(scale.x, scale.y, value));
+	}
+}
+
+void HXInspectorWidget::FogToggled(bool useFog)
+{
+	if (fog)
+	{
+		fog->useFog = useFog;
+	}
+}
+
+void HXInspectorWidget::FogTypeActivated(int index)
+{
+	// TODO: 暂时只实现了线性雾
+}
+
+void HXInspectorWidget::FogColorRChanged(int value)
+{
+	if (fog)
+	{
+		fog->fogColor.r = value;
+	}
+}
+void HXInspectorWidget::FogColorGChanged(int value)
+{
+	if (fog)
+	{
+		fog->fogColor.g = value;
+	}
+}
+void HXInspectorWidget::FogColorBChanged(int value)
+{
+	if (fog)
+	{
+		fog->fogColor.b = value;
+	}
+}
+
+void HXInspectorWidget::FogStartChanged(double value)
+{
+	if (fog && fog->fogType == HXFogType::FOG_Linear)
+	{
+		HXFogLinear* fogLinear = (HXFogLinear*)fog;
+		fogLinear->fogStart = value;
+	}
+}
+
+void HXInspectorWidget::FogEndChanged(double value)
+{
+	if (fog && fog->fogType == HXFogType::FOG_Linear)
+	{
+		HXFogLinear* fogLinear = (HXFogLinear*)fog;
+		fogLinear->fogEnd = value;
 	}
 }

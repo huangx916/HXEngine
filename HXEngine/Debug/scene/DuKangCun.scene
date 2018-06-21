@@ -42,7 +42,7 @@
 		<At Ax="0" Ay="0" Az="0"/>
 		<Up Ux="0" Uy="1" Uz="0"/>
 	</Camera>
-	<Fog Use="1" Type="0" R="128" G="128" B="128" Start="10" End="30"/>
+	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="15" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
 	<Lights>
 		<Light Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">

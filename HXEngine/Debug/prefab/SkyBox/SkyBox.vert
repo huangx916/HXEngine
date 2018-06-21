@@ -17,6 +17,12 @@ out vec4 vs_fs_diffuse_color;
 out vec2 vs_fs_texcoord;
 out vec3 vs_fs_normal;
 
+///////////////////////////////////////////////////////
+//// fog
+//uniform int useFog;
+//out float vs_fs_distance;
+///////////////////////////////////////////////////////
+
 void main()
 {
 	gl_Position = mvp_matrix * position;
@@ -24,4 +30,13 @@ void main()
 	//vs_fs_texcoord = texcoord * MainTexture_ST.xy + MainTexture_ST.zw;
 	vs_fs_texcoord = texcoord;
 	vs_fs_normal = normal;
+	
+	/////////////////////////////////////////////////////////////////
+	//// fog
+	//if(useFog == 1)
+	//{
+	//	vec4 mvPosition = view_matrix * model_matrix * position;
+	//	vs_fs_distance = sqrt(mvPosition.x * mvPosition.x + mvPosition.y * mvPosition.y + mvPosition.z * mvPosition.z);
+	//}
+	/////////////////////////////////////////////////////////////////
 }

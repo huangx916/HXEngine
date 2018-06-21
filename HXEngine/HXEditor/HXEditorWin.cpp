@@ -5,6 +5,7 @@
 #include <QFileDialog.h>
 #include <QMessageBox.h>
 #include "HXSceneManager.h"
+#include "HXFogLinear.h"
 
 HXEditorWin* HXEditorWin::m_pInstance = NULL;
 HXEditorWin::HXEditorWin(QWidget *parent)
@@ -16,7 +17,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 {
 	ui.setupUi(this);
 	m_pGameWidget = new HXGameWidget();
-	m_pHierarchyWidget = new HXHierarchyWidget(HXEditorWin::updateInspector);
+	m_pHierarchyWidget = new HXHierarchyWidget(HXEditorWin::updateGameObject);
 	m_pInspectorWidget = new HXInspectorWidget();
 
 	m_pMainLayout = new QHBoxLayout();
@@ -79,7 +80,7 @@ void HXEditorWin::loadScene()
 		//QTextStream in(&file);
 		//textEdit->setText(in.readAll());
 		setWindowTitle(path);
-		m_pGameWidget->LoadScene(path, HXEditorWin::updateHierarchy);
+		m_pGameWidget->LoadScene(path, HXEditorWin::loadSceneCallBack);
 		file.close();
 	}
 	else {
@@ -194,8 +195,41 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "		<Up Ux=\"0\" Uy=\"1\" Uz=\"0\"/>\n";
 	out << "	</Camera>\n";
 
-	//TODO: Fog
-	out << "	<Fog Use=\"1\" Type=\"0\" R=\"128\" G=\"128\" B=\"128\" Start=\"10\" End=\"30\"/>\n";
+	// Fog
+	HXFogBase* fogBase = HXSceneManager::GetInstance()->fog;
+	out << "	<Fog Use=\"";
+	if (fogBase->useFog)
+	{
+		out << 1;
+	}
+	else
+	{
+		out << 0;
+	}
+	out << "\" Type=\"";
+	out << fogBase->fogType;
+	out << "\" R=\"";
+	out << fogBase->fogColor.r;
+	out << "\" G=\"";
+	out << fogBase->fogColor.g;
+	out << "\" B=\"";
+	out << fogBase->fogColor.b;
+	if (fogBase->fogType == HXFogType::FOG_Linear)
+	{
+		out << "\" Start=\"";
+		HXFogLinear* fogLinear = (HXFogLinear*)fogBase;
+		out << fogLinear->fogStart;
+		out << "\" End=\"";
+		out << fogLinear->fogEnd;
+	}
+	else
+	{
+		out << "\" Start=\"";
+		out << 0;
+		out << "\" End=\"";
+		out << 0;
+	}
+	out << "\"/>\n";
 
 	//TODO: Ambient
 	out << "	<Ambient R=\"50\" G=\"50\" B=\"50\"/>\n";
@@ -298,12 +332,13 @@ void HXEditorWin::loadGameObject()
 	}
 }
 
-void HXEditorWin::updateHierarchy()
+void HXEditorWin::loadSceneCallBack()
 {
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateGameObjectTree();
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 }
 
-void HXEditorWin::updateInspector(HX3D::HXGameObject* gameObject)
+void HXEditorWin::updateGameObject(HX3D::HXGameObject* gameObject)
 {
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetGameObjectInfo(gameObject);
 }

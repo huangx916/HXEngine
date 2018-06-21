@@ -28,8 +28,8 @@ private:
 	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level, int fatherPriority);
 	void serializeScene(QTextStream& out);
 
-	static void updateHierarchy();
-	static void updateInspector(HX3D::HXGameObject* gameObject);
+	static void loadSceneCallBack();
+	static void updateGameObject(HX3D::HXGameObject* gameObject);
 
 	Ui::HXEditorWinClass ui;
 	QHBoxLayout* m_pMainLayout;

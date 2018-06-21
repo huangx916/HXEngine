@@ -13,6 +13,16 @@ in vec3 vs_fs_normal;
 
 out vec4 fColor;
 
+/////////////////////////////////////////////////////
+//// fog
+//uniform int useFog;
+//uniform int fogType;
+//uniform vec3 fogColor;
+//uniform float fogStart;
+//uniform float fogEnd;
+//in float vs_fs_distance;
+/////////////////////////////////////////////////////
+
 void main()
 {
 	//fColor = vec4(0.0, 1.0, 0.0, 1.0);
@@ -52,4 +62,18 @@ void main()
 		fColor = texture(Texture2, vs_fs_texcoord);
 	}
 	fColor = vec4(fColor.xyz, 1);
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+	//if(useFog == 1)
+	//{
+	//	// linear fog
+	//	if(fogType == 0)
+	//	{
+	//		vec4 _fogColor = vec4(fogColor, 1.0);
+	//		float fog  = (vs_fs_distance - fogStart)/fogEnd;
+	//		fog = clamp(fog, 0.0, 1.0);
+	//		fColor = mix(fColor, _fogColor, fog);
+	//	}
+	//}
+	//////////////////////////////////////////////////////////////////////////////////////
 }

@@ -182,13 +182,13 @@ void HXGameWidget::OnKeyboard(unsigned char key, int x, int y)
 	{
 	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(1, 0, 0));
 	}*/
-	if (key == 'f' || key == 'F')
+	/*if (key == 'f' || key == 'F')
 	{
 		if (HXSceneManager::GetInstance()->fog)
 		{
 			HXSceneManager::GetInstance()->UseFog(!HXSceneManager::GetInstance()->fog->useFog);
 		}
-	}
+	}*/
 }
 
 void HXGameWidget::OnMouseMove(int nButton, int deltaX, int deltaY)
