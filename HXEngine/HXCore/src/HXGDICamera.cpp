@@ -42,8 +42,15 @@ namespace HX3D
 
 	void HXGDICamera::move(const HXVector3D& mov)
 	{
-		mFrustum->camPosition += HXVector4D(mov.x, mov.y, mov.z, 1);
-		mFrustum->lookTarget += HXVector4D(mov.x, mov.y, mov.z, 1);;
+		//mFrustum->camPosition += HXVector4D(mov.x, mov.y, mov.z, 1);
+		//mFrustum->lookTarget += HXVector4D(mov.x, mov.y, mov.z, 1);
+
+		HXQuaternion q;
+		q.FromEulerDegree(mFrustum->mPitch, mFrustum->mYaw, mFrustum->mRoll);
+		HXVector3D v = mov;
+		v = q.Transform(v);
+		mFrustum->camPosition += HXVector4D(v, 0);
+		mFrustum->lookTarget += HXVector4D(v, 0);
 	}
 
 	void HXGDICamera::yaw(float fDegree)
@@ -65,43 +72,6 @@ namespace HX3D
 
 		mFrustum->mPitch += fDegree;
 	}
-
-	//void HXGDICamera::YawLockTarget(float fDegree)
-	//{
-	//	HXVector4D distance = mFrustum->camPosition - mFrustum->lookTarget;
-	//	HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
-	//	distance = GetVector4DMulMatrix44(distance, matRotate);
-	//	mFrustum->camPosition = mFrustum->lookTarget + distance;
-	//}
-
-	//void HXGDICamera::PitchLockTarget(float fDegree)
-	//{
-	//	HXVector4D vec = mFrustum->camPosition - mFrustum->lookTarget;
-
-	//	float tanRadian = vec.x / vec.z;
-	//	float fRadian = atan(tanRadian);
-	//	float fDegreeY = Radian_TO_Degree(fRadian);
-	//	if (vec.z < 0)
-	//	{
-	//		fDegreeY += 180;
-	//	}
-	//	// 先旋转到朝Z轴负方向
-	//	HXMatrix44 matRotate = GetRotateMatrix44Y(-fDegreeY);
-	//	vec = GetVector4DMulMatrix44(vec, matRotate);
-	//	// pitch
-	//	matRotate = GetRotateMatrix44X(fDegree);
-	//	vec = GetVector4DMulMatrix44(vec, matRotate);
-	//	// 恢复
-	//	matRotate = GetRotateMatrix44Y(fDegreeY);
-	//	vec = GetVector4DMulMatrix44(vec, matRotate);
-
-	//	mFrustum->camPosition = mFrustum->lookTarget + vec;
-
-	//	/*HXVector4D distance = mFrustum->camPosition - mFrustum->lookTarget;
-	//	HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
-	//	distance = GetVector4DMulMatrix44(distance, matRotate);
-	//	mFrustum->camPosition = mFrustum->lookTarget + distance;*/
-	//}
 
 	void HXGDICamera::Forward(float fDistance)
 	{

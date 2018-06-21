@@ -1,47 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<Prefabs>
-		<!--
-		<PrefabGameObj Name="SkyBoxGO" Prefab="prefab/SkyBox/SkyBox.prefab" Priority="0" CastShadow="0">
-			<Position Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</PrefabGameObj>
-		-->
-		<!--
-		<PrefabGameObj Name="DuKangCun" Prefab="prefab/Terrain/Terrain.prefab" Priority="10" CastShadow="0">
-			<Postion Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</PrefabGameObj>
-		-->
-		<!--
-		<PrefabGameObj Name="DogPrefab" Prefab="prefab/Dog/Dog.prefab" Priority="20" CastShadow="1">
-			<Postion Px="5" Py="-2.5" Pz="5"/>
-			<Rotation Rx="0" Ry="-90" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</PrefabGameObj>
-		-->
-		<!--
-		<PrefabGameObj Name="HumanoidPrefab" Prefab="prefab/Humanoid/Humanoid.prefab" Priority="20">
-			<Postion Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</PrefabGameObj>
-		-->
-		<!--
-		<PrefabGameObj Name="Building01Prefab" Prefab="prefab/Building01/Building01.prefab" Priority="20" CastShadow="1">
-			<Postion Px="0" Py="-2.5" Pz="5"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</PrefabGameObj>
-		-->
-		<PrefabGameObj Name="DogPrefab" Prefab="prefab/Dog/Dog.prefab" Priority="20" CastShadow="1">
+	<GameObjects>
+		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="20" CastShadow="1">
 			<Postion Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
-		</PrefabGameObj>
-	</Prefabs>
+		</GameObj>
+	</GameObjects>
 	<Camera Ffov="90" NearZ="0.1" FarZ="1000">
 		<Eye Ex="0" Ey="0.5" Ez="1.5"/>
 		<At Ax="0" Ay="0" Az="0"/>
