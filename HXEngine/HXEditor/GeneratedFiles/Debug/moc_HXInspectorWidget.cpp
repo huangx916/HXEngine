@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_HXInspectorWidget_t {
-    QByteArrayData data[21];
-    char stringdata0[336];
+    QByteArrayData data[24];
+    char stringdata0[399];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,7 +51,10 @@ QT_MOC_LITERAL(16, 255, 16), // "FogColorRChanged"
 QT_MOC_LITERAL(17, 272, 16), // "FogColorGChanged"
 QT_MOC_LITERAL(18, 289, 16), // "FogColorBChanged"
 QT_MOC_LITERAL(19, 306, 15), // "FogStartChanged"
-QT_MOC_LITERAL(20, 322, 13) // "FogEndChanged"
+QT_MOC_LITERAL(20, 322, 13), // "FogEndChanged"
+QT_MOC_LITERAL(21, 336, 20), // "AmbientColorRChanged"
+QT_MOC_LITERAL(22, 357, 20), // "AmbientColorGChanged"
+QT_MOC_LITERAL(23, 378, 20) // "AmbientColorBChanged"
 
     },
     "HXInspectorWidget\0PositionXValueChanged\0"
@@ -62,7 +65,9 @@ QT_MOC_LITERAL(20, 322, 13) // "FogEndChanged"
     "ScaleZValueChanged\0FogToggled\0useFog\0"
     "FogTypeActivated\0index\0FogColorRChanged\0"
     "FogColorGChanged\0FogColorBChanged\0"
-    "FogStartChanged\0FogEndChanged"
+    "FogStartChanged\0FogEndChanged\0"
+    "AmbientColorRChanged\0AmbientColorGChanged\0"
+    "AmbientColorBChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -72,7 +77,7 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -80,22 +85,25 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   94,    2, 0x0a /* Public */,
-       4,    1,   97,    2, 0x0a /* Public */,
-       5,    1,  100,    2, 0x0a /* Public */,
-       6,    1,  103,    2, 0x0a /* Public */,
-       7,    1,  106,    2, 0x0a /* Public */,
-       8,    1,  109,    2, 0x0a /* Public */,
-       9,    1,  112,    2, 0x0a /* Public */,
-      10,    1,  115,    2, 0x0a /* Public */,
-      11,    1,  118,    2, 0x0a /* Public */,
-      12,    1,  121,    2, 0x0a /* Public */,
-      14,    1,  124,    2, 0x0a /* Public */,
-      16,    1,  127,    2, 0x0a /* Public */,
-      17,    1,  130,    2, 0x0a /* Public */,
-      18,    1,  133,    2, 0x0a /* Public */,
-      19,    1,  136,    2, 0x0a /* Public */,
-      20,    1,  139,    2, 0x0a /* Public */,
+       1,    1,  109,    2, 0x0a /* Public */,
+       4,    1,  112,    2, 0x0a /* Public */,
+       5,    1,  115,    2, 0x0a /* Public */,
+       6,    1,  118,    2, 0x0a /* Public */,
+       7,    1,  121,    2, 0x0a /* Public */,
+       8,    1,  124,    2, 0x0a /* Public */,
+       9,    1,  127,    2, 0x0a /* Public */,
+      10,    1,  130,    2, 0x0a /* Public */,
+      11,    1,  133,    2, 0x0a /* Public */,
+      12,    1,  136,    2, 0x0a /* Public */,
+      14,    1,  139,    2, 0x0a /* Public */,
+      16,    1,  142,    2, 0x0a /* Public */,
+      17,    1,  145,    2, 0x0a /* Public */,
+      18,    1,  148,    2, 0x0a /* Public */,
+      19,    1,  151,    2, 0x0a /* Public */,
+      20,    1,  154,    2, 0x0a /* Public */,
+      21,    1,  157,    2, 0x0a /* Public */,
+      22,    1,  160,    2, 0x0a /* Public */,
+      23,    1,  163,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Double,    3,
@@ -114,6 +122,9 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Double,    3,
     QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Int,    3,
 
        0        // eod
 };
@@ -140,6 +151,9 @@ void HXInspectorWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 13: _t->FogColorBChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 14: _t->FogStartChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 15: _t->FogEndChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 16: _t->AmbientColorRChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 17: _t->AmbientColorGChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 18: _t->AmbientColorBChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -170,13 +184,13 @@ int HXInspectorWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 19;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 19)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 19;
     }
     return _id;
 }

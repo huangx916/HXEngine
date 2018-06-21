@@ -24,6 +24,7 @@ public:
 
 	void SetGameObjectInfo(HXGameObject* pGameObject);
 	void SetFogInfo(HXFogBase* pFog);
+	void SetAmbientInfo(HXCOLOR* pAmbient);
 
 private:
 	void SetGameObjectName();
@@ -40,6 +41,11 @@ private:
 	QDoubleSpinBox* spinboxFogStart;
 	QDoubleSpinBox* spinboxFogEnd;
 
+	// ambient
+	QSpinBox* spinboxAmbientColorR;
+	QSpinBox* spinboxAmbientColorG;
+	QSpinBox* spinboxAmbientColorB;
+
 	// gameobject
 	QLineEdit* editGameObjectName;
 	QDoubleSpinBox* spinboxPositionX;
@@ -54,6 +60,7 @@ private:
 
 	HXGameObject* selectedGameObject;
 	HXFogBase* fog;
+	HXCOLOR* ambient;
 
 	void GameObjectNameChanged(const QString& name);
 	public Q_SLOTS:
@@ -78,4 +85,8 @@ private:
 
 	void FogStartChanged(double value);
 	void FogEndChanged(double value);
+
+	void AmbientColorRChanged(int value);
+	void AmbientColorGChanged(int value);
+	void AmbientColorBChanged(int value);
 };

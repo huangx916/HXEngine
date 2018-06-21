@@ -6,7 +6,10 @@
 #include "HXFogLinear.h"
 #include <QHeaderView.h>
 
-HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent), selectedGameObject(NULL), fog(NULL)
+HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
+, selectedGameObject(NULL)
+, fog(NULL)
+, ambient(NULL)
 {
 	// fog
 	checkboxFog = new QCheckBox();
@@ -32,6 +35,15 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent), sel
 	spinboxFogEnd = new QDoubleSpinBox();
 	spinboxFogEnd->setRange(MIN, MAX);
 
+	// ambient
+	spinboxAmbientColorR = new QSpinBox();
+	spinboxAmbientColorR->setRange(COLOR_MIN, COLOR_MAX);
+
+	spinboxAmbientColorG = new QSpinBox();
+	spinboxAmbientColorG->setRange(COLOR_MIN, COLOR_MAX);
+
+	spinboxAmbientColorB = new QSpinBox();
+	spinboxAmbientColorB->setRange(COLOR_MIN, COLOR_MAX);
 
 	// gameobject
 	editGameObjectName = new QLineEdit();
@@ -81,21 +93,21 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent), sel
 	
 	// fog
 	QTreeWidgetItem *fog = new QTreeWidgetItem;
-	fog->setText(0, "FOG");
+	fog->setText(0, "Fog");
 	treeWidget->addTopLevelItem(fog);
 	// use fog
 	QTreeWidgetItem *usefog = new QTreeWidgetItem;
-	usefog->setText(0, "use fog");
+	usefog->setText(0, "enable");
 	fog->addChild(usefog);
 	treeWidget->setItemWidget(usefog, 1, checkboxFog);
 	// fog type
 	QTreeWidgetItem *fogtype = new QTreeWidgetItem;
-	fogtype->setText(0, "fog type");
+	fogtype->setText(0, "type");
 	fog->addChild(fogtype);
 	treeWidget->setItemWidget(fogtype, 1, comboboxFogType);
 	// fog color
 	QTreeWidgetItem *fogcolor = new QTreeWidgetItem;
-	fogcolor->setText(0, "fog color");
+	fogcolor->setText(0, "color");
 	fog->addChild(fogcolor);
 		// fog color R
 	QTreeWidgetItem *fogcolorR = new QTreeWidgetItem;
@@ -122,6 +134,30 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent), sel
 	fogend->setText(0, "end");
 	fog->addChild(fogend);
 	treeWidget->setItemWidget(fogend, 1, spinboxFogEnd);
+
+	//ambient
+	QTreeWidgetItem *ambient = new QTreeWidgetItem;
+	ambient->setText(0, "AmbientLight");
+	treeWidget->addTopLevelItem(ambient);
+	// ambient color
+	QTreeWidgetItem *ambientcolor = new QTreeWidgetItem;
+	ambientcolor->setText(0, "color");
+	ambient->addChild(ambientcolor);
+	// ambient color R
+	QTreeWidgetItem *ambientcolorR = new QTreeWidgetItem;
+	ambientcolorR->setText(0, "R");
+	ambientcolor->addChild(ambientcolorR);
+	treeWidget->setItemWidget(ambientcolorR, 1, spinboxAmbientColorR);
+	// ambient color G
+	QTreeWidgetItem *ambientcolorG = new QTreeWidgetItem;
+	ambientcolorG->setText(0, "G");
+	ambientcolor->addChild(ambientcolorG);
+	treeWidget->setItemWidget(ambientcolorG, 1, spinboxAmbientColorG);
+	// ambient color B
+	QTreeWidgetItem *ambientcolorB = new QTreeWidgetItem;
+	ambientcolorB->setText(0, "B");
+	ambientcolor->addChild(ambientcolorB);
+	treeWidget->setItemWidget(ambientcolorB, 1, spinboxAmbientColorB);
 
 	// gameobject
 	QTreeWidgetItem *gameobject = new QTreeWidgetItem;
@@ -257,6 +293,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent), sel
 	connect(spinboxFogStart, SIGNAL(valueChanged(double)), this, SLOT(FogStartChanged(double)));
 	connect(spinboxFogEnd, SIGNAL(valueChanged(double)), this, SLOT(FogEndChanged(double)));
 
+	// ambient
+	connect(spinboxAmbientColorR, SIGNAL(valueChanged(int)), this, SLOT(AmbientColorRChanged(int)));
+	connect(spinboxAmbientColorG, SIGNAL(valueChanged(int)), this, SLOT(AmbientColorGChanged(int)));
+	connect(spinboxAmbientColorB, SIGNAL(valueChanged(int)), this, SLOT(AmbientColorBChanged(int)));
 
 	// gameobject
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
@@ -312,6 +352,17 @@ void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
 			spinboxFogStart->setValue(pFogLinear->fogStart);
 			spinboxFogEnd->setValue(pFogLinear->fogEnd);
 		}
+	}
+}
+
+void HXInspectorWidget::SetAmbientInfo(HXCOLOR* pAmbient)
+{
+	ambient = pAmbient;
+	if (ambient)
+	{
+		spinboxAmbientColorR->setValue(pAmbient->r);
+		spinboxAmbientColorG->setValue(pAmbient->g);
+		spinboxAmbientColorB->setValue(pAmbient->b);
 	}
 }
 
@@ -494,5 +545,27 @@ void HXInspectorWidget::FogEndChanged(double value)
 	{
 		HXFogLinear* fogLinear = (HXFogLinear*)fog;
 		fogLinear->fogEnd = value;
+	}
+}
+
+void HXInspectorWidget::AmbientColorRChanged(int value)
+{
+	if (ambient)
+	{
+		ambient->r = value;
+	}
+}
+void HXInspectorWidget::AmbientColorGChanged(int value)
+{
+	if (ambient)
+	{
+		ambient->g = value;
+	}
+}
+void HXInspectorWidget::AmbientColorBChanged(int value)
+{
+	if (ambient)
+	{
+		ambient->b = value;
 	}
 }

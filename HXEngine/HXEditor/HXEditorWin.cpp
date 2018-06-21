@@ -29,6 +29,11 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
 	connect(ui.actionSaveScene, &QAction::triggered, this, &HXEditorWin::saveScene);
 	//connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
+
+	/* set background color */
+	//QPalette palette(palette());
+	//palette.setColor(QPalette::Background, Qt::black);
+	//setPalette(palette);
 }
 
 HXEditorWin::~HXEditorWin()
@@ -231,8 +236,15 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	}
 	out << "\"/>\n";
 
-	//TODO: Ambient
-	out << "	<Ambient R=\"50\" G=\"50\" B=\"50\"/>\n";
+	// Ambient
+	HXCOLOR* Ambient = &(HXSceneManager::GetInstance()->ambient);
+	out << "	<Ambient R=\"";
+	out << Ambient->r;
+	out << "\" G=\"";
+	out << Ambient->g;
+	out << "\" B=\"";
+	out << Ambient->b;
+	out << "\"/>\n";
 
 	// Lights
 	out << "	<Lights>\n";
@@ -336,6 +348,7 @@ void HXEditorWin::loadSceneCallBack()
 {
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateGameObjectTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
 }
 
 void HXEditorWin::updateGameObject(HX3D::HXGameObject* gameObject)

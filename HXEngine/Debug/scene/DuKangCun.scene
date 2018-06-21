@@ -38,7 +38,7 @@
 		</GameObj>
 	</GameObjects>
 	<Camera Ffov="90" NearZ="1" FarZ="1000">
-		<Eye Ex="0" Ey="4" Ez="15"/>
+		<Eye Ex="40" Ey="4" Ez="15"/>
 		<At Ax="0" Ay="0" Az="0"/>
 		<Up Ux="0" Uy="1" Uz="0"/>
 	</Camera>
