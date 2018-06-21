@@ -146,7 +146,7 @@ void HXInspectorWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
 }
 
 QT_INIT_METAOBJECT const QMetaObject HXInspectorWidget::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_HXInspectorWidget.data,
+    { &QTreeWidget::staticMetaObject, qt_meta_stringdata_HXInspectorWidget.data,
       qt_meta_data_HXInspectorWidget,  qt_static_metacall, nullptr, nullptr}
 };
 
@@ -161,12 +161,12 @@ void *HXInspectorWidget::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_HXInspectorWidget.stringdata0))
         return static_cast<void*>(this);
-    return QWidget::qt_metacast(_clname);
+    return QTreeWidget::qt_metacast(_clname);
 }
 
 int HXInspectorWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QTreeWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

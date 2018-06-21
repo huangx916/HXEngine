@@ -7,21 +7,19 @@ HXHierarchyWidget::HXHierarchyWidget(FPtr callback, QWidget * parent) : QTreeWid
 {
 	clickCallback = callback;
 
+	QFont font("Microsoft YaHei", 10, 75);
+
 	//setColumnCount(1);
 
-	QStringList headers;
-	headers << "Hierarchy";// << "Number";
-	setHeaderLabels(headers);
+	//QStringList headers;
+	//headers << "Hierarchy";// << "Number";
+	//setHeaderLabels(headers);
 
-	//QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Root")));
-
-	//new QTreeWidgetItem(root, QStringList(QString("Leaf 1")));
-	//QTreeWidgetItem *leaf2 = new QTreeWidgetItem(root, QStringList(QString("Leaf 2")));
-	////leaf2->setCheckState(0, Qt::Checked);
-
-	//QList<QTreeWidgetItem *> rootList;
-	//rootList << root;
-	//insertTopLevelItems(0, rootList);
+	QTreeWidgetItem *title = new QTreeWidgetItem;
+	title->setFont(0, font);
+	title->setText(0, "Hierarchy");
+	setHeaderItem(title);
+	
 
 	//connect(this, &QTreeWidget::currentItemChanged, this, &HXHierarchyWidget::GameObjectChange);
 	connect(this, &QTreeWidget::itemClicked, this, &HXHierarchyWidget::GameObjectClick);

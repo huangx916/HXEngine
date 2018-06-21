@@ -7,9 +7,10 @@
 #include <QLineEdit.h>
 #include <QCheckBox.h>
 #include <QComboBox.h>
+#include <QTreeWidget.h>
 
 using namespace HX3D;
-class HXInspectorWidget : public QWidget
+class HXInspectorWidget : public QTreeWidget
 {
 	Q_OBJECT
 

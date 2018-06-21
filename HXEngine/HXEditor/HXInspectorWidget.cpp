@@ -4,12 +4,13 @@
 #include <QBoxLayout.h>
 #include <QFormLayout>
 #include "HXFogLinear.h"
+#include <QHeaderView.h>
 
-HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent), selectedGameObject(NULL), fog(NULL)
+HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent), selectedGameObject(NULL), fog(NULL)
 {
 	// fog
 	checkboxFog = new QCheckBox();
-	checkboxFog->setText("use fog");
+	//checkboxFog->setText("use fog");
 
 	comboboxFogType = new QComboBox();
 	comboboxFogType->addItem("FOG_Linear");
@@ -63,53 +64,186 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QWidget(parent), selecte
 	spinboxScaleZ->setRange(MIN, MAX);
 
 	// ------------------------------------Layout--------------------------------------------
-	QFormLayout* inspectorLayout = new QFormLayout();
 	QFont font("Microsoft YaHei", 10, 75);
 	QFont subFont("Microsoft YaHei", 8, 75);
 
+	QTreeWidget* treeWidget = this;
+	QHeaderView *head = treeWidget->header();
+	head->setSectionResizeMode(QHeaderView::ResizeToContents);
+	treeWidget->setIndentation(8);
+	treeWidget->setColumnCount(2);
+
+	QTreeWidgetItem *title = new QTreeWidgetItem;
+	title->setFont(0, font);
+	title->setText(0, "Inspector");
+	title->setText(1, "");
+	treeWidget->setHeaderItem(title);
+	
 	// fog
-	QLabel* fog = new QLabel(tr("Fog"));
-	fog->setFont(font);
-	inspectorLayout->addRow(fog);
-	inspectorLayout->addRow(checkboxFog);
-	inspectorLayout->addRow(QStringLiteral("fog type"), comboboxFogType);
-
-	inspectorLayout->addRow(QStringLiteral("Color R"), spinboxFogColorR);
-	inspectorLayout->addRow(QStringLiteral("Color G"), spinboxFogColorG);
-	inspectorLayout->addRow(QStringLiteral("Color B"), spinboxFogColorB);
-
-	inspectorLayout->addRow(QStringLiteral("Color Start"), spinboxFogStart);
-	inspectorLayout->addRow(QStringLiteral("Color End"), spinboxFogEnd);
-
-
-
-	inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
+	QTreeWidgetItem *fog = new QTreeWidgetItem;
+	fog->setText(0, "FOG");
+	treeWidget->addTopLevelItem(fog);
+	// use fog
+	QTreeWidgetItem *usefog = new QTreeWidgetItem;
+	usefog->setText(0, "use fog");
+	fog->addChild(usefog);
+	treeWidget->setItemWidget(usefog, 1, checkboxFog);
+	// fog type
+	QTreeWidgetItem *fogtype = new QTreeWidgetItem;
+	fogtype->setText(0, "fog type");
+	fog->addChild(fogtype);
+	treeWidget->setItemWidget(fogtype, 1, comboboxFogType);
+	// fog color
+	QTreeWidgetItem *fogcolor = new QTreeWidgetItem;
+	fogcolor->setText(0, "fog color");
+	fog->addChild(fogcolor);
+		// fog color R
+	QTreeWidgetItem *fogcolorR = new QTreeWidgetItem;
+	fogcolorR->setText(0, "R");
+	fogcolor->addChild(fogcolorR);
+	treeWidget->setItemWidget(fogcolorR, 1, spinboxFogColorR);
+		// fog color G
+	QTreeWidgetItem *fogcolorG = new QTreeWidgetItem;
+	fogcolorG->setText(0, "G");
+	fogcolor->addChild(fogcolorG);
+	treeWidget->setItemWidget(fogcolorG, 1, spinboxFogColorG);
+		// fog color B
+	QTreeWidgetItem *fogcolorB = new QTreeWidgetItem;
+	fogcolorB->setText(0, "B");
+	fogcolor->addChild(fogcolorB);
+	treeWidget->setItemWidget(fogcolorB, 1, spinboxFogColorB);
+	// fog start
+	QTreeWidgetItem *fogstart = new QTreeWidgetItem;
+	fogstart->setText(0, "start");
+	fog->addChild(fogstart);
+	treeWidget->setItemWidget(fogstart, 1, spinboxFogStart);
+	// fog end
+	QTreeWidgetItem *fogend = new QTreeWidgetItem;
+	fogend->setText(0, "end");
+	fog->addChild(fogend);
+	treeWidget->setItemWidget(fogend, 1, spinboxFogEnd);
 
 	// gameobject
-	QLabel* gameobject = new QLabel(tr("GameObject"));
-	gameobject->setFont(font);
-	inspectorLayout->addRow(gameobject);
-	inspectorLayout->addRow(editGameObjectName);
+	QTreeWidgetItem *gameobject = new QTreeWidgetItem;
+	gameobject->setText(0, "GameObject");
+	treeWidget->addTopLevelItem(gameobject);
+	gameobject->setHidden(false);
+	// gameobject name
+	QTreeWidgetItem *goname = new QTreeWidgetItem;
+	goname->setText(0, "name");
+	gameobject->addChild(goname);
+	treeWidget->setItemWidget(goname, 1, editGameObjectName);
+	// gameobject transform
+	QTreeWidgetItem *transform = new QTreeWidgetItem;
+	transform->setText(0, "transform");
+	gameobject->addChild(transform);
+	// gameobject position
+	QTreeWidgetItem *position = new QTreeWidgetItem;
+	position->setText(0, "position");
+	transform->addChild(position);
+		// position X
+	QTreeWidgetItem *positionX = new QTreeWidgetItem;
+	positionX->setText(0, "X");
+	position->addChild(positionX);
+	treeWidget->setItemWidget(positionX, 1, spinboxPositionX);
+		// position Y
+	QTreeWidgetItem *positionY = new QTreeWidgetItem;
+	positionY->setText(0, "Y");
+	position->addChild(positionY);
+	treeWidget->setItemWidget(positionY, 1, spinboxPositionY);
+		// position Z
+	QTreeWidgetItem *positionZ = new QTreeWidgetItem;
+	positionZ->setText(0, "Z");
+	position->addChild(positionZ);
+	treeWidget->setItemWidget(positionZ, 1, spinboxPositionZ);
+
+	// gameobject rotation
+	QTreeWidgetItem *rotation = new QTreeWidgetItem;
+	rotation->setText(0, "rotation");
+	transform->addChild(rotation);
+		// rotation X
+	QTreeWidgetItem *rotationX = new QTreeWidgetItem;
+	rotationX->setText(0, "X");
+	rotation->addChild(rotationX);
+	treeWidget->setItemWidget(rotationX, 1, spinboxRotationX);
+		// rotation Y
+	QTreeWidgetItem *rotationY = new QTreeWidgetItem;
+	rotationY->setText(0, "Y");
+	rotation->addChild(rotationY);
+	treeWidget->setItemWidget(rotationY, 1, spinboxRotationY);
+		// rotation Z
+	QTreeWidgetItem *rotationZ = new QTreeWidgetItem;
+	rotationZ->setText(0, "Z");
+	rotation->addChild(rotationZ);
+	treeWidget->setItemWidget(rotationZ, 1, spinboxRotationZ);
+
+	// gameobject scale
+	QTreeWidgetItem *scale = new QTreeWidgetItem;
+	scale->setText(0, "scale");
+	transform->addChild(scale);
+		// scale X
+	QTreeWidgetItem *scaleX = new QTreeWidgetItem;
+	scaleX->setText(0, "X");
+	scale->addChild(scaleX);
+	treeWidget->setItemWidget(scaleX, 1, spinboxScaleX);
+		// scale Y
+	QTreeWidgetItem *scaleY = new QTreeWidgetItem;
+	scaleY->setText(0, "Y");
+	scale->addChild(scaleY);
+	treeWidget->setItemWidget(scaleY, 1, spinboxScaleY);
+		// scale Z
+	QTreeWidgetItem *scaleZ = new QTreeWidgetItem;
+	scaleZ->setText(0, "Z");
+	scale->addChild(scaleZ);
+	treeWidget->setItemWidget(scaleZ, 1, spinboxScaleZ);
+
+	
+	// ------------------------------------QFormLayout-------------------------------------
+	//QFormLayout* inspectorLayout = new QFormLayout();
+	//QFont font("Microsoft YaHei", 10, 75);
+	//QFont subFont("Microsoft YaHei", 8, 75);
+
+	//// fog
+	//QLabel* fog = new QLabel(tr("Fog"));
+	//fog->setFont(font);
+	//inspectorLayout->addRow(fog);
+	//inspectorLayout->addRow(checkboxFog);
+	//inspectorLayout->addRow(QStringLiteral("fog type"), comboboxFogType);
+
+	//inspectorLayout->addRow(QStringLiteral("Color R"), spinboxFogColorR);
+	//inspectorLayout->addRow(QStringLiteral("Color G"), spinboxFogColorG);
+	//inspectorLayout->addRow(QStringLiteral("Color B"), spinboxFogColorB);
+
+	//inspectorLayout->addRow(QStringLiteral("Color Start"), spinboxFogStart);
+	//inspectorLayout->addRow(QStringLiteral("Color End"), spinboxFogEnd);
 
 	//inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
 
-	QLabel* transform = new QLabel(tr("Transform"));
-	transform->setFont(subFont);
-	inspectorLayout->addRow(transform);
-	inspectorLayout->addRow(QStringLiteral("Position X"), spinboxPositionX);
-	inspectorLayout->addRow(QStringLiteral("Position Y"), spinboxPositionY);
-	inspectorLayout->addRow(QStringLiteral("Position Z"), spinboxPositionZ);
-	inspectorLayout->addRow(new QLabel(tr("")));
-	inspectorLayout->addRow(QStringLiteral("Rotation X"), spinboxRotationX);
-	inspectorLayout->addRow(QStringLiteral("Rotation Y"), spinboxRotationY);
-	inspectorLayout->addRow(QStringLiteral("Rotation Z"), spinboxRotationZ);
-	inspectorLayout->addRow(new QLabel(tr("")));
-	inspectorLayout->addRow(QStringLiteral("Scale X"), spinboxScaleX);
-	inspectorLayout->addRow(QStringLiteral("Scale Y"), spinboxScaleY);
-	inspectorLayout->addRow(QStringLiteral("Scale Z"), spinboxScaleZ);
-	inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
+	//// gameobject
+	//QLabel* gameobject = new QLabel(tr("GameObject"));
+	//gameobject->setFont(font);
+	//inspectorLayout->addRow(gameobject);
+	//inspectorLayout->addRow(editGameObjectName);
 
-	setLayout(inspectorLayout);
+	////inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
+
+	//QLabel* transform = new QLabel(tr("Transform"));
+	//transform->setFont(subFont);
+	//inspectorLayout->addRow(transform);
+	//inspectorLayout->addRow(QStringLiteral("Position X"), spinboxPositionX);
+	//inspectorLayout->addRow(QStringLiteral("Position Y"), spinboxPositionY);
+	//inspectorLayout->addRow(QStringLiteral("Position Z"), spinboxPositionZ);
+	//inspectorLayout->addRow(new QLabel(tr("")));
+	//inspectorLayout->addRow(QStringLiteral("Rotation X"), spinboxRotationX);
+	//inspectorLayout->addRow(QStringLiteral("Rotation Y"), spinboxRotationY);
+	//inspectorLayout->addRow(QStringLiteral("Rotation Z"), spinboxRotationZ);
+	//inspectorLayout->addRow(new QLabel(tr("")));
+	//inspectorLayout->addRow(QStringLiteral("Scale X"), spinboxScaleX);
+	//inspectorLayout->addRow(QStringLiteral("Scale Y"), spinboxScaleY);
+	//inspectorLayout->addRow(QStringLiteral("Scale Z"), spinboxScaleZ);
+	//inspectorLayout->addRow(new QLabel(tr("-----------------------------")));
+
+	//setLayout(inspectorLayout);
 
 
 	// fog
@@ -156,8 +290,9 @@ void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
 	fog = pFog;
 	if (pFog)
 	{
-		//checkboxFog->setCheckable(pFog->useFog);
-		//checkboxFog->toggled(pFog->useFog);
+		////checkboxFog->setCheckable(pFog->useFog);
+		////checkboxFog->toggled(pFog->useFog);
+		//checkboxFog->setChecked(true);
 		if (pFog->useFog)
 		{
 			checkboxFog->setCheckState(Qt::Checked);
