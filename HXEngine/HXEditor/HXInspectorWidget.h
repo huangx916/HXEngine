@@ -46,6 +46,9 @@ private:
 	QSpinBox* spinboxAmbientColorG;
 	QSpinBox* spinboxAmbientColorB;
 
+	// camera
+
+
 	// gameobject
 	QLineEdit* editGameObjectName;
 	QDoubleSpinBox* spinboxPositionX;

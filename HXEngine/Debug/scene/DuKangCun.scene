@@ -37,7 +37,7 @@
 			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 		</GameObj>
 	</GameObjects>
-	<Camera Ffov="90" NearZ="1" FarZ="1000">
+	<Camera NearZ="1" FarZ="1000">
 		<Position Px="0" Py="5" Pz="15"/>
 		<Rotation Rx="-10" Ry="0" Rz="0"/>
 	</Camera>

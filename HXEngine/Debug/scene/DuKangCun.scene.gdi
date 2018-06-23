@@ -7,7 +7,7 @@
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>
 	</GameObjects>
-	<Camera Ffov="90" NearZ="1" FarZ="1000">
+	<Camera NearZ="1" FarZ="1000">
 		<Position Px="0" Py="0" Pz="2"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 	</Camera>
