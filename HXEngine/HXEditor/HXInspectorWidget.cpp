@@ -11,9 +11,9 @@
 
 HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 , selectedGameObject(NULL)
-, fog(NULL)
-, ambient(NULL)
-, camera(NULL)
+, fogData(NULL)
+, ambientData(NULL)
+, cameraData(NULL)
 {
 	// fog
 	checkboxFog = new QCheckBox();
@@ -124,9 +124,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	treeWidget->setHeaderItem(title);
 	
 	// fog
-	QTreeWidgetItem *fog = new QTreeWidgetItem;
+	fog = new QTreeWidgetItem;
 	fog->setText(0, "Fog");
 	treeWidget->addTopLevelItem(fog);
+	fog->setHidden(true);
 	// use fog
 	QTreeWidgetItem *usefog = new QTreeWidgetItem;
 	usefog->setText(0, "enable");
@@ -168,9 +169,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	treeWidget->setItemWidget(fogend, 1, spinboxFogEnd);
 
 	//ambient
-	QTreeWidgetItem *ambient = new QTreeWidgetItem;
+	ambient = new QTreeWidgetItem;
 	ambient->setText(0, "AmbientLight");
 	treeWidget->addTopLevelItem(ambient);
+	ambient->setHidden(true);
 	// ambient color
 	QTreeWidgetItem *ambientcolor = new QTreeWidgetItem;
 	ambientcolor->setText(0, "color");
@@ -192,9 +194,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	treeWidget->setItemWidget(ambientcolorB, 1, spinboxAmbientColorB);
 
 	// camera
-	QTreeWidgetItem *camera = new QTreeWidgetItem;
+	camera = new QTreeWidgetItem;
 	camera->setText(0, "MainCamera");
 	treeWidget->addTopLevelItem(camera);
+	camera->setHidden(true);
 	// camera near
 	QTreeWidgetItem *nearz = new QTreeWidgetItem;
 	nearz->setText(0, "near z");
@@ -252,10 +255,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	treeWidget->setItemWidget(camRotZ, 1, spinboxCameraRotationZ);
 
 	// gameobject
-	QTreeWidgetItem *gameobject = new QTreeWidgetItem;
+	gameobject = new QTreeWidgetItem;
 	gameobject->setText(0, "GameObject");
 	treeWidget->addTopLevelItem(gameobject);
-	gameobject->setHidden(false);
+	gameobject->setHidden(true);
 	// gameobject name
 	QTreeWidgetItem *goname = new QTreeWidgetItem;
 	goname->setText(0, "name");
@@ -427,15 +430,25 @@ HXInspectorWidget::~HXInspectorWidget()
 void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 {
 	selectedGameObject = pGameObject;
+	if (selectedGameObject)
+	{
+		gameobject->setHidden(false);
+	}
+	else
+	{
+		gameobject->setHidden(true);
+		return;
+	}
 	SetGameObjectName();
 	SetGameObjectTransform();
 }
 
 void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
 {
-	fog = pFog;
+	fogData = pFog;
 	if (pFog)
 	{
+		fog->setHidden(false);
 		////checkboxFog->setCheckable(pFog->useFog);
 		////checkboxFog->toggled(pFog->useFog);
 		//checkboxFog->setChecked(true);
@@ -459,34 +472,49 @@ void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
 			spinboxFogEnd->setValue(pFogLinear->fogEnd);
 		}
 	}
+	else
+	{
+		fog->setHidden(true);
+	}
 }
 
 void HXInspectorWidget::SetAmbientInfo(HXCOLOR* pAmbient)
 {
-	ambient = pAmbient;
-	if (ambient)
+	ambientData = pAmbient;
+	if (ambientData)
 	{
+		ambient->setHidden(false);
 		spinboxAmbientColorR->setValue(pAmbient->r);
 		spinboxAmbientColorG->setValue(pAmbient->g);
 		spinboxAmbientColorB->setValue(pAmbient->b);
+	}
+	else
+	{
+		ambient->setHidden(true);
 	}
 }
 
 void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 {
-	camera = (HXGLCamera*)pCamera;
-	if (camera)
+	cameraData = (HXGLCamera*)pCamera;
+	if (cameraData)
 	{
-		spinboxCameraNear->setValue(camera->mNear);
-		spinboxCameraFar->setValue(camera->mFar);
+		camera->setHidden(false);
 
-		spinboxCameraPositionX->setValue(camera->transform->mPostion.x);
-		spinboxCameraPositionY->setValue(camera->transform->mPostion.y);
-		spinboxCameraPositionZ->setValue(camera->transform->mPostion.z);
+		spinboxCameraNear->setValue(cameraData->mNear);
+		spinboxCameraFar->setValue(cameraData->mFar);
 
-		spinboxCameraRotationX->setValue(camera->transform->mEulerDegree.x);
-		spinboxCameraRotationY->setValue(camera->transform->mEulerDegree.y);
-		spinboxCameraRotationZ->setValue(camera->transform->mEulerDegree.z);
+		spinboxCameraPositionX->setValue(cameraData->transform->mPostion.x);
+		spinboxCameraPositionY->setValue(cameraData->transform->mPostion.y);
+		spinboxCameraPositionZ->setValue(cameraData->transform->mPostion.z);
+
+		spinboxCameraRotationX->setValue(cameraData->transform->mEulerDegree.x);
+		spinboxCameraRotationY->setValue(cameraData->transform->mEulerDegree.y);
+		spinboxCameraRotationZ->setValue(cameraData->transform->mEulerDegree.z);
+	}
+	else
+	{
+		camera->setHidden(true);
 	}
 }
 
@@ -621,9 +649,9 @@ void HXInspectorWidget::ScaleZValueChanged(double value)
 
 void HXInspectorWidget::FogToggled(bool useFog)
 {
-	if (fog)
+	if (fogData)
 	{
-		fog->useFog = useFog;
+		fogData->useFog = useFog;
 	}
 }
 
@@ -634,83 +662,83 @@ void HXInspectorWidget::FogTypeActivated(int index)
 
 void HXInspectorWidget::FogColorRChanged(int value)
 {
-	if (fog)
+	if (fogData)
 	{
-		fog->fogColor.r = value;
+		fogData->fogColor.r = value;
 	}
 }
 void HXInspectorWidget::FogColorGChanged(int value)
 {
-	if (fog)
+	if (fogData)
 	{
-		fog->fogColor.g = value;
+		fogData->fogColor.g = value;
 	}
 }
 void HXInspectorWidget::FogColorBChanged(int value)
 {
-	if (fog)
+	if (fogData)
 	{
-		fog->fogColor.b = value;
+		fogData->fogColor.b = value;
 	}
 }
 
 void HXInspectorWidget::FogStartChanged(double value)
 {
-	if (fog && fog->fogType == HXFogType::FOG_Linear)
+	if (fogData && fogData->fogType == HXFogType::FOG_Linear)
 	{
-		HXFogLinear* fogLinear = (HXFogLinear*)fog;
+		HXFogLinear* fogLinear = (HXFogLinear*)fogData;
 		fogLinear->fogStart = value;
 	}
 }
 
 void HXInspectorWidget::FogEndChanged(double value)
 {
-	if (fog && fog->fogType == HXFogType::FOG_Linear)
+	if (fogData && fogData->fogType == HXFogType::FOG_Linear)
 	{
-		HXFogLinear* fogLinear = (HXFogLinear*)fog;
+		HXFogLinear* fogLinear = (HXFogLinear*)fogData;
 		fogLinear->fogEnd = value;
 	}
 }
 
 void HXInspectorWidget::AmbientColorRChanged(int value)
 {
-	if (ambient)
+	if (ambientData)
 	{
-		ambient->r = value;
+		ambientData->r = value;
 	}
 }
 void HXInspectorWidget::AmbientColorGChanged(int value)
 {
-	if (ambient)
+	if (ambientData)
 	{
-		ambient->g = value;
+		ambientData->g = value;
 	}
 }
 void HXInspectorWidget::AmbientColorBChanged(int value)
 {
-	if (ambient)
+	if (ambientData)
 	{
-		ambient->b = value;
+		ambientData->b = value;
 	}
 }
 
 void HXInspectorWidget::CameraNearChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		camera->mNear = value;
+		cameraData->mNear = value;
 		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
-		camera->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, camera->mNear, camera->mFar);
+		cameraData->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, cameraData->mNear, cameraData->mFar);
 	}
 }
 
 void HXInspectorWidget::CameraFarChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		camera->mFar = value;
+		cameraData->mFar = value;
 		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
-		camera->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, camera->mNear, camera->mFar);
+		cameraData->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, cameraData->mNear, cameraData->mFar);
 	}
 }
 
@@ -721,50 +749,50 @@ void HXInspectorWidget::TransSyncOnClick()
 
 void HXInspectorWidget::CameraPositionXValueChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		HXVector3D pos = camera->transform->GetPosition();
-		camera->transform->SetPosition(HXVector3D(value, pos.y, pos.z));
+		HXVector3D pos = cameraData->transform->GetPosition();
+		cameraData->transform->SetPosition(HXVector3D(value, pos.y, pos.z));
 	}
 }
 void HXInspectorWidget::CameraPositionYValueChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		HXVector3D pos = camera->transform->GetPosition();
-		camera->transform->SetPosition(HXVector3D(pos.x, value, pos.z));
+		HXVector3D pos = cameraData->transform->GetPosition();
+		cameraData->transform->SetPosition(HXVector3D(pos.x, value, pos.z));
 	}
 }
 void HXInspectorWidget::CameraPositionZValueChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		HXVector3D pos = camera->transform->GetPosition();
-		camera->transform->SetPosition(HXVector3D(pos.x, pos.y, value));
+		HXVector3D pos = cameraData->transform->GetPosition();
+		cameraData->transform->SetPosition(HXVector3D(pos.x, pos.y, value));
 	}
 }
 
 void HXInspectorWidget::CameraRotationXValueChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		HXVector3D rotate = camera->transform->GetRotation();
-		camera->transform->SetRotation(HXVector3D(value, rotate.y, rotate.z));
+		HXVector3D rotate = cameraData->transform->GetRotation();
+		cameraData->transform->SetRotation(HXVector3D(value, rotate.y, rotate.z));
 	}
 }
 void HXInspectorWidget::CameraRotationYValueChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		HXVector3D rotate = camera->transform->GetRotation();
-		camera->transform->SetRotation(HXVector3D(rotate.x, value, rotate.z));
+		HXVector3D rotate = cameraData->transform->GetRotation();
+		cameraData->transform->SetRotation(HXVector3D(rotate.x, value, rotate.z));
 	}
 }
 void HXInspectorWidget::CameraRotationZValueChanged(double value)
 {
-	if (camera)
+	if (cameraData)
 	{
-		HXVector3D rotate = camera->transform->GetRotation();
-		camera->transform->SetRotation(HXVector3D(rotate.x, rotate.y, value));
+		HXVector3D rotate = cameraData->transform->GetRotation();
+		cameraData->transform->SetRotation(HXVector3D(rotate.x, rotate.y, value));
 	}
 }

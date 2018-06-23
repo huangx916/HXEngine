@@ -34,6 +34,7 @@ private:
 	void SetGameObjectTransform();
 
 	// fog
+	QTreeWidgetItem *fog;
 	QCheckBox* checkboxFog;
 	QComboBox* comboboxFogType;
 	QSpinBox* spinboxFogColorR;
@@ -43,11 +44,13 @@ private:
 	QDoubleSpinBox* spinboxFogEnd;
 
 	// ambient
+	QTreeWidgetItem *ambient;
 	QSpinBox* spinboxAmbientColorR;
 	QSpinBox* spinboxAmbientColorG;
 	QSpinBox* spinboxAmbientColorB;
 
 	// camera
+	QTreeWidgetItem *camera;
 	QDoubleSpinBox* spinboxCameraNear;
 	QDoubleSpinBox* spinboxCameraFar;
 	QPushButton* pushbuttonCameraTransSync;
@@ -59,6 +62,7 @@ private:
 	QDoubleSpinBox* spinboxCameraRotationZ;
 
 	// gameobject
+	QTreeWidgetItem *gameobject;
 	QLineEdit* editGameObjectName;
 	QDoubleSpinBox* spinboxPositionX;
 	QDoubleSpinBox* spinboxPositionY;
@@ -71,9 +75,9 @@ private:
 	QDoubleSpinBox* spinboxScaleZ;
 
 	HXGameObject* selectedGameObject;
-	HXFogBase* fog;
-	HXCOLOR* ambient;
-	HXGLCamera* camera;
+	HXFogBase* fogData;
+	HXCOLOR* ambientData;
+	HXGLCamera* cameraData;
 
 	void GameObjectNameChanged(const QString& name);
 	public Q_SLOTS:
