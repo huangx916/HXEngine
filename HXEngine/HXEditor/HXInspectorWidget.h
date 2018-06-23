@@ -1,6 +1,7 @@
 #pragma once
 #include<QWidget>
 #include "HXGameObject.h"
+#include "HXLight.h"
 #include "HXITransform.h"
 #include "HXFogBase.h"
 #include <QSpinBox>
@@ -25,6 +26,7 @@ public:
 	~HXInspectorWidget();
 
 	void SetGameObjectInfo(HXGameObject* pGameObject);
+	void SetLightInfo(HXLight* pLight);
 	void SetFogInfo(HXFogBase* pFog);
 	void SetAmbientInfo(HXCOLOR* pAmbient);
 	void SetCameraInfo(HXICamera* pCamera);
@@ -74,12 +76,40 @@ private:
 	QDoubleSpinBox* spinboxScaleY;
 	QDoubleSpinBox* spinboxScaleZ;
 
+	// light
+	QTreeWidgetItem *light;
+	QLineEdit* editLightName;
+	QCheckBox* checkboxLight;
+	QComboBox* comboboxLightType;
+	QDoubleSpinBox* spinboxShininess;
+	QDoubleSpinBox* spinboxStrength;
+	QDoubleSpinBox* spinboxConstantAttenuation;
+	QDoubleSpinBox* spinboxLinearAttenuation;
+	QDoubleSpinBox* spinboxQuadraticAttenuation;
+	QDoubleSpinBox* spinboxSpotCosCutoff;
+	QDoubleSpinBox* spinboxSpotExponent;
+	QSpinBox* spinboxLightColorR;
+	QSpinBox* spinboxLightColorG;
+	QSpinBox* spinboxLightColorB;
+	QDoubleSpinBox* spinboxLightPositionX;
+	QDoubleSpinBox* spinboxLightPositionY;
+	QDoubleSpinBox* spinboxLightPositionZ;
+	QDoubleSpinBox* spinboxLightDirectionX;
+	QDoubleSpinBox* spinboxLightDirectionY;
+	QDoubleSpinBox* spinboxLightDirectionZ;
+	QDoubleSpinBox* spinboxConeDirX;
+	QDoubleSpinBox* spinboxConeDirY;
+	QDoubleSpinBox* spinboxConeDirZ;
+
+	// data
 	HXGameObject* selectedGameObject;
+	HXLight* selectedLight;
 	HXFogBase* fogData;
 	HXCOLOR* ambientData;
 	HXGLCamera* cameraData;
 
 	void GameObjectNameChanged(const QString& name);
+	void LightNameChanged(const QString& name);
 	public Q_SLOTS:
 	void PositionXValueChanged(double value);
 	void PositionYValueChanged(double value);
@@ -119,4 +149,27 @@ private:
 	void CameraRotationXValueChanged(double value);
 	void CameraRotationYValueChanged(double value);
 	void CameraRotationZValueChanged(double value);
+
+
+	void LightToggled(bool useLight);
+	void LightTypeActivated(int index);
+	void ShininessValueChanged(double value);
+	void StrengthValueChanged(double value);
+	void ConstantAttenuationValueChanged(double value);
+	void LinearAttenuationValueChanged(double value);
+	void QuadraticAttenuationValueChanged(double value);
+	void SpotCosCutoffValueChanged(double value);
+	void SpotExponentValueChanged(double value);
+	void LightColorRChanged(int value);
+	void LightColorGChanged(int value);
+	void LightColorBChanged(int value);
+	void LightPositionXValueChanged(double value);
+	void LightPositionYValueChanged(double value);
+	void LightPositionZValueChanged(double value);
+	void LightDirectionXValueChanged(double value);
+	void LightDirectionYValueChanged(double value);
+	void LightDirectionZValueChanged(double value);
+	void ConeDirXValueChanged(double value);
+	void ConeDirYValueChanged(double value);
+	void ConeDirZValueChanged(double value);
 };

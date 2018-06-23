@@ -10,6 +10,7 @@ namespace HX3D
 
 	HXLight::HXLight(HXLightInfo* lightInfo)
 	{
+		name = lightInfo->name;
 		enable = lightInfo->isEnable;
 		lightType = lightInfo->lightType;
 		color = lightInfo->lightColor;

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_HXInspectorWidget_t {
-    QByteArrayData data[33];
-    char stringdata0[619];
+    QByteArrayData data[55];
+    char stringdata0[1134];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -63,7 +63,29 @@ QT_MOC_LITERAL(28, 479, 27), // "CameraPositionYValueChanged"
 QT_MOC_LITERAL(29, 507, 27), // "CameraPositionZValueChanged"
 QT_MOC_LITERAL(30, 535, 27), // "CameraRotationXValueChanged"
 QT_MOC_LITERAL(31, 563, 27), // "CameraRotationYValueChanged"
-QT_MOC_LITERAL(32, 591, 27) // "CameraRotationZValueChanged"
+QT_MOC_LITERAL(32, 591, 27), // "CameraRotationZValueChanged"
+QT_MOC_LITERAL(33, 619, 12), // "LightToggled"
+QT_MOC_LITERAL(34, 632, 8), // "useLight"
+QT_MOC_LITERAL(35, 641, 18), // "LightTypeActivated"
+QT_MOC_LITERAL(36, 660, 21), // "ShininessValueChanged"
+QT_MOC_LITERAL(37, 682, 20), // "StrengthValueChanged"
+QT_MOC_LITERAL(38, 703, 31), // "ConstantAttenuationValueChanged"
+QT_MOC_LITERAL(39, 735, 29), // "LinearAttenuationValueChanged"
+QT_MOC_LITERAL(40, 765, 32), // "QuadraticAttenuationValueChanged"
+QT_MOC_LITERAL(41, 798, 25), // "SpotCosCutoffValueChanged"
+QT_MOC_LITERAL(42, 824, 24), // "SpotExponentValueChanged"
+QT_MOC_LITERAL(43, 849, 18), // "LightColorRChanged"
+QT_MOC_LITERAL(44, 868, 18), // "LightColorGChanged"
+QT_MOC_LITERAL(45, 887, 18), // "LightColorBChanged"
+QT_MOC_LITERAL(46, 906, 26), // "LightPositionXValueChanged"
+QT_MOC_LITERAL(47, 933, 26), // "LightPositionYValueChanged"
+QT_MOC_LITERAL(48, 960, 26), // "LightPositionZValueChanged"
+QT_MOC_LITERAL(49, 987, 27), // "LightDirectionXValueChanged"
+QT_MOC_LITERAL(50, 1015, 27), // "LightDirectionYValueChanged"
+QT_MOC_LITERAL(51, 1043, 27), // "LightDirectionZValueChanged"
+QT_MOC_LITERAL(52, 1071, 20), // "ConeDirXValueChanged"
+QT_MOC_LITERAL(53, 1092, 20), // "ConeDirYValueChanged"
+QT_MOC_LITERAL(54, 1113, 20) // "ConeDirZValueChanged"
 
     },
     "HXInspectorWidget\0PositionXValueChanged\0"
@@ -83,7 +105,23 @@ QT_MOC_LITERAL(32, 591, 27) // "CameraRotationZValueChanged"
     "CameraPositionZValueChanged\0"
     "CameraRotationXValueChanged\0"
     "CameraRotationYValueChanged\0"
-    "CameraRotationZValueChanged"
+    "CameraRotationZValueChanged\0LightToggled\0"
+    "useLight\0LightTypeActivated\0"
+    "ShininessValueChanged\0StrengthValueChanged\0"
+    "ConstantAttenuationValueChanged\0"
+    "LinearAttenuationValueChanged\0"
+    "QuadraticAttenuationValueChanged\0"
+    "SpotCosCutoffValueChanged\0"
+    "SpotExponentValueChanged\0LightColorRChanged\0"
+    "LightColorGChanged\0LightColorBChanged\0"
+    "LightPositionXValueChanged\0"
+    "LightPositionYValueChanged\0"
+    "LightPositionZValueChanged\0"
+    "LightDirectionXValueChanged\0"
+    "LightDirectionYValueChanged\0"
+    "LightDirectionZValueChanged\0"
+    "ConeDirXValueChanged\0ConeDirYValueChanged\0"
+    "ConeDirZValueChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -93,7 +131,7 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      28,   14, // methods
+      49,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -101,34 +139,55 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,  154,    2, 0x0a /* Public */,
-       4,    1,  157,    2, 0x0a /* Public */,
-       5,    1,  160,    2, 0x0a /* Public */,
-       6,    1,  163,    2, 0x0a /* Public */,
-       7,    1,  166,    2, 0x0a /* Public */,
-       8,    1,  169,    2, 0x0a /* Public */,
-       9,    1,  172,    2, 0x0a /* Public */,
-      10,    1,  175,    2, 0x0a /* Public */,
-      11,    1,  178,    2, 0x0a /* Public */,
-      12,    1,  181,    2, 0x0a /* Public */,
-      14,    1,  184,    2, 0x0a /* Public */,
-      16,    1,  187,    2, 0x0a /* Public */,
-      17,    1,  190,    2, 0x0a /* Public */,
-      18,    1,  193,    2, 0x0a /* Public */,
-      19,    1,  196,    2, 0x0a /* Public */,
-      20,    1,  199,    2, 0x0a /* Public */,
-      21,    1,  202,    2, 0x0a /* Public */,
-      22,    1,  205,    2, 0x0a /* Public */,
-      23,    1,  208,    2, 0x0a /* Public */,
-      24,    1,  211,    2, 0x0a /* Public */,
-      25,    1,  214,    2, 0x0a /* Public */,
-      26,    0,  217,    2, 0x0a /* Public */,
-      27,    1,  218,    2, 0x0a /* Public */,
-      28,    1,  221,    2, 0x0a /* Public */,
-      29,    1,  224,    2, 0x0a /* Public */,
-      30,    1,  227,    2, 0x0a /* Public */,
-      31,    1,  230,    2, 0x0a /* Public */,
-      32,    1,  233,    2, 0x0a /* Public */,
+       1,    1,  259,    2, 0x0a /* Public */,
+       4,    1,  262,    2, 0x0a /* Public */,
+       5,    1,  265,    2, 0x0a /* Public */,
+       6,    1,  268,    2, 0x0a /* Public */,
+       7,    1,  271,    2, 0x0a /* Public */,
+       8,    1,  274,    2, 0x0a /* Public */,
+       9,    1,  277,    2, 0x0a /* Public */,
+      10,    1,  280,    2, 0x0a /* Public */,
+      11,    1,  283,    2, 0x0a /* Public */,
+      12,    1,  286,    2, 0x0a /* Public */,
+      14,    1,  289,    2, 0x0a /* Public */,
+      16,    1,  292,    2, 0x0a /* Public */,
+      17,    1,  295,    2, 0x0a /* Public */,
+      18,    1,  298,    2, 0x0a /* Public */,
+      19,    1,  301,    2, 0x0a /* Public */,
+      20,    1,  304,    2, 0x0a /* Public */,
+      21,    1,  307,    2, 0x0a /* Public */,
+      22,    1,  310,    2, 0x0a /* Public */,
+      23,    1,  313,    2, 0x0a /* Public */,
+      24,    1,  316,    2, 0x0a /* Public */,
+      25,    1,  319,    2, 0x0a /* Public */,
+      26,    0,  322,    2, 0x0a /* Public */,
+      27,    1,  323,    2, 0x0a /* Public */,
+      28,    1,  326,    2, 0x0a /* Public */,
+      29,    1,  329,    2, 0x0a /* Public */,
+      30,    1,  332,    2, 0x0a /* Public */,
+      31,    1,  335,    2, 0x0a /* Public */,
+      32,    1,  338,    2, 0x0a /* Public */,
+      33,    1,  341,    2, 0x0a /* Public */,
+      35,    1,  344,    2, 0x0a /* Public */,
+      36,    1,  347,    2, 0x0a /* Public */,
+      37,    1,  350,    2, 0x0a /* Public */,
+      38,    1,  353,    2, 0x0a /* Public */,
+      39,    1,  356,    2, 0x0a /* Public */,
+      40,    1,  359,    2, 0x0a /* Public */,
+      41,    1,  362,    2, 0x0a /* Public */,
+      42,    1,  365,    2, 0x0a /* Public */,
+      43,    1,  368,    2, 0x0a /* Public */,
+      44,    1,  371,    2, 0x0a /* Public */,
+      45,    1,  374,    2, 0x0a /* Public */,
+      46,    1,  377,    2, 0x0a /* Public */,
+      47,    1,  380,    2, 0x0a /* Public */,
+      48,    1,  383,    2, 0x0a /* Public */,
+      49,    1,  386,    2, 0x0a /* Public */,
+      50,    1,  389,    2, 0x0a /* Public */,
+      51,    1,  392,    2, 0x0a /* Public */,
+      52,    1,  395,    2, 0x0a /* Public */,
+      53,    1,  398,    2, 0x0a /* Public */,
+      54,    1,  401,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Double,    3,
@@ -153,6 +212,27 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
     QMetaType::Void, QMetaType::Double,    3,
     QMetaType::Void, QMetaType::Double,    3,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Bool,   34,
+    QMetaType::Void, QMetaType::Int,   15,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
+    QMetaType::Void, QMetaType::Double,    3,
     QMetaType::Void, QMetaType::Double,    3,
     QMetaType::Void, QMetaType::Double,    3,
     QMetaType::Void, QMetaType::Double,    3,
@@ -197,6 +277,27 @@ void HXInspectorWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 25: _t->CameraRotationXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 26: _t->CameraRotationYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 27: _t->CameraRotationZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 28: _t->LightToggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 29: _t->LightTypeActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 30: _t->ShininessValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 31: _t->StrengthValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 32: _t->ConstantAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 33: _t->LinearAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 34: _t->QuadraticAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 35: _t->SpotCosCutoffValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 36: _t->SpotExponentValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 37: _t->LightColorRChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 38: _t->LightColorGChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 39: _t->LightColorBChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 40: _t->LightPositionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 41: _t->LightPositionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 42: _t->LightPositionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 43: _t->LightDirectionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 44: _t->LightDirectionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 45: _t->LightDirectionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 46: _t->ConeDirXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 47: _t->ConeDirYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 48: _t->ConeDirZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -227,13 +328,13 @@ int HXInspectorWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 28)
+        if (_id < 49)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 28;
+        _id -= 49;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 28)
+        if (_id < 49)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 28;
+        _id -= 49;
     }
     return _id;
 }

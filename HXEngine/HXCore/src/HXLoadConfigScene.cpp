@@ -98,6 +98,8 @@ namespace HX3D
 		for (; lightElement != NULL; lightElement = lightElement->NextSiblingElement())
 		{
 			HXLightInfo lightInfo;
+
+			lightInfo.name = lightElement->Attribute("Name");
 			lightInfo.isEnable = atoi(lightElement->Attribute("Enable"));
 			lightInfo.lightType = (LIGHT_TYPE)atoi(lightElement->Attribute("LightType"));
 			lightInfo.shininess = atof(lightElement->Attribute("Shininess"));

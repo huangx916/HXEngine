@@ -5,6 +5,7 @@
 #include "ui_HXEditorWin.h"
 #include <QVBoxLayout>
 #include "HXGameObject.h"
+#include "HXLight.h"
 #include <QTextStream.h>
 
 class HXGameWidget;
@@ -31,6 +32,7 @@ private:
 	static void loadSceneCallBack();
 	static void updateCallBack();
 	static void updateGameObject(HX3D::HXGameObject* gameObject);
+	static void updateLight(HX3D::HXLight* light);
 
 	Ui::HXEditorWinClass ui;
 	QHBoxLayout* m_pMainLayout;

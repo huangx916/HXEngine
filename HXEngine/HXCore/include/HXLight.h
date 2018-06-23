@@ -23,6 +23,8 @@ namespace HX3D
 		
 		//HXCOLOR VertexLighting(HXVertex* pVertex);
 
+		std::string name;
+
 		bool enable;
 		LIGHT_TYPE lightType;
 		HXCOLOR color;

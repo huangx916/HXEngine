@@ -11,6 +11,7 @@
 
 HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 , selectedGameObject(NULL)
+, selectedLight(NULL)
 , fogData(NULL)
 , ambientData(NULL)
 , cameraData(NULL)
@@ -106,6 +107,54 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	spinboxScaleZ = new QDoubleSpinBox();
 	spinboxScaleZ->setRange(MIN, MAX);
+
+	// light
+	editLightName = new QLineEdit();
+	checkboxLight = new QCheckBox();
+	comboboxLightType = new QComboBox();
+	comboboxLightType->addItem("LIGHT_AMBIENT");
+	comboboxLightType->addItem("LIGHT_DIRECTION");
+	comboboxLightType->addItem("LIGHT_POINT");
+	comboboxLightType->addItem("LIGHT_SPOT");
+	spinboxShininess = new QDoubleSpinBox();
+	spinboxShininess->setRange(MIN, MAX);
+	spinboxStrength = new QDoubleSpinBox();
+	spinboxStrength->setRange(MIN, MAX);
+	spinboxConstantAttenuation = new QDoubleSpinBox();
+	spinboxConstantAttenuation->setRange(MIN, MAX);
+	spinboxLinearAttenuation = new QDoubleSpinBox();
+	spinboxLinearAttenuation->setRange(MIN, MAX);
+	spinboxQuadraticAttenuation = new QDoubleSpinBox();
+	spinboxQuadraticAttenuation->setRange(MIN, MAX);
+	spinboxSpotCosCutoff = new QDoubleSpinBox();
+	spinboxSpotCosCutoff->setRange(MIN, MAX);
+	spinboxSpotExponent = new QDoubleSpinBox();
+	spinboxSpotExponent->setRange(MIN, MAX);
+	spinboxLightColorR = new QSpinBox();
+	spinboxLightColorR->setRange(COLOR_MIN, COLOR_MAX);
+	spinboxLightColorG = new QSpinBox();
+	spinboxLightColorG->setRange(COLOR_MIN, COLOR_MAX);
+	spinboxLightColorB = new QSpinBox();
+	spinboxLightColorB->setRange(COLOR_MIN, COLOR_MAX);
+	spinboxLightPositionX = new QDoubleSpinBox();
+	spinboxLightPositionX->setRange(MIN, MAX);
+	spinboxLightPositionY = new QDoubleSpinBox();
+	spinboxLightPositionY->setRange(MIN, MAX);
+	spinboxLightPositionZ = new QDoubleSpinBox();
+	spinboxLightPositionZ->setRange(MIN, MAX);
+	spinboxLightDirectionX = new QDoubleSpinBox();
+	spinboxLightDirectionX->setRange(MIN, MAX);
+	spinboxLightDirectionY = new QDoubleSpinBox();
+	spinboxLightDirectionY->setRange(MIN, MAX);
+	spinboxLightDirectionZ = new QDoubleSpinBox();
+	spinboxLightDirectionZ->setRange(MIN, MAX);
+	spinboxConeDirX = new QDoubleSpinBox();
+	spinboxConeDirX->setRange(MIN, MAX);
+	spinboxConeDirY = new QDoubleSpinBox();
+	spinboxConeDirY->setRange(MIN, MAX);
+	spinboxConeDirZ = new QDoubleSpinBox();
+	spinboxConeDirZ->setRange(MIN, MAX);
+
 
 	// ------------------------------------Layout--------------------------------------------
 	QFont font("Microsoft YaHei", 10, 75);
@@ -329,6 +378,138 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	treeWidget->setItemWidget(scaleZ, 1, spinboxScaleZ);
 
 	
+	// light
+	light = new QTreeWidgetItem;
+	light->setText(0, "Light");
+	treeWidget->addTopLevelItem(light);
+	light->setHidden(true);
+	// light name
+	QTreeWidgetItem *lightname = new QTreeWidgetItem;
+	lightname->setText(0, "name");
+	light->addChild(lightname);
+	treeWidget->setItemWidget(lightname, 1, editLightName);
+	// use light
+	QTreeWidgetItem *uselight = new QTreeWidgetItem;
+	uselight->setText(0, "enable");
+	light->addChild(uselight);
+	treeWidget->setItemWidget(uselight, 1, checkboxLight);
+	// light type
+	QTreeWidgetItem *lighttype = new QTreeWidgetItem;
+	lighttype->setText(0, "type");
+	light->addChild(lighttype);
+	treeWidget->setItemWidget(lighttype, 1, comboboxLightType);
+	// shininess
+	QTreeWidgetItem *shininess = new QTreeWidgetItem;
+	shininess->setText(0, "shininess");
+	light->addChild(shininess);
+	treeWidget->setItemWidget(shininess, 1, spinboxShininess);
+	// strength
+	QTreeWidgetItem *strength = new QTreeWidgetItem;
+	strength->setText(0, "strength");
+	light->addChild(strength);
+	treeWidget->setItemWidget(strength, 1, spinboxStrength);
+	// constantAttenuation
+	QTreeWidgetItem *constantAttenuation = new QTreeWidgetItem;
+	constantAttenuation->setText(0, "constantAttenuation");
+	light->addChild(constantAttenuation);
+	treeWidget->setItemWidget(constantAttenuation, 1, spinboxConstantAttenuation);
+	// linearAttenuation
+	QTreeWidgetItem *linearAttenuation = new QTreeWidgetItem;
+	linearAttenuation->setText(0, "linearAttenuation");
+	light->addChild(linearAttenuation);
+	treeWidget->setItemWidget(linearAttenuation, 1, spinboxLinearAttenuation);
+	// quadraticAttenuation
+	QTreeWidgetItem *quadraticAttenuation = new QTreeWidgetItem;
+	quadraticAttenuation->setText(0, "quadraticAttenuation");
+	light->addChild(quadraticAttenuation);
+	treeWidget->setItemWidget(quadraticAttenuation, 1, spinboxQuadraticAttenuation);
+	// spotCosCutoff
+	QTreeWidgetItem *spotCosCutoff = new QTreeWidgetItem;
+	spotCosCutoff->setText(0, "spotCosCutoff");
+	light->addChild(spotCosCutoff);
+	treeWidget->setItemWidget(spotCosCutoff, 1, spinboxSpotCosCutoff);
+	// spotExponent
+	QTreeWidgetItem *spotExponent = new QTreeWidgetItem;
+	spotExponent->setText(0, "spotExponent");
+	light->addChild(spotExponent);
+	treeWidget->setItemWidget(spotExponent, 1, spinboxSpotExponent);
+	// light color
+	QTreeWidgetItem *lightcolor = new QTreeWidgetItem;
+	lightcolor->setText(0, "color");
+	light->addChild(lightcolor);
+	// light color R
+	QTreeWidgetItem *lightcolorR = new QTreeWidgetItem;
+	lightcolorR->setText(0, "R");
+	lightcolor->addChild(lightcolorR);
+	treeWidget->setItemWidget(lightcolorR, 1, spinboxLightColorR);
+	// light color G
+	QTreeWidgetItem *lightcolorG = new QTreeWidgetItem;
+	lightcolorG->setText(0, "G");
+	lightcolor->addChild(lightcolorG);
+	treeWidget->setItemWidget(lightcolorG, 1, spinboxLightColorG);
+	// light color B
+	QTreeWidgetItem *lightcolorB = new QTreeWidgetItem;
+	lightcolorB->setText(0, "B");
+	lightcolor->addChild(lightcolorB);
+	treeWidget->setItemWidget(lightcolorB, 1, spinboxLightColorB);
+	// light position
+	QTreeWidgetItem *lightposition = new QTreeWidgetItem;
+	lightposition->setText(0, "position");
+	light->addChild(lightposition);
+	// position X
+	QTreeWidgetItem *lightpositionX = new QTreeWidgetItem;
+	lightpositionX->setText(0, "X");
+	lightposition->addChild(lightpositionX);
+	treeWidget->setItemWidget(lightpositionX, 1, spinboxLightPositionX);
+	// position Y
+	QTreeWidgetItem *lightpositionY = new QTreeWidgetItem;
+	lightpositionY->setText(0, "Y");
+	lightposition->addChild(lightpositionY);
+	treeWidget->setItemWidget(lightpositionY, 1, spinboxLightPositionY);
+	// position Z
+	QTreeWidgetItem *lightpositionZ = new QTreeWidgetItem;
+	lightpositionZ->setText(0, "Z");
+	lightposition->addChild(lightpositionZ);
+	treeWidget->setItemWidget(lightpositionZ, 1, spinboxLightPositionZ);
+	// light direction
+	QTreeWidgetItem *direction = new QTreeWidgetItem;
+	direction->setText(0, "direction");
+	light->addChild(direction);
+	// direction X
+	QTreeWidgetItem *directionX = new QTreeWidgetItem;
+	directionX->setText(0, "X");
+	direction->addChild(directionX);
+	treeWidget->setItemWidget(directionX, 1, spinboxLightDirectionX);
+	// direction Y
+	QTreeWidgetItem *directionY = new QTreeWidgetItem;
+	directionY->setText(0, "Y");
+	direction->addChild(directionY);
+	treeWidget->setItemWidget(directionY, 1, spinboxLightDirectionY);
+	// direction Z
+	QTreeWidgetItem *directionZ = new QTreeWidgetItem;
+	directionZ->setText(0, "Z");
+	direction->addChild(directionZ);
+	treeWidget->setItemWidget(directionZ, 1, spinboxLightDirectionZ);
+	// light ConeDirection
+	QTreeWidgetItem *conDir = new QTreeWidgetItem;
+	conDir->setText(0, "ConeDirection");
+	light->addChild(conDir);
+	// conDir X
+	QTreeWidgetItem *conDirX = new QTreeWidgetItem;
+	conDirX->setText(0, "X");
+	conDir->addChild(conDirX);
+	treeWidget->setItemWidget(conDirX, 1, spinboxConeDirX);
+	// conDir Y
+	QTreeWidgetItem *conDirY = new QTreeWidgetItem;
+	conDirY->setText(0, "Y");
+	conDir->addChild(conDirY);
+	treeWidget->setItemWidget(conDirY, 1, spinboxConeDirY);
+	// conDir Z
+	QTreeWidgetItem *conDirZ = new QTreeWidgetItem;
+	conDirZ->setText(0, "Z");
+	conDir->addChild(conDirZ);
+	treeWidget->setItemWidget(conDirZ, 1, spinboxConeDirZ);
+
 	// ------------------------------------QFormLayout-------------------------------------
 	//QFormLayout* inspectorLayout = new QFormLayout();
 	//QFont font("Microsoft YaHei", 10, 75);
@@ -420,6 +601,30 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(spinboxScaleX, SIGNAL(valueChanged(double)), this, SLOT(ScaleXValueChanged(double)));
 	connect(spinboxScaleY, SIGNAL(valueChanged(double)), this, SLOT(ScaleYValueChanged(double)));
 	connect(spinboxScaleZ, SIGNAL(valueChanged(double)), this, SLOT(ScaleZValueChanged(double)));
+
+	// light
+	connect(editLightName, &QLineEdit::textChanged, this, &HXInspectorWidget::LightNameChanged);
+	connect(checkboxLight, SIGNAL(toggled(bool)), this, SLOT(LightToggled(bool)));
+	connect(comboboxLightType, SIGNAL(activated(int)), this, SLOT(LightTypeActivated(int)));
+	connect(spinboxShininess, SIGNAL(valueChanged(double)), this, SLOT(ShininessValueChanged(double)));
+	connect(spinboxStrength, SIGNAL(valueChanged(double)), this, SLOT(StrengthValueChanged(double)));
+	connect(spinboxConstantAttenuation, SIGNAL(valueChanged(double)), this, SLOT(ConstantAttenuationValueChanged(double)));
+	connect(spinboxLinearAttenuation, SIGNAL(valueChanged(double)), this, SLOT(LinearAttenuationValueChanged(double)));
+	connect(spinboxQuadraticAttenuation, SIGNAL(valueChanged(double)), this, SLOT(QuadraticAttenuationValueChanged(double)));
+	connect(spinboxSpotCosCutoff, SIGNAL(valueChanged(double)), this, SLOT(SpotCosCutoffValueChanged(double)));
+	connect(spinboxSpotExponent, SIGNAL(valueChanged(double)), this, SLOT(SpotExponentValueChanged(double)));
+	connect(spinboxLightColorR, SIGNAL(valueChanged(int)), this, SLOT(LightColorRChanged(int)));
+	connect(spinboxLightColorG, SIGNAL(valueChanged(int)), this, SLOT(LightColorGChanged(int)));
+	connect(spinboxLightColorB, SIGNAL(valueChanged(int)), this, SLOT(LightColorBChanged(int)));
+	connect(spinboxLightPositionX, SIGNAL(valueChanged(double)), this, SLOT(LightPositionXValueChanged(double)));
+	connect(spinboxLightPositionY, SIGNAL(valueChanged(double)), this, SLOT(LightPositionYValueChanged(double)));
+	connect(spinboxLightPositionZ, SIGNAL(valueChanged(double)), this, SLOT(LightPositionZValueChanged(double)));
+	connect(spinboxLightDirectionX, SIGNAL(valueChanged(double)), this, SLOT(LightDirectionXValueChanged(double)));
+	connect(spinboxLightDirectionY, SIGNAL(valueChanged(double)), this, SLOT(LightDirectionYValueChanged(double)));
+	connect(spinboxLightDirectionZ, SIGNAL(valueChanged(double)), this, SLOT(LightDirectionZValueChanged(double)));
+	connect(spinboxConeDirX, SIGNAL(valueChanged(double)), this, SLOT(ConeDirXValueChanged(double)));
+	connect(spinboxConeDirY, SIGNAL(valueChanged(double)), this, SLOT(ConeDirYValueChanged(double)));
+	connect(spinboxConeDirZ, SIGNAL(valueChanged(double)), this, SLOT(ConeDirZValueChanged(double)));
 }
 
 HXInspectorWidget::~HXInspectorWidget()
@@ -441,6 +646,48 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	}
 	SetGameObjectName();
 	SetGameObjectTransform();
+}
+
+void HXInspectorWidget::SetLightInfo(HXLight* pLight)
+{
+	selectedLight = pLight;
+	if (selectedLight)
+	{
+		light->setHidden(false);
+		editLightName->setText(selectedLight->name.c_str());
+		if (selectedLight->enable)
+		{
+			checkboxLight->setCheckState(Qt::Checked);
+		}
+		else
+		{
+			checkboxLight->setCheckState(Qt::Unchecked);
+		}
+		comboboxLightType->setCurrentIndex(selectedLight->lightType);
+		spinboxShininess->setValue(selectedLight->shininess);
+		spinboxStrength->setValue(selectedLight->strength);
+		spinboxConstantAttenuation->setValue(selectedLight->constantAttenuation);
+		spinboxLinearAttenuation->setValue(selectedLight->LinearAttenuation);
+		spinboxQuadraticAttenuation->setValue(selectedLight->QuadraticAttenuation);
+		spinboxSpotCosCutoff->setValue(selectedLight->SpotCosCutoff);
+		spinboxSpotExponent->setValue(selectedLight->SpotExponent);
+		spinboxLightColorR->setValue(selectedLight->color.r);
+		spinboxLightColorG->setValue(selectedLight->color.g);
+		spinboxLightColorB->setValue(selectedLight->color.b);
+		spinboxLightPositionX->setValue(selectedLight->position.x);
+		spinboxLightPositionY->setValue(selectedLight->position.y);
+		spinboxLightPositionZ->setValue(selectedLight->position.z);
+		spinboxLightDirectionX->setValue(selectedLight->direct.x);
+		spinboxLightDirectionY->setValue(selectedLight->direct.y);
+		spinboxLightDirectionZ->setValue(selectedLight->direct.z);
+		spinboxConeDirX->setValue(selectedLight->ConeDirection.x);
+		spinboxConeDirY->setValue(selectedLight->ConeDirection.y);
+		spinboxConeDirZ->setValue(selectedLight->ConeDirection.z);
+	}
+	else
+	{
+		light->setHidden(true);
+	}
 }
 
 void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
@@ -794,5 +1041,174 @@ void HXInspectorWidget::CameraRotationZValueChanged(double value)
 	{
 		HXVector3D rotate = cameraData->transform->GetRotation();
 		cameraData->transform->SetRotation(HXVector3D(rotate.x, rotate.y, value));
+	}
+}
+
+
+void HXInspectorWidget::LightNameChanged(const QString& name)
+{
+	if (selectedLight)
+	{
+		selectedLight->name = name.toStdString();
+	}
+}
+
+void HXInspectorWidget::LightToggled(bool useLight)
+{
+	if (selectedLight)
+	{
+		selectedLight->enable = useLight;
+	}
+}
+
+void HXInspectorWidget::LightTypeActivated(int index)
+{
+	if (selectedLight)
+	{
+		selectedLight->lightType = (LIGHT_TYPE)index;
+	}
+}
+
+void HXInspectorWidget::ShininessValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->shininess = value;
+	}
+}
+
+void HXInspectorWidget::StrengthValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->strength = value;
+	}
+}
+
+void HXInspectorWidget::ConstantAttenuationValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->constantAttenuation= value;
+	}
+}
+
+void HXInspectorWidget::LinearAttenuationValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->LinearAttenuation = value;
+	}
+}
+
+void HXInspectorWidget::QuadraticAttenuationValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->QuadraticAttenuation = value;
+	}
+}
+
+void HXInspectorWidget::SpotCosCutoffValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->SpotCosCutoff = value;
+	}
+}
+
+void HXInspectorWidget::SpotExponentValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->SpotExponent = value;
+	}
+}
+
+void HXInspectorWidget::LightColorRChanged(int value)
+{
+	if (selectedLight)
+	{
+		selectedLight->color.r = value;
+	}
+}
+void HXInspectorWidget::LightColorGChanged(int value)
+{
+	if (selectedLight)
+	{
+		selectedLight->color.g = value;
+	}
+}
+void HXInspectorWidget::LightColorBChanged(int value)
+{
+	if (selectedLight)
+	{
+		selectedLight->color.b = value;
+	}
+}
+
+void HXInspectorWidget::LightPositionXValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->position.x = value;
+	}
+}
+void HXInspectorWidget::LightPositionYValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->position.y = value;
+	}
+}
+void HXInspectorWidget::LightPositionZValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->position.z = value;
+	}
+}
+
+void HXInspectorWidget::LightDirectionXValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->direct.x = value;
+	}
+}
+void HXInspectorWidget::LightDirectionYValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->direct.y = value;
+	}
+}
+void HXInspectorWidget::LightDirectionZValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->direct.z = value;
+	}
+}
+
+void HXInspectorWidget::ConeDirXValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->ConeDirection.x = value;
+	}
+}
+void HXInspectorWidget::ConeDirYValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->ConeDirection.y = value;
+	}
+}
+void HXInspectorWidget::ConeDirZValueChanged(double value)
+{
+	if (selectedLight)
+	{
+		selectedLight->ConeDirection.z = value;
 	}
 }

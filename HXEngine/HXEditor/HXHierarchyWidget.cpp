@@ -3,9 +3,13 @@
 
 using namespace HX3D;
 
-HXHierarchyWidget::HXHierarchyWidget(FPtr callback, QWidget * parent) : QTreeWidget(parent), clickCallback(NULL)
+HXHierarchyWidget::HXHierarchyWidget(FPtr gameobjectcallback, FLightPtr lightcallback, QWidget * parent)
+	: QTreeWidget(parent)
+	, clickGameObjectCallback(NULL)
+	, clickLightCallback(NULL)
 {
-	clickCallback = callback;
+	clickGameObjectCallback = gameobjectcallback;
+	clickLightCallback = lightcallback;
 
 	QFont font("Microsoft YaHei", 10, 75);
 
@@ -22,7 +26,7 @@ HXHierarchyWidget::HXHierarchyWidget(FPtr callback, QWidget * parent) : QTreeWid
 	
 
 	//connect(this, &QTreeWidget::currentItemChanged, this, &HXHierarchyWidget::GameObjectChange);
-	connect(this, &QTreeWidget::itemClicked, this, &HXHierarchyWidget::GameObjectClick);
+	connect(this, &QTreeWidget::itemClicked, this, &HXHierarchyWidget::TreeWidgetItemOnClick);
 }
 
 HXHierarchyWidget::~HXHierarchyWidget()
@@ -30,7 +34,7 @@ HXHierarchyWidget::~HXHierarchyWidget()
 
 }
 
-void HXHierarchyWidget::UpdateGameObjectTree()
+void HXHierarchyWidget::UpdateSceneTree()
 {
 	QTreeWidgetItem *preRoot = topLevelItem(0);
 	delete preRoot;
@@ -40,8 +44,10 @@ void HXHierarchyWidget::UpdateGameObjectTree()
 	std::vector<HXGameObject*> gameObjectList = HXSceneManager::GetInstance()->GetGameObjectList();
 	for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
 	{
-		AddLeafRecurve(root, *itr);
+		AddGameObjectLeafRecurve(root, *itr);
 	}
+
+	AddLightLeaf(root);
 
 	//QList<QTreeWidgetItem *> rootList;
 	//rootList << root;
@@ -49,7 +55,7 @@ void HXHierarchyWidget::UpdateGameObjectTree()
 	insertTopLevelItem(0, root);
 }
 
-void HXHierarchyWidget::AddLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)
+void HXHierarchyWidget::AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)
 {
 	std::string name = go->GetName();
 	QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));
@@ -60,7 +66,19 @@ void HXHierarchyWidget::AddLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObje
 	std::vector<HXGameObject*> childList = go->GetChildren();
 	for (std::vector<HXGameObject*>::iterator itr = childList.begin(); itr != childList.end(); ++itr)
 	{
-		AddLeafRecurve(tw, *itr);
+		AddGameObjectLeafRecurve(tw, *itr);
+	}
+}
+
+void HXHierarchyWidget::AddLightLeaf(QTreeWidgetItem* parent)
+{
+	for (std::vector<HXLight*>::iterator itr = HXSceneManager::GetInstance()->lightVct.begin(); itr != HXSceneManager::GetInstance()->lightVct.end(); ++itr)
+	{
+		std::string name = (*itr)->name;
+		QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));
+		QVariant var;
+		var.setValue(*itr);
+		tw->setData(1, Qt::UserRole, var);
 	}
 }
 
@@ -69,11 +87,16 @@ void HXHierarchyWidget::AddLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObje
 //	HXGameObject* gameObject = current->data(0, Qt::UserRole).value<HXGameObject*>();
 //}
 
-void HXHierarchyWidget::GameObjectClick(QTreeWidgetItem *item, int column)
+void HXHierarchyWidget::TreeWidgetItemOnClick(QTreeWidgetItem *item, int column)
 {
 	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
-	if (clickCallback)
+	if (clickGameObjectCallback)
 	{
-		clickCallback(gameObject);
+		clickGameObjectCallback(gameObject);
+	}
+	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
+	if (clickLightCallback)
+	{
+		clickLightCallback(light);
 	}
 }

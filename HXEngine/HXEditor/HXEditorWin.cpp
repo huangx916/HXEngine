@@ -17,7 +17,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 {
 	ui.setupUi(this);
 	m_pGameWidget = new HXGameWidget();
-	m_pHierarchyWidget = new HXHierarchyWidget(HXEditorWin::updateGameObject);
+	m_pHierarchyWidget = new HXHierarchyWidget(HXEditorWin::updateGameObject, HXEditorWin::updateLight);
 	m_pInspectorWidget = new HXInspectorWidget();
 
 	m_pMainLayout = new QHBoxLayout();
@@ -267,7 +267,9 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	std::vector<HXLight*> lightVct = HXSceneManager::GetInstance()->lightVct;
 	for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); ++itr)
 	{
-		out << "		<Light Enable=\"";
+		out << "		<Light Name=\"";
+		out << (*itr)->name.c_str();
+		out << "\" Enable=\"";
 		int enable = (*itr)->enable ? 1 : 0;
 		out << enable;
 		out << "\" LightType=\"";
@@ -362,7 +364,7 @@ void HXEditorWin::loadGameObject()
 
 void HXEditorWin::loadSceneCallBack()
 {
-	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateGameObjectTree();
+	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateSceneTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
@@ -377,4 +379,9 @@ void HXEditorWin::updateCallBack()
 void HXEditorWin::updateGameObject(HX3D::HXGameObject* gameObject)
 {
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetGameObjectInfo(gameObject);
+}
+
+void HXEditorWin::updateLight(HX3D::HXLight* light)
+{
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetLightInfo(light);
 }

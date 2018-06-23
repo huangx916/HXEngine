@@ -43,6 +43,8 @@ namespace HX3D
 	};
 	struct HXLightInfo
 	{
+		std::string name;
+
 		bool isEnable;
 		LIGHT_TYPE lightType;
 		HXCOLOR lightColor;
