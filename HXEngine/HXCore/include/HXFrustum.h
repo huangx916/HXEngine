@@ -7,21 +7,17 @@
 namespace HX3D
 {
 	// UVN相机
+	class HXITransform;
 	struct HXFrustum
 	{
-		HXFrustum(const HXVector4D& pos, const HXVector4D& target
+		HXFrustum(HXITransform* transformParam
 			, float ffov, float nearZ, float farZ
 			, float viewportWidth, float viewportHeigth);
 
 		void update();
+		HXVector4D updateTarget();
 
-		// 不保存旋转
-		HXVector4D	camPosition;	// 相机世界坐标
-		HXVector4D	lookTarget;	// 相机注视点
-		// 旋转单独保存
-		float mYaw;
-		float mPitch;
-		float mRoll;
+		HXITransform* transform;
 
 		HXVector4D	camU;	// 右基向量
 		HXVector4D	camV;	// 上基向量

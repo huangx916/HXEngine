@@ -245,7 +245,7 @@ namespace HX3D
 		HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
 		if (pCamera)
 		{
-			HXVector3D eyePos = pCamera->mSrcEye;
+			HXVector3D eyePos = pCamera->transform->mPostion;
 			glUniform3f(property_loc, eyePos.x, eyePos.y, eyePos.z);
 		}
 		
@@ -570,7 +570,7 @@ namespace HX3D
 
 		property_loc = glGetUniformLocation(render_scene_prog, "eyePos");
 		HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
-		HXVector3D eyePos = pCamera->mSrcEye;
+		HXVector3D eyePos = pCamera->transform->mPostion;
 		glUniform3f(property_loc, eyePos.x, eyePos.y, eyePos.z);
 
 		// shadow

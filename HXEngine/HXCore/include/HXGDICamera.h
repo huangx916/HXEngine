@@ -12,9 +12,8 @@ namespace HX3D
 		HXGDICamera();
 		~HXGDICamera();
 
-		virtual void Initialize(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
-			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
-			float left, float right, float bottom, float top);
+		virtual void Initialize(const HXVector3D& position, const HXVector3D& rotate,
+			float nearZ, float farZ);
 
 		virtual void Update();
 		virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight);
@@ -25,13 +24,6 @@ namespace HX3D
 		virtual void yaw(float fDegree);
 		// ÈÆXÖáÐý×ª
 		virtual void pitch(float fDegree);
-
-		/*virtual void YawLockTarget(float fDegree);
-		virtual void PitchLockTarget(float fDegree);*/
-
-		virtual void Forward(float fDistance);
-		virtual void MoveHorizon(float fDistance);
-		virtual void MoveVertical(float fDistance);
 
 		HXFrustum* mFrustum;
 	};

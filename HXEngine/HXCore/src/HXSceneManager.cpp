@@ -67,8 +67,8 @@ namespace HX3D
 		HXLoadConfigScene cfg;
 		cfg.LoadFile(strSceneCfgFile);
 		// camera
-		CreateMainCamera(cfg.mSceneInfo.cameraInfo.eye, cfg.mSceneInfo.cameraInfo.at, cfg.mSceneInfo.cameraInfo.up
-			, cfg.mSceneInfo.cameraInfo.ffov, cfg.mSceneInfo.cameraInfo.nearZ, cfg.mSceneInfo.cameraInfo.farZ);
+		CreateMainCamera(cfg.mSceneInfo.cameraInfo.position, cfg.mSceneInfo.cameraInfo.rotation
+			, cfg.mSceneInfo.cameraInfo.nearZ, cfg.mSceneInfo.cameraInfo.farZ);
 		// fog
 		CreateFog(&cfg.mSceneInfo.fogInfo);
 		// ambient
@@ -245,14 +245,12 @@ namespace HX3D
 		return pLight;
 	}
 
-	HXICamera* HXSceneManager::CreateMainCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
-		float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
-		float left, float right, float bottom, float top)
+	HXICamera* HXSceneManager::CreateMainCamera(const HXVector3D& position, const HXVector3D& rotate,
+		float nearZ, float farZ)
 	{
 		if (HXRoot::GetInstance()->GetRenderSystem())
 		{
-			m_pMainCamera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(eye, at, up, ffov, nearZ, farZ, viewportWidth, viewportHeigth,
-				left, right, bottom, top);
+			m_pMainCamera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(position, rotate, nearZ, farZ);
 		}
 		return m_pMainCamera;
 	}

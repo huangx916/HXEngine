@@ -1,127 +1,76 @@
 #include "..\include\HXGLCamera.h"
 #include "HXMath.h"
+#include "HXGLTransform.h"
 
 namespace HX3D
 {
 	HXGLCamera::HXGLCamera()
 	{
+		transform = new HXGLTransform();
 	}
 
 	HXGLCamera::~HXGLCamera()
 	{
+		delete transform;
 	}
 
-	void HXGLCamera::Initialize(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
-		float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
-		float left, float right, float bottom, float top)
+	void HXGLCamera::Initialize(const HXVector3D& position, const HXVector3D& rotate,
+		float nearZ, float farZ)
 	{
-		mSrcEye = eye;
-		mSrcAt = at;
-		mSrcUp = up;
-		mLeft = left;
-		mRight = right;
-		mBottom = bottom;
-		mTop = top;
 		mNear = nearZ;
 		mFar = farZ;
 
-		mYaw = 0.0f;
-		mPitch = 0.0f;
-		mRoll = 0.0f;
-
-		UpdateViewMatrix(mSrcEye, mSrcAt, mSrcUp);
-		UpdateProjectionMatrix(mLeft, mRight, mBottom, mTop, mNear, mFar);
+		transform->mPostion = position;
+		transform->mEulerDegree = rotate;
 	}
 
 	void HXGLCamera::Update()
 	{
-		HXQuaternion q;
-		q.FromEulerDegree(mPitch, mYaw, mRoll);
-		HXVector3D vec = mSrcEye - mSrcAt;
-		vec = q.Transform(vec);
-		//mSrcEye = mSrcAt + vec;
-		HXVector3D up = q.Transform(mSrcUp);
+		UpdateViewMatrix(transform->mPostion, UpdateAt(), UpdateUp());
+	}
 
-		//UpdateViewMatrix(mSrcEye, mSrcAt, mSrcUp);
-		UpdateViewMatrix(mSrcAt + vec, mSrcAt, up);
+	HXVector3D HXGLCamera::UpdateAt()
+	{
+		HXQuaternion q;
+		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
+		HXVector3D vec = HXVector3D(0, 0, -1);
+		vec = q.Transform(vec);
+		return transform->mPostion + vec;
+	}
+
+	HXVector3D HXGLCamera::UpdateUp()
+	{
+		HXQuaternion q;
+		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
+		HXVector3D vec = HXVector3D(0, 1, 0);
+		return q.Transform(vec);
 	}
 
 	void HXGLCamera::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 	{
 		float gAspect = (float)nScreenHeight / (float)nScreenWidth;
-		mBottom = -gAspect;
-		mTop = gAspect;
-		UpdateProjectionMatrix(mLeft, mRight, mBottom, mTop, mNear, mFar);
+		UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, mNear, mFar);
 	}
 
 	void HXGLCamera::move(const HXVector3D& mov)
 	{
 		HXQuaternion q;
-		q.FromEulerDegree(mPitch, mYaw, mRoll);
+		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
 		HXVector3D v = mov;
 		v = q.Transform(v);
-		mSrcAt += v;
-		mSrcEye += v;
+		transform->mPostion += v;
 	}
 
 	void HXGLCamera::yaw(float fDegree)
 	{
-		/*HXVector3D distance = mSrcAt - mSrcEye;
-		HXMatrix44 matRotate = GetRotateMatrix44Y(fDegree);
-		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
-		distance = HXVector3D(vec.x, vec.y, vec.z);
-		mSrcAt = mSrcEye + distance;*/
-
 		// 四元数形式
-		mYaw += fDegree;
+		transform->mEulerDegree.y += fDegree;
 	}
 
 	void HXGLCamera::pitch(float fDegree)
 	{
-		/*HXVector3D distance = mSrcAt - mSrcEye;
-		HXMatrix44 matRotate = GetRotateMatrix44X(fDegree);
-		HXVector4D vec = GetVector4DMulMatrix44(HXVector4D(distance, 1), matRotate);
-		distance = HXVector3D(vec.x, vec.y, vec.z);
-		mSrcAt = mSrcEye + distance;*/
-
 		// 四元数形式
-		mPitch += fDegree;
-	}
-
-	void HXGLCamera::Forward(float fDistance)
-	{
-		/*HXVector3D direction = mSrcAt - mSrcEye;
-		direction.normalize();
-		HXVector3D forward = direction * fDistance;
-		mSrcAt += forward;
-		mSrcEye += forward;*/
-
-		HXQuaternion q;
-		q.FromEulerDegree(mPitch, mYaw, mRoll);
-		HXVector3D v(0, 0, -fDistance);
-		v = q.Transform(v);
-		mSrcAt += v;
-		mSrcEye += v;
-	}
-
-	void HXGLCamera::MoveHorizon(float fDistance)
-	{
-		HXQuaternion q;
-		q.FromEulerDegree(mPitch, mYaw, mRoll);
-		HXVector3D v(fDistance, 0, 0);
-		v = q.Transform(v);
-		mSrcAt += v;
-		mSrcEye += v;
-	}
-
-	void HXGLCamera::MoveVertical(float fDistance)
-	{
-		HXQuaternion q;
-		q.FromEulerDegree(mPitch, mYaw, mRoll);
-		HXVector3D v(0, -fDistance, 0);
-		v = q.Transform(v);
-		mSrcAt += v;
-		mSrcEye += v;
+		transform->mEulerDegree.x += fDegree;
 	}
 
 	void HXGLCamera::UpdateViewMatrix(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up)

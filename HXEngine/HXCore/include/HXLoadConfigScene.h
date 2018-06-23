@@ -28,10 +28,8 @@ namespace HX3D
 	};
 	struct HXCameraInfo
 	{
-		HXVector3D eye;
-		HXVector3D at;
-		HXVector3D up;
-		float ffov;
+		HXVector3D position;
+		HXVector3D rotation;
 		float nearZ;
 		float farZ;
 	};

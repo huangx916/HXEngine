@@ -4,15 +4,15 @@
 namespace HX3D
 {
 	//class HXGameObject;
+	class HXITransform;
 	class HXICamera
 	{
 	public:
 		HXICamera() {};
 		virtual ~HXICamera() {};
 
-		virtual void Initialize(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up, 
-			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth, 
-			float left, float right, float bottom, float top) = 0;
+		virtual void Initialize(const HXVector3D& position, const HXVector3D& rotate,
+			float nearZ, float farZ) = 0;
 
 		virtual void Update() = 0;
 		virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight) = 0;
@@ -28,13 +28,14 @@ namespace HX3D
 		/*virtual void YawLockTarget(float fDegree) = 0;
 		virtual void PitchLockTarget(float fDegree) = 0;*/
 
-		virtual void Forward(float fDistance) = 0;
+		/*virtual void Forward(float fDistance) = 0;
 		virtual void MoveHorizon(float fDistance) = 0;
-		virtual void MoveVertical(float fDistance) = 0;
+		virtual void MoveVertical(float fDistance) = 0;*/
 
 		/*inline void AttachGameObject(HXGameObject* go) { followedGO.push_back(go); };
 		inline void DetachGameObject(HXGameObject* go) { followedGO.remove(go); };
 		std::list<HXGameObject*> followedGO;*/
 
+		HXITransform* transform;
 	};
 }

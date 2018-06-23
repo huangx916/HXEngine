@@ -65,21 +65,16 @@ namespace HX3D
 
 		// camera
 		TiXmlElement* cameraElement = gameobjects->NextSiblingElement();
-		mSceneInfo.cameraInfo.ffov = atof(cameraElement->Attribute("Ffov"));
 		mSceneInfo.cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
 		mSceneInfo.cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));
 		TiXmlElement* eyeElement = cameraElement->FirstChildElement();
-		mSceneInfo.cameraInfo.eye.x = atof(eyeElement->Attribute("Ex"));
-		mSceneInfo.cameraInfo.eye.y = atof(eyeElement->Attribute("Ey"));
-		mSceneInfo.cameraInfo.eye.z = atof(eyeElement->Attribute("Ez"));
+		mSceneInfo.cameraInfo.position.x = atof(eyeElement->Attribute("Px"));
+		mSceneInfo.cameraInfo.position.y = atof(eyeElement->Attribute("Py"));
+		mSceneInfo.cameraInfo.position.z = atof(eyeElement->Attribute("Pz"));
 		TiXmlElement* atElement = eyeElement->NextSiblingElement();
-		mSceneInfo.cameraInfo.at.x = atof(atElement->Attribute("Ax"));
-		mSceneInfo.cameraInfo.at.y = atof(atElement->Attribute("Ay"));
-		mSceneInfo.cameraInfo.at.z = atof(atElement->Attribute("Az"));
-		TiXmlElement* upElement = atElement->NextSiblingElement();
-		mSceneInfo.cameraInfo.up.x = atof(upElement->Attribute("Ux"));
-		mSceneInfo.cameraInfo.up.y = atof(upElement->Attribute("Uy"));
-		mSceneInfo.cameraInfo.up.z = atof(upElement->Attribute("Uz"));
+		mSceneInfo.cameraInfo.rotation.x = atof(atElement->Attribute("Rx"));
+		mSceneInfo.cameraInfo.rotation.y = atof(atElement->Attribute("Ry"));
+		mSceneInfo.cameraInfo.rotation.z = atof(atElement->Attribute("Rz"));
 
 		// fog
 		TiXmlElement* fogElement = cameraElement->NextSiblingElement();

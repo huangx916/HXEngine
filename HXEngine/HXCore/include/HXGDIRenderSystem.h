@@ -22,9 +22,8 @@ namespace HX3D
 		virtual HXRenderable* GenerateRenderable(HXSubMesh* pSubMesh);
 		virtual void RenderSingle(HXRenderable* pRenderable, bool shadow);
 
-		virtual HXICamera* CreateCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
-			float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
-			float left, float right, float bottom, float top);
+		virtual HXICamera* CreateCamera(const HXVector3D& position, const HXVector3D& rotate,
+			float nearZ, float farZ);
 
 		//virtual void BeginText();
 		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255,255,255,255));

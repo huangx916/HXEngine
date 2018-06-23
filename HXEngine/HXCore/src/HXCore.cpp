@@ -28,7 +28,7 @@ namespace HX3D
 			HXVector3D u = (*itr).vertexList[0].pos - (*itr).vertexList[1].pos;
 			HXVector3D v = (*itr).vertexList[0].pos - (*itr).vertexList[2].pos;
 			HXVector3D normal = u.crossProduct(v);
-			HXVector3D view = HXVector3D(pFrustum->camPosition.x, pFrustum->camPosition.y, pFrustum->camPosition.z) - (*itr).vertexList[0].pos;
+			HXVector3D view = HXVector3D(pFrustum->transform->mPostion.x, pFrustum->transform->mPostion.y, pFrustum->transform->mPostion.z) - (*itr).vertexList[0].pos;
 			float dot = view.dotProduct(normal);
 			if(dot < 0)
 			{

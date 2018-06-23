@@ -108,12 +108,11 @@ namespace HX3D
 		}
 	}
 
-	HXICamera* HXGLRenderSystem::CreateCamera(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up,
-		float ffov, float nearZ, float farZ, float viewportWidth, float viewportHeigth,
-		float left, float right, float bottom, float top)
+	HXICamera* HXGLRenderSystem::CreateCamera(const HXVector3D& position, const HXVector3D& rotate,
+		float nearZ, float farZ)
 	{
 		HXICamera* pCam = new HXGLCamera();
-		pCam->Initialize(eye, at, up, ffov, nearZ, farZ, viewportWidth, viewportHeigth, left, right, bottom, top);
+		pCam->Initialize(position, rotate, nearZ, farZ);
 		return pCam;
 	}
 
