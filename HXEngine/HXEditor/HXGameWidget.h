@@ -28,7 +28,7 @@ public:
 	virtual void OnMouseWheel(float fDistance);
 
 	QString GetCurScene();
-	void LoadScene(QString path, FPtr callback);
+	void LoadScene(QString path, FPtr onLoad, FPtr onUpdate);
 	void LoadGameObject(QString path);
 protected:
 	virtual void initializeGL();
@@ -52,6 +52,7 @@ private:
 	bool bLoadScene;	// QT OpenGL相关处理(如:模型加载后的VBO生成等)必须在继承QOpenGLWidget的函数里处理
 	QString scenePath;
 	FPtr loadCallback;
+	FPtr updateCallback;
 
 	bool bLoadGameObject;
 	QString gameObjectPath;

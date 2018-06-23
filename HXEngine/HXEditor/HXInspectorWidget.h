@@ -8,6 +8,8 @@
 #include <QCheckBox.h>
 #include <QComboBox.h>
 #include <QTreeWidget.h>
+#include "HXGLCamera.h"
+#include "QPushButton.h"
 
 using namespace HX3D;
 class HXInspectorWidget : public QTreeWidget
@@ -25,6 +27,7 @@ public:
 	void SetGameObjectInfo(HXGameObject* pGameObject);
 	void SetFogInfo(HXFogBase* pFog);
 	void SetAmbientInfo(HXCOLOR* pAmbient);
+	void SetCameraInfo(HXICamera* pCamera);
 
 private:
 	void SetGameObjectName();
@@ -33,11 +36,9 @@ private:
 	// fog
 	QCheckBox* checkboxFog;
 	QComboBox* comboboxFogType;
-
 	QSpinBox* spinboxFogColorR;
 	QSpinBox* spinboxFogColorG;
 	QSpinBox* spinboxFogColorB;
-
 	QDoubleSpinBox* spinboxFogStart;
 	QDoubleSpinBox* spinboxFogEnd;
 
@@ -47,7 +48,15 @@ private:
 	QSpinBox* spinboxAmbientColorB;
 
 	// camera
-
+	QDoubleSpinBox* spinboxCameraNear;
+	QDoubleSpinBox* spinboxCameraFar;
+	QPushButton* pushbuttonCameraTransSync;
+	QDoubleSpinBox* spinboxCameraPositionX;
+	QDoubleSpinBox* spinboxCameraPositionY;
+	QDoubleSpinBox* spinboxCameraPositionZ;
+	QDoubleSpinBox* spinboxCameraRotationX;
+	QDoubleSpinBox* spinboxCameraRotationY;
+	QDoubleSpinBox* spinboxCameraRotationZ;
 
 	// gameobject
 	QLineEdit* editGameObjectName;
@@ -64,6 +73,7 @@ private:
 	HXGameObject* selectedGameObject;
 	HXFogBase* fog;
 	HXCOLOR* ambient;
+	HXGLCamera* camera;
 
 	void GameObjectNameChanged(const QString& name);
 	public Q_SLOTS:
@@ -92,4 +102,17 @@ private:
 	void AmbientColorRChanged(int value);
 	void AmbientColorGChanged(int value);
 	void AmbientColorBChanged(int value);
+
+	void CameraNearChanged(double value);
+	void CameraFarChanged(double value);
+
+	void TransSyncOnClick();
+
+	void CameraPositionXValueChanged(double value);
+	void CameraPositionYValueChanged(double value);
+	void CameraPositionZValueChanged(double value);
+
+	void CameraRotationXValueChanged(double value);
+	void CameraRotationYValueChanged(double value);
+	void CameraRotationZValueChanged(double value);
 };

@@ -5,11 +5,15 @@
 #include <QFormLayout>
 #include "HXFogLinear.h"
 #include <QHeaderView.h>
+#include "HXGLCamera.h"
+#include "HXSceneManager.h"
+#include "HXRenderSystem.h"
 
 HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 , selectedGameObject(NULL)
 , fog(NULL)
 , ambient(NULL)
+, camera(NULL)
 {
 	// fog
 	checkboxFog = new QCheckBox();
@@ -44,6 +48,34 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	spinboxAmbientColorB = new QSpinBox();
 	spinboxAmbientColorB->setRange(COLOR_MIN, COLOR_MAX);
+
+	// camera
+	spinboxCameraNear = new QDoubleSpinBox();
+	spinboxCameraNear->setRange(MIN, MAX);
+
+	spinboxCameraFar = new QDoubleSpinBox();
+	spinboxCameraFar->setRange(MIN, MAX);
+
+	pushbuttonCameraTransSync = new QPushButton();
+	pushbuttonCameraTransSync->setText("Sync transform");
+
+	spinboxCameraPositionX = new QDoubleSpinBox();
+	spinboxCameraPositionX->setRange(MIN, MAX);
+
+	spinboxCameraPositionY = new QDoubleSpinBox();
+	spinboxCameraPositionY->setRange(MIN, MAX);
+
+	spinboxCameraPositionZ = new QDoubleSpinBox();
+	spinboxCameraPositionZ->setRange(MIN, MAX);
+
+	spinboxCameraRotationX = new QDoubleSpinBox();
+	spinboxCameraRotationX->setRange(MIN, MAX);
+
+	spinboxCameraRotationY = new QDoubleSpinBox();
+	spinboxCameraRotationY->setRange(MIN, MAX);
+
+	spinboxCameraRotationZ = new QDoubleSpinBox();
+	spinboxCameraRotationZ->setRange(MIN, MAX);
 
 	// gameobject
 	editGameObjectName = new QLineEdit();
@@ -158,6 +190,66 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	ambientcolorB->setText(0, "B");
 	ambientcolor->addChild(ambientcolorB);
 	treeWidget->setItemWidget(ambientcolorB, 1, spinboxAmbientColorB);
+
+	// camera
+	QTreeWidgetItem *camera = new QTreeWidgetItem;
+	camera->setText(0, "MainCamera");
+	treeWidget->addTopLevelItem(camera);
+	// camera near
+	QTreeWidgetItem *nearz = new QTreeWidgetItem;
+	nearz->setText(0, "near z");
+	camera->addChild(nearz);
+	treeWidget->setItemWidget(nearz, 1, spinboxCameraNear);
+	// camera far
+	QTreeWidgetItem *farz = new QTreeWidgetItem;
+	farz->setText(0, "far z");
+	camera->addChild(farz);
+	treeWidget->setItemWidget(farz, 1, spinboxCameraFar);
+
+	// camera transform
+	QTreeWidgetItem *camTrans = new QTreeWidgetItem;
+	camTrans->setText(0, "transform");
+	camera->addChild(camTrans);
+	treeWidget->setItemWidget(camTrans, 1, pushbuttonCameraTransSync);
+	// camera position
+	QTreeWidgetItem *camPos = new QTreeWidgetItem;
+	camPos->setText(0, "position");
+	camTrans->addChild(camPos);
+	// position X
+	QTreeWidgetItem *camPosX = new QTreeWidgetItem;
+	camPosX->setText(0, "X");
+	camPos->addChild(camPosX);
+	treeWidget->setItemWidget(camPosX, 1, spinboxCameraPositionX);
+	// position Y
+	QTreeWidgetItem *camPosY = new QTreeWidgetItem;
+	camPosY->setText(0, "Y");
+	camPos->addChild(camPosY);
+	treeWidget->setItemWidget(camPosY, 1, spinboxCameraPositionY);
+	// position Z
+	QTreeWidgetItem *camPosZ = new QTreeWidgetItem;
+	camPosZ->setText(0, "Z");
+	camPos->addChild(camPosZ);
+	treeWidget->setItemWidget(camPosZ, 1, spinboxCameraPositionZ);
+
+	// camera rotation
+	QTreeWidgetItem *camRot = new QTreeWidgetItem;
+	camRot->setText(0, "rotation");
+	camTrans->addChild(camRot);
+	// rotation X
+	QTreeWidgetItem *camRotX = new QTreeWidgetItem;
+	camRotX->setText(0, "X");
+	camRot->addChild(camRotX);
+	treeWidget->setItemWidget(camRotX, 1, spinboxCameraRotationX);
+	// rotation Y
+	QTreeWidgetItem *camRotY = new QTreeWidgetItem;
+	camRotY->setText(0, "Y");
+	camRot->addChild(camRotY);
+	treeWidget->setItemWidget(camRotY, 1, spinboxCameraRotationY);
+	// rotation Z
+	QTreeWidgetItem *camRotZ = new QTreeWidgetItem;
+	camRotZ->setText(0, "Z");
+	camRot->addChild(camRotZ);
+	treeWidget->setItemWidget(camRotZ, 1, spinboxCameraRotationZ);
 
 	// gameobject
 	QTreeWidgetItem *gameobject = new QTreeWidgetItem;
@@ -298,6 +390,20 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(spinboxAmbientColorG, SIGNAL(valueChanged(int)), this, SLOT(AmbientColorGChanged(int)));
 	connect(spinboxAmbientColorB, SIGNAL(valueChanged(int)), this, SLOT(AmbientColorBChanged(int)));
 
+	// camera
+	connect(spinboxCameraNear, SIGNAL(valueChanged(double)), this, SLOT(CameraNearChanged(double)));
+	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
+
+	connect(pushbuttonCameraTransSync, SIGNAL(clicked()), this, SLOT(TransSyncOnClick()));
+
+	connect(spinboxCameraPositionX, SIGNAL(valueChanged(double)), this, SLOT(CameraPositionXValueChanged(double)));
+	connect(spinboxCameraPositionY, SIGNAL(valueChanged(double)), this, SLOT(CameraPositionYValueChanged(double)));
+	connect(spinboxCameraPositionZ, SIGNAL(valueChanged(double)), this, SLOT(CameraPositionZValueChanged(double)));
+
+	connect(spinboxCameraRotationX, SIGNAL(valueChanged(double)), this, SLOT(CameraRotationXValueChanged(double)));
+	connect(spinboxCameraRotationY, SIGNAL(valueChanged(double)), this, SLOT(CameraRotationYValueChanged(double)));
+	connect(spinboxCameraRotationZ, SIGNAL(valueChanged(double)), this, SLOT(CameraRotationZValueChanged(double)));
+
 	// gameobject
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
 	connect(spinboxPositionX, SIGNAL(valueChanged(double)), this, SLOT(PositionXValueChanged(double)));
@@ -363,6 +469,24 @@ void HXInspectorWidget::SetAmbientInfo(HXCOLOR* pAmbient)
 		spinboxAmbientColorR->setValue(pAmbient->r);
 		spinboxAmbientColorG->setValue(pAmbient->g);
 		spinboxAmbientColorB->setValue(pAmbient->b);
+	}
+}
+
+void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
+{
+	camera = (HXGLCamera*)pCamera;
+	if (camera)
+	{
+		spinboxCameraNear->setValue(camera->mNear);
+		spinboxCameraFar->setValue(camera->mFar);
+
+		spinboxCameraPositionX->setValue(camera->transform->mPostion.x);
+		spinboxCameraPositionY->setValue(camera->transform->mPostion.y);
+		spinboxCameraPositionZ->setValue(camera->transform->mPostion.z);
+
+		spinboxCameraRotationX->setValue(camera->transform->mEulerDegree.x);
+		spinboxCameraRotationY->setValue(camera->transform->mEulerDegree.y);
+		spinboxCameraRotationZ->setValue(camera->transform->mEulerDegree.z);
 	}
 }
 
@@ -567,5 +691,80 @@ void HXInspectorWidget::AmbientColorBChanged(int value)
 	if (ambient)
 	{
 		ambient->b = value;
+	}
+}
+
+void HXInspectorWidget::CameraNearChanged(double value)
+{
+	if (camera)
+	{
+		camera->mNear = value;
+		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
+		camera->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, camera->mNear, camera->mFar);
+	}
+}
+
+void HXInspectorWidget::CameraFarChanged(double value)
+{
+	if (camera)
+	{
+		camera->mFar = value;
+		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
+		camera->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, camera->mNear, camera->mFar);
+	}
+}
+
+void HXInspectorWidget::TransSyncOnClick()
+{
+	SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+}
+
+void HXInspectorWidget::CameraPositionXValueChanged(double value)
+{
+	if (camera)
+	{
+		HXVector3D pos = camera->transform->GetPosition();
+		camera->transform->SetPosition(HXVector3D(value, pos.y, pos.z));
+	}
+}
+void HXInspectorWidget::CameraPositionYValueChanged(double value)
+{
+	if (camera)
+	{
+		HXVector3D pos = camera->transform->GetPosition();
+		camera->transform->SetPosition(HXVector3D(pos.x, value, pos.z));
+	}
+}
+void HXInspectorWidget::CameraPositionZValueChanged(double value)
+{
+	if (camera)
+	{
+		HXVector3D pos = camera->transform->GetPosition();
+		camera->transform->SetPosition(HXVector3D(pos.x, pos.y, value));
+	}
+}
+
+void HXInspectorWidget::CameraRotationXValueChanged(double value)
+{
+	if (camera)
+	{
+		HXVector3D rotate = camera->transform->GetRotation();
+		camera->transform->SetRotation(HXVector3D(value, rotate.y, rotate.z));
+	}
+}
+void HXInspectorWidget::CameraRotationYValueChanged(double value)
+{
+	if (camera)
+	{
+		HXVector3D rotate = camera->transform->GetRotation();
+		camera->transform->SetRotation(HXVector3D(rotate.x, value, rotate.z));
+	}
+}
+void HXInspectorWidget::CameraRotationZValueChanged(double value)
+{
+	if (camera)
+	{
+		HXVector3D rotate = camera->transform->GetRotation();
+		camera->transform->SetRotation(HXVector3D(rotate.x, rotate.y, value));
 	}
 }

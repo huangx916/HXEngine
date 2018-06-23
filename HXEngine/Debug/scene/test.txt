@@ -37,12 +37,12 @@
 			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 		</GameObj>
 	</GameObjects>
-	<Camera NearZ="1" FarZ="1000">
-		<Position Px="0" Py="5" Pz="15"/>
-		<Rotation Rx="-10" Ry="0" Rz="0"/>
+	<Camera NearZ="1" FarZ="500">
+		<Position Px="3.47" Py="2.6" Pz="10.15"/>
+		<Rotation Rx="-29.2" Ry="20.3" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="15" End="30"/>
-	<Ambient R="0" G="0" B="255"/>
+	<Ambient R="50" G="50" B="50"/>
 	<Lights>
 		<Light Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="255" Cg="255" Cb="255"/>

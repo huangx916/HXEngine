@@ -14,6 +14,7 @@ HXGameWidget::HXGameWidget(QWidget * parent)
 , bLoadScene(false)
 , bLoadGameObject(false)
 , loadCallback(NULL)
+, updateCallback(NULL)
 {
 	connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer.start(16);
@@ -29,11 +30,12 @@ QString HXGameWidget::GetCurScene()
 	return scenePath;
 }
 
-void HXGameWidget::LoadScene(QString path, FPtr callback)
+void HXGameWidget::LoadScene(QString path, FPtr onLoad, FPtr onUpdate)
 {
 	scenePath = path;
 	bLoadScene = true;
-	loadCallback = callback;
+	loadCallback = onLoad;
+	updateCallback = onUpdate;
 }
 
 void HXGameWidget::LoadGameObject(QString path)
@@ -88,6 +90,12 @@ void HXGameWidget::paintGL()
 			loadCallback();
 		}
 	}
+	
+	if (updateCallback)
+	{
+		updateCallback();
+	}
+	
 	HXGLRenderSystem::RenderScene();
 }
 

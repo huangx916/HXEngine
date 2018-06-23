@@ -85,7 +85,7 @@ void HXEditorWin::loadScene()
 		//QTextStream in(&file);
 		//textEdit->setText(in.readAll());
 		setWindowTitle(path);
-		m_pGameWidget->LoadScene(path, HXEditorWin::loadSceneCallBack);
+		m_pGameWidget->LoadScene(path, HXEditorWin::loadSceneCallBack, HXEditorWin::updateCallBack);
 		file.close();
 	}
 	else {
@@ -193,11 +193,27 @@ void HXEditorWin::serializeScene(QTextStream& out)
 
 	out << "	</GameObjects>\n";
 
-	//TODO: Camera
-	out << "	<Camera Ffov=\"90\" NearZ=\"1\" FarZ=\"1000\">\n";
-	out << "		<Eye Ex=\"0\" Ey=\"4\" Ez=\"15\"/>\n";
-	out << "		<At Ax=\"0\" Ay=\"0\" Az=\"0\"/>\n";
-	out << "		<Up Ux=\"0\" Uy=\"1\" Uz=\"0\"/>\n";
+	// Camera
+	HXGLCamera* camera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
+	out << "	<Camera NearZ=\"";
+	out << camera->mNear;
+	out << "\" FarZ=\"";
+	out << camera->mFar;
+	out << "\">\n";
+	out << "		<Position Px=\"";
+	out << camera->transform->mPostion.x;
+	out << "\" Py=\"";
+	out << camera->transform->mPostion.y;
+	out << "\" Pz=\"";
+	out << camera->transform->mPostion.z;
+	out << "\"/>\n";
+	out << "		<Rotation Rx=\"";
+	out << camera->transform->mEulerDegree.x;
+	out << "\" Ry=\"";
+	out << camera->transform->mEulerDegree.y;
+	out << "\" Rz=\"";
+	out << camera->transform->mEulerDegree.z;
+	out << "\"/>\n";
 	out << "	</Camera>\n";
 
 	// Fog
@@ -349,6 +365,13 @@ void HXEditorWin::loadSceneCallBack()
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateGameObjectTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+}
+
+void HXEditorWin::updateCallBack()
+{
+	// 影响帧率，改用按钮同步数据
+	//HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
 }
 
 void HXEditorWin::updateGameObject(HX3D::HXGameObject* gameObject)

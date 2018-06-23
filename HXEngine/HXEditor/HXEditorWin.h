@@ -29,6 +29,7 @@ private:
 	void serializeScene(QTextStream& out);
 
 	static void loadSceneCallBack();
+	static void updateCallBack();
 	static void updateGameObject(HX3D::HXGameObject* gameObject);
 
 	Ui::HXEditorWinClass ui;
