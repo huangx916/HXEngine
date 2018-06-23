@@ -51,29 +51,9 @@ void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 
 void HXGame::OnKeyboard(unsigned char key, int x, int y)
 {
-	/*if (key == 'w' || key == 'W')
-	{
-		HXSceneManager::GetInstance()->GetMainCamera()->Forward(1);
-	}
-	if (key == 's' || key == 'S')
-	{
-		HXSceneManager::GetInstance()->GetMainCamera()->Forward(-1);
-	}
-	if (key == 'a' || key == 'A')
-	{
-		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(-1, 0, 0));
-	}
-	if (key == 'd' || key == 'D')
-	{
-		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(1, 0, 0));
-	}*/
 	if (key == 'f' || key == 'F')
 	{
 		HXSceneManager::GetInstance()->UseFog(!HXSceneManager::GetInstance()->fog->useFog);
-	}
-	if (key == 'c' || key == 'C')
-	{
-		//HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
 	}
 }
 
@@ -86,10 +66,6 @@ void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 	if (nButton == 0)
 	{
 		// ×ó¼ü°´ÏÂ×´Ì¬
-		//HXSceneManager::GetInstance()->GetMainCamera()->MoveHorizon(float(deltaX) / 10.0f);
-		//HXSceneManager::GetInstance()->GetMainCamera()->MoveVertical(float(deltaY) / 10.0f);
-		//HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D((deltaX) / 10.0f, 0, 0));
-		//HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, -float(deltaY) / 10.0f, 0));
 		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D((deltaX) / 10.0f, -float(deltaY) / 10.0f, 0));
 	}
 	else if (nButton == 2)
@@ -97,9 +73,7 @@ void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 		// ÓÒ¼ü°´ÏÂ×´Ì¬
 		//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
 		HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
-		//HXSceneManager::GetInstance()->GetMainCamera()->YawLockTarget(float(deltaX) / 5.0f);
 		HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY) / 10.0f);
-		//HXSceneManager::GetInstance()->GetMainCamera()->PitchLockTarget(float(deltaY) / 5.0f);
 	}
 }
 
@@ -109,6 +83,5 @@ void HXGame::OnMouseWheel(float fDistance)
 	{
 		return;
 	}
-	//HXSceneManager::GetInstance()->GetMainCamera()->Forward(fDistance);
 	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, 0, -fDistance));
 }

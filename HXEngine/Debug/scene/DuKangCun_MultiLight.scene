@@ -23,9 +23,8 @@
 		</PrefabGameObj>
 	</Prefabs>
 	<Camera Ffov="90" NearZ="1" FarZ="1000">
-		<Eye Ex="0" Ey="4" Ez="15"/>
-		<At Ax="0" Ay="0" Az="0"/>
-		<Up Ux="0" Uy="1" Uz="0"/>
+		<Position Px="0" Py="5" Pz="15"/>
+		<Rotation Rx="-10" Ry="0" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="128" G="128" B="128" Start="10" End="30"/>
 	<Ambient R="50" G="50" B="50"/>

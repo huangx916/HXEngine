@@ -38,9 +38,8 @@
 		</GameObj>
 	</GameObjects>
 	<Camera Ffov="90" NearZ="1" FarZ="1000">
-		<Eye Ex="0" Ey="4" Ez="15"/>
-		<At Ax="0" Ay="0" Az="0"/>
-		<Up Ux="0" Uy="1" Uz="0"/>
+		<Position Px="0" Py="5" Pz="15"/>
+		<Rotation Rx="-10" Ry="0" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="15" End="30"/>
 	<Ambient R="0" G="0" B="255"/>

@@ -1,6 +1,7 @@
 #include "..\include\HXGLCamera.h"
 #include "HXMath.h"
 #include "HXGLTransform.h"
+#include "HXRenderSystem.h"
 
 namespace HX3D
 {
@@ -22,6 +23,9 @@ namespace HX3D
 
 		transform->mPostion = position;
 		transform->mEulerDegree = rotate;
+
+		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
+		UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, mNear, mFar);
 	}
 
 	void HXGLCamera::Update()
