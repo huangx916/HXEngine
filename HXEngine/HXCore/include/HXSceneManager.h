@@ -40,7 +40,6 @@ namespace HX3D
 			float nearZ = 1.0f, float farZ = 1000.0f);
 		HXICamera* GetMainCamera();
 
-		//HXGameObject* CreateSkyBox(HXVector3D scale);
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
@@ -50,6 +49,8 @@ namespace HX3D
 		
 
 		HXGameObject* CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath);
+		bool DeleteGameObjectInEditor(HXGameObject* gameobject);
+		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
 		int nameSuffix;
 
 		// 平行光、点光源、聚光灯
@@ -63,7 +64,6 @@ namespace HX3D
 		HXSceneManager();
 
 		std::vector<HXGameObject*>	gameObjectList;
-		HXRenderList*	mRenderList;
 		HXICamera* m_pMainCamera;
 	};
 }

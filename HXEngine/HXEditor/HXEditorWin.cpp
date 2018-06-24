@@ -29,6 +29,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
 	connect(ui.actionSaveScene, &QAction::triggered, this, &HXEditorWin::saveScene);
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
+	connect(ui.actionDeleteGameObject, &QAction::triggered, this, &HXEditorWin::deleteGameObject);
 
 	/* set background color */
 	//QPalette palette(palette());
@@ -360,6 +361,30 @@ void HXEditorWin::loadGameObject()
 		QMessageBox::warning(this, tr("Path"),
 			tr("You did not select any file."));
 	}
+}
+
+void HXEditorWin::deleteGameObject()
+{
+	if (NULL == m_pInspectorWidget->selectedGameObject)
+	{
+		QMessageBox::warning(this, tr("GameObject"),
+			tr("You did not select any gameobject."));
+		return;
+	}
+
+	if (QMessageBox::Yes == QMessageBox::question(this,
+		tr("GameObject"),
+		tr("Delete this GameObject ?"),
+		QMessageBox::Yes | QMessageBox::No,
+		QMessageBox::Yes)) {
+		if (HXSceneManager::GetInstance()->DeleteGameObjectInEditor(m_pInspectorWidget->selectedGameObject))
+		{
+			m_pHierarchyWidget->OnDeleteGameObject();
+		}
+	}
+	/*else {
+		QMessageBox::information(this, tr("Hmmm..."), tr("I'm sorry!"));
+	}*/
 }
 
 void HXEditorWin::loadSceneCallBack()

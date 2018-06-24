@@ -1232,3 +1232,9 @@ void HXInspectorWidget::ConeDirZValueChanged(double value)
 		selectedLight->ConeDirection.z = value;
 	}
 }
+
+void HXInspectorWidget::OnDeleteGameObject()
+{
+	selectedGameObject = NULL;
+	gameobject->setHidden(true);
+}

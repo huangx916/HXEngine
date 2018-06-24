@@ -77,7 +77,7 @@ namespace HX3D
 		vctChildren.push_back(child);
 	}
 
-	std::vector<HXGameObject*> HXGameObject::GetChildren()
+	std::vector<HXGameObject*>& HXGameObject::GetChildren()
 	{
 		return vctChildren;
 	}

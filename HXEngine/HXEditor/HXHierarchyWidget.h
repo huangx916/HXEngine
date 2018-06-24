@@ -17,6 +17,7 @@ public:
 
 	void UpdateSceneTree();
 	void OnCreateGameObject(HX3D::HXGameObject* go);
+	void OnDeleteGameObject();
 
 private:
 	void AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go);

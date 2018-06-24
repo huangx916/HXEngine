@@ -1,5 +1,7 @@
 #include "HXHierarchyWidget.h"
 #include "HXSceneManager.h"
+#include "HXEditorWin.h"
+#include "HXInspectorWidget.h"
 
 using namespace HX3D;
 
@@ -58,6 +60,12 @@ void HXHierarchyWidget::UpdateSceneTree()
 void HXHierarchyWidget::OnCreateGameObject(HX3D::HXGameObject* go)
 {
 	AddGameObjectLeafRecurve(this->currentItem(), go);
+}
+
+void HXHierarchyWidget::OnDeleteGameObject()
+{
+	delete this->currentItem();
+	HXEditorWin::GetInstance()->m_pInspectorWidget->OnDeleteGameObject();
 }
 
 void HXHierarchyWidget::AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)

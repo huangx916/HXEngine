@@ -33,6 +33,8 @@ public:
 	void SetAmbientInfo(HXCOLOR* pAmbient);
 	void SetCameraInfo(HXICamera* pCamera);
 
+	void OnDeleteGameObject();
+
 	// data
 	HXGameObject* selectedGameObject;
 	HXLight* selectedLight;

@@ -25,7 +25,7 @@ namespace HX3D
 		HXGameObject* GetFather();
 		void SetFather(HXGameObject* father);
 		void AddChild(HXGameObject* child);
-		std::vector<HXGameObject*> GetChildren();
+		std::vector<HXGameObject*>& GetChildren();
 		HXITransform* GetTransform();
 
 		// ‰÷»æ”≈œ»º∂

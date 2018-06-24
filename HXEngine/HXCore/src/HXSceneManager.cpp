@@ -23,7 +23,6 @@ namespace HX3D
 
 	HXSceneManager::HXSceneManager():m_pMainCamera(NULL), fog(NULL), nameSuffix(0)
 	{
-		mRenderList = new HXRenderList();
 		ambient = HXCOLOR(0,0,0,255);
 	}
 
@@ -40,8 +39,6 @@ namespace HX3D
 			delete *itr;
 		}
 		lightVct.clear();
-
-		delete mRenderList;
 
 		if (m_pMainCamera)
 		{
@@ -260,49 +257,6 @@ namespace HX3D
 		return m_pMainCamera;
 	}
 
-
-	//HXGameObject* HXSceneManager::CreateSkyBox(HXVector3D scale)
-	//{
-	//	if (HXRoot::GetInstance()->GetRenderSystem() && 
-	//		HXRoot::GetInstance()->GetRenderSystem()->GetRenderSystemType() == RenderSystem_GDI)
-	//	{
-	//		return NULL;
-	//	}
-
-	//	std::string strgoName = "HXSkyBox";
-
-	//	/*std::map<std::string, HXGameObject*>::iterator itr = gameObjectList.find(strgoName);
-	//	if (itr != gameObjectList.end())
-	//	{
-	//		std::cerr << "HXSkyBox alreay existed" << std::endl;
-	//		return itr->second;
-	//	}*/
-
-	//	// 创建mesh
-	//	HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("HXSkyBoxMesh", "");
-	//	if (NULL == pMesh)
-	//	{
-	//		return NULL;
-	//	}
-
-	//	// 加载材质
-	//	HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo("./prefab/SkyBox/SkyBox.material");
-	//	if (NULL == pMat)
-	//	{
-	//		return NULL;
-	//	}
-
-	//	// 关联材质到SubMesh
-	//	pMesh->subMeshList[0]->materialName = "./prefab/SkyBox/SkyBox.material";
-
-	//	HXGameObject* gameObject = new HXGameObject(strgoName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
-	//	gameObject->GetTransform()->SetScale(scale);
-	//	gameObject->m_nPriority = 0;
-	//	gameObject->m_bCastShadow = false;
-	//	gameObjectList.push_back(gameObject);
-	//	return gameObject;
-	//}
-
 	void HXSceneManager::CreateFog(HXFogInfo* info)
 	{
 		if (info->type == HXFogType::FOG_Linear)
@@ -411,7 +365,7 @@ namespace HX3D
 		}
 	}
 
-	HXGameObject*  HXSceneManager::CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath)
+	HXGameObject* HXSceneManager::CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath)
 	{
 		HXLoadConfigPrefab cfgPrefab;
 		cfgPrefab.LoadFile(strPrefabPath);
@@ -431,6 +385,30 @@ namespace HX3D
 			return gameobject;
 		}
 		return NULL;
+	}
+
+	bool HXSceneManager::DeleteGameObjectInEditor(HXGameObject* gameobject)
+	{
+		return DeleteGameObjectRecurve(gameObjectList, gameobject);
+	}
+
+	bool HXSceneManager::DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject)
+	{
+		for (std::vector<HXGameObject*>::iterator itr = list.begin(); itr != list.end(); ++itr)
+		{
+			if ((*itr) == gameobject)
+			{
+				list.erase(itr);
+				delete gameobject;
+				gameobject = NULL;
+				return true;
+			}
+			if (DeleteGameObjectRecurve((*itr)->GetChildren(), gameobject))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
