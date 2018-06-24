@@ -15,6 +15,8 @@ HXGameWidget::HXGameWidget(QWidget * parent)
 , bLoadGameObject(false)
 , loadCallback(NULL)
 , updateCallback(NULL)
+, createGoCallback(NULL)
+, gameObjectFather(NULL)
 {
 	connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
 	timer.start(16);
@@ -30,16 +32,18 @@ QString HXGameWidget::GetCurScene()
 	return scenePath;
 }
 
-void HXGameWidget::LoadScene(QString path, FPtr onLoad, FPtr onUpdate)
+void HXGameWidget::LoadScene(QString path, FPtr onLoad, FPtr onUpdate, FPtrGo onCreate)
 {
 	scenePath = path;
 	bLoadScene = true;
 	loadCallback = onLoad;
 	updateCallback = onUpdate;
+	createGoCallback = onCreate;
 }
 
-void HXGameWidget::LoadGameObject(QString path)
+void HXGameWidget::LoadGameObject(HXGameObject* father, QString path)
 {
+	gameObjectFather = father;
 	gameObjectPath = path;
 	bLoadGameObject = true;
 }
@@ -84,10 +88,10 @@ void HXGameWidget::paintGL()
 	if (bLoadGameObject)
 	{
 		bLoadGameObject = false;
-		HXSceneManager::GetInstance()->LoadGameObjectInEditor(gameObjectPath.toStdString());
-		if (loadCallback != NULL)
+		HXGameObject* go = HXSceneManager::GetInstance()->CreateGameObjectInEditor(gameObjectFather, gameObjectPath.toStdString());
+		if (createGoCallback != NULL && go != NULL)
 		{
-			loadCallback();
+			createGoCallback(go);
 		}
 	}
 	

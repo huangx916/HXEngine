@@ -21,6 +21,8 @@ class HXInspectorWidget : public QTreeWidget
 	const double MAX = 100000;
 	const int COLOR_MIN = 0;
 	const int COLOR_MAX = 255;
+	const int PRIORITY_MIN = 0;
+	const int PRIORITY_MAX = 100000;
 public:
 	HXInspectorWidget(QWidget * parent = 0);
 	~HXInspectorWidget();
@@ -31,9 +33,14 @@ public:
 	void SetAmbientInfo(HXCOLOR* pAmbient);
 	void SetCameraInfo(HXICamera* pCamera);
 
+	// data
+	HXGameObject* selectedGameObject;
+	HXLight* selectedLight;
+	HXFogBase* fogData;
+	HXCOLOR* ambientData;
+	HXGLCamera* cameraData;
+
 private:
-	void SetGameObjectName();
-	void SetGameObjectTransform();
 
 	// fog
 	QTreeWidgetItem *fog;
@@ -66,6 +73,8 @@ private:
 	// gameobject
 	QTreeWidgetItem *gameobject;
 	QLineEdit* editGameObjectName;
+	QSpinBox* spinboxPriority;
+	QCheckBox* checkboxCastShadow;
 	QDoubleSpinBox* spinboxPositionX;
 	QDoubleSpinBox* spinboxPositionY;
 	QDoubleSpinBox* spinboxPositionZ;
@@ -101,16 +110,13 @@ private:
 	QDoubleSpinBox* spinboxConeDirY;
 	QDoubleSpinBox* spinboxConeDirZ;
 
-	// data
-	HXGameObject* selectedGameObject;
-	HXLight* selectedLight;
-	HXFogBase* fogData;
-	HXCOLOR* ambientData;
-	HXGLCamera* cameraData;
-
 	void GameObjectNameChanged(const QString& name);
 	void LightNameChanged(const QString& name);
 	public Q_SLOTS:
+	// gameobject
+	void PriorityChanged(int value);
+	void CastShadowToggled(bool castShadow);
+
 	void PositionXValueChanged(double value);
 	void PositionYValueChanged(double value);
 	void PositionZValueChanged(double value);

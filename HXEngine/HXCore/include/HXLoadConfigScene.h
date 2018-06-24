@@ -4,28 +4,10 @@
 #include "HXFogBase.h"
 #include "HXLight.h"
 #include "tinyxml.h"
+#include "HXLoadConfigPrefab.h"
 
 namespace HX3D
 {
-	struct HXGameObjectInfo
-	{
-		HXGameObjectInfo(){}
-		~HXGameObjectInfo()
-		{
-			for (std::vector<HXGameObjectInfo*>::iterator itr = children.begin(); itr != children.end(); ++itr)
-			{
-				delete (*itr);
-			}
-		}
-		std::string strGameObjName;
-		std::string strModelFile;
-		int nPriority;
-		bool bCastShadow;
-		HXVector3D position;
-		HXVector3D rotation;
-		HXVector3D scale;
-		std::vector<HXGameObjectInfo*> children;
-	};
 	struct HXCameraInfo
 	{
 		HXVector3D position;
@@ -66,6 +48,7 @@ namespace HX3D
 		HXSceneInfo() {};
 		~HXSceneInfo()
 		{
+			// TODO: µÝ¹éÉ¾³ý
 			for (std::vector<HXGameObjectInfo*>::iterator itr = vctGameObjInfo.begin(); itr != vctGameObjInfo.end(); ++itr)
 			{
 				delete (*itr);

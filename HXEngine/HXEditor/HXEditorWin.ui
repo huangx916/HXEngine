@@ -55,7 +55,7 @@
   </action>
   <action name="actionLoadGameObject">
    <property name="text">
-    <string>Load...</string>
+    <string>Create...</string>
    </property>
   </action>
   <action name="actionSaveScene">

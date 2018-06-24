@@ -16,6 +16,7 @@ public:
 	~HXHierarchyWidget();
 
 	void UpdateSceneTree();
+	void OnCreateGameObject(HX3D::HXGameObject* go);
 
 private:
 	void AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go);

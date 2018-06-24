@@ -411,51 +411,26 @@ namespace HX3D
 		}
 	}
 
-	void HXSceneManager::LoadGameObjectInEditor(std::string strPath)
+	HXGameObject*  HXSceneManager::CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath)
 	{
-		HXGameObjectInfo prefabgoinfo;
-		// TODO: 防止重名
-		prefabgoinfo.strGameObjName = "GameObject" + IntToString(nameSuffix++);
-		prefabgoinfo.strModelFile = strPath;
-		prefabgoinfo.nPriority = 20;
-		prefabgoinfo.bCastShadow = true;
-		prefabgoinfo.position = HXVector3D(0,0,0);
-		prefabgoinfo.rotation = HXVector3D(0,0,0);
-		prefabgoinfo.scale = HXVector3D(1,1,1);
-
-		HXGameObject* pFatherGameObject = CreateGameObject(NULL, &prefabgoinfo);
-		if (NULL == pFatherGameObject)
-		{
-			return;
-		}
-		/*if (pFatherGameObject->GetMesh())
-		{
-			pFatherGameObject->GetMesh()->PlayDefaultAnimation();
-		}*/
-		pFatherGameObject->GetTransform()->SetScale(prefabgoinfo.scale);
-		pFatherGameObject->GetTransform()->SetRotation(prefabgoinfo.rotation);
-		pFatherGameObject->GetTransform()->SetPosition(prefabgoinfo.position);
-
 		HXLoadConfigPrefab cfgPrefab;
-		cfgPrefab.LoadFile(prefabgoinfo.strModelFile);
-		for (std::vector<HXModelGameObjInfo>::iterator itr1 = cfgPrefab.mPrefabInfo.vctGameObjInfo.begin(); itr1 != cfgPrefab.mPrefabInfo.vctGameObjInfo.end(); ++itr1)
+		cfgPrefab.LoadFile(strPrefabPath);
+		if (cfgPrefab.vctGameObjInfo.size() > 0)
 		{
-			HXModelGameObjInfo& modelgoinfo = *itr1;
-			HXGameObject* pGameObject = CreateGameObject(pFatherGameObject, &prefabgoinfo);
-			if (NULL == pGameObject)
+			// 最上层一个HXGameObjectInfo就够了
+			HXGameObjectInfo* gameobjectinfo = cfgPrefab.vctGameObjInfo[0];
+			if (NULL == gameobjectinfo)
 			{
-				return;
+				return NULL;
 			}
-			if (pGameObject->GetMesh())
+			HXGameObject* gameobject = CreateGameObject(father, gameobjectinfo);
+			if (gameobject)
 			{
-				pGameObject->GetMesh()->PlayDefaultAnimation();
+				CreateGameObjectRecurve(gameobjectinfo->children, gameobject);
 			}
-			pGameObject->GetTransform()->SetScale(modelgoinfo.scale);
-			pGameObject->GetTransform()->SetRotation(modelgoinfo.rotation);
-			pGameObject->GetTransform()->SetPosition(modelgoinfo.position);
-
-			pGameObject->SetFather(pFatherGameObject);
+			return gameobject;
 		}
+		return NULL;
 	}
 }
 

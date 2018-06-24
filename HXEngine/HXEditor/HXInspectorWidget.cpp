@@ -8,6 +8,8 @@
 #include "HXGLCamera.h"
 #include "HXSceneManager.h"
 #include "HXRenderSystem.h"
+#include "HXEditorWin.h"
+#include "HXHierarchyWidget.h"
 
 HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 , selectedGameObject(NULL)
@@ -80,6 +82,11 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	// gameobject
 	editGameObjectName = new QLineEdit();
+
+	spinboxPriority = new QSpinBox();
+	spinboxPriority->setRange(PRIORITY_MIN, PRIORITY_MAX);
+
+	checkboxCastShadow = new QCheckBox();
 
 	spinboxPositionX = new QDoubleSpinBox();
 	spinboxPositionX->setRange(MIN, MAX);
@@ -313,6 +320,18 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	goname->setText(0, "name");
 	gameobject->addChild(goname);
 	treeWidget->setItemWidget(goname, 1, editGameObjectName);
+	// gameobject priority
+	QTreeWidgetItem *priority = new QTreeWidgetItem;
+	priority->setText(0, "priority");
+	gameobject->addChild(priority);
+	treeWidget->setItemWidget(priority, 1, spinboxPriority);
+
+	// castshadow
+	QTreeWidgetItem *castshadow = new QTreeWidgetItem;
+	castshadow->setText(0, "cast shadow");
+	gameobject->addChild(castshadow);
+	treeWidget->setItemWidget(castshadow, 1, checkboxCastShadow);
+
 	// gameobject transform
 	QTreeWidgetItem *transform = new QTreeWidgetItem;
 	transform->setText(0, "transform");
@@ -590,6 +609,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	// gameobject
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
+
+	connect(spinboxPriority, SIGNAL(valueChanged(int)), this, SLOT(PriorityChanged(int)));
+	connect(checkboxCastShadow, SIGNAL(toggled(bool)), this, SLOT(CastShadowToggled(bool)));
+
 	connect(spinboxPositionX, SIGNAL(valueChanged(double)), this, SLOT(PositionXValueChanged(double)));
 	connect(spinboxPositionY, SIGNAL(valueChanged(double)), this, SLOT(PositionYValueChanged(double)));
 	connect(spinboxPositionZ, SIGNAL(valueChanged(double)), this, SLOT(PositionZValueChanged(double)));
@@ -638,14 +661,39 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	if (selectedGameObject)
 	{
 		gameobject->setHidden(false);
+
+		editGameObjectName->setText(selectedGameObject->GetName().c_str());
+
+		spinboxPriority->setValue(selectedGameObject->m_nPriority);
+
+		if (selectedGameObject->m_bCastShadow)
+		{
+			checkboxCastShadow->setCheckState(Qt::Checked);
+		}
+		else
+		{
+			checkboxCastShadow->setCheckState(Qt::Unchecked);
+		}
+
+		HXITransform* pTransform = selectedGameObject->GetTransform();
+
+		spinboxPositionX->setValue(pTransform->GetPosition().x);
+		spinboxPositionY->setValue(pTransform->GetPosition().y);
+		spinboxPositionZ->setValue(pTransform->GetPosition().z);
+
+		spinboxRotationX->setValue(pTransform->GetRotation().x);
+		spinboxRotationY->setValue(pTransform->GetRotation().y);
+		spinboxRotationZ->setValue(pTransform->GetRotation().z);
+
+		spinboxScaleX->setValue(pTransform->GetScale().x);
+		spinboxScaleY->setValue(pTransform->GetScale().y);
+		spinboxScaleZ->setValue(pTransform->GetScale().z);
 	}
 	else
 	{
 		gameobject->setHidden(true);
 		return;
 	}
-	SetGameObjectName();
-	SetGameObjectTransform();
 }
 
 void HXInspectorWidget::SetLightInfo(HXLight* pLight)
@@ -765,57 +813,28 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 	}
 }
 
-void HXInspectorWidget::SetGameObjectName()
-{
-	if (selectedGameObject)
-	{
-		editGameObjectName->setText(selectedGameObject->GetName().c_str());
-	}
-	else
-	{
-		editGameObjectName->setText("");
-	}
-}
-
-void HXInspectorWidget::SetGameObjectTransform()
-{
-	if (selectedGameObject && selectedGameObject->GetTransform())
-	{
-		HXITransform* pTransform = selectedGameObject->GetTransform();
-
-		spinboxPositionX->setValue(pTransform->GetPosition().x);
-		spinboxPositionY->setValue(pTransform->GetPosition().y);
-		spinboxPositionZ->setValue(pTransform->GetPosition().z);
-
-		spinboxRotationX->setValue(pTransform->GetRotation().x);
-		spinboxRotationY->setValue(pTransform->GetRotation().y);
-		spinboxRotationZ->setValue(pTransform->GetRotation().z);
-
-		spinboxScaleX->setValue(pTransform->GetScale().x);
-		spinboxScaleY->setValue(pTransform->GetScale().y);
-		spinboxScaleZ->setValue(pTransform->GetScale().z);
-	}
-	else
-	{
-		spinboxPositionX->setValue(0);
-		spinboxPositionY->setValue(0);
-		spinboxPositionZ->setValue(0);
-
-		spinboxRotationX->setValue(0);
-		spinboxRotationY->setValue(0);
-		spinboxRotationZ->setValue(0);
-
-		spinboxScaleX->setValue(0);
-		spinboxScaleY->setValue(0);
-		spinboxScaleZ->setValue(0);
-	}
-}
-
 void HXInspectorWidget::GameObjectNameChanged(const QString& name)
 {
 	if (selectedGameObject)
 	{
 		selectedGameObject->SetName(name.toStdString());
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
+	}
+}
+
+void HXInspectorWidget::PriorityChanged(int value)
+{
+	if (selectedGameObject)
+	{
+		selectedGameObject->m_nPriority = value;
+	}
+}
+
+void HXInspectorWidget::CastShadowToggled(bool castShadow)
+{
+	if (selectedGameObject)
+	{
+		selectedGameObject->m_bCastShadow = castShadow;
 	}
 }
 
@@ -1050,6 +1069,7 @@ void HXInspectorWidget::LightNameChanged(const QString& name)
 	if (selectedLight)
 	{
 		selectedLight->name = name.toStdString();
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
 	}
 }
 

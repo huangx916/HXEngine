@@ -31,12 +31,14 @@ private:
 
 	static void loadSceneCallBack();
 	static void updateCallBack();
+	static void createGoCallBack(HX3D::HXGameObject* gameObject);
 	static void updateGameObject(HX3D::HXGameObject* gameObject);
 	static void updateLight(HX3D::HXLight* light);
 
 	Ui::HXEditorWinClass ui;
 	QHBoxLayout* m_pMainLayout;
 
+public:
 	HXGameWidget* m_pGameWidget;
 	HXHierarchyWidget* m_pHierarchyWidget;
 	HXInspectorWidget* m_pInspectorWidget;

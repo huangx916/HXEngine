@@ -55,6 +55,11 @@ void HXHierarchyWidget::UpdateSceneTree()
 	insertTopLevelItem(0, root);
 }
 
+void HXHierarchyWidget::OnCreateGameObject(HX3D::HXGameObject* go)
+{
+	AddGameObjectLeafRecurve(this->currentItem(), go);
+}
+
 void HXHierarchyWidget::AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)
 {
 	std::string name = go->GetName();

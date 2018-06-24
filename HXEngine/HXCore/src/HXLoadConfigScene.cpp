@@ -39,9 +39,6 @@ namespace HX3D
 			TiXmlElement* child = scaleElement->NextSiblingElement();
 			ReadGameObjectRecurve(child, gameObjInfo->children, gameObjInfo->nPriority);
 		}
-
-
-
 		return true;
 	}
 

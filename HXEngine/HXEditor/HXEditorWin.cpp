@@ -28,7 +28,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
 	connect(ui.actionSaveScene, &QAction::triggered, this, &HXEditorWin::saveScene);
-	//connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
+	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
 
 	/* set background color */
 	//QPalette palette(palette());
@@ -85,7 +85,7 @@ void HXEditorWin::loadScene()
 		//QTextStream in(&file);
 		//textEdit->setText(in.readAll());
 		setWindowTitle(path);
-		m_pGameWidget->LoadScene(path, HXEditorWin::loadSceneCallBack, HXEditorWin::updateCallBack);
+		m_pGameWidget->LoadScene(path, HXEditorWin::loadSceneCallBack, HXEditorWin::updateCallBack, HXEditorWin::createGoCallBack);
 		file.close();
 	}
 	else {
@@ -353,7 +353,7 @@ void HXEditorWin::loadGameObject()
 		}
 		//QTextStream in(&file);
 		//textEdit->setText(in.readAll());
-		m_pGameWidget->LoadGameObject(path);
+		m_pGameWidget->LoadGameObject(m_pInspectorWidget->selectedGameObject, path);
 		file.close();
 	}
 	else {
@@ -374,6 +374,11 @@ void HXEditorWin::updateCallBack()
 {
 	// 影响帧率，改用按钮同步数据
 	//HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+}
+
+void HXEditorWin::createGoCallBack(HX3D::HXGameObject* gameObject)
+{
+	HXEditorWin::GetInstance()->m_pHierarchyWidget->OnCreateGameObject(gameObject);
 }
 
 void HXEditorWin::updateGameObject(HX3D::HXGameObject* gameObject)

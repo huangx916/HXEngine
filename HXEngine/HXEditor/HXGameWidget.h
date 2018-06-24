@@ -9,6 +9,7 @@
 #include "HXGLShadowMap.h"
 #include "TestTriangle.h"
 #include <QEvent.h>
+#include "HXGameObject.h"
 
 using namespace HX3D;
 
@@ -20,6 +21,7 @@ public:
 	~HXGameWidget();
 
 	typedef void(*FPtr)(void);
+	typedef void(*FPtrGo)(HXGameObject* go);
 
 	virtual void OnDisplay(bool shadow);
 	virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight);
@@ -28,8 +30,8 @@ public:
 	virtual void OnMouseWheel(float fDistance);
 
 	QString GetCurScene();
-	void LoadScene(QString path, FPtr onLoad, FPtr onUpdate);
-	void LoadGameObject(QString path);
+	void LoadScene(QString path, FPtr onLoad, FPtr onUpdate, FPtrGo onCreate);
+	void LoadGameObject(HXGameObject* father, QString path);
 protected:
 	virtual void initializeGL();
 	virtual void resizeGL(int w, int h);
@@ -53,7 +55,9 @@ private:
 	QString scenePath;
 	FPtr loadCallback;
 	FPtr updateCallback;
+	FPtrGo createGoCallback;
 
 	bool bLoadGameObject;
 	QString gameObjectPath;
+	HXGameObject* gameObjectFather;
 };

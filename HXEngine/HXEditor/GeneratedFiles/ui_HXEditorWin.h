@@ -80,7 +80,7 @@ public:
     {
         HXEditorWinClass->setWindowTitle(QApplication::translate("HXEditorWinClass", "HXEditorWin", nullptr));
         actionLoadScene->setText(QApplication::translate("HXEditorWinClass", "Load...", nullptr));
-        actionLoadGameObject->setText(QApplication::translate("HXEditorWinClass", "Load...", nullptr));
+        actionLoadGameObject->setText(QApplication::translate("HXEditorWinClass", "Create...", nullptr));
         actionSaveScene->setText(QApplication::translate("HXEditorWinClass", "Save as...", nullptr));
         menuFile->setTitle(QApplication::translate("HXEditorWinClass", "Scene", nullptr));
         menuGameObject->setTitle(QApplication::translate("HXEditorWinClass", "GameObject", nullptr));

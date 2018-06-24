@@ -49,7 +49,7 @@ namespace HX3D
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
 
-		void LoadGameObjectInEditor(std::string strPath);
+		HXGameObject* CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath);
 		int nameSuffix;
 
 		// 平行光、点光源、聚光灯
