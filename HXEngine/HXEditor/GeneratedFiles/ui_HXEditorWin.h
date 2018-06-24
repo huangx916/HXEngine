@@ -30,6 +30,7 @@ public:
     QAction *actionLoadGameObject;
     QAction *actionSaveScene;
     QAction *actionDeleteGameObject;
+    QAction *actionExportGameObject;
     QWidget *centralWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -50,6 +51,8 @@ public:
         actionSaveScene->setObjectName(QStringLiteral("actionSaveScene"));
         actionDeleteGameObject = new QAction(HXEditorWinClass);
         actionDeleteGameObject->setObjectName(QStringLiteral("actionDeleteGameObject"));
+        actionExportGameObject = new QAction(HXEditorWinClass);
+        actionExportGameObject->setObjectName(QStringLiteral("actionExportGameObject"));
         centralWidget = new QWidget(HXEditorWinClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         HXEditorWinClass->setCentralWidget(centralWidget);
@@ -74,6 +77,8 @@ public:
         menuFile->addAction(actionSaveScene);
         menuGameObject->addAction(actionLoadGameObject);
         menuGameObject->addAction(actionDeleteGameObject);
+        menuGameObject->addSeparator();
+        menuGameObject->addAction(actionExportGameObject);
 
         retranslateUi(HXEditorWinClass);
 
@@ -87,6 +92,7 @@ public:
         actionLoadGameObject->setText(QApplication::translate("HXEditorWinClass", "Create...", nullptr));
         actionSaveScene->setText(QApplication::translate("HXEditorWinClass", "Save as...", nullptr));
         actionDeleteGameObject->setText(QApplication::translate("HXEditorWinClass", "Delete...", nullptr));
+        actionExportGameObject->setText(QApplication::translate("HXEditorWinClass", "Export...", nullptr));
         menuFile->setTitle(QApplication::translate("HXEditorWinClass", "Scene", nullptr));
         menuGameObject->setTitle(QApplication::translate("HXEditorWinClass", "GameObject", nullptr));
     } // retranslateUi

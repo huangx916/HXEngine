@@ -30,6 +30,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	connect(ui.actionSaveScene, &QAction::triggered, this, &HXEditorWin::saveScene);
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
 	connect(ui.actionDeleteGameObject, &QAction::triggered, this, &HXEditorWin::deleteGameObject);
+	connect(ui.actionExportGameObject, &QAction::triggered, this, &HXEditorWin::exportGameObject);
 
 	/* set background color */
 	//QPalette palette(palette());
@@ -100,7 +101,7 @@ void HXEditorWin::saveScene()
 	QString path = QFileDialog::getSaveFileName(this,
 		tr("Open File"),
 		".",
-		tr("Text Files(*.txt)"));
+		tr("Text Files(*.scene)"));
 	if (!path.isEmpty()) {
 		QFile file(path);
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -331,6 +332,18 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "</Scene>";
 }
 
+void HXEditorWin::serializePrefab(QTextStream& out)
+{
+	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	out << "<Scene>\n";
+
+	std::vector<HX3D::HXGameObject*> list;
+	list.push_back(m_pInspectorWidget->selectedGameObject);
+	serializeGameObjectRecursive(out, list, -1, 0);
+
+	out << "</Scene>";
+}
+
 void HXEditorWin::loadGameObject()
 {
 	QString scene = m_pGameWidget->GetCurScene();
@@ -385,6 +398,36 @@ void HXEditorWin::deleteGameObject()
 	/*else {
 		QMessageBox::information(this, tr("Hmmm..."), tr("I'm sorry!"));
 	}*/
+}
+
+void HXEditorWin::exportGameObject()
+{
+	if (NULL == m_pInspectorWidget->selectedGameObject)
+	{
+		QMessageBox::warning(this, tr("GameObject"),
+			tr("You did not select any gameobject."));
+		return;
+	}
+
+	QString path = QFileDialog::getSaveFileName(this,
+		tr("Open File"),
+		".",
+		tr("Text Files(*.prefab)"));
+	if (!path.isEmpty()) {
+		QFile file(path);
+		if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+			QMessageBox::warning(this, tr("Write File"),
+				tr("Cannot open file:\n%1").arg(path));
+			return;
+		}
+		QTextStream out(&file);
+		serializePrefab(out);
+		file.close();
+	}
+	else {
+		QMessageBox::warning(this, tr("Path"),
+			tr("You did not select any file."));
+	}
 }
 
 void HXEditorWin::loadSceneCallBack()

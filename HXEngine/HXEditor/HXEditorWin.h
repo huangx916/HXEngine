@@ -26,9 +26,11 @@ private:
 	void saveScene();
 	void loadGameObject();
 	void deleteGameObject();
+	void exportGameObject();
 
 	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level, int fatherPriority);
 	void serializeScene(QTextStream& out);
+	void serializePrefab(QTextStream& out);
 
 	static void loadSceneCallBack();
 	static void updateCallBack();

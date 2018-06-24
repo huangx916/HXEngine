@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene>
+	<GameObj Name="SkyBoxGO" Model="" Priority="1000" CastShadow="0">
+		<Position Px="0" Py="0" Pz="0"/>
+		<Rotation Rx="0" Ry="0" Rz="0"/>
+		<Scale Sx="1" Sy="1" Sz="1"/>
+		<GameObj Name="SkyBox1" Model="" Priority="100" CastShadow="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+			<GameObj Name="SkyBox11" Model="prefab/SkyBox/SkyBox.model" Priority="10" CastShadow="0">
+				<Position Px="0" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="400" Sy="400" Sz="400"/>
+			</GameObj>
+		</GameObj>
+		<GameObj Name="SkyBox2" Model="" Priority="200" CastShadow="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+		</GameObj>
+	</GameObj>
+</Scene>

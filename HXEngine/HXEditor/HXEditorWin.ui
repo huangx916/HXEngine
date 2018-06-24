@@ -36,6 +36,8 @@
     </property>
     <addaction name="actionLoadGameObject"/>
     <addaction name="actionDeleteGameObject"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportGameObject"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuGameObject"/>
@@ -67,6 +69,11 @@
   <action name="actionDeleteGameObject">
    <property name="text">
     <string>Delete...</string>
+   </property>
+  </action>
+  <action name="actionExportGameObject">
+   <property name="text">
+    <string>Export...</string>
    </property>
   </action>
  </widget>
