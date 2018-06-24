@@ -341,6 +341,9 @@ namespace HX3D
 			return;
 		}
 
+		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CCW);
+
 		// TODO: Ѕвсо
 		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
 		HXGLShadowMap* sm = rs->mShadowMap;
