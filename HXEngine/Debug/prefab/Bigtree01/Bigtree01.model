@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/Bigtree01/Bigtree01.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/Bigtree01/Bigtree01.material"/>
+</Model>

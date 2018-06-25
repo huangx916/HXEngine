@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prefab>
+	<GameObj Name="Store" Model="prefab/Store/Store.model" Priority="3000" CastShadow="1">
+		<Position Px="0" Py="0" Pz="0"/>
+		<Rotation Rx="0" Ry="0" Rz="0"/>
+		<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>
+	</GameObj>
+</Prefab>
