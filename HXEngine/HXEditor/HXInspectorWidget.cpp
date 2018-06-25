@@ -108,12 +108,15 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	spinboxScaleX = new QDoubleSpinBox();
 	spinboxScaleX->setRange(MIN, MAX);
+	spinboxScaleX->setDecimals(3);
 
 	spinboxScaleY = new QDoubleSpinBox();
 	spinboxScaleY->setRange(MIN, MAX);
+	spinboxScaleY->setDecimals(3);
 
 	spinboxScaleZ = new QDoubleSpinBox();
 	spinboxScaleZ->setRange(MIN, MAX);
+	spinboxScaleZ->setDecimals(3);
 
 	// light
 	editLightName = new QLineEdit();
