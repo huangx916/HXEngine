@@ -366,6 +366,39 @@ namespace HX3D
 		glUniformMatrix4fv(sm->render_light_uniforms.model_view_projection_matrix, 1, GL_FALSE, sm->light_projection_matrix * sm->light_view_matrix * mMatrixModel);
 		//glUniformMatrix4fv(render_light_uniforms.model_view_projection_matrix, 1, GL_FALSE, scene_projection_matrix * scene_view_matrix * scene_model_matrix);
 
+		// 每次渲染，状态都要重新赋值 TODO: 不变状态提取
+		// Alpha test
+		HXMaterialInfo* pMatInfo = HXResourceManager::GetInstance()->GetMaterialInfo(m_pSubMesh->materialName);
+		int nTexIndex = 0;
+		for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
+		{
+			switch (itr->type)
+			{
+			case MPT_TEXTURE:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(sm->render_light_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+				//glBindTexture(tex->mImageData.target, tex->texId);
+				glBindTexture(GL_TEXTURE_2D, tex->texId);
+
+				GLint property_loc = glGetUniformLocation(sm->render_light_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+			}
+			break;
+			default:
+				break;
+			}
+		}
+
 		//glBindFramebuffer(GL_FRAMEBUFFER, depth_fbo);
 		//glViewport(0, 0, DEPTH_TEXTURE_SIZE, DEPTH_TEXTURE_SIZE);
 
