@@ -40,6 +40,11 @@
 			<Position Px="3" Py="-2.45" Pz="4.5"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>
+			<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="0" CastShadow="1">
+				<Position Px="0" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>
+			</GameObj>
 		</GameObj>
 		<GameObj Name="Bigtree01" Model="prefab/Bigtree01/Bigtree01.model" Priority="3000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
@@ -61,12 +66,42 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 		</GameObj>
+		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>
+		</GameObj>
+		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
+			<Position Px="0" Py="-1.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.4" Sy="0.6" Sz="0.3"/>
+		</GameObj>
+		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
+			<Position Px="-1" Py="-1.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
+		</GameObj>
+		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
+			<Position Px="1" Py="-1.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.3" Sy="0.7" Sz="0.3"/>
+		</GameObj>
+		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
+			<Position Px="0" Py="-0.5" Pz="-1"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.3" Sy="0.8" Sz="0.3"/>
+		</GameObj>
+		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
+			<Position Px="-1" Py="-1.5" Pz="-1"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.3" Sy="0.7" Sz="0.3"/>
+		</GameObj>
 	</GameObjects>
 	<Camera NearZ="1" FarZ="1000">
-		<Position Px="-0.932414" Py="2.84326" Pz="10.534"/>
-		<Rotation Rx="-27.9" Ry="-1.4" Rz="0"/>
+		<Position Px="-1.00639" Py="3.11376" Pz="11.3838"/>
+		<Rotation Rx="-17.1" Ry="0.800001" Rz="0"/>
 	</Camera>
-	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="15" End="30"/>
+	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
 	<Lights>
 		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
