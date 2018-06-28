@@ -28,6 +28,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
 	connect(ui.actionSaveScene, &QAction::triggered, this, &HXEditorWin::saveScene);
+	connect(ui.actionCreateEmptyGO, &QAction::triggered, this, &HXEditorWin::createEmpty);
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
 	connect(ui.actionDeleteGameObject, &QAction::triggered, this, &HXEditorWin::deleteGameObject);
 	connect(ui.actionExportGameObject, &QAction::triggered, this, &HXEditorWin::exportGameObject);
@@ -342,6 +343,11 @@ void HXEditorWin::serializePrefab(QTextStream& out)
 	serializeGameObjectRecursive(out, list, -1, 0);
 
 	out << "</Scene>";
+}
+
+void HXEditorWin::createEmpty()
+{
+	m_pGameWidget->LoadGameObject(m_pInspectorWidget->selectedGameObject, "./prefab/Empty/Empty.prefab");
 }
 
 void HXEditorWin::loadGameObject()

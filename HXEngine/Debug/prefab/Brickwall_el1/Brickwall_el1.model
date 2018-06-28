@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/Brickwall_el1/Brickwall_el1.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/Brickwall_el1/Brickwall_el1.material"/>
+</Model>

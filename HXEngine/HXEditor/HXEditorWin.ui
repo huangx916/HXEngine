@@ -34,6 +34,7 @@
     <property name="title">
      <string>GameObject</string>
     </property>
+    <addaction name="actionCreateEmptyGO"/>
     <addaction name="actionLoadGameObject"/>
     <addaction name="actionDeleteGameObject"/>
     <addaction name="separator"/>
@@ -74,6 +75,11 @@
   <action name="actionExportGameObject">
    <property name="text">
     <string>Export...</string>
+   </property>
+  </action>
+  <action name="actionCreateEmptyGO">
+   <property name="text">
+    <string>CreateEmpty</string>
    </property>
   </action>
  </widget>

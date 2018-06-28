@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene>
+	<GameObj Name="Brickwall_el1" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="3000" CastShadow="1">
+		<Position Px="0" Py="0" Pz="0"/>
+		<Rotation Rx="0" Ry="0" Rz="0"/>
+		<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
+	</GameObj>
+</Scene>
