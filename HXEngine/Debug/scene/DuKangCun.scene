@@ -26,7 +26,7 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>
 		</GameObj>
-		<GameObj Name="Bigtree01" Model="" Priority="0" CastShadow="0">
+		<GameObj Name="Bigtree01List" Model="" Priority="0" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -51,7 +51,7 @@
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="Rock2_104" Model="" Priority="0" CastShadow="0">
+		<GameObj Name="Rock2_104List" Model="" Priority="0" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -86,7 +86,7 @@
 				<Scale Sx="0.3" Sy="0.7" Sz="0.3"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="tree05_2" Model="" Priority="0" CastShadow="0">
+		<GameObj Name="tree05_2List" Model="" Priority="0" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -106,7 +106,7 @@
 				<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="GameObject" Model="" Priority="3000" CastShadow="0">
+		<GameObj Name="Brickwall_el1List" Model="" Priority="3000" CastShadow="0">
 			<Position Px="0" Py="-2.5" Pz="7.5"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -153,7 +153,7 @@
 		</GameObj>
 	</GameObjects>
 	<Camera NearZ="1" FarZ="1000">
-		<Position Px="0.795545" Py="1.74454" Pz="10.8216"/>
+		<Position Px="0.779478" Py="1.93937" Pz="11.7997"/>
 		<Rotation Rx="-11.5" Ry="-1.2" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
