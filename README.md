@@ -12,16 +12,18 @@ configuration
 visual studio 2015  x86 debug 环境下运行  
 libfbxsdk-md.lib[自行下载](https://pan.baidu.com/s/1oCiEz5Ol3jDkzU6Ut0FoQg)放入HXCore\fbx\lib\vs2015\x86\debug目录下（超过100M Github不让上传）
 
+所使用的库包括: freeglut、glew、freetype、libpng、zlib、tinyxml、fbx、qt
+
 OpenGL RenderSystem:
 ================================================================================
-FBX模型加载、骨骼动画、数学库、UI字体、DDS/PNG加载、相机系统、光照、材质、阴影、SKYBOX、FOG、场景可配置化
-
-TODO:
-编辑器、八叉树场景管理、OIT、HDR、PBS、deferred lighting、lighting map、GI
+FBX模型加载、骨骼动画、数学库、UI字体、DDS/PNG加载、相机系统、光照、材质、阴影、SKYBOX、FOG、场景可配置化、编辑器
 
 使用右手坐标系
 列主序向量 列主序矩阵
 FBX导出UV后V要翻转下：V = 1- V (HLSL #define UNITY_UV_STARTS_AT_TOP 1)
+
+TODO:
+八叉树场景管理、OIT、HDR、PBS、deferred lighting、lighting map、GI
 
 GDI RenderSystem:
 ================================================================================
@@ -51,3 +53,7 @@ D3D RenderSystem:
 
 Vulkan RenderSystem:
 ================================================================================
+
+QT SceneEditor:
+================================================================================
+支持场景加载、场景序列化保存、加载prefab创建gameobject、删除gameobject、雾编辑、环境光编辑、相机编辑、gameobject编辑、light编辑等

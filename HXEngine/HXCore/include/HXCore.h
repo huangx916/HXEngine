@@ -5,8 +5,6 @@
 
 namespace HX3D
 {
-#define EOBJECT_STATE_CULLED	0x0001
-
 	class HXGameObject;
 	struct HXFrustum;
 	class HXLight;
