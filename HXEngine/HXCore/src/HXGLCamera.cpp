@@ -85,6 +85,11 @@ namespace HX3D
 
 	void HXGLCamera::UpdateProjectionMatrix(float left, float right, float bottom, float top, float n, float f)
 	{
+		// 默认使用90度视野 left = -n	right = n;
+		left *= n;
+		right *= n;
+		bottom *= n;
+		top *= n;
 		mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
 	}
 }
