@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/flower_01/flower_01.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/flower_01/flower_01.material"/>
+</Model>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/Bush5/Bush5.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/Bush5/Bush5.material"/>
+</Model>

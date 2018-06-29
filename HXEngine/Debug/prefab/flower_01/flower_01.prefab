@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene>
+	<GameObj Name="flower_01" Model="prefab/flower_01/flower_01.model" Priority="3001" CastShadow="1">
+		<Position Px="-1.4" Py="-2.5" Pz="0"/>
+		<Rotation Rx="0" Ry="0" Rz="0"/>
+		<Scale Sx="0.005" Sy="0.005" Sz="0.005"/>
+	</GameObj>
+</Scene>
