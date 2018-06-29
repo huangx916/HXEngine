@@ -152,9 +152,9 @@
 			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
 		</GameObj>
 	</GameObjects>
-	<Camera NearZ="1" FarZ="1000">
-		<Position Px="0.779478" Py="1.93937" Pz="11.7997"/>
-		<Rotation Rx="-11.5" Ry="-1.2" Rz="0"/>
+	<Camera NearZ="0.01" FarZ="1000">
+		<Position Px="0.0155047" Py="0.646439" Pz="10.988"/>
+		<Rotation Rx="-23.7" Ry="-0.9" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
