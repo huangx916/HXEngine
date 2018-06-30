@@ -30,8 +30,8 @@ namespace HX3D
 		glGenVertexArrays(1, &_vaoId);
 		glGenBuffers(1, &_vboId);
 		ShaderInfo shaders[] = {
-			{ GL_VERTEX_SHADER, "shader\\fonts.vert" },
-			{ GL_FRAGMENT_SHADER, "shader\\fonts.frag" },
+			{ GL_VERTEX_SHADER, "builtin\\fonts.vert" },
+			{ GL_FRAGMENT_SHADER, "builtin\\fonts.frag" },
 			{ GL_NONE, NULL }
 		};
 		_programId = LoadShaders(shaders);

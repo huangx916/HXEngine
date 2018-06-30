@@ -61,8 +61,8 @@
 				<Scale Sx="0.3" Sy="0.8" Sz="0.3"/>
 			</GameObj>
 			<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
-				<Position Px="-4" Py="-2.5" Pz="1.6"/>
-				<Rotation Rx="-7" Ry="90" Rz="-7"/>
+				<Position Px="-4" Py="-2.5" Pz="2"/>
+				<Rotation Rx="-7" Ry="90" Rz="-22"/>
 				<Scale Sx="0.4" Sy="0.6" Sz="0.5"/>
 			</GameObj>
 			<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
@@ -89,6 +89,11 @@
 				<Position Px="0" Py="-1.5" Pz="1"/>
 				<Rotation Rx="0" Ry="270" Rz="0"/>
 				<Scale Sx="0.5" Sy="0.9" Sz="0.5"/>
+			</GameObj>
+			<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="1">
+				<Position Px="-3" Py="-3.5" Pz="2"/>
+				<Rotation Rx="-2" Ry="180" Rz="-7"/>
+				<Scale Sx="0.4" Sy="0.8" Sz="0.4"/>
 			</GameObj>
 		</GameObj>
 		<GameObj Name="tree05_2List" Model="" Priority="0" CastShadow="0">
@@ -373,8 +378,8 @@
 		</GameObj>
 	</GameObjects>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="0.49" Py="2.47" Pz="11.31"/>
-		<Rotation Rx="-14" Ry="1.7" Rz="0"/>
+		<Position Px="0.603837" Py="1.96567" Pz="12.0986"/>
+		<Rotation Rx="-9.6" Ry="-356.6" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>

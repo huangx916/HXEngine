@@ -330,8 +330,6 @@ namespace HX3D
 			{
 				continue;
 			}
-			// 更新动作
-			//pMesh->UpdateAnimation();
 
 			HXStatus::GetInstance()->nVertexCount += pMesh->vertexCount;
 			HXStatus::GetInstance()->nTriangleCount += pMesh->triangleCount;
