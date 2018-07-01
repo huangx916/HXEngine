@@ -16,6 +16,7 @@
 #include "HXRoot.h"
 #include "HXGLRenderSystem.h"
 #include "HXGLShadowMap.h"
+#include "HXStatus.h"
 
 namespace HX3D
 {
@@ -416,6 +417,7 @@ namespace HX3D
 		//glUseProgram(0);
 
 		//glDisable(GL_POLYGON_OFFSET_FILL);
+		HXStatus::GetInstance()->nDrawCall += 1;
 	}
 
 	void HXGLRenderable::Render()
@@ -704,5 +706,7 @@ namespace HX3D
 		// 外层 HXGLRenderSystem 已调用
 		//glutSwapBuffers();
 		//glutPostRedisplay();
+
+		HXStatus::GetInstance()->nDrawCall += 1;
 	}
 }

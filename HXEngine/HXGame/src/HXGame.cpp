@@ -5,6 +5,7 @@
 #include "HXMesh.h"
 #include "HXICamera.h"
 #include "HXRenderSystem.h"
+#include "HXStatus.h"
 
 HXGame::HXGame()
 {
@@ -54,6 +55,10 @@ void HXGame::OnKeyboard(unsigned char key, int x, int y)
 	if (key == 'f' || key == 'F')
 	{
 		HXSceneManager::GetInstance()->UseFog(!HXSceneManager::GetInstance()->fog->useFog);
+	}
+	if (key == 's' || key == 'S')
+	{
+		HXStatus::GetInstance()->showStatus = !HXStatus::GetInstance()->showStatus;
 	}
 }
 

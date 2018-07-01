@@ -2,6 +2,7 @@
 #include "vgl.h"
 #include "LoadShaders.h"
 #include "vmath.h"
+#include "HXStatus.h"
 
 namespace HX3D
 {
@@ -173,6 +174,8 @@ namespace HX3D
 		glBindTexture(GL_TEXTURE_2D, _textureId);
 		
 		glDrawArrays(GL_QUADS, 0, index);
+
+		//HXStatus::GetInstance()->nDrawCall += 1;
 	}
 
 	void HXGLFreeTypeFont::EndText()
