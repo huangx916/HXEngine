@@ -149,8 +149,8 @@ namespace HX3D
 		delete pCurDir1;*/
 
 		ShaderInfo shaders[] = {
-			{ GL_VERTEX_SHADER, "shader\\triangles.vert"},
-			{ GL_FRAGMENT_SHADER, "shader\\triangles.frag"},
+			{ GL_VERTEX_SHADER, "builtin\\triangles.vert"},
+			{ GL_FRAGMENT_SHADER, "builtin\\triangles.frag"},
 			{ GL_NONE, NULL}
 		};
 

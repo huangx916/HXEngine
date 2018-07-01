@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Model>
 	<Mesh File="prefab/SkyBox/SkyBox.FBX"/>
-	<Anim File="prefab/SkyBox/SkyBox.anim"/>
-	<Material File="prefab/SkyBox/SkyBox.material"/>
+	<Anim File=""/>
+	<Material File="prefab/_Material/Skybox/Sunny2.material"/>
 </Model>

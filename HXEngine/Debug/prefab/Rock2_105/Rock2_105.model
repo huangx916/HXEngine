@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/Rock2_105/rock2.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/Rock2_105/Rock2_105.material"/>
+	<Material File="prefab/_Material/shitou/shitou.material"/>
 </Model>

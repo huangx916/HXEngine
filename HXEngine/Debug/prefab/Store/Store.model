@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/Store/EmptyStore_2.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/Store/Store.material"/>
+	<Material File="prefab/_Material/luoyangcheng7/luoyangcheng7.material"/>
 </Model>

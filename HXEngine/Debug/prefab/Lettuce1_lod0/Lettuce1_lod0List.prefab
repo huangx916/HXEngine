@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene>
+	<GameObj Name="Lettuce1_lod0List" Model="" Priority="0" CastShadow="0">
+		<Position Px="3.5" Py="0" Pz="7"/>
+		<Rotation Rx="0" Ry="0" Rz="0"/>
+		<Scale Sx="1" Sy="1" Sz="1"/>
+		<GameObj Name="Lettuce1_lod0" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+			<Position Px="0" Py="-2.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+		</GameObj>
+		<GameObj Name="Lettuce1_lod0" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+			<Position Px="0.3" Py="-2.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+		</GameObj>
+		<GameObj Name="Lettuce1_lod0" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+			<Position Px="0.6" Py="-2.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+		</GameObj>
+		<GameObj Name="Lettuce1_lod0" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+			<Position Px="0.9" Py="-2.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+		</GameObj>
+		<GameObj Name="Lettuce1_lod0" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+			<Position Px="1.2" Py="-2.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+		</GameObj>
+		<GameObj Name="Lettuce1_lod0" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+			<Position Px="1.5" Py="-2.5" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+		</GameObj>
+	</GameObj>
+</Scene>

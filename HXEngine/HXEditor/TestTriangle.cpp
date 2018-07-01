@@ -37,8 +37,8 @@ void TestTriangle::InitTriangle()
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);
 
 	ShaderInfo shaders[] = {
-		{ GL_VERTEX_SHADER, "shader\\triangles.vert" },
-		{ GL_FRAGMENT_SHADER, "shader\\triangles.frag" },
+		{ GL_VERTEX_SHADER, "builtin\\triangles.vert" },
+		{ GL_FRAGMENT_SHADER, "builtin\\triangles.frag" },
 		{ GL_NONE, NULL }
 	};
 

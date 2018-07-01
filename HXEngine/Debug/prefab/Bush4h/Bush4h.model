@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/Bush4h/Bush4h.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/Bush4h/Bush4h.material"/>
+	<Material File="prefab/_Material/zhiwu_01/zhiwu_01.material"/>
 </Model>

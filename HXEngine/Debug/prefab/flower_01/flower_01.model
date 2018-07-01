@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/flower_01/flower_01.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/flower_01/flower_01.material"/>
+	<Material File="prefab/_Material/wangyougu02/wangyougu02.material"/>
 </Model>

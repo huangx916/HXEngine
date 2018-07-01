@@ -166,7 +166,7 @@ namespace HX3D
 			if (NULL == pMat)
 			{
 				// 如果不存在该材质球，则使用粉色材质
-				*itr = "./builtin/ErrorMat.xml";
+				*itr = "./prefab/_Material/Error/Error.material";
 				HXResourceManager::GetInstance()->GetMaterialInfo(*itr);
 			}
 			++nMatCount;
@@ -174,8 +174,8 @@ namespace HX3D
 		// 如果没材质，则添加默认材质
 		if (nMatCount == 0)
 		{
-			pModelInfo->m_vctSubMeshMat.push_back("./builtin/ErrorMat.xml");
-			HXResourceManager::GetInstance()->GetMaterialInfo("./builtin/ErrorMat.xml");
+			pModelInfo->m_vctSubMeshMat.push_back("./prefab/_Material/Error/Error.material");
+			HXResourceManager::GetInstance()->GetMaterialInfo("./prefab/_Material/Error/Error.material");
 		}
 		
 		// 关联材质到SubMesh

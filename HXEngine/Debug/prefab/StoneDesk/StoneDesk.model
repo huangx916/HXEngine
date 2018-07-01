@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/StoneDesk/shuyoco_StoneDesk_1.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/StoneDesk/StoneDesk.material"/>
+	<Material File="prefab/_Material/M0005wujian02/M0005wujian02.material"/>
 </Model>

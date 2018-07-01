@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/Dog/Dog.FBX"/>
 	<Anim File="prefab/Dog/Dog.anim"/>
-	<Material File="prefab/Dog/Dog.material"/>
+	<Material File="prefab/_Material/Dog/Dog.material"/>
 </Model>

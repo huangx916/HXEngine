@@ -2,7 +2,7 @@
 <Model>
 	<Mesh File="prefab/Building01/Building01.FBX"/>
 	<Anim File="prefab/Building01/Building01.anim"/>
-	<Material File="prefab/Building01/Building01_1.material"/>
-	<Material File="prefab/Building01/Building01_2.material"/>
-	<Material File="prefab/Building01/Building01_3.material"/>
+	<Material File="prefab/_Material/wangyougu01/wangyougu01.material"/>
+	<Material File="prefab/_Material/wangyougu03/wangyougu03.material"/>
+	<Material File="prefab/_Material/wangyougu05/wangyougu05.material"/>
 </Model>

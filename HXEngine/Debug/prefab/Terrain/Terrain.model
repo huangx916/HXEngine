@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/Terrain/Terrain.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/Terrain/Terrain.material"/>
+	<Material File="prefab/_Material/Terrain/Terrain.material"/>
 </Model>
