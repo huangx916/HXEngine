@@ -6,7 +6,6 @@ namespace HX3D
 {
 	class HXMaterial;
 	class HXGDITextureBMP;
-	struct HXMaterialInfo;
 	class HXRenderState
 	{
 	public:
@@ -22,7 +21,7 @@ namespace HX3D
 
 		static void SetMatInfoAndTexture(std::string strMatInfoFile);
 
-		static HXMaterialInfo* m_pMatInfo;
+		static HXMaterial* m_pMat;
 		static HXGDITextureBMP* m_pTex;
 	};
 }

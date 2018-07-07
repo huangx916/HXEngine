@@ -36,8 +36,15 @@ namespace HX3D
 		vctChildren.clear();
 	}
 
+	int ntest = 0;
 	void HXGameObject::Update()
 	{
+		/*if (ntest > 100)
+		{
+			return;
+		}
+		ntest++;*/
+
 		if (m_pFather)
 		{
 			m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);

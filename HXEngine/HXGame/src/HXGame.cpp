@@ -31,8 +31,16 @@ HXGame::~HXGame()
 //	//// for test end
 //}
 
+//#include "HXGLMaterial.h"
+//void Test()
+//{
+//	HXGLMaterial* mat = new HXGLMaterial(NULL);
+//	delete mat;
+//}
+
 void HXGame::CreateGameScene()
 {
+	//HXSceneManager::GetInstance()->LoadScene("./scene/Simple.scene");
 	HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
 	//Test();
 }

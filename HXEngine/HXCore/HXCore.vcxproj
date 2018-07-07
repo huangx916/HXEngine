@@ -23,10 +23,12 @@
     <ClInclude Include="include\HXBitmap.h" />
     <ClInclude Include="include\HXFogBase.h" />
     <ClInclude Include="include\HXFogLinear.h" />
+    <ClInclude Include="include\HXGDIMaterial.h" />
     <ClInclude Include="include\HXGDITextureBMP.h" />
     <ClInclude Include="include\HXGDITransform.h" />
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
     <ClInclude Include="include\HXGLLoadPNG.h" />
+    <ClInclude Include="include\HXGLMaterial.h" />
     <ClInclude Include="include\HXGLShadowMap.h" />
     <ClInclude Include="include\HXGLTexture.h" />
     <ClInclude Include="include\HXGLTransform.h" />
@@ -55,6 +57,7 @@
     <ClInclude Include="include\HXLoadConfigModel.h" />
     <ClInclude Include="include\HXLoadConfigPrefab.h" />
     <ClInclude Include="include\HXLoadConfigScene.h" />
+    <ClInclude Include="include\HXMaterial.h" />
     <ClInclude Include="include\HXMath.h" />
     <ClInclude Include="include\HXMatrix.h" />
     <ClInclude Include="include\HXMesh.h" />
@@ -87,12 +90,14 @@
     <ClCompile Include="src\HXFrustum.cpp" />
     <ClCompile Include="src\HXGameObject.cpp" />
     <ClCompile Include="src\HXGDICamera.cpp" />
+    <ClCompile Include="src\HXGDIMaterial.cpp" />
     <ClCompile Include="src\HXGDIRenderable.cpp" />
     <ClCompile Include="src\HXGDIRenderSystem.cpp" />
     <ClCompile Include="src\HXGDITextureBMP.cpp" />
     <ClCompile Include="src\HXGDITransform.cpp" />
     <ClCompile Include="src\HXGLCamera.cpp" />
     <ClCompile Include="src\HXGLFreeTypeFont.cpp" />
+    <ClCompile Include="src\HXGLMaterial.cpp" />
     <ClCompile Include="src\HXGLRenderable.cpp" />
     <ClCompile Include="src\HXGLRenderSystem.cpp" />
     <ClCompile Include="src\HXGLShadowMap.cpp" />
@@ -107,6 +112,7 @@
     <ClCompile Include="src\HXLoadConfigModel.cpp" />
     <ClCompile Include="src\HXLoadConfigPrefab.cpp" />
     <ClCompile Include="src\HXLoadConfigScene.cpp" />
+    <ClCompile Include="src\HXMaterial.cpp" />
     <ClCompile Include="src\HXMath.cpp" />
     <ClCompile Include="src\HXMatrix.cpp" />
     <ClCompile Include="src\HXMesh.cpp" />

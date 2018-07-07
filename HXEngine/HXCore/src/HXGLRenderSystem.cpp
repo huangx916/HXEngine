@@ -6,6 +6,7 @@
 #include "HXGLFreeTypeFont.h"
 #include "HXGLTransform.h"
 #include "HXGLShadowMap.h"
+#include "HXGLMaterial.h"
 
 namespace HX3D
 {
@@ -144,6 +145,11 @@ namespace HX3D
 	HXITransform* HXGLRenderSystem::CreateTransform()
 	{
 		return new HXGLTransform();
+	}
+
+	HXMaterial* HXGLRenderSystem::CreateMaterial(HXMaterialInfo* info)
+	{
+		return new HXGLMaterial(info);
 	}
 
 	void HXGLRenderSystem::Initialize()

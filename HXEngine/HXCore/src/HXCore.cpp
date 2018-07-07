@@ -8,6 +8,7 @@
 #include "HXLight.h"
 #include "HXGDITextureBMP.h"
 #include "HXLoadConfigMat.h"
+#include"HXGLMaterial.h"
 
 namespace HX3D
 {
@@ -153,7 +154,7 @@ namespace HX3D
 		}
 		else 
 		{
-			if (HXRenderState::m_pMatInfo->strShaderFile == "builtin/Error")
+			if (HXRenderState::m_pMat->mMatInfo->strShaderFile == "builtin/Error")
 			{
 				scanline.v.color = HXCOLOR(255, 0, 255, 255);
 			}

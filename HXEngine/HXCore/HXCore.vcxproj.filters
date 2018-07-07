@@ -154,6 +154,9 @@
     <ClCompile Include="src\HXGLLoadPNG.cpp">
       <Filter>RenderSystem\OpenGL\Util</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXMaterial.cpp" />
+    <ClCompile Include="src\HXGLMaterial.cpp" />
+    <ClCompile Include="src\HXGDIMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -327,6 +330,9 @@
     <ClInclude Include="include\HXGLLoadPNG.h">
       <Filter>RenderSystem\OpenGL\Util</Filter>
     </ClInclude>
+    <ClInclude Include="include\HXMaterial.h" />
+    <ClInclude Include="include\HXGLMaterial.h" />
+    <ClInclude Include="include\HXGDIMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">

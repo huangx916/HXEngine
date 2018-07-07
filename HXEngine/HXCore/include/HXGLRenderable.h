@@ -4,6 +4,7 @@
 #include "vgl.h"
 #include "vmath.h"
 #include "HXMatrix.h"
+#include "HXGLMaterial.h"
 
 namespace HX3D
 {
@@ -22,7 +23,6 @@ namespace HX3D
 		HXGLRenderable();
 		~HXGLRenderable();
 
-		//virtual void SetModelMatrix(const HXVector3D& pos, const HXVector3D& eulerDegree, const HXVector3D& scale);
 		virtual void SetModelMatrix(HXMatrix44& mat);
 		// 提取到外层计算提高效率
 		virtual void SetViewMatrix(HXICamera* pCamera);
@@ -40,7 +40,7 @@ namespace HX3D
 		GLuint mVAO;
 		GLuint mVBO;
 
-		GLuint render_scene_prog;
+		/*GLuint render_scene_prog;
 		struct
 		{
 			GLint render_model_matrix_loc;
@@ -48,6 +48,8 @@ namespace HX3D
 			GLint render_projection_matrix_loc;
 			GLint render_mvp_matrix_loc;
 			GLint render_shadow_matrix_loc;
-		}render_scene_uniforms;
+		}render_scene_uniforms;*/
+
+		HXGLMaterial* mMaterial;
 	};
 }

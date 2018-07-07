@@ -30,6 +30,7 @@ namespace HX3D
 		//virtual void EndText();
 
 		virtual HXITransform* CreateTransform();
+		virtual HXMaterial* CreateMaterial(HXMaterialInfo* info);
 
 	private:
 		// 2、窗口过程函数(必须要是全局函数)

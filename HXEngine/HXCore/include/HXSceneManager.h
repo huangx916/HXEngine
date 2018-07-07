@@ -44,6 +44,7 @@ namespace HX3D
 		void UseFog(bool useFog);
 
 		void PushSortListRecurve(std::vector<HXGameObject*>& src, std::vector<HXGameObject*>& dest);
+		//void UpdateTransform();
 		void OnDisplay(bool shadow);
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		

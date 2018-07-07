@@ -3,9 +3,11 @@
 #include "HXBitmap.h"
 #include "HXIMeshLoader.h"
 #include "HXFBXLoader.h"
-
+#include "HXMaterial.h"
 #include "HXLoadConfigModel.h"
 #include "HXLoadConfigMat.h"
+#include "HXRoot.h"
+#include "HXRenderSystem.h"
 
 namespace HX3D
 {
@@ -75,9 +77,9 @@ namespace HX3D
 		return NULL;
 	}
 
-	HXMaterialInfo* HXResourceManager::GetMaterialInfo(std::string strMaterialFile)
+	HXMaterial* HXResourceManager::GetMaterial(std::string strMaterialFile)
 	{
-		std::map<std::string, HXMaterialInfo*>::iterator itr = matMap.find(strMaterialFile);
+		std::map<std::string, HXMaterial*>::iterator itr = matMap.find(strMaterialFile);
 		if (itr != matMap.end())
 		{
 			return itr->second;
@@ -88,8 +90,9 @@ namespace HX3D
 			if (cfg.LoadFile(strMaterialFile))
 			{
 				HXMaterialInfo* pMatInfo = new HXMaterialInfo(cfg.mMatInfo);
-				matMap.insert(make_pair(strMaterialFile, pMatInfo));
-				return pMatInfo;
+				HXMaterial* mat = HXRoot::GetInstance()->GetRenderSystem()->CreateMaterial(pMatInfo);
+				matMap.insert(make_pair(strMaterialFile, mat));
+				return mat;
 			}
 		}
 
@@ -123,7 +126,7 @@ namespace HX3D
 			delete itr->second;
 		}
 		meshMap.clear();
-		for (std::map<std::string, HXMaterialInfo*>::iterator itr = matMap.begin(); itr != matMap.end(); ++itr)
+		for (std::map<std::string, HXMaterial*>::iterator itr = matMap.begin(); itr != matMap.end(); ++itr)
 		{
 			delete itr->second;
 		}

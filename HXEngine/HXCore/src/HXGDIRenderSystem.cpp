@@ -5,6 +5,7 @@
 #include "HXGDIRenderable.h"
 #include "HXGDICamera.h"
 #include "HXGDITransform.h"
+#include "HXGDIMaterial.h"
 
 namespace HX3D
 {
@@ -254,6 +255,11 @@ namespace HX3D
 	HXITransform* HXGDIRenderSystem::CreateTransform()
 	{
 		return new HXGDITransform();
+	}
+
+	HXMaterial* HXGDIRenderSystem::CreateMaterial(HXMaterialInfo* info)
+	{
+		return new HXGDIMaterial(info);
 	}
 
 	/*void HXGDIRenderSystem::EndText()

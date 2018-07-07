@@ -71,6 +71,7 @@ namespace HX3D
 		vmath::vec3 light_position = vmath::vec3(20, 20, 20);
 		// Setup
 		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CCW);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
 

@@ -8,6 +8,8 @@ namespace HX3D
 	class HXSubMesh;
 	class HXICamera;
 	class HXITransform;
+	class HXMaterial;
+	struct HXMaterialInfo;
 	class HXRenderSystem
 	{
 	public:
@@ -25,6 +27,8 @@ namespace HX3D
 			float nearZ, float farZ) = 0;
 
 		virtual HXITransform* CreateTransform() = 0;
+
+		virtual HXMaterial* CreateMaterial(HXMaterialInfo* info) = 0;
 
 		ERenderSystem GetRenderSystemType();
 		void SetRenderSystemType(ERenderSystem rs);

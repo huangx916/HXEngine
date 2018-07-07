@@ -29,6 +29,7 @@ namespace HX3D
 		virtual void EndText();
 
 		virtual HXITransform* CreateTransform();
+		virtual HXMaterial* CreateMaterial(HXMaterialInfo* info);
 
 		static void RenderScene();
 		void Initialize();

@@ -162,12 +162,12 @@ namespace HX3D
 		int nMatCount = 0;
 		for (std::vector<std::string>::iterator itr = pModelInfo->m_vctSubMeshMat.begin(); itr != pModelInfo->m_vctSubMeshMat.end(); ++itr)
 		{
-			HXMaterialInfo* pMat = HXResourceManager::GetInstance()->GetMaterialInfo(*itr);
+			HXMaterial* pMat = HXResourceManager::GetInstance()->GetMaterial(*itr);
 			if (NULL == pMat)
 			{
 				// 如果不存在该材质球，则使用粉色材质
 				*itr = "./prefab/_Material/Error/Error.material";
-				HXResourceManager::GetInstance()->GetMaterialInfo(*itr);
+				HXResourceManager::GetInstance()->GetMaterial(*itr);
 			}
 			++nMatCount;
 		}
@@ -175,7 +175,7 @@ namespace HX3D
 		if (nMatCount == 0)
 		{
 			pModelInfo->m_vctSubMeshMat.push_back("./prefab/_Material/Error/Error.material");
-			HXResourceManager::GetInstance()->GetMaterialInfo("./prefab/_Material/Error/Error.material");
+			HXResourceManager::GetInstance()->GetMaterial("./prefab/_Material/Error/Error.material");
 		}
 		
 		// 关联材质到SubMesh

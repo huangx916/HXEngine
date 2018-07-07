@@ -2,11 +2,13 @@
 #include "HXResourceManager.h"
 #include "HXGDITextureBMP.h"
 #include "HXLoadConfigMat.h"
+#include "HXMaterial.h"
+#include "HXGDIMaterial.h"
 
 namespace HX3D
 {
 	//HXMaterial* HXRenderState::m_pMaterial = NULL;
-	HXMaterialInfo* HXRenderState::m_pMatInfo = NULL;
+	HXMaterial* HXRenderState::m_pMat = NULL;
 	HXGDITextureBMP* HXRenderState::m_pTex = NULL;
 	HXRenderState::HXRenderState()
 	{
@@ -19,7 +21,7 @@ namespace HX3D
 	void HXRenderState::Reset()
 	{
 		//m_pMaterial = NULL;
-		m_pMatInfo = NULL;
+		m_pMat = NULL;
 		m_pTex = NULL;
 	}
 
@@ -35,18 +37,11 @@ namespace HX3D
 
 	void HXRenderState::SetMatInfoAndTexture(std::string strMatInfoFile)
 	{
-		HXMaterialInfo* pMatInfo = HXResourceManager::GetInstance()->GetMaterialInfo(strMatInfoFile);
-		m_pMatInfo = pMatInfo;
-		if (pMatInfo)
+		HXGDIMaterial* pMat = (HXGDIMaterial*)HXResourceManager::GetInstance()->GetMaterial(strMatInfoFile);
+		m_pMat = pMat;
+		if (pMat)
 		{
-			// GDI默认只使用第一张贴图
-			HXGDITextureBMP* tex = (HXGDITextureBMP*)HXResourceManager::GetInstance()->GetTexture("GDI_" + pMatInfo->vctMatProperty[0].value);
-			if (NULL == tex)
-			{
-				tex = new HXGDITextureBMP(pMatInfo->vctMatProperty[0].value);
-				HXResourceManager::GetInstance()->AddTexture("GDI_" + pMatInfo->vctMatProperty[0].value, tex);
-			}
-			m_pTex = tex;
+			m_pTex = pMat->GetTexture();
 		}
 	}
 }

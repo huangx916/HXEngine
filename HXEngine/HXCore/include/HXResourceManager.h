@@ -5,11 +5,10 @@
 namespace HX3D
 {
 	class HXMesh;
-	class HXMaterial;
 	class HXBitmap;
 	class HXIMeshLoader;
 	class HXModelInfo;
-	class HXMaterialInfo;
+	class HXMaterial;
 	class HXITexture;
 	class HXResourceManager
 	{
@@ -27,7 +26,7 @@ namespace HX3D
 		HXMesh* GetMesh(std::string strMeshName, std::string strAnimName);
 
 		HXModelInfo* GetModelInfo(std::string strModelFile);
-		HXMaterialInfo* GetMaterialInfo(std::string strMaterialFile);
+		HXMaterial* GetMaterial(std::string strMaterialFile);
 		HXITexture* GetTexture(std::string strTextureFile);
 		void AddTexture(std::string strTextureFile, HXITexture* pTexture);
 
@@ -40,7 +39,7 @@ namespace HX3D
 
 		std::map<std::string, HXModelInfo*> ModelMap;
 		std::map<std::string, HXMesh*>	meshMap;
-		std::map<std::string, HXMaterialInfo*> matMap;
+		std::map<std::string, HXMaterial*> matMap;
 		std::map<std::string, HXITexture*> textureMap;
 	};
 }
