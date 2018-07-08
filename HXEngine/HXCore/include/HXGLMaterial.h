@@ -12,8 +12,10 @@ namespace HX3D
 		HXGLMaterial(HXMaterialInfo* pMatInfo);
 		~HXGLMaterial();
 		
-		void SetMaterialRenderState(HXGLRenderable* renderable);
-		void SetShadowMapMaterialRenderState(HXGLRenderable* renderable);
+		void SetMaterialRenderStateAllRenderable();
+		void SetMaterialRenderStateEachRenderable(HXGLRenderable* renderable);
+		void SetShadowMapMaterialRenderStateAllRenderable();
+		void SetShadowMapMaterialRenderStateEachRenderable(HXGLRenderable* renderable);
 
 		GLuint render_scene_prog;
 

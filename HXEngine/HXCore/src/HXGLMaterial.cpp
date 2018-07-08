@@ -10,6 +10,7 @@
 #include "HXGLRenderSystem.h"
 #include "HXGLShadowMap.h"
 #include "HXGLRenderable.h"
+#include "HXStatus.h"
 
 namespace HX3D
 {
@@ -246,8 +247,10 @@ namespace HX3D
 		glDeleteProgram(render_scene_prog);
 	}
 
-	void HXGLMaterial::SetMaterialRenderState(HXGLRenderable* renderable)
+	void HXGLMaterial::SetMaterialRenderStateAllRenderable()
 	{
+		HXStatus::GetInstance()->nBatchCall += 1;
+
 		// TODO:提取到material配置文件中
 		glEnable(GL_CULL_FACE);
 		glFrontFace(GL_CCW);
@@ -263,12 +266,10 @@ namespace HX3D
 		HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
 		HXVector3D eyePos = pCamera->transform->mPostion;
 		glUniform3f(render_scene_uniforms.render_eye_pos_loc, eyePos.x, eyePos.y, eyePos.z);
-		glUniformMatrix4fv(render_scene_uniforms.render_model_matrix_loc, 1, GL_FALSE, renderable->mMatrixModel);
-		glUniformMatrix4fv(render_scene_uniforms.render_view_matrix_loc, 1, GL_FALSE, renderable->mMatrixView);
-		glUniformMatrix4fv(render_scene_uniforms.render_projection_matrix_loc, 1, GL_FALSE, renderable->mMatrixProjection);
-		glUniformMatrix4fv(render_scene_uniforms.render_mvp_matrix_loc, 1, GL_FALSE, renderable->mMatrixProjection * renderable->mMatrixView * renderable->mMatrixModel);
+		glUniformMatrix4fv(render_scene_uniforms.render_view_matrix_loc, 1, GL_FALSE, pCamera->mMatrixView);
+		glUniformMatrix4fv(render_scene_uniforms.render_projection_matrix_loc, 1, GL_FALSE, pCamera->mMatrixProjection);
 
-		// 每次渲染，状态都要重新赋值 TODO: 不变状态提取
+		// 每次渲染，状态都要重新赋值
 		HXMaterialInfo* pMatInfo = mMatInfo;
 		int nTexIndex = 0;
 		for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
@@ -301,30 +302,30 @@ namespace HX3D
 			break;
 			if (HXRoot::GetInstance()->IsEditorMode())
 			{
-				case MPT_FLOAT:
-				{
-					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-					glUniform1f(property_loc, itr->value1);
-				}
-				break;
-				case MPT_FLOAT2:
-				{
-					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-					glUniform2f(property_loc, itr->value1, itr->value2);
-				}
-				break;
-				case MPT_FLOAT3:
-				{
-					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-					glUniform3f(property_loc, itr->value1, itr->value2, itr->value3);
-				}
-				break;
-				case MPT_FLOAT4:
-				{
-					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-					glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
-				}
-				break;
+			case MPT_FLOAT:
+			{
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				glUniform1f(property_loc, itr->value1);
+			}
+			break;
+			case MPT_FLOAT2:
+			{
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				glUniform2f(property_loc, itr->value1, itr->value2);
+			}
+			break;
+			case MPT_FLOAT3:
+			{
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				glUniform3f(property_loc, itr->value1, itr->value2, itr->value3);
+			}
+			break;
+			case MPT_FLOAT4:
+			{
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+			}
+			break;
 			}
 			default:
 				break;
@@ -341,11 +342,11 @@ namespace HX3D
 			{
 				// 每帧需要更新
 				const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
-																  vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
-																  vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
-																  vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+					vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+					vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+					vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
 				glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);
-				
+
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
@@ -452,17 +453,22 @@ namespace HX3D
 			HXCOLOR color = HXSceneManager::GetInstance()->ambient;
 			glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 		}
+
 	}
 
-	void HXGLMaterial::SetShadowMapMaterialRenderState(HXGLRenderable* renderable)
+	void HXGLMaterial::SetMaterialRenderStateEachRenderable(HXGLRenderable* renderable)
 	{
+		glUniformMatrix4fv(render_scene_uniforms.render_model_matrix_loc, 1, GL_FALSE, renderable->mMatrixModel);
+		glUniformMatrix4fv(render_scene_uniforms.render_mvp_matrix_loc, 1, GL_FALSE, renderable->mMatrixProjection * renderable->mMatrixView * renderable->mMatrixModel);
+	}
+
+	void HXGLMaterial::SetShadowMapMaterialRenderStateAllRenderable()
+	{
+		HXStatus::GetInstance()->nBatchCall += 1;
+
 		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
 		HXGLShadowMap* sm = rs->mShadowMap;
-
-		glUniformMatrix4fv(sm->render_light_uniforms.model_view_projection_matrix, 1, GL_FALSE, sm->light_projection_matrix * sm->light_view_matrix * renderable->mMatrixModel);
-		
 		// Alpha test
-		int nTexIndex = 0;
 		for (std::vector<HXMaterialProperty>::iterator itr = mMatInfo->vctMatProperty.begin(); itr != mMatInfo->vctMatProperty.end(); ++itr)
 		{
 			switch (itr->type)
@@ -478,14 +484,13 @@ namespace HX3D
 
 				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 
-				glUniform1i(tex_uniform_loc, nTexIndex);
-				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				//glBindTexture(tex->mImageData.target, tex->texId);
+				glUniform1i(tex_uniform_loc, 0);
+				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, tex->texId);
 
 				GLint property_loc = glGetUniformLocation(sm->render_light_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
-				
+
 				return;
 			}
 			break;
@@ -493,5 +498,13 @@ namespace HX3D
 				break;
 			}
 		}
+	}
+
+	void HXGLMaterial::SetShadowMapMaterialRenderStateEachRenderable(HXGLRenderable* renderable)
+	{
+		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
+		HXGLShadowMap* sm = rs->mShadowMap;
+
+		glUniformMatrix4fv(sm->render_light_uniforms.model_view_projection_matrix, 1, GL_FALSE, sm->light_projection_matrix * sm->light_view_matrix * renderable->mMatrixModel);
 	}
 }

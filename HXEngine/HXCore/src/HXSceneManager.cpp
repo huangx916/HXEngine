@@ -297,9 +297,6 @@ namespace HX3D
 		if (shadow)
 		{
 			m_pMainCamera->Update();
-		}
-		else
-		{
 			HXStatus::GetInstance()->ResetStatus();
 		}
 		

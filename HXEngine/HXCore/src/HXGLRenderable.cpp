@@ -129,7 +129,9 @@ namespace HX3D
 			return;
 		}
 
-		mMaterial->SetShadowMapMaterialRenderState(this);
+		// TODO: 提取到相同材质的外层
+		mMaterial->SetShadowMapMaterialRenderStateAllRenderable();
+		mMaterial->SetShadowMapMaterialRenderStateEachRenderable(this);
 
 		glBindVertexArray(mVAO);
 
@@ -170,7 +172,9 @@ namespace HX3D
 			return;
 		}
 		
-		mMaterial->SetMaterialRenderState(this);
+		// TODO: 提取到相同材质的外层
+		mMaterial->SetMaterialRenderStateAllRenderable();
+		mMaterial->SetMaterialRenderStateEachRenderable(this);
 
 		glBindVertexArray(mVAO);
 
