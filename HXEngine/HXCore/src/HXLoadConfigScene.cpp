@@ -55,13 +55,8 @@ namespace HX3D
 
 		TiXmlElement* rootElement = doc.RootElement();
 
-		// gameObject
-		TiXmlElement* gameobjects = rootElement->FirstChildElement();
-		TiXmlElement* gameobjElement = gameobjects->FirstChildElement();
-		ReadGameObjectRecurve(gameobjElement, mSceneInfo.vctGameObjInfo, 0);
-
 		// camera
-		TiXmlElement* cameraElement = gameobjects->NextSiblingElement();
+		TiXmlElement* cameraElement = rootElement->FirstChildElement();
 		mSceneInfo.cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
 		mSceneInfo.cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));
 		TiXmlElement* eyeElement = cameraElement->FirstChildElement();
@@ -126,6 +121,10 @@ namespace HX3D
 			mSceneInfo.vctLight.push_back(lightInfo);
 		}
 
+		// gameObject
+		TiXmlElement* gameobjects = lights->NextSiblingElement();
+		TiXmlElement* gameobjElement = gameobjects->FirstChildElement();
+		ReadGameObjectRecurve(gameobjElement, mSceneInfo.vctGameObjInfo, 0);
 
 		return true;
 	}

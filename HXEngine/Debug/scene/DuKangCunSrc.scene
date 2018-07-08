@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObjects>
-		<GameObj Name="SkyBoxGO" Model="" Priority="1000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-			<GameObj Name="SkyBox1" Model="" Priority="100" CastShadow="0">
-				<Position Px="0" Py="0" Pz="0"/>
-				<Rotation Rx="0" Ry="0" Rz="0"/>
-				<Scale Sx="1" Sy="1" Sz="1"/>
-				<GameObj Name="SkyBox11" Model="prefab/SkyBox/SkyBox.model" Priority="10" CastShadow="0">
-					<Position Px="0" Py="0" Pz="0"/>
-					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="400" Sy="400" Sz="400"/>
-				</GameObj>
-			</GameObj>
-			<GameObj Name="SkyBox2" Model="" Priority="200" CastShadow="0">
-				<Position Px="0" Py="0" Pz="0"/>
-				<Rotation Rx="0" Ry="0" Rz="0"/>
-				<Scale Sx="1" Sy="1" Sz="1"/>
-			</GameObj>
-		</GameObj>
-		<GameObj Name="TerrainGO" Model="prefab/Terrain/Terrain.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</GameObj>
-		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="1">
-			<Position Px="5" Py="-2.5" Pz="5"/>
-			<Rotation Rx="0" Ry="-90" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</GameObj>
-		<GameObj Name="Building01GO" Model="prefab/Building01/Building01.model" Priority="3000" CastShadow="1">
-			<Position Px="0" Py="-2.5" Pz="5"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
-		</GameObj>
-	</GameObjects>
 	<Camera NearZ="1" FarZ="1000">
 		<Position Px="0" Py="5" Pz="15"/>
 		<Rotation Rx="-10" Ry="0" Rz="0"/>
@@ -77,4 +40,41 @@
 		</Light>
 		-->
 	</Lights>
+	<GameObjects>
+		<GameObj Name="SkyBoxGO" Model="" Priority="1000" CastShadow="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+			<GameObj Name="SkyBox1" Model="" Priority="100" CastShadow="0">
+				<Position Px="0" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="1" Sy="1" Sz="1"/>
+				<GameObj Name="SkyBox11" Model="prefab/SkyBox/SkyBox.model" Priority="10" CastShadow="0">
+					<Position Px="0" Py="0" Pz="0"/>
+					<Rotation Rx="0" Ry="0" Rz="0"/>
+					<Scale Sx="400" Sy="400" Sz="400"/>
+				</GameObj>
+			</GameObj>
+			<GameObj Name="SkyBox2" Model="" Priority="200" CastShadow="0">
+				<Position Px="0" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="1" Sy="1" Sz="1"/>
+			</GameObj>
+		</GameObj>
+		<GameObj Name="TerrainGO" Model="prefab/Terrain/Terrain.model" Priority="2000" CastShadow="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+		</GameObj>
+		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="1">
+			<Position Px="5" Py="-2.5" Pz="5"/>
+			<Rotation Rx="0" Ry="-90" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+		</GameObj>
+		<GameObj Name="Building01GO" Model="prefab/Building01/Building01.model" Priority="3000" CastShadow="1">
+			<Position Px="0" Py="-2.5" Pz="5"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
+		</GameObj>
+	</GameObjects>
 </Scene>

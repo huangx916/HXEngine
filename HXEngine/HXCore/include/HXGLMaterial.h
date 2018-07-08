@@ -27,9 +27,6 @@ namespace HX3D
 			GLint render_shadow_matrix_loc;
 		}render_scene_uniforms;
 
-		int depth_texture_index;
-
-		int test;
 	};
 }
 

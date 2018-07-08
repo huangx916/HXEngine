@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObjects>
-		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="20" CastShadow="1">
-			<Postion Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="-90" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</GameObj>
-	</GameObjects>
 	<Camera NearZ="1" FarZ="1000">
 		<Position Px="0" Py="0" Pz="2"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
@@ -49,4 +42,11 @@
 		</Light>
 		-->
 	</Lights>
+	<GameObjects>
+		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="20" CastShadow="1">
+			<Postion Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="-90" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+		</GameObj>
+	</GameObjects>
 </Scene>

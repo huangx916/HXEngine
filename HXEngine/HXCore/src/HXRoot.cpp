@@ -6,7 +6,7 @@ namespace HX3D
 {
 	HXRoot* HXRoot::m_pInstance = NULL;
 
-	HXRoot::HXRoot():m_pRenderSystem(NULL)
+	HXRoot::HXRoot():m_pRenderSystem(NULL), m_bEditor(false)
 	{
 	}
 
@@ -70,5 +70,11 @@ namespace HX3D
 		{
 			m_pRenderSystem->InitForEditor();
 		}
+		m_bEditor = true;
+	}
+
+	bool HXRoot::IsEditorMode()
+	{
+		return m_bEditor;
 	}
 }

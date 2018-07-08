@@ -27,9 +27,12 @@ namespace HX3D
 		HXRenderSystem* GetRenderSystem();
 		
 		void InitForEditor();
+		bool IsEditorMode();
+
 	private:
 		HXRoot();
 		static HXRoot* m_pInstance;
 		HXRenderSystem* m_pRenderSystem;
+		bool m_bEditor;
 	};
 }

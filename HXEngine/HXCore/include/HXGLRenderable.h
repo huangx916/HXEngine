@@ -40,5 +40,7 @@ namespace HX3D
 		GLuint mVAO;
 		GLuint mVBO;
 		HXGLMaterial* mMaterial;
+
+		bool mHaveShadow;
 	};
 }

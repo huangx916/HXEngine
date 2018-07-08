@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
+	<Camera NearZ="1" FarZ="1000">
+		<Position Px="0" Py="5" Pz="15"/>
+		<Rotation Rx="-10" Ry="0" Rz="0"/>
+	</Camera>
+	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="15" End="30"/>
+	<Ambient R="50" G="50" B="50"/>
+	<Lights>
+		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
+			<Color Cr="255" Cg="255" Cb="255"/>
+			<Position Px="0" Py="0" Pz="0"/>
+			<Direct Dx="1" Dy="1" Dz="1"/>
+			<ConeDirection Cx="0" Cy="0" Cz="0"/>
+		</Light>
+	</Lights>
 	<GameObjects>
 		<GameObj Name="SkyBoxGO" Model="" Priority="1000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
@@ -37,18 +51,4 @@
 			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 		</GameObj>
 	</GameObjects>
-	<Camera NearZ="1" FarZ="1000">
-		<Position Px="0" Py="5" Pz="15"/>
-		<Rotation Rx="-10" Ry="0" Rz="0"/>
-	</Camera>
-	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="15" End="30"/>
-	<Ambient R="50" G="50" B="50"/>
-	<Lights>
-		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
-			<Color Cr="255" Cg="255" Cb="255"/>
-			<Position Px="0" Py="0" Pz="0"/>
-			<Direct Dx="1" Dy="1" Dz="1"/>
-			<ConeDirection Cx="0" Cy="0" Cz="0"/>
-		</Light>
-	</Lights>
 </Scene>
