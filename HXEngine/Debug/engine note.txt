@@ -1,0 +1,44 @@
+geometry 排序  静态合并static batch， 动态合并dynamic batch		static dynamic
+transparent 排序  相邻相同材质物体合并render state
+
+render queue
+
+静态物体每帧不需要更新transform
+
+骨骼动画消耗10帧
+
+
+gameobject：static/dynamic
+
+gameobject：render queue
+material：geometry(transparent cutout)/transparent
+gameobject：depth
+
+batching：
+暂时不考虑 static/dynamic
+首先根据render queue 排序。然后相同的render queue，geometry(transparent cutout)相同material进行合并，transparent相邻Z相同material进行合并
+
+
+相同material的shaderprogram 共享
+不同物体有不同的MVP，shader program也可以共享
+每帧渲染时shader uniform的texture变量需要重新处理（赋值的只是纹理绑定点，纹理绑定点绑定的纹理可能被改掉了）
+
+
+
+
+
+// 一定要加上，不然后续不是VBO绘制的物体无法显示
+glBindVertexArray(0);
+glBindBuffer(GL_ARRAY_BUFFER, 0);
+glUseProgram(0);
+
+
+// TODO:提取到material配置文件中
+glEnable(GL_CULL_FACE);
+glFrontFace(GL_CCW);
+//glFrontFace(GL_CW);
+glEnable(GL_DEPTH_TEST);
+glDepthFunc(GL_LEQUAL);
+glEnable(GL_BLEND);
+glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+glEnable(GL_TEXTURE_2D);
