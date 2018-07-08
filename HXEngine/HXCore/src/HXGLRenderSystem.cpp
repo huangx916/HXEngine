@@ -155,8 +155,8 @@ namespace HX3D
 	void HXGLRenderSystem::Initialize()
 	{
 		// InitTriangle();
-		mFont = new HXGLFreeTypeFont();
-		mFont->Initialize("default.ttf", 16);
+		//mFont = new HXGLFreeTypeFont();
+		//mFont->Initialize("default.ttf", 16);
 		mShadowMap = new HXGLShadowMap();
 		mShadowMap->Initialize();
 	}

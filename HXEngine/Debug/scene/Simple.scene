@@ -14,7 +14,7 @@
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
 	<Lights>
-		<Light Name="MainLight" Enable="0" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
+		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="255" Cg="255" Cb="255"/>
 			<Position Px="0" Py="0" Pz="0"/>
 			<Direct Dx="1" Dy="1" Dz="1"/>

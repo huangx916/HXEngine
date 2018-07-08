@@ -13,9 +13,10 @@ namespace HX3D
 		~HXGLMaterial();
 		
 		void SetMaterialRenderState(HXGLRenderable* renderable);
-		void SetShadowMapMaterialRenderState(GLuint sm_prog);
+		void SetShadowMapMaterialRenderState(HXGLRenderable* renderable);
 
 		GLuint render_scene_prog;
+
 		struct
 		{
 			GLint render_eye_pos_loc;
@@ -25,6 +26,10 @@ namespace HX3D
 			GLint render_mvp_matrix_loc;
 			GLint render_shadow_matrix_loc;
 		}render_scene_uniforms;
+
+		int depth_texture_index;
+
+		int test;
 	};
 }
 

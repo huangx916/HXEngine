@@ -15,6 +15,8 @@ namespace HX3D
 {
 	HXGLMaterial::HXGLMaterial(HXMaterialInfo* pMatInfo)
 	{
+		test = 0;
+
 		HXMaterial::SetMaterialInfo(pMatInfo);
 
 		std::string strVertShaderFile = pMatInfo->strShaderFile + ".vert";
@@ -114,6 +116,9 @@ namespace HX3D
 				break;
 			}
 		}
+
+		// shadow
+		depth_texture_index = nTexIndex;
 
 		// FOG TODO: Uniform Block 共享
 		GLint property_loc = glGetUniformLocation(render_scene_prog, "useFog");
@@ -216,24 +221,29 @@ namespace HX3D
 		}
 
 		// shadow
-		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
-		HXGLShadowMap* sm = rs->mShadowMap;
-		if (sm)
-		{
-			// 每帧需要更新
-			/*const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
-				vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
-				vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
-				vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
-			glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);*/
+		//GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, "depth_texture");
+		//if (tex_uniform_loc != -1)
+		//{
+		//	HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
+		//	HXGLShadowMap* sm = rs->mShadowMap;
+		//	if (sm)
+		//	{
+		//		// 每帧需要更新
+		//		/*const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+		//		vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+		//		vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+		//		vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+		//		glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);*/
 
-			GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, "depth_texture");
-			glUniform1i(tex_uniform_loc, nTexIndex);
-			glActiveTexture(GL_TEXTURE0 + nTexIndex);
-			//glBindTexture(tex->mImageData.target, tex->texId);
-			glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
-			++nTexIndex;
-		}
+		//		glUniform1i(tex_uniform_loc, nTexIndex);
+		//		glActiveTexture(GL_TEXTURE0 + nTexIndex);
+		//		//glBindTexture(tex->mImageData.target, tex->texId);
+		//		glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
+		//		++nTexIndex;
+		//	}
+		//}
+
+		glUseProgram(0);
 	}
 
 	HXGLMaterial::~HXGLMaterial()
@@ -243,63 +253,102 @@ namespace HX3D
 
 	void HXGLMaterial::SetMaterialRenderState(HXGLRenderable* renderable)
 	{
+		// TODO:提取到material配置文件中
+		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CCW);
+		//glFrontFace(GL_CW);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+
 		glUseProgram(render_scene_prog);
 
-		// 每次渲染，状态都要重新赋值 TODO: 不变状态提取
-		HXMaterialInfo* pMatInfo = mMatInfo;
-		int nTexIndex = 0;
-		for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
+		//if (test < 500)
 		{
-			switch (itr->type)
+			test++;
+
+			// 每次渲染，状态都要重新赋值 TODO: 不变状态提取
+			HXMaterialInfo* pMatInfo = mMatInfo;
+			int nTexIndex = 0;
+			for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
 			{
-			case MPT_TEXTURE:
-			{
-				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-				if (tex_uniform_loc == -1)
+				switch (itr->type)
 				{
-					// 未参被实际调用的变量编译后会被自动删除
-					continue;
+				case MPT_TEXTURE:
+				{
+					GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+					if (tex_uniform_loc == -1)
+					{
+						// 未参被实际调用的变量编译后会被自动删除
+						continue;
+					}
+
+					HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+
+					glUniform1i(tex_uniform_loc, nTexIndex);
+					glActiveTexture(GL_TEXTURE0 + nTexIndex);
+					//glBindTexture(tex->mImageData.target, tex->texId);
+					glBindTexture(GL_TEXTURE_2D, tex->texId);
+
+					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+					glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+					++nTexIndex;
 				}
-
-				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
-
-				glUniform1i(tex_uniform_loc, nTexIndex);
-				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				//glBindTexture(tex->mImageData.target, tex->texId);
-				glBindTexture(GL_TEXTURE_2D, tex->texId);
-
-				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
-				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
-
-				++nTexIndex;
-			}
-			break;
-			case MPT_FLOAT:
-			{
-				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-				glUniform1f(property_loc, itr->value1);
-			}
-			break;
-			case MPT_FLOAT2:
-			{
-				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-				glUniform2f(property_loc, itr->value1, itr->value2);
-			}
-			break;
-			case MPT_FLOAT3:
-			{
-				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-				glUniform3f(property_loc, itr->value1, itr->value2, itr->value3);
-			}
-			break;
-			case MPT_FLOAT4:
-			{
-				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
-				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
-			}
-			break;
-			default:
 				break;
+				case MPT_FLOAT:
+				{
+					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+					glUniform1f(property_loc, itr->value1);
+				}
+				break;
+				case MPT_FLOAT2:
+				{
+					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+					glUniform2f(property_loc, itr->value1, itr->value2);
+				}
+				break;
+				case MPT_FLOAT3:
+				{
+					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+					glUniform3f(property_loc, itr->value1, itr->value2, itr->value3);
+				}
+				break;
+				case MPT_FLOAT4:
+				{
+					GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+					glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+				}
+				break;
+				default:
+					break;
+				}
+			}
+
+
+			// shadow
+			GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, "depth_texture");
+			if (tex_uniform_loc != -1)
+			{
+				HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
+				HXGLShadowMap* sm = rs->mShadowMap;
+				if (sm)
+				{
+					// 每帧需要更新
+					const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+						vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+						vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+						vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+					glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);
+
+					glUniform1i(tex_uniform_loc, depth_texture_index);
+					glActiveTexture(GL_TEXTURE0 + depth_texture_index);
+					//glBindTexture(tex->mImageData.target, tex->texId);
+					glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
+					//++nTexIndex;
+				}
 			}
 		}
 
@@ -409,32 +458,14 @@ namespace HX3D
 		property_loc = glGetUniformLocation(render_scene_prog, "ambient");
 		HXCOLOR color = HXSceneManager::GetInstance()->ambient;
 		glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
-
-		
-
-		// shadow
-		// TODO: 解耦
-		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
-		HXGLShadowMap* sm = rs->mShadowMap;
-		if (sm)
-		{
-			const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
-				vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
-				vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
-				vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
-			glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);
-
-			GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, "depth_texture");
-			glUniform1i(tex_uniform_loc, nTexIndex);
-			glActiveTexture(GL_TEXTURE0 + nTexIndex);
-			//glBindTexture(tex->mImageData.target, tex->texId);
-			glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
-			++nTexIndex;
-		}
 	}
 
-	void HXGLMaterial::SetShadowMapMaterialRenderState(GLuint sm_prog)
+	void HXGLMaterial::SetShadowMapMaterialRenderState(HXGLRenderable* renderable)
 	{
+		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
+		HXGLShadowMap* sm = rs->mShadowMap;
+
+		glUniformMatrix4fv(sm->render_light_uniforms.model_view_projection_matrix, 1, GL_FALSE, sm->light_projection_matrix * sm->light_view_matrix * renderable->mMatrixModel);
 		// 每次渲染，状态都要重新赋值 TODO: 不变状态提取
 		// Alpha test
 		int nTexIndex = 0;
@@ -444,7 +475,7 @@ namespace HX3D
 			{
 			case MPT_TEXTURE:
 			{
-				GLint tex_uniform_loc = glGetUniformLocation(sm_prog, (itr->name).c_str());
+				GLint tex_uniform_loc = glGetUniformLocation(sm->render_light_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
 					// 未参被实际调用的变量编译后会被自动删除
@@ -458,7 +489,7 @@ namespace HX3D
 				//glBindTexture(tex->mImageData.target, tex->texId);
 				glBindTexture(GL_TEXTURE_2D, tex->texId);
 
-				GLint property_loc = glGetUniformLocation(sm_prog, (itr->name + "_ST").c_str());
+				GLint property_loc = glGetUniformLocation(sm->render_light_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
 				
 				return;

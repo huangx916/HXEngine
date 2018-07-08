@@ -39,17 +39,6 @@ namespace HX3D
 
 		GLuint mVAO;
 		GLuint mVBO;
-
-		/*GLuint render_scene_prog;
-		struct
-		{
-			GLint render_model_matrix_loc;
-			GLint render_view_matrix_loc;
-			GLint render_projection_matrix_loc;
-			GLint render_mvp_matrix_loc;
-			GLint render_shadow_matrix_loc;
-		}render_scene_uniforms;*/
-
 		HXGLMaterial* mMaterial;
 	};
 }
