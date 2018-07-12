@@ -1013,7 +1013,7 @@ void HXInspectorWidget::CameraFarChanged(double value)
 
 void HXInspectorWidget::TransSyncOnClick()
 {
-	SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+	SetCameraInfo(HXSceneManager::GetInstance()->mainCamera);
 }
 
 void HXInspectorWidget::CameraPositionXValueChanged(double value)

@@ -197,7 +197,7 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "	</GameObjects>\n";
 
 	// Camera
-	HXGLCamera* camera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
+	HXGLCamera* camera = (HXGLCamera*)HXSceneManager::GetInstance()->mainCamera;
 	out << "	<Camera NearZ=\"";
 	out << camera->mNear;
 	out << "\" FarZ=\"";
@@ -441,13 +441,13 @@ void HXEditorWin::loadSceneCallBack()
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateSceneTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
-	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->mainCamera);
 }
 
 void HXEditorWin::updateCallBack()
 {
 	// 影响帧率，改用按钮同步数据
-	//HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+	//HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->mainCamera);
 }
 
 void HXEditorWin::createGoCallBack(HX3D::HXGameObject* gameObject)

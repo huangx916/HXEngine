@@ -21,7 +21,7 @@ namespace HX3D
 {
 	HXSceneManager* HXSceneManager::m_pInstance = NULL;
 
-	HXSceneManager::HXSceneManager():m_pMainCamera(NULL), fog(NULL), nameSuffix(0)
+	HXSceneManager::HXSceneManager():mainCamera(NULL), fog(NULL)
 	{
 		ambient = HXCOLOR(0,0,0,255);
 	}
@@ -40,9 +40,9 @@ namespace HX3D
 		}
 		lightVct.clear();
 
-		if (m_pMainCamera)
+		if (mainCamera)
 		{
-			delete m_pMainCamera;
+			delete mainCamera;
 		}
 
 		if (fog)
@@ -86,10 +86,10 @@ namespace HX3D
 
 	void HXSceneManager::UnLoadScene()
 	{
-		if (m_pMainCamera)
+		if (mainCamera)
 		{
-			delete m_pMainCamera;
-			m_pMainCamera = NULL;
+			delete mainCamera;
+			mainCamera = NULL;
 		}
 		if (fog)
 		{
@@ -247,14 +247,9 @@ namespace HX3D
 	{
 		if (HXRoot::GetInstance()->GetRenderSystem())
 		{
-			m_pMainCamera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(position, rotate, nearZ, farZ);
+			mainCamera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(position, rotate, nearZ, farZ);
 		}
-		return m_pMainCamera;
-	}
-
-	HXICamera* HXSceneManager::GetMainCamera()
-	{
-		return m_pMainCamera;
+		return mainCamera;
 	}
 
 	void HXSceneManager::CreateFog(HXFogInfo* info)
@@ -289,14 +284,14 @@ namespace HX3D
 
 	void HXSceneManager::OnDisplay(bool shadow)
 	{
-		if (!m_pMainCamera)
+		if (!mainCamera)
 		{
 			return;
 		}
 
 		if (shadow)
 		{
-			m_pMainCamera->Update();
+			mainCamera->Update();
 			HXStatus::GetInstance()->ResetStatus();
 		}
 		
@@ -339,8 +334,8 @@ namespace HX3D
 					//(*itr1)->renderable->SetModelMatrix(itr->second->GetPosition(), itr->second->GetRotation(), itr->second->GetScale());
 					(*itr1)->renderable->SetModelMatrix((*itr)->GetTransform()->mCurModelMatrix);
 					// TODO: 提取到外层Camera里增加效率   Just for test here
-					(*itr1)->renderable->SetViewMatrix(m_pMainCamera);
-					(*itr1)->renderable->SetProjectionMatrix(m_pMainCamera);
+					(*itr1)->renderable->SetViewMatrix(mainCamera);
+					(*itr1)->renderable->SetProjectionMatrix(mainCamera);
 					pRenderSystem->RenderSingle((*itr1)->renderable, shadow);
 				}
 			}
@@ -354,9 +349,9 @@ namespace HX3D
 
 	void HXSceneManager::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 	{
-		if (m_pMainCamera)
+		if (mainCamera)
 		{
-			m_pMainCamera->OnViewPortResize(nScreenWidth, nScreenHeight);
+			mainCamera->OnViewPortResize(nScreenWidth, nScreenHeight);
 		}
 	}
 

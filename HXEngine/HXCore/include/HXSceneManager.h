@@ -33,13 +33,11 @@ namespace HX3D
 		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
 		HXGameObject* GetGameObject(std::string strGameObjectName);
 		std::vector<HXGameObject*> GetGameObjectList();
+
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
-
 		HXICamera* CreateMainCamera(const HXVector3D& position, const HXVector3D& rotate,
 			float nearZ = 1.0f, float farZ = 1000.0f);
-		HXICamera* GetMainCamera();
-
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
@@ -52,20 +50,24 @@ namespace HX3D
 		HXGameObject* CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath);
 		bool DeleteGameObjectInEditor(HXGameObject* gameobject);
 		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
-		int nameSuffix;
 
 		// 平行光、点光源、聚光灯
 		std::vector<HXLight*>		lightVct;
 		// 环境光单独保存 保证唯一性
 		HXCOLOR ambient;
-
 		HXFogBase* fog;
+		HXICamera* mainCamera;
+
 	private:
 		static HXSceneManager* m_pInstance;
 		HXSceneManager();
 
 		std::vector<HXGameObject*>	gameObjectList;
-		HXICamera* m_pMainCamera;
+
+		// opaque
+		std::map<int, std::map<std::string, std::vector<HXGameObject*>>> opaqueList;
+		// transparent
+		std::map<int, std::vector<HXGameObject*>> transparentList;
 	};
 }
 

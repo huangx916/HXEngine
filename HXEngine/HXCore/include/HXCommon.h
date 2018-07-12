@@ -159,6 +159,15 @@ namespace HX3D
 		RenderSystem_D3D
 	};
 
+	enum ERenderQueue
+	{
+		RQ_BACKGROUND = 1000,
+		RQ_GEOMETRY = 2000,
+		RQ_ALPHATEST = 2450,
+		RQ_TRANSPARENT = 3000,
+		RQ_OVERLAY = 4000
+	};
+
 	// TODO: 如何根据当前子网格顶点数动态生成顶点数组大小
 	const int MAX_TRIANGLE_COUNT = 10000;	// 最大子网格面数
 }
