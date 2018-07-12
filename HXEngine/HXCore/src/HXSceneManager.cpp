@@ -334,7 +334,7 @@ namespace HX3D
 		}
 	}
 
-	HXGameObject* HXSceneManager::CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath)
+	HXGameObject* HXSceneManager::CreateGameObjectFromPrefab(HXGameObject* father, std::string strPrefabPath)
 	{
 		HXLoadConfigPrefab cfgPrefab;
 		cfgPrefab.LoadFile(strPrefabPath);

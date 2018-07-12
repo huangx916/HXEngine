@@ -29,9 +29,12 @@ namespace HX3D
 		void LoadScene(std::string strSceneCfgFile);
 		void UnLoadScene();
 
+		HXGameObject* GetGameObjectTreeRoot();
 		void CreateGameObjectRecurve(std::vector<HXGameObjectInfo*>& list, HXGameObject* father);
 		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
-		HXGameObject* GetGameObjectTreeRoot();
+		HXGameObject* CreateGameObjectFromPrefab(HXGameObject* father, std::string strPrefabPath);
+		bool DeleteGameObject(HXGameObject* gameobject);
+		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
 
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
@@ -41,15 +44,9 @@ namespace HX3D
 		void UseFog(bool useFog);
 
 		void PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest);
-		//void UpdateTransform();
 		void OnDisplay(bool shadow);
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
-
-		HXGameObject* CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath);
-		bool DeleteGameObject(HXGameObject* gameobject);
-		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
-
 		// 平行光、点光源、聚光灯
 		std::vector<HXLight*>		lightVct;
 		// 环境光单独保存 保证唯一性

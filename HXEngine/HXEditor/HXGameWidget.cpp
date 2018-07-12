@@ -88,7 +88,7 @@ void HXGameWidget::paintGL()
 	if (bLoadGameObject)
 	{
 		bLoadGameObject = false;
-		HXGameObject* go = HXSceneManager::GetInstance()->CreateGameObjectInEditor(gameObjectFather, gameObjectPath.toStdString());
+		HXGameObject* go = HXSceneManager::GetInstance()->CreateGameObjectFromPrefab(gameObjectFather, gameObjectPath.toStdString());
 		if (createGoCallback != NULL && go != NULL)
 		{
 			createGoCallback(go);
