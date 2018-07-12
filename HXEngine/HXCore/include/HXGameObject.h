@@ -29,7 +29,7 @@ namespace HX3D
 		HXITransform* GetTransform();
 
 		// ‰÷»æ”≈œ»º∂
-		int m_nPriority;
+		int m_nRenderQueue;
 		bool m_bCastShadow;
 		std::string m_strModelFile;
 		

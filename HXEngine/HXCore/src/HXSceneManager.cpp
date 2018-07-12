@@ -126,7 +126,7 @@ namespace HX3D
 		{
 			// 当strModelName = ""时，创建不带renderable的gameobject。例如父物体空gameobject
 			HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, NULL, HXRoot::GetInstance()->GetRenderSystem());
-			gameObject->m_nPriority = gameobjectinfo->nPriority;
+			gameObject->m_nRenderQueue = gameobjectinfo->nPriority;
 			gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
 			
 			if (NULL == pFather)
@@ -134,6 +134,7 @@ namespace HX3D
 				pFather = gameObjectTreeRoot;
 			}
 			pFather->AddChild(gameObject);
+			InsertGameObjectToOrderQueue(gameObject);
 			
 			gameObject->SetFather(pFather);
 
@@ -191,7 +192,7 @@ namespace HX3D
 		}
 
 		HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
-		gameObject->m_nPriority = gameobjectinfo->nPriority;
+		gameObject->m_nRenderQueue = gameobjectinfo->nPriority;
 		gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
 		
 		if (NULL == pFather)
@@ -199,6 +200,7 @@ namespace HX3D
 			pFather = gameObjectTreeRoot;
 		}
 		pFather->AddChild(gameObject);
+		InsertGameObjectToOrderQueue(gameObject);
 		
 		gameObject->SetFather(pFather);
 
@@ -216,6 +218,69 @@ namespace HX3D
 	HXGameObject* HXSceneManager::GetGameObjectTreeRoot()
 	{
 		return gameObjectTreeRoot;
+	}
+
+	void HXSceneManager::InsertGameObjectToOrderQueue(HXGameObject* gameobject)
+	{
+		HXMesh* pMesh = gameobject->GetMesh();
+		if (pMesh == NULL)
+		{
+			return;
+		}
+		int renderQueue = gameobject->m_nRenderQueue;
+
+		if (renderQueue < ERenderQueue::RQ_TRANSPARENT)
+		{
+			// opaque
+			for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+			{
+				HXSubMesh* subMesh = (*itr);
+				std::string materialName = subMesh->materialName;
+				std::map<int, mapStringVector>::iterator itr1 = opaqueMap.find(renderQueue);
+				if (itr1 != opaqueMap.end())
+				{
+					mapStringVector::iterator itr2 = itr1->second.find(materialName);
+					if (itr2 != itr1->second.end())
+					{
+						vectorRenderable vct = itr2->second;
+						vct.push_back(subMesh->renderable);
+					}
+					else
+					{
+						vectorRenderable vct;
+						vct.push_back(subMesh->renderable);
+						itr1->second.insert(std::make_pair(materialName, vct));
+					}
+				}
+				else
+				{
+					mapStringVector sv;
+					vectorRenderable vct;
+					vct.push_back(subMesh->renderable);
+					sv.insert(std::make_pair(materialName, vct));
+					opaqueMap.insert(std::make_pair(renderQueue, sv));
+				}
+			}
+		}
+		else
+		{
+			// transparent
+			for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+			{
+				HXSubMesh* subMesh = (*itr);
+				std::map<int, vectorRenderable>::iterator itr1 = transparentMap.find(renderQueue);
+				if (itr1 != transparentMap.end())
+				{
+					itr1->second.push_back(subMesh->renderable);
+				}
+				else
+				{
+					vectorRenderable vct;
+					vct.push_back(subMesh->renderable);
+					transparentMap.insert(std::make_pair(renderQueue, vct));
+				}
+			}
+		}
 	}
 
 	HXLight* HXSceneManager::CreateLight(HXLightInfo* lightInfo)
@@ -253,7 +318,7 @@ namespace HX3D
 
 	bool mycompare(HXGameObject* i, HXGameObject* j)
 	{
-		return( i->m_nPriority < j->m_nPriority );
+		return( i->m_nRenderQueue < j->m_nRenderQueue );
 	}
 
 	void HXSceneManager::PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest)

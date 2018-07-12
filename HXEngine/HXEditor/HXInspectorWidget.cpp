@@ -667,7 +667,7 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 
 		editGameObjectName->setText(selectedGameObject->GetName().c_str());
 
-		spinboxPriority->setValue(selectedGameObject->m_nPriority);
+		spinboxPriority->setValue(selectedGameObject->m_nRenderQueue);
 
 		if (selectedGameObject->m_bCastShadow)
 		{
@@ -829,7 +829,7 @@ void HXInspectorWidget::PriorityChanged(int value)
 {
 	if (selectedGameObject)
 	{
-		selectedGameObject->m_nPriority = value;
+		selectedGameObject->m_nRenderQueue = value;
 	}
 }
 

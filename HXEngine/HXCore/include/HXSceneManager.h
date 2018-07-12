@@ -12,6 +12,7 @@ namespace HX3D
 	class HXICamera;
 	struct HXFogInfo;
 	struct HXGameObjectInfo;
+	class HXRenderable;
 	class HXSceneManager
 	{
 	public:
@@ -31,10 +32,11 @@ namespace HX3D
 
 		HXGameObject* GetGameObjectTreeRoot();
 		void CreateGameObjectRecurve(std::vector<HXGameObjectInfo*>& list, HXGameObject* father);
-		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
 		HXGameObject* CreateGameObjectFromPrefab(HXGameObject* father, std::string strPrefabPath);
+		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
 		bool DeleteGameObject(HXGameObject* gameobject);
 		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
+		void InsertGameObjectToOrderQueue(HXGameObject* gameobject);
 
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
@@ -60,10 +62,13 @@ namespace HX3D
 
 		// gameobject tree root
 		HXGameObject* gameObjectTreeRoot;
+
+		typedef std::vector<HXRenderable*> vectorRenderable;
+		typedef std::map<std::string, vectorRenderable> mapStringVector;
 		// opaque
-		std::map<int, std::map<std::string, std::vector<HXGameObject*>>> opaqueList;
+		std::map<int, mapStringVector> opaqueMap;
 		// transparent
-		std::map<int, std::vector<HXGameObject*>> transparentList;
+		std::map<int, vectorRenderable> transparentMap;
 	};
 }
 
