@@ -188,14 +188,7 @@ void HXEditorWin::serializeScene(QTextStream& out)
 {
 	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	out << "<Scene>\n";
-	out << "	<GameObjects>\n";
-
-	// GameObjects
-	std::vector<HXGameObject*> gameObjectList = HXSceneManager::GetInstance()->GetGameObjectList();
-	serializeGameObjectRecursive(out, gameObjectList, 0, 0);
-
-	out << "	</GameObjects>\n";
-
+	
 	// Camera
 	HXGLCamera* camera = (HXGLCamera*)HXSceneManager::GetInstance()->mainCamera;
 	out << "	<Camera NearZ=\"";
@@ -329,6 +322,11 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	}
 	out << "	</Lights>\n";
 
+	// GameObjects
+	out << "	<GameObjects>\n";
+	HXGameObject* gameObjectTreeRoot = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
+	serializeGameObjectRecursive(out, gameObjectTreeRoot->GetChildren(), 0, 0);
+	out << "	</GameObjects>\n";
 
 	out << "</Scene>";
 }
@@ -396,7 +394,7 @@ void HXEditorWin::deleteGameObject()
 		tr("Delete this GameObject ?"),
 		QMessageBox::Yes | QMessageBox::No,
 		QMessageBox::Yes)) {
-		if (HXSceneManager::GetInstance()->DeleteGameObjectInEditor(m_pInspectorWidget->selectedGameObject))
+		if (HXSceneManager::GetInstance()->DeleteGameObject(m_pInspectorWidget->selectedGameObject))
 		{
 			m_pHierarchyWidget->OnDeleteGameObject();
 		}

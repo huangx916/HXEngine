@@ -24,7 +24,7 @@ batching：
 每帧渲染时shader uniform的texture变量需要重新处理（赋值的只是纹理绑定点，纹理绑定点绑定的纹理可能被改掉了）
 
 
-
+game.ini
 
 
 // 一定要加上，不然后续不是VBO绘制的物体无法显示

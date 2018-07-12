@@ -24,15 +24,14 @@ namespace HX3D
 	HXSceneManager::HXSceneManager():mainCamera(NULL), fog(NULL)
 	{
 		ambient = HXCOLOR(0,0,0,255);
+		gameObjectTreeRoot = new HXGameObject("GameObjectTreeRoot", NULL, HXRoot::GetInstance()->GetRenderSystem());
 	}
 
 	HXSceneManager::~HXSceneManager()
 	{
-		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); itr++)
-		{
-			delete(*itr);
-		}
-		gameObjectList.clear();
+		// 在HXGameObject析构函数中进行了递归卸载
+		delete gameObjectTreeRoot;
+		gameObjectTreeRoot = NULL;
 		
 		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); itr++)
 		{
@@ -77,11 +76,8 @@ namespace HX3D
 			CreateLight(&info);
 		}
 
-		// 创建天空盒 已经改为从场景加载
-		// CreateSkyBox(HXVector3D(200, 200, 200));
-
 		// GameObject
-		CreateGameObjectRecurve(cfg.mSceneInfo.vctGameObjInfo, NULL);
+		CreateGameObjectRecurve(cfg.mSceneInfo.vctGameObjInfo, gameObjectTreeRoot);
 	}
 
 	void HXSceneManager::UnLoadScene()
@@ -101,11 +97,12 @@ namespace HX3D
 			delete *itr;
 		}
 		lightVct.clear();
-		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
+		// 在HXGameObject析构函数中进行了递归卸载
+		for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
 		{
 			delete *itr;
 		}
-		gameObjectList.clear();
+		gameObjectTreeRoot->GetChildren().clear();
 	}
 
 	void HXSceneManager::CreateGameObjectRecurve(std::vector<HXGameObjectInfo*>& list, HXGameObject* father)
@@ -131,14 +128,13 @@ namespace HX3D
 			HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, NULL, HXRoot::GetInstance()->GetRenderSystem());
 			gameObject->m_nPriority = gameobjectinfo->nPriority;
 			gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
-			if (pFather == NULL)
+			
+			if (NULL == pFather)
 			{
-				gameObjectList.push_back(gameObject);
+				pFather = gameObjectTreeRoot;
 			}
-			else
-			{
-				pFather->AddChild(gameObject);
-			}
+			pFather->AddChild(gameObject);
+			
 			gameObject->SetFather(pFather);
 
 			gameObject->GetTransform()->SetScale(gameobjectinfo->scale);
@@ -197,14 +193,13 @@ namespace HX3D
 		HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->m_nPriority = gameobjectinfo->nPriority;
 		gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
-		if (pFather == NULL)
+		
+		if (NULL == pFather)
 		{
-			gameObjectList.push_back(gameObject);
+			pFather = gameObjectTreeRoot;
 		}
-		else
-		{
-			pFather->AddChild(gameObject);
-		}
+		pFather->AddChild(gameObject);
+		
 		gameObject->SetFather(pFather);
 
 		gameObject->GetTransform()->SetScale(gameobjectinfo->scale);
@@ -218,21 +213,9 @@ namespace HX3D
 		return gameObject;
 	}
 
-	HXGameObject* HXSceneManager::GetGameObject(std::string strGameObjectName)
+	HXGameObject* HXSceneManager::GetGameObjectTreeRoot()
 	{
-		for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
-		{
-			if ((*itr)->GetName() == strGameObjectName)
-			{
-				return *itr;
-			}
-		}
-		return NULL;
-	}
-
-	std::vector<HXGameObject*> HXSceneManager::GetGameObjectList()
-	{
-		return gameObjectList;
+		return gameObjectTreeRoot;
 	}
 
 	HXLight* HXSceneManager::CreateLight(HXLightInfo* lightInfo)
@@ -273,12 +256,12 @@ namespace HX3D
 		return( i->m_nPriority < j->m_nPriority );
 	}
 
-	void HXSceneManager::PushSortListRecurve(std::vector<HXGameObject*>& src, std::vector<HXGameObject*>& dest)
+	void HXSceneManager::PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest)
 	{
-		for (std::vector<HXGameObject*>::iterator itr = src.begin(); itr != src.end(); itr++)
+		dest.push_back(src);
+		for (std::vector<HXGameObject*>::iterator itr = src->GetChildren().begin(); itr != src->GetChildren().end(); itr++)
 		{
-			dest.push_back(*itr);
-			PushSortListRecurve((*itr)->GetChildren(), dest);
+			PushSortListRecurve(*itr, dest);
 		}
 	}
 
@@ -297,15 +280,11 @@ namespace HX3D
 		
 		// TODO: 暂时先简单排序
 		std::vector<HXGameObject*> sortGameObject;
-		PushSortListRecurve(gameObjectList, sortGameObject);
+		PushSortListRecurve(gameObjectTreeRoot, sortGameObject);
 		std::sort(sortGameObject.begin(), sortGameObject.end(), mycompare);
 
 		for (std::vector<HXGameObject*>::iterator itr = sortGameObject.begin(); itr != sortGameObject.end(); itr++)
 		{
-			// For test
-			// itr->second->Yaw(itr->second->GetRotation().y + 1.0f);
-			// itr->second->Roll(itr->second->GetRotation().z + 1.0f);
-
 			// 更新坐标ModelMatrix 动作等
 			if (shadow)
 			{
@@ -377,9 +356,9 @@ namespace HX3D
 		return NULL;
 	}
 
-	bool HXSceneManager::DeleteGameObjectInEditor(HXGameObject* gameobject)
+	bool HXSceneManager::DeleteGameObject(HXGameObject* gameobject)
 	{
-		return DeleteGameObjectRecurve(gameObjectList, gameobject);
+		return DeleteGameObjectRecurve(gameObjectTreeRoot->GetChildren(), gameobject);
 	}
 
 	bool HXSceneManager::DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject)

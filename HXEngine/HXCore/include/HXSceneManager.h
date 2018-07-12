@@ -31,8 +31,7 @@ namespace HX3D
 
 		void CreateGameObjectRecurve(std::vector<HXGameObjectInfo*>& list, HXGameObject* father);
 		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
-		HXGameObject* GetGameObject(std::string strGameObjectName);
-		std::vector<HXGameObject*> GetGameObjectList();
+		HXGameObject* GetGameObjectTreeRoot();
 
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
@@ -41,14 +40,14 @@ namespace HX3D
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
-		void PushSortListRecurve(std::vector<HXGameObject*>& src, std::vector<HXGameObject*>& dest);
+		void PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest);
 		//void UpdateTransform();
 		void OnDisplay(bool shadow);
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
 
 		HXGameObject* CreateGameObjectInEditor(HXGameObject* father, std::string strPrefabPath);
-		bool DeleteGameObjectInEditor(HXGameObject* gameobject);
+		bool DeleteGameObject(HXGameObject* gameobject);
 		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
 
 		// 平行光、点光源、聚光灯
@@ -62,8 +61,8 @@ namespace HX3D
 		static HXSceneManager* m_pInstance;
 		HXSceneManager();
 
-		std::vector<HXGameObject*>	gameObjectList;
-
+		// gameobject tree root
+		HXGameObject* gameObjectTreeRoot;
 		// opaque
 		std::map<int, std::map<std::string, std::vector<HXGameObject*>>> opaqueList;
 		// transparent

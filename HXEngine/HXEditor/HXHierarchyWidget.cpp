@@ -43,8 +43,8 @@ void HXHierarchyWidget::UpdateSceneTree()
 
 	QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Scene")));
 
-	std::vector<HXGameObject*> gameObjectList = HXSceneManager::GetInstance()->GetGameObjectList();
-	for (std::vector<HXGameObject*>::iterator itr = gameObjectList.begin(); itr != gameObjectList.end(); ++itr)
+	HXGameObject* gameObjectTreeRoot = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
+	for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
 	{
 		AddGameObjectLeafRecurve(root, *itr);
 	}
