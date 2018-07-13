@@ -24,7 +24,8 @@ namespace HX3D
 	HXSceneManager::HXSceneManager():mainCamera(NULL), fog(NULL)
 	{
 		ambient = HXCOLOR(0,0,0,255);
-		gameObjectTreeRoot = new HXGameObject("GameObjectTreeRoot", NULL, HXRoot::GetInstance()->GetRenderSystem());
+		gameObjectTreeRoot = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
+		gameObjectTreeRoot->SetName("GameObjectTreeRoot");
 	}
 
 	HXSceneManager::~HXSceneManager()
@@ -119,102 +120,11 @@ namespace HX3D
 		}
 	}
 
-	// TODO: 具体创建逻辑放到HXGameObject类中
 	HXGameObject* HXSceneManager::CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo)
 	{
-		HXModelInfo* pModelInfo = HXResourceManager::GetInstance()->GetModelInfo(gameobjectinfo->strModelFile);
-		if (NULL == pModelInfo)
-		{
-			// 当strModelName = ""时，创建不带renderable的gameobject。例如父物体空gameobject
-			HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, NULL, HXRoot::GetInstance()->GetRenderSystem());
-			gameObject->m_nRenderQueue = gameobjectinfo->nPriority;
-			gameObject->SetCastShadow(gameobjectinfo->bCastShadow);
-			
-			if (NULL == pFather)
-			{
-				pFather = gameObjectTreeRoot;
-			}
-			pFather->AddChild(gameObject);
-			//InsertGameObjectToOrderQueue(gameObject);
-			
-			gameObject->SetFather(pFather);
-
-			gameObject->GetTransform()->SetScale(gameobjectinfo->scale);
-			gameObject->GetTransform()->SetRotation(gameobjectinfo->rotation);
-			gameObject->GetTransform()->SetPosition(gameobjectinfo->position);
-
-			gameObject->m_strModelFile = gameobjectinfo->strModelFile;
-
-			return gameObject;
-		}
-
-		// 加载FBX
-		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(pModelInfo->m_strMeshFile, pModelInfo->m_strAnimFile);
-		if (NULL == pMesh)
-		{
-			std::cout << pModelInfo->m_strMeshFile << " not exist" << std::endl;
-			return NULL;
-		}
-		
-		// 加载材质
-		int nMatCount = 0;
-		for (std::vector<std::string>::iterator itr = pModelInfo->m_vctSubMeshMat.begin(); itr != pModelInfo->m_vctSubMeshMat.end(); ++itr)
-		{
-			HXMaterial* pMat = HXResourceManager::GetInstance()->GetMaterial(*itr);
-			if (NULL == pMat)
-			{
-				// 如果不存在该材质球，则使用粉色材质
-				*itr = "./prefab/_Material/Error/Error.material";
-				HXResourceManager::GetInstance()->GetMaterial(*itr);
-			}
-			++nMatCount;
-		}
-		// 如果没材质，则添加默认材质
-		if (nMatCount == 0)
-		{
-			pModelInfo->m_vctSubMeshMat.push_back("./prefab/_Material/Error/Error.material");
-			HXResourceManager::GetInstance()->GetMaterial("./prefab/_Material/Error/Error.material");
-		}
-		
-		// 关联材质到SubMesh
-		int nSubMeshIndex = 0;
-		for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); ++itr)
-		{
-			if (nSubMeshIndex < nMatCount)
-			{
-				pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[nSubMeshIndex];
-			}
-			else
-			{
-				// 如果子网格数大于材质数，多出来的子网格使用第一个材质
-				pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[0];
-			}
-			// 设置是否投射阴影
-			(*itr)->IsCastShadow = gameobjectinfo->bCastShadow;
-			++nSubMeshIndex;
-		}
-
-		HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
-		gameObject->m_nRenderQueue = gameobjectinfo->nPriority;
-		gameObject->SetCastShadow(gameobjectinfo->bCastShadow);
-		
-		if (NULL == pFather)
-		{
-			pFather = gameObjectTreeRoot;
-		}
-		pFather->AddChild(gameObject);
+		HXGameObject* gameObject = new HXGameObject(pFather, HXRoot::GetInstance()->GetRenderSystem());
+		gameObject->Initialize(gameobjectinfo);
 		InsertGameObjectToOrderQueue(gameObject);
-		
-		gameObject->SetFather(pFather);
-
-		gameObject->GetTransform()->SetScale(gameobjectinfo->scale);
-		gameObject->GetTransform()->SetRotation(gameobjectinfo->rotation);
-		gameObject->GetTransform()->SetPosition(gameobjectinfo->position);
-
-		gameObject->m_strModelFile = gameobjectinfo->strModelFile;
-
-		gameObject->GetMesh()->PlayDefaultAnimation();
-
 		return gameObject;
 	}
 

@@ -9,12 +9,15 @@ namespace HX3D
 	class HXMesh;
 	struct HXRenderList;
 	class HXRenderSystem;
+	class HXGameObjectInfo;
 	class HXGameObject
 	{
 	public:
-		HXGameObject(std::string strName, HXMesh* pMesh, HXRenderSystem* pRenderSystem);
+		HXGameObject(HXGameObject* pFather, HXRenderSystem* pRenderSystem);
 		~HXGameObject();
 	
+		void Initialize(HXGameObjectInfo* gameobjectinfo);
+
 		void Update();
 
 		//void Insert_To_RenderList(HXRenderList* pRenderList);
@@ -31,9 +34,9 @@ namespace HX3D
 		void SetCastShadow(bool bCastShadow);
 
 		std::string m_strName;
+		std::string m_strModelFile;
 		// ‰÷»æ”≈œ»º∂
 		int m_nRenderQueue;
-		std::string m_strModelFile;
 		
 	private:
 		// Local Coordinate

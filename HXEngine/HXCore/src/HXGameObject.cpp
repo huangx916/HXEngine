@@ -3,14 +3,19 @@
 #include "HXCore.h"
 #include "HXMath.h"
 #include "HXRenderSystem.h"
+#include "HXLoadConfigPrefab.h"
+#include "HXResourceManager.h"
+#include "HXLoadConfigModel.h"
+#include "HXRoot.h"
+#include "HXSceneManager.h"
 
 namespace HX3D
 {
-	HXGameObject::HXGameObject(std::string strName, HXMesh* pMesh, HXRenderSystem* pRenderSystem)
+	HXGameObject::HXGameObject(HXGameObject* pFather, HXRenderSystem* pRenderSystem)
 	{
-		m_strName = strName;
-		m_pMesh = pMesh;
-		m_pFather = NULL;
+		m_strName = "";
+		m_pMesh = NULL;
+		m_pFather = pFather;
 		m_pTransform = pRenderSystem->CreateTransform();
 	}
 
@@ -33,15 +38,78 @@ namespace HX3D
 		vctChildren.clear();
 	}
 
-	int ntest = 0;
+	void HXGameObject::Initialize(HXGameObjectInfo* gameobjectinfo)
+	{
+		// 当strModelFile = ""时，创建不带renderable的gameobject。例如父物体空gameobject
+		HXModelInfo* pModelInfo = HXResourceManager::GetInstance()->GetModelInfo(gameobjectinfo->strModelFile);
+		if (pModelInfo)
+		{
+			// 加载FBX
+			HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(pModelInfo->m_strMeshFile, pModelInfo->m_strAnimFile);
+			if (NULL == pMesh)
+			{
+				std::cout << pModelInfo->m_strMeshFile << " not exist" << std::endl;
+				return;
+			}
+
+			// 加载材质
+			int nMatCount = 0;
+			for (std::vector<std::string>::iterator itr = pModelInfo->m_vctSubMeshMat.begin(); itr != pModelInfo->m_vctSubMeshMat.end(); ++itr)
+			{
+				HXMaterial* pMat = HXResourceManager::GetInstance()->GetMaterial(*itr);
+				if (NULL == pMat)
+				{
+					// 如果不存在该材质球，则使用粉色材质
+					*itr = "./prefab/_Material/Error/Error.material";
+					HXResourceManager::GetInstance()->GetMaterial(*itr);
+				}
+				++nMatCount;
+			}
+			// 如果没材质，则添加默认材质
+			if (nMatCount == 0)
+			{
+				pModelInfo->m_vctSubMeshMat.push_back("./prefab/_Material/Error/Error.material");
+				HXResourceManager::GetInstance()->GetMaterial("./prefab/_Material/Error/Error.material");
+			}
+
+			// 关联材质到SubMesh
+			int nSubMeshIndex = 0;
+			for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); ++itr)
+			{
+				if (nSubMeshIndex < nMatCount)
+				{
+					pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[nSubMeshIndex];
+				}
+				else
+				{
+					// 如果子网格数大于材质数，多出来的子网格使用第一个材质
+					pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[0];
+				}
+				// 设置是否投射阴影
+				(*itr)->IsCastShadow = gameobjectinfo->bCastShadow;
+				++nSubMeshIndex;
+			}
+			m_pMesh = pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem());
+			m_pMesh->PlayDefaultAnimation();
+		}
+
+		m_strName = gameobjectinfo->strGameObjName;
+		m_strModelFile = gameobjectinfo->strModelFile;
+		m_nRenderQueue = gameobjectinfo->nPriority;
+		SetCastShadow(gameobjectinfo->bCastShadow);
+
+		if (NULL == m_pFather)
+		{
+			m_pFather = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
+		}
+		m_pFather->AddChild(this);
+		m_pTransform->SetScale(gameobjectinfo->scale);
+		m_pTransform->SetRotation(gameobjectinfo->rotation);
+		m_pTransform->SetPosition(gameobjectinfo->position);
+	}
+
 	void HXGameObject::Update()
 	{
-		/*if (ntest > 100)
-		{
-			return;
-		}
-		ntest++;*/
-
 		if (m_pFather)
 		{
 			m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);
