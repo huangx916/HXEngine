@@ -669,7 +669,7 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 
 		spinboxPriority->setValue(selectedGameObject->m_nRenderQueue);
 
-		if (selectedGameObject->m_bCastShadow)
+		if (selectedGameObject->GetCastShadow())
 		{
 			checkboxCastShadow->setCheckState(Qt::Checked);
 		}
@@ -844,7 +844,7 @@ void HXInspectorWidget::CastShadowToggled(bool castShadow)
 {
 	if (selectedGameObject)
 	{
-		selectedGameObject->m_bCastShadow = castShadow;
+		selectedGameObject->SetCastShadow(castShadow);
 	}
 }
 

@@ -12,9 +12,6 @@ namespace HX3D
 		m_pMesh = pMesh;
 		m_pFather = NULL;
 		m_pTransform = pRenderSystem->CreateTransform();
-		/*mPostion = HXVector3D(0,0,0);
-		mEulerDegree = HXVector3D(0,0,0);
-		mScale = HXVector3D(1,1,1);*/
 	}
 
 	HXGameObject::~HXGameObject()
@@ -92,6 +89,24 @@ namespace HX3D
 	HXITransform* HXGameObject::GetTransform()
 	{
 		return m_pTransform;
+	}
+
+	bool HXGameObject::GetCastShadow() const
+	{
+		return m_bCastShadow;
+	}
+
+	void HXGameObject::SetCastShadow(bool bCastShadow)
+	{
+		m_bCastShadow = bCastShadow;
+		if (m_pMesh)
+		{
+			for (std::vector<HXSubMesh*>::iterator itr = m_pMesh->subMeshList.begin(); itr != m_pMesh->subMeshList.end(); ++itr)
+			{
+				// 设置是否投射阴影
+				(*itr)->IsCastShadow = bCastShadow;
+			}
+		}
 	}
 }
 

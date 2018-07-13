@@ -19,7 +19,7 @@ namespace HX3D
 {
 	HXGLRenderable::HXGLRenderable()
 	{
-		mHaveShadow = false;
+		
 	}
 
 	HXGLRenderable::~HXGLRenderable()
@@ -156,8 +156,6 @@ namespace HX3D
 		glDrawArrays(GL_TRIANGLES, 0, m_pSubMesh->triangleCount * 3);
 		HXStatus::GetInstance()->nDrawCall += 1;
 
-		mHaveShadow = true;
-
 		//如果后续渲染使用旧接口，则需重置状态
 		//glBindVertexArray(0);
 		//glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -179,7 +177,7 @@ namespace HX3D
 		glBindVertexArray(mVAO);
 
 		// 如果RenderShadowMap中已更新，则这里不需要更新了
-		if (m_pSubMesh->IsStaticMesh == false && mHaveShadow == false)
+		if (m_pSubMesh->IsStaticMesh == false && m_pSubMesh->IsCastShadow == false)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 

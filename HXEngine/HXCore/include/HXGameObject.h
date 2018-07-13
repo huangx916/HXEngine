@@ -27,18 +27,18 @@ namespace HX3D
 		void AddChild(HXGameObject* child);
 		std::vector<HXGameObject*>& GetChildren();
 		HXITransform* GetTransform();
-
+		bool GetCastShadow() const;
+		void SetCastShadow(bool bCastShadow);
 
 		std::string m_strName;
 		// 渲染优先级
 		int m_nRenderQueue;
-		bool m_bCastShadow;
 		std::string m_strModelFile;
 		
 	private:
 		// Local Coordinate
 		HXITransform* m_pTransform;
-
+		bool m_bCastShadow;
 		HXMesh* m_pMesh;
 		HXGameObject* m_pFather;	// 用作计算World Coordinate
 		std::vector<HXGameObject*> vctChildren;

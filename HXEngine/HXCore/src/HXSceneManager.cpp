@@ -119,6 +119,7 @@ namespace HX3D
 		}
 	}
 
+	// TODO: 具体创建逻辑放到HXGameObject类中
 	HXGameObject* HXSceneManager::CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo)
 	{
 		HXModelInfo* pModelInfo = HXResourceManager::GetInstance()->GetModelInfo(gameobjectinfo->strModelFile);
@@ -127,14 +128,14 @@ namespace HX3D
 			// 当strModelName = ""时，创建不带renderable的gameobject。例如父物体空gameobject
 			HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, NULL, HXRoot::GetInstance()->GetRenderSystem());
 			gameObject->m_nRenderQueue = gameobjectinfo->nPriority;
-			gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
+			gameObject->SetCastShadow(gameobjectinfo->bCastShadow);
 			
 			if (NULL == pFather)
 			{
 				pFather = gameObjectTreeRoot;
 			}
 			pFather->AddChild(gameObject);
-			InsertGameObjectToOrderQueue(gameObject);
+			//InsertGameObjectToOrderQueue(gameObject);
 			
 			gameObject->SetFather(pFather);
 
@@ -188,12 +189,14 @@ namespace HX3D
 				// 如果子网格数大于材质数，多出来的子网格使用第一个材质
 				pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[0];
 			}
+			// 设置是否投射阴影
+			(*itr)->IsCastShadow = gameobjectinfo->bCastShadow;
 			++nSubMeshIndex;
 		}
 
 		HXGameObject* gameObject = new HXGameObject(gameobjectinfo->strGameObjName, pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem()), HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->m_nRenderQueue = gameobjectinfo->nPriority;
-		gameObject->m_bCastShadow = gameobjectinfo->bCastShadow;
+		gameObject->SetCastShadow(gameobjectinfo->bCastShadow);
 		
 		if (NULL == pFather)
 		{
@@ -335,6 +338,12 @@ namespace HX3D
 		{
 			return;
 		}
+		HXRenderSystem* pRenderSystem = HXRoot::GetInstance()->GetRenderSystem();
+		if (NULL == pRenderSystem)
+		{
+			return;
+		}
+
 
 		if (shadow)
 		{
@@ -355,7 +364,7 @@ namespace HX3D
 				(*itr)->Update();
 			}
 			
-			if (shadow && !(*itr)->m_bCastShadow)
+			if (shadow && !(*itr)->GetCastShadow())
 			{
 				continue;
 			}
@@ -371,18 +380,31 @@ namespace HX3D
 
 			for (std::vector<HXSubMesh*>::iterator itr1 = pMesh->subMeshList.begin(); itr1 != pMesh->subMeshList.end(); itr1++)
 			{
-				HXRenderSystem* pRenderSystem = HXRoot::GetInstance()->GetRenderSystem();
-				if (pRenderSystem)
-				{
-					//(*itr1)->renderable->SetModelMatrix(itr->second->GetPosition(), itr->second->GetRotation(), itr->second->GetScale());
-					(*itr1)->renderable->SetModelMatrix((*itr)->GetTransform()->mCurModelMatrix);
-					// TODO: 提取到外层Camera里增加效率   Just for test here
-					(*itr1)->renderable->SetViewMatrix(mainCamera);
-					(*itr1)->renderable->SetProjectionMatrix(mainCamera);
-					pRenderSystem->RenderSingle((*itr1)->renderable, shadow);
-				}
+				(*itr1)->renderable->SetModelMatrix((*itr)->GetTransform()->mCurModelMatrix);
+				(*itr1)->renderable->SetViewMatrix(mainCamera);
+				(*itr1)->renderable->SetProjectionMatrix(mainCamera);
+				pRenderSystem->RenderSingle((*itr1)->renderable, shadow);
 			}
 		}
+
+		
+
+		//for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
+		//{
+		//	for (mapStringVector::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
+		//	{
+		//		std::string strMaterialName = itr1->first;
+		//		// TODO: SetMaterialRenderStateAllRenderable
+		//		for (vectorRenderable::iterator itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
+		//		{
+		//			HXRenderable* renderable = *itr2;
+		//			// TODO: SetMaterialRenderStateEachRenderable
+		//			pRenderSystem->RenderSingle(renderable, shadow);
+		//		}
+		//	}
+		//}
+
+
 
 		if (!shadow)
 		{
