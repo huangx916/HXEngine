@@ -821,7 +821,14 @@ void HXInspectorWidget::GameObjectNameChanged(const QString& name)
 	if (selectedGameObject)
 	{
 		selectedGameObject->SetName(name.toStdString());
-		HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
+
+		QTreeWidgetItem * pTWI = HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem();
+		if (pTWI)
+		{
+			pTWI->setText(0, name);
+		}
+
+		//HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
 	}
 }
 
@@ -1072,7 +1079,14 @@ void HXInspectorWidget::LightNameChanged(const QString& name)
 	if (selectedLight)
 	{
 		selectedLight->name = name.toStdString();
-		HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
+
+		QTreeWidgetItem * pTWI = HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem();
+		if (pTWI)
+		{
+			pTWI->setText(0, name);
+		}
+
+		//HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
 	}
 }
 

@@ -27,8 +27,8 @@ HXHierarchyWidget::HXHierarchyWidget(FPtr gameobjectcallback, FLightPtr lightcal
 	setHeaderItem(title);
 	
 
-	//connect(this, &QTreeWidget::currentItemChanged, this, &HXHierarchyWidget::GameObjectChange);
-	connect(this, &QTreeWidget::itemClicked, this, &HXHierarchyWidget::TreeWidgetItemOnClick);
+	connect(this, &QTreeWidget::currentItemChanged, this, &HXHierarchyWidget::GameObjectChange);
+	//connect(this, &QTreeWidget::itemClicked, this, &HXHierarchyWidget::TreeWidgetItemOnClick);
 }
 
 HXHierarchyWidget::~HXHierarchyWidget()
@@ -95,21 +95,30 @@ void HXHierarchyWidget::AddLightLeaf(QTreeWidgetItem* parent)
 	}
 }
 
-//void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous)
-//{
-//	HXGameObject* gameObject = current->data(0, Qt::UserRole).value<HXGameObject*>();
-//}
-
-void HXHierarchyWidget::TreeWidgetItemOnClick(QTreeWidgetItem *item, int column)
+void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
+	HXGameObject* gameObject = current->data(0, Qt::UserRole).value<HXGameObject*>();
 	if (clickGameObjectCallback)
 	{
 		clickGameObjectCallback(gameObject);
 	}
-	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
+	HXLight* light = current->data(1, Qt::UserRole).value<HXLight*>();
 	if (clickLightCallback)
 	{
 		clickLightCallback(light);
 	}
 }
+
+//void HXHierarchyWidget::TreeWidgetItemOnClick(QTreeWidgetItem *item, int column)
+//{
+//	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
+//	if (clickGameObjectCallback)
+//	{
+//		clickGameObjectCallback(gameObject);
+//	}
+//	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
+//	if (clickLightCallback)
+//	{
+//		clickLightCallback(light);
+//	}
+//}

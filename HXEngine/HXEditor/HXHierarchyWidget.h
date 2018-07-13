@@ -23,8 +23,8 @@ private:
 	void AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go);
 	void AddLightLeaf(QTreeWidgetItem* parent);
 
-	//void GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-	void TreeWidgetItemOnClick(QTreeWidgetItem *item, int column);
+	void GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+	//void TreeWidgetItemOnClick(QTreeWidgetItem *item, int column);
 
 	FPtr clickGameObjectCallback;
 	FLightPtr clickLightCallback;
