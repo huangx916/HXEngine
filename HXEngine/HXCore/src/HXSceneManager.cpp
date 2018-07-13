@@ -242,8 +242,7 @@ namespace HX3D
 					mapStringVector::iterator itr2 = itr1->second.find(materialName);
 					if (itr2 != itr1->second.end())
 					{
-						vectorRenderable vct = itr2->second;
-						vct.push_back(subMesh->renderable);
+						itr2->second.push_back(subMesh->renderable);
 					}
 					else
 					{

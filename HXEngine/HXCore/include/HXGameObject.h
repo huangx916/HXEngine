@@ -28,13 +28,14 @@ namespace HX3D
 		std::vector<HXGameObject*>& GetChildren();
 		HXITransform* GetTransform();
 
+
+		std::string m_strName;
 		// ‰÷»æ”≈œ»º∂
 		int m_nRenderQueue;
 		bool m_bCastShadow;
 		std::string m_strModelFile;
 		
 	private:
-		std::string m_strName;
 		// Local Coordinate
 		HXITransform* m_pTransform;
 
