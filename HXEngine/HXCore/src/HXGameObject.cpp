@@ -46,51 +46,53 @@ namespace HX3D
 		{
 			// 加载FBX
 			HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh(pModelInfo->m_strMeshFile, pModelInfo->m_strAnimFile);
-			if (NULL == pMesh)
+			if (pMesh)
+			{
+				// 加载材质
+				int nMatCount = 0;
+				for (std::vector<std::string>::iterator itr = pModelInfo->m_vctSubMeshMat.begin(); itr != pModelInfo->m_vctSubMeshMat.end(); ++itr)
+				{
+					HXMaterial* pMat = HXResourceManager::GetInstance()->GetMaterial(*itr);
+					if (NULL == pMat)
+					{
+						// 如果不存在该材质球，则使用粉色材质
+						*itr = "./prefab/_Material/Error/Error.material";
+						HXResourceManager::GetInstance()->GetMaterial(*itr);
+					}
+					++nMatCount;
+				}
+				// 如果没材质，则添加默认材质
+				if (nMatCount == 0)
+				{
+					pModelInfo->m_vctSubMeshMat.push_back("./prefab/_Material/Error/Error.material");
+					HXResourceManager::GetInstance()->GetMaterial("./prefab/_Material/Error/Error.material");
+				}
+
+				// 关联材质到SubMesh
+				int nSubMeshIndex = 0;
+				for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); ++itr)
+				{
+					if (nSubMeshIndex < nMatCount)
+					{
+						pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[nSubMeshIndex];
+					}
+					else
+					{
+						// 如果子网格数大于材质数，多出来的子网格使用第一个材质
+						pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[0];
+					}
+					// 设置是否投射阴影
+					(*itr)->IsCastShadow = gameobjectinfo->bCastShadow;
+					++nSubMeshIndex;
+				}
+				m_pMesh = pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem());
+				m_pMesh->PlayDefaultAnimation();
+			}
+			else
 			{
 				std::cout << pModelInfo->m_strMeshFile << " not exist" << std::endl;
 				return;
 			}
-
-			// 加载材质
-			int nMatCount = 0;
-			for (std::vector<std::string>::iterator itr = pModelInfo->m_vctSubMeshMat.begin(); itr != pModelInfo->m_vctSubMeshMat.end(); ++itr)
-			{
-				HXMaterial* pMat = HXResourceManager::GetInstance()->GetMaterial(*itr);
-				if (NULL == pMat)
-				{
-					// 如果不存在该材质球，则使用粉色材质
-					*itr = "./prefab/_Material/Error/Error.material";
-					HXResourceManager::GetInstance()->GetMaterial(*itr);
-				}
-				++nMatCount;
-			}
-			// 如果没材质，则添加默认材质
-			if (nMatCount == 0)
-			{
-				pModelInfo->m_vctSubMeshMat.push_back("./prefab/_Material/Error/Error.material");
-				HXResourceManager::GetInstance()->GetMaterial("./prefab/_Material/Error/Error.material");
-			}
-
-			// 关联材质到SubMesh
-			int nSubMeshIndex = 0;
-			for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); ++itr)
-			{
-				if (nSubMeshIndex < nMatCount)
-				{
-					pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[nSubMeshIndex];
-				}
-				else
-				{
-					// 如果子网格数大于材质数，多出来的子网格使用第一个材质
-					pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[0];
-				}
-				// 设置是否投射阴影
-				(*itr)->IsCastShadow = gameobjectinfo->bCastShadow;
-				++nSubMeshIndex;
-			}
-			m_pMesh = pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem());
-			m_pMesh->PlayDefaultAnimation();
 		}
 
 		m_strName = gameobjectinfo->strGameObjName;
