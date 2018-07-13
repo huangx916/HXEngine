@@ -26,6 +26,8 @@ batching：
 
 game.ini
 
+gameobject active in editor
+
 
 // 一定要加上，不然后续不是VBO绘制的物体无法显示
 glBindVertexArray(0);
