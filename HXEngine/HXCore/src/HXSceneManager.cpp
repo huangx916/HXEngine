@@ -35,6 +35,9 @@ namespace HX3D
 		delete gameObjectTreeRoot;
 		gameObjectTreeRoot = NULL;
 		
+		opaqueMap.clear();
+		transparentMap.clear();
+
 		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); itr++)
 		{
 			delete *itr;
@@ -105,6 +108,9 @@ namespace HX3D
 			delete *itr;
 		}
 		gameObjectTreeRoot->GetChildren().clear();
+
+		opaqueMap.clear();
+		transparentMap.clear();
 	}
 
 	void HXSceneManager::CreateGameObjectRecurve(std::vector<HXGameObjectInfo*>& list, HXGameObject* father)

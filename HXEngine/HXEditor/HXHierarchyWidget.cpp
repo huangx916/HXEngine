@@ -97,15 +97,18 @@ void HXHierarchyWidget::AddLightLeaf(QTreeWidgetItem* parent)
 
 void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-	HXGameObject* gameObject = current->data(0, Qt::UserRole).value<HXGameObject*>();
-	if (clickGameObjectCallback)
+	if (current)
 	{
-		clickGameObjectCallback(gameObject);
-	}
-	HXLight* light = current->data(1, Qt::UserRole).value<HXLight*>();
-	if (clickLightCallback)
-	{
-		clickLightCallback(light);
+		HXGameObject* gameObject = current->data(0, Qt::UserRole).value<HXGameObject*>();
+		if (clickGameObjectCallback)
+		{
+			clickGameObjectCallback(gameObject);
+		}
+		HXLight* light = current->data(1, Qt::UserRole).value<HXLight*>();
+		if (clickLightCallback)
+		{
+			clickLightCallback(light);
+		}
 	}
 }
 
