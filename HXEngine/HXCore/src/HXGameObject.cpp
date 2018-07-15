@@ -124,6 +124,11 @@ namespace HX3D
 		{
 			m_pMesh->UpdateAnimation();
 		}
+
+		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		{
+			(*itr)->Update();
+		}
 	}
 
 	/*void HXGameObject::Insert_To_RenderList(HXRenderList* pRenderList)

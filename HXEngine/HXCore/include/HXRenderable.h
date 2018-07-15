@@ -5,6 +5,7 @@ namespace HX3D
 {
 	class HXSubMesh;
 	class HXICamera;
+	class HXITransform;
 	class HXRenderable
 	{
 	public:
@@ -21,5 +22,6 @@ namespace HX3D
 		virtual void Render() = 0;
 
 		HXSubMesh* m_pSubMesh;
+		HXITransform* m_pTransform;
 	};
 }

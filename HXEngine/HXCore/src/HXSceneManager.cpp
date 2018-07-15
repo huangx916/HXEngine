@@ -172,6 +172,7 @@ namespace HX3D
 					sv.insert(std::make_pair(materialName, vct));
 					opaqueMap.insert(std::make_pair(renderQueue, sv));
 				}
+				subMesh->renderable->m_pTransform = gameobject->GetTransform();
 			}
 		}
 		else
@@ -191,6 +192,7 @@ namespace HX3D
 					vct.push_back(subMesh->renderable);
 					transparentMap.insert(std::make_pair(renderQueue, vct));
 				}
+				subMesh->renderable->m_pTransform = gameobject->GetTransform();
 			}
 		}
 	}
@@ -254,66 +256,60 @@ namespace HX3D
 			return;
 		}
 
-
 		if (shadow)
 		{
-			mainCamera->Update();
 			HXStatus::GetInstance()->ResetStatus();
+			mainCamera->Update();
+			gameObjectTreeRoot->Update();
 		}
 		
 		// TODO: 暂时先简单排序
-		std::vector<HXGameObject*> sortGameObject;
+		/*std::vector<HXGameObject*> sortGameObject;
 		PushSortListRecurve(gameObjectTreeRoot, sortGameObject);
-		std::sort(sortGameObject.begin(), sortGameObject.end(), mycompare);
+		std::sort(sortGameObject.begin(), sortGameObject.end(), mycompare);*/
 
-		for (std::vector<HXGameObject*>::iterator itr = sortGameObject.begin(); itr != sortGameObject.end(); itr++)
+		for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
 		{
-			// 更新坐标ModelMatrix 动作等
-			if (shadow)
+			for (mapStringVector::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
 			{
-				(*itr)->Update();
-			}
-			
-			if (shadow && !(*itr)->GetCastShadow())
-			{
-				continue;
-			}
-
-			HXMesh* pMesh = (*itr)->GetMesh();
-			if (pMesh == NULL)
-			{
-				continue;
-			}
-
-			HXStatus::GetInstance()->nVertexCount += pMesh->vertexCount;
-			HXStatus::GetInstance()->nTriangleCount += pMesh->triangleCount;
-
-			for (std::vector<HXSubMesh*>::iterator itr1 = pMesh->subMeshList.begin(); itr1 != pMesh->subMeshList.end(); itr1++)
-			{
-				(*itr1)->renderable->SetModelMatrix((*itr)->GetTransform()->mCurModelMatrix);
-				(*itr1)->renderable->SetViewMatrix(mainCamera);
-				(*itr1)->renderable->SetProjectionMatrix(mainCamera);
-				pRenderSystem->RenderSingle((*itr1)->renderable, shadow);
+				std::string strMaterialName = itr1->first;
+				// TODO: SetMaterialRenderStateAllRenderable
+				for (vectorRenderable::iterator itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
+				{
+					HXRenderable* renderable = *itr2;
+					if (shadow && !renderable->m_pSubMesh->IsCastShadow)
+					{
+						continue;
+					}
+					HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
+					HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
+					renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+					renderable->SetViewMatrix(mainCamera);
+					renderable->SetProjectionMatrix(mainCamera);
+					// TODO: SetMaterialRenderStateEachRenderable
+					pRenderSystem->RenderSingle(renderable, shadow);
+				}
 			}
 		}
 
-		
-
-		//for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
-		//{
-		//	for (mapStringVector::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
-		//	{
-		//		std::string strMaterialName = itr1->first;
-		//		// TODO: SetMaterialRenderStateAllRenderable
-		//		for (vectorRenderable::iterator itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
-		//		{
-		//			HXRenderable* renderable = *itr2;
-		//			// TODO: SetMaterialRenderStateEachRenderable
-		//			pRenderSystem->RenderSingle(renderable, shadow);
-		//		}
-		//	}
-		//}
-
+		for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
+		{
+			for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
+			{
+				HXRenderable* renderable = *itr1;
+				if (shadow && !renderable->m_pSubMesh->IsCastShadow)
+				{
+					continue;
+				}
+				HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
+				HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
+				renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+				renderable->SetViewMatrix(mainCamera);
+				renderable->SetProjectionMatrix(mainCamera);
+				// TODO: SetMaterialRenderStateEachRenderable
+				pRenderSystem->RenderSingle(renderable, shadow);
+			}
+		}
 
 
 		if (!shadow)

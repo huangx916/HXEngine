@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="0.252787" Py="0.767859" Pz="9.06339"/>
+		<Position Px="0.197607" Py="2.97775" Pz="12.3951"/>
 		<Rotation Rx="-33.5" Ry="-360.9" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
@@ -169,7 +169,7 @@
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
-			<GameObj Name="Brickwall_el1" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="2000" CastShadow="1">
+			<GameObj Name="Brickwall_el1" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="2000" CastShadow="0">
 				<Position Px="-6.5" Py="0.2" Pz="-0.5"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
