@@ -456,10 +456,12 @@ namespace HX3D
 
 	}
 
-	void HXGLMaterial::SetMaterialRenderStateEachRenderable(HXGLRenderable* renderable)
+	void HXGLMaterial::SetMaterialRenderStateEachRenderable(HXRenderable* renderable)
 	{
-		glUniformMatrix4fv(render_scene_uniforms.render_model_matrix_loc, 1, GL_FALSE, renderable->mMatrixModel);
-		glUniformMatrix4fv(render_scene_uniforms.render_mvp_matrix_loc, 1, GL_FALSE, renderable->mMatrixProjection * renderable->mMatrixView * renderable->mMatrixModel);
+		HXGLRenderable* glrenderable = (HXGLRenderable*)renderable;
+
+		glUniformMatrix4fv(render_scene_uniforms.render_model_matrix_loc, 1, GL_FALSE, glrenderable->mMatrixModel);
+		glUniformMatrix4fv(render_scene_uniforms.render_mvp_matrix_loc, 1, GL_FALSE, glrenderable->mMatrixProjection * glrenderable->mMatrixView * glrenderable->mMatrixModel);
 	}
 
 	void HXGLMaterial::SetShadowMapMaterialRenderStateAllRenderable()
@@ -500,11 +502,13 @@ namespace HX3D
 		}
 	}
 
-	void HXGLMaterial::SetShadowMapMaterialRenderStateEachRenderable(HXGLRenderable* renderable)
+	void HXGLMaterial::SetShadowMapMaterialRenderStateEachRenderable(HXRenderable* renderable)
 	{
+		HXGLRenderable* glrenderable = (HXGLRenderable*)renderable;
+
 		HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
 		HXGLShadowMap* sm = rs->mShadowMap;
 
-		glUniformMatrix4fv(sm->render_light_uniforms.model_view_projection_matrix, 1, GL_FALSE, sm->light_projection_matrix * sm->light_view_matrix * renderable->mMatrixModel);
+		glUniformMatrix4fv(sm->render_light_uniforms.model_view_projection_matrix, 1, GL_FALSE, sm->light_projection_matrix * sm->light_view_matrix * glrenderable->mMatrixModel);
 	}
 }

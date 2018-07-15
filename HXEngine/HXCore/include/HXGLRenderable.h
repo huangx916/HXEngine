@@ -33,12 +33,14 @@ namespace HX3D
 		virtual void RenderShadowMap();
 		virtual void Render();
 
+		virtual float GetZDepth();
+
 		vmath::mat4 mMatrixModel;
 		vmath::mat4 mMatrixView;
 		vmath::mat4 mMatrixProjection;
 
 		GLuint mVAO;
 		GLuint mVBO;
-		HXGLMaterial* mMaterial;
+		//HXGLMaterial* mMaterial;
 	};
 }

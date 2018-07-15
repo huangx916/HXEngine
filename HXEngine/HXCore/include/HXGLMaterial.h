@@ -5,17 +5,17 @@
 
 namespace HX3D
 {
-	class HXGLRenderable;
+	class HXRenderable;
 	class HXGLMaterial : public HXMaterial
 	{
 	public:
 		HXGLMaterial(HXMaterialInfo* pMatInfo);
 		~HXGLMaterial();
 		
-		void SetMaterialRenderStateAllRenderable();
-		void SetMaterialRenderStateEachRenderable(HXGLRenderable* renderable);
-		void SetShadowMapMaterialRenderStateAllRenderable();
-		void SetShadowMapMaterialRenderStateEachRenderable(HXGLRenderable* renderable);
+		virtual void SetMaterialRenderStateAllRenderable();
+		virtual void SetMaterialRenderStateEachRenderable(HXRenderable* renderable);
+		virtual void SetShadowMapMaterialRenderStateAllRenderable();
+		virtual void SetShadowMapMaterialRenderStateEachRenderable(HXRenderable* renderable);
 
 		GLuint render_scene_prog;
 

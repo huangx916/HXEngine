@@ -60,7 +60,7 @@ namespace HX3D
 			std::string strDrawCall = "DrawCall: " + FloatToString(nDrawCall);
 			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 54, strDrawCall.c_str(), HXCOLOR(255, 0, 0, 255));
 
-			std::string strBatchCall = "BatchCall: " + FloatToString(nBatchCall);
+			std::string strBatchCall = "DynamicBatch: " + FloatToString(nBatchCall);
 			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 72, strBatchCall.c_str(), HXCOLOR(255, 0, 0, 255));
 
 			rs->EndText();

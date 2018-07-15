@@ -169,7 +169,7 @@
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
-			<GameObj Name="Brickwall_el1" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="2000" CastShadow="0">
+			<GameObj Name="Brickwall_el1" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="2000" CastShadow="1">
 				<Position Px="-6.5" Py="0.2" Pz="-0.5"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>

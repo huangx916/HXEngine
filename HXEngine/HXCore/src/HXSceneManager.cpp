@@ -16,6 +16,7 @@
 #include "HXFogLinear.h"
 #include "HXLoadConfigScene.h"
 #include "HXLoadConfigPrefab.h"
+#include "HXMaterial.h"
 
 namespace HX3D
 {
@@ -244,6 +245,11 @@ namespace HX3D
 		}
 	}
 
+	bool Zcompare(HXRenderable* i, HXRenderable* j)
+	{
+		return i->GetZDepth() < j->GetZDepth();
+	}
+
 	void HXSceneManager::OnDisplay(bool shadow)
 	{
 		if (!mainCamera)
@@ -262,18 +268,12 @@ namespace HX3D
 			mainCamera->Update();
 			gameObjectTreeRoot->Update();
 		}
-		
-		// TODO: ‘› ±œ»ºÚµ•≈≈–Ú
-		/*std::vector<HXGameObject*> sortGameObject;
-		PushSortListRecurve(gameObjectTreeRoot, sortGameObject);
-		std::sort(sortGameObject.begin(), sortGameObject.end(), mycompare);*/
-
+		// render opaque
+		HXMaterial* curMaterial = NULL;
 		for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
 		{
 			for (mapStringVector::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
 			{
-				std::string strMaterialName = itr1->first;
-				// TODO: SetMaterialRenderStateAllRenderable
 				for (vectorRenderable::iterator itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
 				{
 					HXRenderable* renderable = *itr2;
@@ -281,17 +281,56 @@ namespace HX3D
 					{
 						continue;
 					}
+					if (curMaterial != renderable->m_pMaterial)
+					{
+						curMaterial = renderable->m_pMaterial;
+						if (shadow)
+						{
+							curMaterial->SetShadowMapMaterialRenderStateAllRenderable();
+						}
+						else
+						{
+							curMaterial->SetMaterialRenderStateAllRenderable();
+						}
+					}
 					HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
 					HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
 					renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
 					renderable->SetViewMatrix(mainCamera);
 					renderable->SetProjectionMatrix(mainCamera);
-					// TODO: SetMaterialRenderStateEachRenderable
+					if (shadow)
+					{
+						curMaterial->SetShadowMapMaterialRenderStateEachRenderable(renderable);
+					}
+					else
+					{
+						curMaterial->SetMaterialRenderStateEachRenderable(renderable);
+					}
 					pRenderSystem->RenderSingle(renderable, shadow);
 				}
 			}
 		}
-
+		curMaterial = NULL;
+		// render transparent
+		// Z≈≈–Ú
+		if (shadow)
+		{
+			for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
+			{
+				for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
+				{
+					HXRenderable* renderable = *itr1;
+					renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+					renderable->SetViewMatrix(mainCamera);
+					renderable->SetProjectionMatrix(mainCamera);
+				}
+			}
+			for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
+			{
+				std::sort(itr->second.begin(), itr->second.end(), Zcompare);
+			}
+		}
+		curMaterial = NULL;
 		for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
 		{
 			for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
@@ -301,16 +340,32 @@ namespace HX3D
 				{
 					continue;
 				}
+				if (curMaterial != renderable->m_pMaterial)
+				{
+					curMaterial = renderable->m_pMaterial;
+					if (shadow)
+					{
+						curMaterial->SetShadowMapMaterialRenderStateAllRenderable();
+					}
+					else
+					{
+						curMaterial->SetMaterialRenderStateAllRenderable();
+					}
+				}
 				HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
 				HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
-				renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
-				renderable->SetViewMatrix(mainCamera);
-				renderable->SetProjectionMatrix(mainCamera);
-				// TODO: SetMaterialRenderStateEachRenderable
+				if (shadow)
+				{
+					curMaterial->SetShadowMapMaterialRenderStateEachRenderable(renderable);
+				}
+				else
+				{
+					curMaterial->SetMaterialRenderStateEachRenderable(renderable);
+				}
 				pRenderSystem->RenderSingle(renderable, shadow);
 			}
 		}
-
+		curMaterial = NULL;
 
 		if (!shadow)
 		{

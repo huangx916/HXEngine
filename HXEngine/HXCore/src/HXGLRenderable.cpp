@@ -113,7 +113,7 @@ namespace HX3D
 		glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(nSizePositions + nSizeColors + nSizeUVs));
 		glEnableVertexAttribArray(vNormal);
 
-		mMaterial = (HXGLMaterial*)HXResourceManager::GetInstance()->GetMaterial(pSubMesh->materialName);
+		m_pMaterial = (HXGLMaterial*)HXResourceManager::GetInstance()->GetMaterial(pSubMesh->materialName);
 
 		// 一定要加上，不然后续不是VBO绘制的物体无法显示
 		glBindVertexArray(0);
@@ -130,8 +130,8 @@ namespace HX3D
 		}
 
 		// TODO: 提取到相同材质的外层
-		mMaterial->SetShadowMapMaterialRenderStateAllRenderable();
-		mMaterial->SetShadowMapMaterialRenderStateEachRenderable(this);
+		//mMaterial->SetShadowMapMaterialRenderStateAllRenderable();
+		//mMaterial->SetShadowMapMaterialRenderStateEachRenderable(this);
 
 		glBindVertexArray(mVAO);
 
@@ -171,8 +171,8 @@ namespace HX3D
 		}
 		
 		// TODO: 提取到相同材质的外层
-		mMaterial->SetMaterialRenderStateAllRenderable();
-		mMaterial->SetMaterialRenderStateEachRenderable(this);
+		//mMaterial->SetMaterialRenderStateAllRenderable();
+		//mMaterial->SetMaterialRenderStateEachRenderable(this);
 
 		glBindVertexArray(mVAO);
 
@@ -241,5 +241,11 @@ namespace HX3D
 		//glBindVertexArray(0);
 		//glBindBuffer(GL_ARRAY_BUFFER, 0);
 		//glUseProgram(0);
+	}
+
+	float HXGLRenderable::GetZDepth()
+	{
+		vmath::mat4 matMV = mMatrixView * mMatrixModel;
+		return matMV[3][2];
 	}
 }

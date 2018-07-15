@@ -6,6 +6,7 @@ namespace HX3D
 	class HXSubMesh;
 	class HXICamera;
 	class HXITransform;
+	class HXMaterial;
 	class HXRenderable
 	{
 	public:
@@ -21,7 +22,10 @@ namespace HX3D
 		virtual void RenderShadowMap() {};
 		virtual void Render() = 0;
 
+		virtual float GetZDepth() { return 1; };
+
 		HXSubMesh* m_pSubMesh;
 		HXITransform* m_pTransform;
+		HXMaterial* m_pMaterial;
 	};
 }
