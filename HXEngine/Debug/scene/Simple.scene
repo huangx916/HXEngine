@@ -15,22 +15,22 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="3000" CastShadow="0">
+		<GameObj Name="Rock2_104" Model="prefab/Rock2_104/Rock2_104.model" Priority="2000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="1"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 		</GameObj>
 		<GameObj Name="Lettuce1_lod0" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="2"/>
+			<Position Px="0" Py="0" Pz="3"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 		</GameObj>
-		<GameObj Name="Brickwall_el1" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="3000" CastShadow="0">
+		<GameObj Name="Brickwall_el1" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="2000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 		</GameObj>
-		<GameObj Name="Rock2_105" Model="prefab/Rock2_105/Rock2_105.model" Priority="3000" CastShadow="0">
+		<GameObj Name="Rock2_105" Model="prefab/Rock2_105/Rock2_105.model" Priority="2000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="1.5"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>

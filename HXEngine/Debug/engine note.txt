@@ -44,6 +44,3 @@ glDepthFunc(GL_LEQUAL);
 glEnable(GL_BLEND);
 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 glEnable(GL_TEXTURE_2D);
-
-
-dog 2000->3000  batchcall add 2

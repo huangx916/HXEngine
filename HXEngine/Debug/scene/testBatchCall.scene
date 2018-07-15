@@ -25,7 +25,7 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>
-		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="2000" CastShadow="1">
+		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="1">
 			<Position Px="2" Py="-2.4" Pz="7"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="0.5" Sy="0.5" Sz="0.5"/>
