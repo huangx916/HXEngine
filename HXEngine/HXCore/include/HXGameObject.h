@@ -32,16 +32,17 @@ namespace HX3D
 		HXITransform* GetTransform();
 		bool GetCastShadow() const;
 		void SetCastShadow(bool bCastShadow);
+		int GetRenderQueue() const;
+		void SetRenderQueue(int nRenderQueue);
 
 		std::string m_strName;
 		std::string m_strModelFile;
-		// 渲染优先级
-		int m_nRenderQueue;
 		
 	private:
 		// Local Coordinate
 		HXITransform* m_pTransform;
 		bool m_bCastShadow;
+		int m_nRenderQueue;	// 渲染优先级
 		HXMesh* m_pMesh;
 		HXGameObject* m_pFather;	// 用作计算World Coordinate
 		std::vector<HXGameObject*> vctChildren;

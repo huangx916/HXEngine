@@ -125,7 +125,7 @@ namespace HX3D
 	{
 		HXGameObject* gameObject = new HXGameObject(pFather, HXRoot::GetInstance()->GetRenderSystem());
 		gameObject->Initialize(gameobjectinfo);
-		InsertGameObjectToOrderQueue(gameObject);
+		InsertGameObjectToOrderQueueRecurve(gameObject);
 		return gameObject;
 	}
 
@@ -134,67 +134,71 @@ namespace HX3D
 		return gameObjectTreeRoot;
 	}
 
-	void HXSceneManager::InsertGameObjectToOrderQueue(HXGameObject* gameobject)
+	void HXSceneManager::InsertGameObjectToOrderQueueRecurve(HXGameObject* gameobject)
 	{
 		HXMesh* pMesh = gameobject->GetMesh();
-		if (pMesh == NULL)
+		if (pMesh)
 		{
-			return;
-		}
-		int renderQueue = gameobject->m_nRenderQueue;
+			int renderQueue = gameobject->GetRenderQueue();
 
-		if (renderQueue < ERenderQueue::RQ_TRANSPARENT)
-		{
-			// opaque
-			for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+			if (renderQueue < ERenderQueue::RQ_TRANSPARENT)
 			{
-				HXSubMesh* subMesh = (*itr);
-				std::string materialName = subMesh->materialName;
-				std::map<int, mapStringVector>::iterator itr1 = opaqueMap.find(renderQueue);
-				if (itr1 != opaqueMap.end())
+				// opaque
+				for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
 				{
-					mapStringVector::iterator itr2 = itr1->second.find(materialName);
-					if (itr2 != itr1->second.end())
+					HXSubMesh* subMesh = (*itr);
+					std::string materialName = subMesh->materialName;
+					std::map<int, mapStringVector>::iterator itr1 = opaqueMap.find(renderQueue);
+					if (itr1 != opaqueMap.end())
 					{
-						itr2->second.push_back(subMesh->renderable);
+						mapStringVector::iterator itr2 = itr1->second.find(materialName);
+						if (itr2 != itr1->second.end())
+						{
+							itr2->second.push_back(subMesh->renderable);
+						}
+						else
+						{
+							vectorRenderable vct;
+							vct.push_back(subMesh->renderable);
+							itr1->second.insert(std::make_pair(materialName, vct));
+						}
+					}
+					else
+					{
+						mapStringVector sv;
+						vectorRenderable vct;
+						vct.push_back(subMesh->renderable);
+						sv.insert(std::make_pair(materialName, vct));
+						opaqueMap.insert(std::make_pair(renderQueue, sv));
+					}
+					subMesh->renderable->m_pTransform = gameobject->GetTransform();
+				}
+			}
+			else
+			{
+				// transparent
+				for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+				{
+					HXSubMesh* subMesh = (*itr);
+					std::map<int, vectorRenderable>::iterator itr1 = transparentMap.find(renderQueue);
+					if (itr1 != transparentMap.end())
+					{
+						itr1->second.push_back(subMesh->renderable);
 					}
 					else
 					{
 						vectorRenderable vct;
 						vct.push_back(subMesh->renderable);
-						itr1->second.insert(std::make_pair(materialName, vct));
+						transparentMap.insert(std::make_pair(renderQueue, vct));
 					}
+					subMesh->renderable->m_pTransform = gameobject->GetTransform();
 				}
-				else
-				{
-					mapStringVector sv;
-					vectorRenderable vct;
-					vct.push_back(subMesh->renderable);
-					sv.insert(std::make_pair(materialName, vct));
-					opaqueMap.insert(std::make_pair(renderQueue, sv));
-				}
-				subMesh->renderable->m_pTransform = gameobject->GetTransform();
 			}
 		}
-		else
+		
+		for (std::vector<HXGameObject*>::iterator itr = gameobject->GetChildren().begin(); itr != gameobject->GetChildren().end(); ++itr)
 		{
-			// transparent
-			for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
-			{
-				HXSubMesh* subMesh = (*itr);
-				std::map<int, vectorRenderable>::iterator itr1 = transparentMap.find(renderQueue);
-				if (itr1 != transparentMap.end())
-				{
-					itr1->second.push_back(subMesh->renderable);
-				}
-				else
-				{
-					vectorRenderable vct;
-					vct.push_back(subMesh->renderable);
-					transparentMap.insert(std::make_pair(renderQueue, vct));
-				}
-				subMesh->renderable->m_pTransform = gameobject->GetTransform();
-			}
+			InsertGameObjectToOrderQueueRecurve(*itr);
 		}
 	}
 
@@ -233,7 +237,7 @@ namespace HX3D
 
 	bool mycompare(HXGameObject* i, HXGameObject* j)
 	{
-		return( i->m_nRenderQueue < j->m_nRenderQueue );
+		return( i->GetRenderQueue() < j->GetRenderQueue());
 	}
 
 	void HXSceneManager::PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest)
@@ -425,6 +429,16 @@ namespace HX3D
 			}
 		}
 		return false;
+	}
+
+	void HXSceneManager::UpdateRenderableQueue()
+	{
+		opaqueMap.clear();
+		transparentMap.clear();
+		for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
+		{
+			InsertGameObjectToOrderQueueRecurve(*itr);
+		}
 	}
 }
 

@@ -183,6 +183,16 @@ namespace HX3D
 			}
 		}
 	}
+
+	int HXGameObject::GetRenderQueue() const
+	{
+		return m_nRenderQueue;
+	}
+
+	void HXGameObject::SetRenderQueue(int nRenderQueue)
+	{
+		m_nRenderQueue = nRenderQueue;
+	}
 }
 
 

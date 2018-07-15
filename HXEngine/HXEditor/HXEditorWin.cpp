@@ -133,7 +133,7 @@ void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3
 		out << "\" Model=\"";
 		out << (*itr)->m_strModelFile.c_str();
 		out << "\" Priority=\"";
-		out << (*itr)->m_nRenderQueue - fatherPriority;
+		out << (*itr)->GetRenderQueue() - fatherPriority;
 		out << "\" CastShadow=\"";
 		out << (*itr)->GetCastShadow();
 		out << "\">\n";
@@ -174,7 +174,7 @@ void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3
 		out << (*itr)->GetTransform()->GetScale().z;
 		out << "\"/>\n";
 
-		serializeGameObjectRecursive(out, (*itr)->GetChildren(), level+1, (*itr)->m_nRenderQueue);
+		serializeGameObjectRecursive(out, (*itr)->GetChildren(), level+1, (*itr)->GetRenderQueue());
 
 		for (int i = 0; i < level + 2; ++i)
 		{

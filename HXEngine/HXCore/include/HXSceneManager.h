@@ -36,7 +36,7 @@ namespace HX3D
 		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
 		bool DeleteGameObject(HXGameObject* gameobject);
 		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
-		void InsertGameObjectToOrderQueue(HXGameObject* gameobject);
+		void InsertGameObjectToOrderQueueRecurve(HXGameObject* gameobject);
 
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
@@ -49,6 +49,9 @@ namespace HX3D
 		void OnDisplay(bool shadow);
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
+		// 比较好性能，仅用于编辑器编辑时调用
+		void UpdateRenderableQueue();
+
 		// 平行光、点光源、聚光灯
 		std::vector<HXLight*>		lightVct;
 		// 环境光单独保存 保证唯一性

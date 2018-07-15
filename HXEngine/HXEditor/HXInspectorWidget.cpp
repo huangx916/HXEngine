@@ -660,16 +660,16 @@ HXInspectorWidget::~HXInspectorWidget()
 
 void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 {
-	selectedGameObject = pGameObject;
-	if (selectedGameObject)
+	selectedGameObject = NULL;
+	if (pGameObject)
 	{
 		gameobject->setHidden(false);
 
-		editGameObjectName->setText(selectedGameObject->GetName().c_str());
+		editGameObjectName->setText(pGameObject->GetName().c_str());
 
-		spinboxPriority->setValue(selectedGameObject->m_nRenderQueue);
+		spinboxPriority->setValue(pGameObject->GetRenderQueue());
 
-		if (selectedGameObject->GetCastShadow())
+		if (pGameObject->GetCastShadow())
 		{
 			checkboxCastShadow->setCheckState(Qt::Checked);
 		}
@@ -678,7 +678,7 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 			checkboxCastShadow->setCheckState(Qt::Unchecked);
 		}
 
-		HXITransform* pTransform = selectedGameObject->GetTransform();
+		HXITransform* pTransform = pGameObject->GetTransform();
 
 		spinboxPositionX->setValue(pTransform->GetPosition().x);
 		spinboxPositionY->setValue(pTransform->GetPosition().y);
@@ -695,8 +695,9 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	else
 	{
 		gameobject->setHidden(true);
-		return;
 	}
+
+	selectedGameObject = pGameObject;
 }
 
 void HXInspectorWidget::SetLightInfo(HXLight* pLight)
@@ -836,7 +837,8 @@ void HXInspectorWidget::PriorityChanged(int value)
 {
 	if (selectedGameObject)
 	{
-		selectedGameObject->m_nRenderQueue = value;
+		selectedGameObject->SetRenderQueue(value);
+		HXSceneManager::GetInstance()->UpdateRenderableQueue();
 	}
 }
 
