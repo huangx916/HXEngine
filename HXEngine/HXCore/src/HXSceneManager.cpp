@@ -415,7 +415,15 @@ namespace HX3D
 
 	bool HXSceneManager::DeleteGameObject(HXGameObject* gameobject)
 	{
-		return DeleteGameObjectRecurve(gameObjectTreeRoot->GetChildren(), gameobject);
+		if (DeleteGameObjectRecurve(gameObjectTreeRoot->GetChildren(), gameobject))
+		{
+			UpdateRenderableQueue();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	bool HXSceneManager::DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject)
