@@ -5,6 +5,7 @@
 #include "HXResourceManager.h"
 #include "HXLoadConfigMat.h"
 #include "HXGDITextureBMP.h"
+#include "HXStatus.h"
 
 namespace HX3D
 {
@@ -43,6 +44,8 @@ namespace HX3D
 	void HXGDIRenderable::GenerateArguments(HXSubMesh* pSubMesh)
 	{
 		HXRenderable::GenerateArguments(pSubMesh);
+		// 没用到，HXRenderState替代m_pMaterial实现
+		m_pMaterial = HXResourceManager::GetInstance()->GetMaterial(pSubMesh->materialName);
 	}
 
 	void HXGDIRenderable::Render()
@@ -66,5 +69,8 @@ namespace HX3D
 		Project_To_ViewPort_RenderList(mRenderList, mFrustum);
 		//Draw_RenderList_Wire(mRenderList);
 		Draw_RenderList_Texture_Solid(mRenderList);
+
+		HXStatus::GetInstance()->nDrawCall += 1;
+		HXStatus::GetInstance()->nBatchCall += 1;
 	}
 }
