@@ -388,7 +388,7 @@ namespace HX3D
 			for (int index = 0; index < HXSceneManager::GetInstance()->lightVct.size(); ++index)
 			{
 				HXLight* light = HXSceneManager::GetInstance()->lightVct[index];
-				if (light && light->enable)
+				if (light)
 				{
 					std::stringstream ss;
 					std::string strIndex;
@@ -398,54 +398,56 @@ namespace HX3D
 					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".isEnable").c_str());
 					GLint isEnable = light->enable;
 					glUniform1i(property_loc, isEnable);
+					if (isEnable)
+					{
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightType").c_str());
+						GLint lightType = light->lightType;
+						glUniform1i(property_loc, lightType);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightType").c_str());
-					GLint lightType = light->lightType;
-					glUniform1i(property_loc, lightType);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightColor").c_str());
+						HXCOLOR lightColor = light->color;
+						glUniform3f(property_loc, lightColor.r / 255.0f, lightColor.g / 255.0f, lightColor.b / 255.0f);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightColor").c_str());
-					HXCOLOR lightColor = light->color;
-					glUniform3f(property_loc, lightColor.r / 255.0f, lightColor.g / 255.0f, lightColor.b / 255.0f);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightDir").c_str());
+						HXVector3D lightDir = light->direct;
+						glUniform3f(property_loc, lightDir.x, lightDir.y, lightDir.z);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightDir").c_str());
-					HXVector3D lightDir = light->direct;
-					glUniform3f(property_loc, lightDir.x, lightDir.y, lightDir.z);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".shininess").c_str());
+						GLfloat shininess = light->shininess;
+						glUniform1f(property_loc, shininess);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".shininess").c_str());
-					GLfloat shininess = light->shininess;
-					glUniform1f(property_loc, shininess);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".strength").c_str());
+						GLfloat strength = light->strength;
+						glUniform1f(property_loc, strength);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".strength").c_str());
-					GLfloat strength = light->strength;
-					glUniform1f(property_loc, strength);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightPos").c_str());
+						HXVector3D lightPos = light->position;
+						glUniform3f(property_loc, lightPos.x, lightPos.y, lightPos.z);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightPos").c_str());
-					HXVector3D lightPos = light->position;
-					glUniform3f(property_loc, lightPos.x, lightPos.y, lightPos.z);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".constantAttenuation").c_str());
+						GLfloat constantAttenuation = light->constantAttenuation;
+						glUniform1f(property_loc, constantAttenuation);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".constantAttenuation").c_str());
-					GLfloat constantAttenuation = light->constantAttenuation;
-					glUniform1f(property_loc, constantAttenuation);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".LinearAttenuation").c_str());
+						GLfloat LinearAttenuation = light->LinearAttenuation;
+						glUniform1f(property_loc, LinearAttenuation);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".LinearAttenuation").c_str());
-					GLfloat LinearAttenuation = light->LinearAttenuation;
-					glUniform1f(property_loc, LinearAttenuation);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".QuadraticAttenuation").c_str());
+						GLfloat QuadraticAttenuation = light->QuadraticAttenuation;
+						glUniform1f(property_loc, QuadraticAttenuation);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".QuadraticAttenuation").c_str());
-					GLfloat QuadraticAttenuation = light->QuadraticAttenuation;
-					glUniform1f(property_loc, QuadraticAttenuation);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".SpotCosCutoff").c_str());
+						GLfloat SpotCosCutoff = light->SpotCosCutoff;
+						glUniform1f(property_loc, SpotCosCutoff);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".SpotCosCutoff").c_str());
-					GLfloat SpotCosCutoff = light->SpotCosCutoff;
-					glUniform1f(property_loc, SpotCosCutoff);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".SpotExponent").c_str());
+						GLfloat SpotExponent = light->SpotExponent;
+						glUniform1f(property_loc, SpotExponent);
 
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".SpotExponent").c_str());
-					GLfloat SpotExponent = light->SpotExponent;
-					glUniform1f(property_loc, SpotExponent);
-
-					property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".ConeDirection").c_str());
-					HXVector3D ConeDirection = light->ConeDirection;
-					glUniform3f(property_loc, ConeDirection.x, ConeDirection.y, ConeDirection.z);
+						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".ConeDirection").c_str());
+						HXVector3D ConeDirection = light->ConeDirection;
+						glUniform3f(property_loc, ConeDirection.x, ConeDirection.y, ConeDirection.z);
+					}
 				}
 			}
 

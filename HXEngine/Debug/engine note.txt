@@ -26,8 +26,7 @@ batching：
 
 game.ini
 
-gameobject active in editor
-
+render state 过时时重设(现为编辑器模式下每帧更新)
 
 // 一定要加上，不然后续不是VBO绘制的物体无法显示
 glBindVertexArray(0);
