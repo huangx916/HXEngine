@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include "HXGame.h"
 #include "HXRoot.h"
+#include "HXLoadConfigGameIni.h"
 
 using namespace HX3D;
 
@@ -13,7 +14,9 @@ int main(int argc, char* argv[])
 		RenderSystem_GL,
 		RenderSystem_D3D
 	};*/
-	HXRoot::GetInstance()->Initialize(RenderSystem_GL);
+	HXLoadConfigGameIni cfg;
+	cfg.LoadFile("game.ini");
+	HXRoot::GetInstance()->Initialize(cfg.renderSystem);
 	HXRoot::GetInstance()->CreateRenderWindow("HXENGINE", SCREEN_WIDTH, SCREEN_HEIGHT, false);
 	HXGame* pGame = new HXGame;
 	HXRoot::GetInstance()->SetDisplayListener(pGame);

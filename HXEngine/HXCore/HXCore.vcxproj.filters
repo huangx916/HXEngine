@@ -163,6 +163,9 @@
     <ClCompile Include="src\HXMaterial.cpp">
       <Filter>RenderSystem\Common</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXLoadConfigGameIni.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -344,6 +347,9 @@
     </ClInclude>
     <ClInclude Include="include\HXMaterial.h">
       <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXLoadConfigGameIni.h">
+      <Filter>Config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

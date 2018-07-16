@@ -6,6 +6,7 @@
 #include "HXICamera.h"
 #include "HXRenderSystem.h"
 #include "HXStatus.h"
+#include "HXLoadConfigGameIni.h"
 
 HXGame::HXGame()
 {
@@ -40,7 +41,10 @@ HXGame::~HXGame()
 
 void HXGame::CreateGameScene()
 {
-	HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
+	HXLoadConfigGameIni cfg;
+	cfg.LoadFile("game.ini");
+	HXSceneManager::GetInstance()->LoadScene(cfg.strScene);
+	//HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
 	//HXSceneManager::GetInstance()->LoadScene("./scene/Test.scene");
 	//Test();
 }

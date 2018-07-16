@@ -53,6 +53,7 @@
     <ClInclude Include="include\HXITransform.h" />
     <ClInclude Include="include\HXLight.h" />
     <ClInclude Include="include\HXLoadConfigAnim.h" />
+    <ClInclude Include="include\HXLoadConfigGameIni.h" />
     <ClInclude Include="include\HXLoadConfigMat.h" />
     <ClInclude Include="include\HXLoadConfigModel.h" />
     <ClInclude Include="include\HXLoadConfigPrefab.h" />
@@ -108,6 +109,7 @@
     <ClCompile Include="src\HXITransform.cpp" />
     <ClCompile Include="src\HXLight.cpp" />
     <ClCompile Include="src\HXLoadConfigAnim.cpp" />
+    <ClCompile Include="src\HXLoadConfigGameIni.cpp" />
     <ClCompile Include="src\HXLoadConfigMat.cpp" />
     <ClCompile Include="src\HXLoadConfigModel.cpp" />
     <ClCompile Include="src\HXLoadConfigPrefab.cpp" />
