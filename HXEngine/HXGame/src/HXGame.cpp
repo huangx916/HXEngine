@@ -40,8 +40,8 @@ HXGame::~HXGame()
 
 void HXGame::CreateGameScene()
 {
-	HXSceneManager::GetInstance()->LoadScene("./scene/testBatchCall.scene");
-	//HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
+	HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
+	//HXSceneManager::GetInstance()->LoadScene("./scene/Test.scene");
 	//Test();
 }
 

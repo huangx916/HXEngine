@@ -30,6 +30,8 @@ namespace HX3D
 		void AddChild(HXGameObject* child);
 		std::vector<HXGameObject*>& GetChildren();
 		HXITransform* GetTransform();
+		bool GetActivity() const;
+		void SetActivity(bool activity);
 		bool GetCastShadow() const;
 		void SetCastShadow(bool bCastShadow);
 		int GetRenderQueue() const;
@@ -39,6 +41,7 @@ namespace HX3D
 		std::string m_strModelFile;
 		
 	private:
+		bool m_bActivity;
 		// Local Coordinate
 		HXITransform* m_pTransform;
 		bool m_bCastShadow;

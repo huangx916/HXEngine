@@ -81,8 +81,8 @@ namespace HX3D
 						// 如果子网格数大于材质数，多出来的子网格使用第一个材质
 						pMesh->subMeshList[nSubMeshIndex]->materialName = pModelInfo->m_vctSubMeshMat[0];
 					}
-					// 设置是否投射阴影
-					(*itr)->IsCastShadow = gameobjectinfo->bCastShadow;
+					// 设置是否投射阴影 后续SetCastShadow(gameobjectinfo->bCastShadow);已设置
+					// (*itr)->IsCastShadow = gameobjectinfo->bCastShadow;
 					++nSubMeshIndex;
 				}
 				m_pMesh = pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem());
@@ -99,6 +99,7 @@ namespace HX3D
 		m_strModelFile = gameobjectinfo->strModelFile;
 		m_nRenderQueue = gameobjectinfo->nPriority;
 		SetCastShadow(gameobjectinfo->bCastShadow);
+		SetActivity(gameobjectinfo->bActivity);
 
 		if (NULL == m_pFather)
 		{
@@ -166,6 +167,17 @@ namespace HX3D
 		return m_pTransform;
 	}
 
+	bool HXGameObject::GetActivity() const
+	{
+		return m_bActivity;
+	}
+
+	void HXGameObject::SetActivity(bool activity)
+	{
+		m_bActivity = activity;
+		HXSceneManager::GetInstance()->UpdateRenderableQueue();
+	}
+
 	bool HXGameObject::GetCastShadow() const
 	{
 		return m_bCastShadow;
@@ -192,6 +204,7 @@ namespace HX3D
 	void HXGameObject::SetRenderQueue(int nRenderQueue)
 	{
 		m_nRenderQueue = nRenderQueue;
+		HXSceneManager::GetInstance()->UpdateRenderableQueue();
 	}
 }
 

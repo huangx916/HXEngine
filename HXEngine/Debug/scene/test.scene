@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<Camera NearZ="1" FarZ="1000">
-		<Position Px="0" Py="5" Pz="15"/>
-		<Rotation Rx="-10" Ry="0" Rz="0"/>
+	<Camera NearZ="0.01" FarZ="1000">
+		<Position Px="0.130396" Py="2.39781" Pz="8.81346"/>
+		<Rotation Rx="-2.9" Ry="-0.8" Rz="0"/>
 	</Camera>
-	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="15" End="30"/>
-	<Ambient R="50" G="50" B="50"/>
+	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
+	<Ambient R="255" G="255" B="255"/>
 	<Lights>
-		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
+		<Light Name="MainLight" Enable="0" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="255" Cg="255" Cb="255"/>
 			<Position Px="0" Py="0" Pz="0"/>
 			<Direct Dx="1" Dy="1" Dz="1"/>
@@ -15,40 +15,70 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="SkyBoxGO" Model="" Priority="1000" CastShadow="0">
+		<GameObj Name="Rock2_104" Activity="0" Model="prefab/Rock2_104/Rock2_104.model" Priority="2000" CastShadow="0">
+			<Position Px="0" Py="0" Pz="1"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
+		</GameObj>
+		<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3000" CastShadow="0">
+			<Position Px="0" Py="0" Pz="3"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
+		</GameObj>
+		<GameObj Name="Brickwall_el1" Activity="0" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="2000" CastShadow="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
+		</GameObj>
+		<GameObj Name="Rock2_105" Activity="1" Model="prefab/Rock2_105/Rock2_105.model" Priority="2000" CastShadow="0">
+			<Position Px="0" Py="0" Pz="1.5"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
+		</GameObj>
+		<GameObj Name="GameObject" Activity="1" Model="" Priority="0" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
-			<GameObj Name="SkyBox1" Model="" Priority="100" CastShadow="0">
+			<GameObj Name="Lettuce1_lod0List" Activity="1" Model="" Priority="0" CastShadow="0">
 				<Position Px="0" Py="0" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="1" Sy="1" Sz="1"/>
-				<GameObj Name="SkyBox11" Model="prefab/SkyBox/SkyBox.model" Priority="10" CastShadow="0">
-					<Position Px="0" Py="0" Pz="0"/>
+				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+					<Position Px="0" Py="-2.5" Pz="0"/>
 					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="400" Sy="400" Sz="400"/>
+					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+				</GameObj>
+				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+					<Position Px="0.3" Py="-2.5" Pz="0"/>
+					<Rotation Rx="0" Ry="0" Rz="0"/>
+					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+				</GameObj>
+				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+					<Position Px="0.6" Py="-2.5" Pz="0"/>
+					<Rotation Rx="0" Ry="0" Rz="0"/>
+					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+				</GameObj>
+				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+					<Position Px="0.9" Py="-2.5" Pz="0"/>
+					<Rotation Rx="0" Ry="0" Rz="0"/>
+					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+				</GameObj>
+				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+					<Position Px="1.2" Py="-2.5" Pz="0"/>
+					<Rotation Rx="0" Ry="0" Rz="0"/>
+					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
+				</GameObj>
+				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
+					<Position Px="1.5" Py="-2.5" Pz="0"/>
+					<Rotation Rx="0" Ry="0" Rz="0"/>
+					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
 				</GameObj>
 			</GameObj>
-			<GameObj Name="SkyBox2" Model="" Priority="200" CastShadow="0">
-				<Position Px="0" Py="0" Pz="0"/>
+			<GameObj Name="Bush4h" Activity="1" Model="prefab/Bush4h/Bush4h.model" Priority="3000" CastShadow="1">
+				<Position Px="2" Py="0" Pz="3"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
-				<Scale Sx="1" Sy="1" Sz="1"/>
+				<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 			</GameObj>
-		</GameObj>
-		<GameObj Name="TerrainGO" Model="prefab/Terrain/Terrain.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</GameObj>
-		<GameObj Name="DogGo" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="1">
-			<Position Px="5" Py="-2.5" Pz="5"/>
-			<Rotation Rx="0" Ry="-90" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
-		</GameObj>
-		<GameObj Name="Building01GO" Model="prefab/Building01/Building01.model" Priority="3000" CastShadow="1">
-			<Position Px="0" Py="-2.5" Pz="5"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 		</GameObj>
 	</GameObjects>
 </Scene>

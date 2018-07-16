@@ -81,6 +81,8 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	spinboxCameraRotationZ->setRange(MIN, MAX);
 
 	// gameobject
+	checkboxActivity = new QCheckBox();
+
 	editGameObjectName = new QLineEdit();
 
 	spinboxPriority = new QSpinBox();
@@ -317,6 +319,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	gameobject = new QTreeWidgetItem;
 	gameobject->setText(0, "GameObject");
 	treeWidget->addTopLevelItem(gameobject);
+	treeWidget->setItemWidget(gameobject, 1, checkboxActivity);
 	gameobject->setHidden(true);
 	// gameobject name
 	QTreeWidgetItem *goname = new QTreeWidgetItem;
@@ -611,6 +614,8 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(spinboxCameraRotationZ, SIGNAL(valueChanged(double)), this, SLOT(CameraRotationZValueChanged(double)));
 
 	// gameobject
+	connect(checkboxActivity, SIGNAL(toggled(bool)), this, SLOT(ActivityToggled(bool)));
+
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
 
 	connect(spinboxPriority, SIGNAL(valueChanged(int)), this, SLOT(PriorityChanged(int)));
@@ -664,6 +669,15 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	if (pGameObject)
 	{
 		gameobject->setHidden(false);
+
+		if (pGameObject->GetActivity())
+		{
+			checkboxActivity->setCheckState(Qt::Checked);
+		}
+		else
+		{
+			checkboxActivity->setCheckState(Qt::Unchecked);
+		}
 
 		editGameObjectName->setText(pGameObject->GetName().c_str());
 
@@ -817,6 +831,14 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 	}
 }
 
+void HXInspectorWidget::ActivityToggled(bool activity)
+{
+	if (selectedGameObject)
+	{
+		selectedGameObject->SetActivity(activity);
+	}
+}
+
 void HXInspectorWidget::GameObjectNameChanged(const QString& name)
 {
 	if (selectedGameObject)
@@ -838,7 +860,6 @@ void HXInspectorWidget::PriorityChanged(int value)
 	if (selectedGameObject)
 	{
 		selectedGameObject->SetRenderQueue(value);
-		HXSceneManager::GetInstance()->UpdateRenderableQueue();
 	}
 }
 

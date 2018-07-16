@@ -16,6 +16,7 @@ namespace HX3D
 			}
 		}
 		std::string strGameObjName;
+		bool bActivity;
 		std::string strModelFile;
 		int nPriority;
 		bool bCastShadow;

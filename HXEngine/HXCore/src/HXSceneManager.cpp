@@ -142,6 +142,11 @@ namespace HX3D
 
 	void HXSceneManager::InsertGameObjectToOrderQueueRecurve(HXGameObject* gameobject)
 	{
+		if (!gameobject->GetActivity())
+		{
+			return;
+		}
+
 		HXMesh* pMesh = gameobject->GetMesh();
 		if (pMesh)
 		{

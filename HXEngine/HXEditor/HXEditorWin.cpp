@@ -130,6 +130,8 @@ void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3
 		}
 		out << "<GameObj Name=\"";
 		out << (*itr)->GetName().c_str();
+		out << "\" Activity=\"";
+		out << (*itr)->GetActivity();
 		out << "\" Model=\"";
 		out << (*itr)->m_strModelFile.c_str();
 		out << "\" Priority=\"";

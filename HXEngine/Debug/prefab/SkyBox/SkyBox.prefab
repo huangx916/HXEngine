@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prefab>
-	<GameObj Name="SkyBoxGO" Model="prefab/SkyBox/SkyBox.model" Priority="1000" CastShadow="0">
+	<GameObj Name="SkyBoxGO" Activity="1" Model="prefab/SkyBox/SkyBox.model" Priority="1000" CastShadow="0">
 		<Position Px="0" Py="0" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="400" Sy="400" Sz="400"/>
