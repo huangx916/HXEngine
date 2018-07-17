@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/Rock2_NMP/Rock2.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/_Material/Rock2_NMP/Rock2_NMP.material"/>
+</Model>

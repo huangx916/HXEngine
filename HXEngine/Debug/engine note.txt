@@ -24,14 +24,12 @@ batching：
 每帧渲染时shader uniform的texture变量需要重新处理（赋值的只是纹理绑定点，纹理绑定点绑定的纹理可能被改掉了）
 
 
-game.ini
+normal map
+
+fbx muti mesh
 
 render state 过时时重设(现为编辑器模式下每帧更新)
 
-// 一定要加上，不然后续不是VBO绘制的物体无法显示
-glBindVertexArray(0);
-glBindBuffer(GL_ARRAY_BUFFER, 0);
-glUseProgram(0);
 
 
 // TODO:提取到material配置文件中

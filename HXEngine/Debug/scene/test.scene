@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="0.130396" Py="2.39781" Pz="8.81346"/>
-		<Rotation Rx="-2.9" Ry="-0.8" Rz="0"/>
+		<Position Px="-0.25" Py="7.07" Pz="8.51"/>
+		<Rotation Rx="-18.6" Ry="-1.4" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="255" G="255" B="255"/>
@@ -15,70 +15,10 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="Rock2_104" Activity="0" Model="prefab/Rock2_104/Rock2_104.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="1"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
-		</GameObj>
-		<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="3"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
-		</GameObj>
-		<GameObj Name="Brickwall_el1" Activity="0" Model="prefab/Brickwall_el1/Brickwall_el1.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
-		</GameObj>
-		<GameObj Name="Rock2_105" Activity="1" Model="prefab/Rock2_105/Rock2_105.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="1.5"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
-		</GameObj>
-		<GameObj Name="GameObject" Activity="1" Model="" Priority="0" CastShadow="0">
+		<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="3000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
-			<GameObj Name="Lettuce1_lod0List" Activity="1" Model="" Priority="0" CastShadow="0">
-				<Position Px="0" Py="0" Pz="0"/>
-				<Rotation Rx="0" Ry="0" Rz="0"/>
-				<Scale Sx="1" Sy="1" Sz="1"/>
-				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
-					<Position Px="0" Py="-2.5" Pz="0"/>
-					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
-				</GameObj>
-				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
-					<Position Px="0.3" Py="-2.5" Pz="0"/>
-					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
-				</GameObj>
-				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
-					<Position Px="0.6" Py="-2.5" Pz="0"/>
-					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
-				</GameObj>
-				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
-					<Position Px="0.9" Py="-2.5" Pz="0"/>
-					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
-				</GameObj>
-				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
-					<Position Px="1.2" Py="-2.5" Pz="0"/>
-					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
-				</GameObj>
-				<GameObj Name="Lettuce1_lod0" Activity="1" Model="prefab/Lettuce1_lod0/Lettuce1_lod0.model" Priority="3001" CastShadow="1">
-					<Position Px="1.5" Py="-2.5" Pz="0"/>
-					<Rotation Rx="0" Ry="0" Rz="0"/>
-					<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
-				</GameObj>
-			</GameObj>
-			<GameObj Name="Bush4h" Activity="1" Model="prefab/Bush4h/Bush4h.model" Priority="3000" CastShadow="1">
-				<Position Px="2" Py="0" Pz="3"/>
-				<Rotation Rx="0" Ry="0" Rz="0"/>
-				<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
-			</GameObj>
 		</GameObj>
 	</GameObjects>
 </Scene>

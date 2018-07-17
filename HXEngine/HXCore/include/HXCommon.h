@@ -169,5 +169,5 @@ namespace HX3D
 	};
 
 	// TODO: 如何根据当前子网格顶点数动态生成顶点数组大小
-	const int MAX_TRIANGLE_COUNT = 10000;	// 最大子网格面数
+	const int MAX_TRIANGLE_COUNT = 20000;	// 最大子网格面数
 }
