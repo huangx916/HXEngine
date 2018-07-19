@@ -15,15 +15,20 @@ out vec4 fColor;
 void main()
 {
 	//fColor = texture(MainTexture, vs_fs_texcoord.xy);
+	//vec3 lightDir = normalize(vec3(-1,1,1));
+	//vec3 normal = normalize(vs_fs_normal.xyz);
+	//float diffuse = max(0.0, dot(normal, lightDir));
+	//vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
+	//fColor = vec4(rgb, fColor.a);
+	//return;
+	
+	//fColor = texture(MainTexture, vs_fs_texcoord.xy);
 	//vec3 normal = 2.0 * texture(NormalMap, vs_fs_texcoord.zw).rgb - 1.0;
 	//normal = normalize(normal);
 	//float diffuse = max(0.0, dot(normal, vs_fs_light_dir));
-	
-	//fColor = texture(MainTexture, vs_fs_texcoord.xy);
-	//vec3 lightDir = vec3(-1,1,1);
-	//vec3 normal = normalize(vs_fs_normal.xyz);
-	//float diffuse = max(0.0, dot(normal, lightDir));
-	
+	//vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
+	//fColor = vec4(rgb, fColor.a);
+	//return;
 	
 	float _Opacity = 1.0;
 	vec4 _Color = vec4(1,1,1,1);
@@ -64,7 +69,6 @@ void main()
 	fColor.rgb = dest.rgb;
 	//o.Alpha = tex2.a * _Color.a;
 	fColor.a = tex2.a * _Color.a;
-   
 	vec4 norm2 = texture(NormalMap, vs_fs_texcoord.zw);
 	vec4 norm = texture(NormalMap2, vs_fs_detailtexcoord.zw);
 	//dest = norm2<=0.5 ? 2*norm*norm2 : 1-2*(1-norm)*(1-norm2);
@@ -106,9 +110,6 @@ void main()
 	//o.Normal = UnpackNormal(dest);
 	vec3 normal = 2.0 * dest.rgb - 1.0;
 	float diffuse = max(0.0, dot(normal, vs_fs_light_dir));
-	
-	
 	vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
 	fColor = vec4(rgb, fColor.a);
-	
 }

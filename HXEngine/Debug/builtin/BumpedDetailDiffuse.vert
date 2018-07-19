@@ -40,7 +40,7 @@ void main()
 	
 	// lighting object space
 	vec3 lightWorldDir = vec3(-1,1,1);
-	//// 1	3x3正交矩阵
+	//// 1	3x3正交矩阵 转置矩阵既是逆矩阵 矩阵右乘同转置矩阵左乘
 	vec3 lightObjectDir = normalize((vec4(lightWorldDir,0) * model_matrix).xyz);
 	//// 2
 	//mat4 model_matrix_inverse = inverse_mat4(model_matrix);
