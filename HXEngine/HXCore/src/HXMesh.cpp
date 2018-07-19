@@ -140,6 +140,10 @@ namespace HX3D
 			triangle.vertexList[1].normal = GetVector3DMulMatrix33(triangle.vertexList[1].normal, HXMatrix33(mat));
 			triangle.vertexList[2].normal = GetVector3DMulMatrix33(triangle.vertexList[2].normal, HXMatrix33(mat));
 
+			triangle.vertexList[0].tangent = GetVector3DMulMatrix33(triangle.vertexList[0].tangent, HXMatrix33(mat));
+			triangle.vertexList[1].tangent = GetVector3DMulMatrix33(triangle.vertexList[1].tangent, HXMatrix33(mat));
+			triangle.vertexList[2].tangent = GetVector3DMulMatrix33(triangle.vertexList[2].tangent, HXMatrix33(mat));
+
 			pRenderList->triangleList.push_back(triangle);
 		}
 	}
@@ -203,6 +207,10 @@ namespace HX3D
 			triangle.vertexList[0].normal = GetVector3DMulMatrix44(triangle.vertexList[0].normal, mat);
 			triangle.vertexList[1].normal = GetVector3DMulMatrix44(triangle.vertexList[1].normal, mat);
 			triangle.vertexList[2].normal = GetVector3DMulMatrix44(triangle.vertexList[2].normal, mat);
+
+			triangle.vertexList[0].tangent = GetVector3DMulMatrix44(triangle.vertexList[0].tangent, mat);
+			triangle.vertexList[1].tangent = GetVector3DMulMatrix44(triangle.vertexList[1].tangent, mat);
+			triangle.vertexList[2].tangent = GetVector3DMulMatrix44(triangle.vertexList[2].tangent, mat);
 
 			pRenderList->triangleList.push_back(triangle);
 		}

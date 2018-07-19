@@ -84,6 +84,7 @@ namespace HX3D
 						// Read the normal of each vertex
 						ReadNormal(pFbxMesh, nCtrlPointIndex, nVertexCounter, vertex);
 						// Read the tangent of each vertex  
+						ReadTangent(pFbxMesh, nCtrlPointIndex, nVertexCounter, vertex);
 
 						subMeshList[lMaterialIndex]->vertexList.push_back(vertex);
 						nVertexCounter++;
@@ -133,6 +134,7 @@ namespace HX3D
 					// Read the normal of each vertex
 					ReadNormal(pFbxMesh, nCtrlPointIndex, nVertexCounter, vertex);
 					// Read the tangent of each vertex  
+					ReadTangent(pFbxMesh, nCtrlPointIndex, nVertexCounter, vertex);
 
 					subMeshList[0]->vertexList.push_back(vertex);
 					nVertexCounter++;
@@ -386,6 +388,83 @@ namespace HX3D
 				vertex.normal.x = curNormal[0];
 				vertex.normal.y = curNormal[1];
 				vertex.normal.z = curNormal[2];
+			}
+			break;
+			default:
+				break;
+			}
+			break;
+		default:
+			break;
+		}
+		}
+	}
+
+	void HXFBXMesh::ReadTangent(FbxMesh* pFbxMesh, int nCtrlPointIndex, int nVertexCounter, HXVertex& vertex)
+	{
+		if (pFbxMesh->GetElementTangentCount() < 1)
+		{
+			return;
+		}
+
+		FbxGeometryElementTangent* pTangent = pFbxMesh->GetElementTangent(0);
+		switch (pTangent->GetMappingMode())
+		{
+		case FbxGeometryElement::eByControlPoint:
+		{
+			switch (pTangent->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				FbxVector4 curTangent = pTangent->GetDirectArray().GetAt(nCtrlPointIndex);
+				curTangent = matrixMeshGlobalPositionIn3DMax.MultT(curTangent);
+
+				vertex.tangent.x = curTangent[0];
+				vertex.tangent.y = curTangent[1];
+				vertex.tangent.z = curTangent[2];
+			}
+			break;
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int nId = pTangent->GetIndexArray().GetAt(nCtrlPointIndex);
+
+				FbxVector4 curTangent = pTangent->GetDirectArray().GetAt(nId);
+				curTangent = matrixMeshGlobalPositionIn3DMax.MultT(curTangent);
+
+				vertex.tangent.x = curTangent[0];
+				vertex.tangent.y = curTangent[1];
+				vertex.tangent.z = curTangent[2];
+			}
+			break;
+			default:
+				break;
+			}
+		}
+		break;
+		case FbxGeometryElement::eByPolygonVertex:
+		{
+			switch (pTangent->GetReferenceMode())
+			{
+			case FbxGeometryElement::eDirect:
+			{
+				FbxVector4 curTangent = pTangent->GetDirectArray().GetAt(nVertexCounter);
+				curTangent = matrixMeshGlobalPositionIn3DMax.MultT(curTangent);
+
+				vertex.tangent.x = curTangent[0];
+				vertex.tangent.y = curTangent[1];
+				vertex.tangent.z = curTangent[2];
+			}
+			break;
+			case FbxGeometryElement::eIndexToDirect:
+			{
+				int nId = pTangent->GetIndexArray().GetAt(nVertexCounter);
+
+				FbxVector4 curTangent = pTangent->GetDirectArray().GetAt(nId);
+				curTangent = matrixMeshGlobalPositionIn3DMax.MultT(curTangent);
+
+				vertex.tangent.x = curTangent[0];
+				vertex.tangent.y = curTangent[1];
+				vertex.tangent.z = curTangent[2];
 			}
 			break;
 			default:

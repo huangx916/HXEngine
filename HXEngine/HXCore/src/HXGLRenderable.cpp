@@ -70,6 +70,7 @@ namespace HX3D
 		GLfloat* colors = new GLfloat[nVertexCount * 4];
 		GLfloat* uvs = new GLfloat[nVertexCount * 2];
 		GLfloat* normals = new GLfloat[nVertexCount * 3];
+		GLfloat* tangents = new GLfloat[nVertexCount * 3];
 		int nIndex = 0;
 		for (std::vector<HXVertex>::iterator itr = m_pSubMesh->vertexList.begin(); itr != m_pSubMesh->vertexList.end(); ++itr)
 		{
@@ -85,6 +86,9 @@ namespace HX3D
 			normals[nIndex * 3 + 0] = itr->normal.x;
 			normals[nIndex * 3 + 1] = itr->normal.y;
 			normals[nIndex * 3 + 2] = itr->normal.z;
+			tangents[nIndex * 3 + 0] = itr->tangent.x;
+			tangents[nIndex * 3 + 1] = itr->tangent.y;
+			tangents[nIndex * 3 + 2] = itr->tangent.z;
 
 			++nIndex;
 		}
@@ -93,16 +97,19 @@ namespace HX3D
 		int nSizeColors = nVertexCount * 4 * sizeof(GLfloat);
 		int nSizeUVs = nVertexCount * 2 * sizeof(GLfloat);
 		int nSizeNormals = nVertexCount * 3 * sizeof(GLfloat);
-		glBufferData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors + nSizeUVs + nSizeNormals, NULL, GL_STATIC_DRAW);
+		int nSizeTangents = nVertexCount * 3 * sizeof(GLfloat);
+		glBufferData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors + nSizeUVs + nSizeNormals + nSizeTangents, NULL, GL_STATIC_DRAW);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, nSizePositions, positions);
 		glBufferSubData(GL_ARRAY_BUFFER, nSizePositions, nSizeColors, colors);
 		glBufferSubData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors, nSizeUVs, uvs);
 		glBufferSubData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors + nSizeUVs, nSizeNormals, normals);
+		glBufferSubData(GL_ARRAY_BUFFER, nSizePositions + nSizeColors + nSizeUVs + nSizeNormals, nSizeTangents, tangents);
 
 		delete[] positions;
 		delete[] colors;
 		delete[] uvs;
 		delete[] normals;
+		delete[] tangents;
 
 		glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(0));
 		glEnableVertexAttribArray(vPosition);
@@ -112,6 +119,8 @@ namespace HX3D
 		glEnableVertexAttribArray(vUV);
 		glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(nSizePositions + nSizeColors + nSizeUVs));
 		glEnableVertexAttribArray(vNormal);
+		glVertexAttribPointer(vTangent, 3, GL_FLOAT, GL_FALSE, 0, (const void*)(nSizePositions + nSizeColors + nSizeUVs + nSizeNormals));
+		glEnableVertexAttribArray(vTangent);
 
 		m_pMaterial = (HXGLMaterial*)HXResourceManager::GetInstance()->GetMaterial(pSubMesh->materialName);
 

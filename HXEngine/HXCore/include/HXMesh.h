@@ -15,6 +15,7 @@ namespace HX3D
 		HXVector3D pos;
 		int ctrlPointIndex;	// 骨骼动画更新时控制点映射到顶点用
 		HXVector3D normal;
+		HXVector3D tangent;
 		HXCOLOR	color;
 		float u;
 		float v;

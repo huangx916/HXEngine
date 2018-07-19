@@ -7,8 +7,11 @@
 4:Float4
 -->
 <Material>  
-    <Shader File="builtin/Diffuse">
+    <Shader File="builtin/BumpedDetailDiffuse">
 		<Property Type="0" Name="MainTexture" Value="prefab/_Material/Rock2_NMP/Rock2.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="0" Name="NormalMap" Value="prefab/_Material/Rock2_NMP/Rock2_nmp.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="0" Name="MainTexture2" Value="prefab/_Material/Rock2_NMP/Rockdetail2.png" Value1="8" Value2="8" Value3="0" Value4="0"/>
+		<Property Type="0" Name="NormalMap2" Value="prefab/_Material/Rock2_NMP/Rockdetail2_nmp.png" Value1="8" Value2="8" Value3="0" Value4="0"/>
 		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="1" Value3="1" Value4="1"/>
 	</Shader>
 </Material>

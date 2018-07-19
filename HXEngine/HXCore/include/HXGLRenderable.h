@@ -13,7 +13,8 @@ namespace HX3D
 		vPosition = 0,
 		vColor = 1,
 		vUV = 2,
-		vNormal = 3
+		vNormal = 3,
+		vTangent = 4
 	};
 
 	class HXICamera;
