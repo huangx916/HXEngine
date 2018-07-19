@@ -8,7 +8,6 @@ in vec4 vs_fs_normal;
 in vec3 vs_fs_light_dir;
 out vec4 fColor;
 
-
 void main()
 {
 	fColor = texture(MainTexture, vs_fs_texcoord.xy);
