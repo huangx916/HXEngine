@@ -92,5 +92,24 @@ void main()
             v.z = dot (lightObjectDir, n);
             lightTangentDir[i] = normalize (v);
         }
+        if(Lights[i].lightType == 3)
+        {
+            // 聚光灯
+            vec3 lightWorldDir = Lights[i].lightPos - worldPos.xyz;
+            lightDistance[i] = length(lightWorldDir);
+            vec3 lightObjectDir = normalize((vec4(lightWorldDir,0) * model_matrix).xyz);
+            vec3 v;
+            v.x = dot (lightObjectDir, t);
+            v.y = dot (lightObjectDir, b);
+            v.z = dot (lightObjectDir, n);
+            lightTangentDir[i] = normalize (v);
+
+            vec3 ConeWorldDir = Lights[i].ConeDirection;
+            vec3 ConeObjectDir = normalize((vec4(ConeWorldDir,0) * model_matrix).xyz);
+            v.x = dot (ConeObjectDir, t);
+            v.y = dot (ConeObjectDir, b);
+            v.z = dot (ConeObjectDir, n);
+            ConeTangentDir[i] = normalize (v);
+        }
     }
 }

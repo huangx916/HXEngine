@@ -72,6 +72,37 @@ float constantAttenuation, float LinearAttenuation, float QuadraticAttenuation, 
 	spec += lightColor * specular * attenuation;
 }
 
+void SpotLight(vec3 eyeDir, vec3 lightDir, float lightDistance, vec3 normal, vec3 lightColor, float shininess, float strength,
+float constantAttenuation, float LinearAttenuation, float QuadraticAttenuation,
+vec3 ConeDirection, float SpotCosCutoff, float SpotExponent, inout vec3 diff, inout vec3 spec)
+{
+	float attenuation = 1.0 / (constantAttenuation + LinearAttenuation*lightDistance + QuadraticAttenuation*lightDistance*lightDistance);
+	float spotCos = dot(lightDir, -ConeDirection);
+	if(spotCos < SpotCosCutoff)
+	{
+		attenuation = 0.0;
+	}
+	else
+	{
+		attenuation *= pow(spotCos, SpotExponent);
+	}
+	vec3 halfDir = normalize(lightDir + eyeDir);
+	float diffuse = max(0.0, dot(normal, lightDir));
+	float specular = max(0.0, dot(normal, halfDir));
+	if(diffuse == 0.0)
+	{
+		specular = 0.0;
+	}
+	else
+	{
+		specular = pow(specular, shininess) * strength;
+	}
+
+	//attenuation = 1;
+	diff += lightColor * diffuse * attenuation;
+	spec += lightColor * specular * attenuation;
+}
+
 void main()
 {
     fColor = texture(MainTexture, vs_fs_texcoord.xy) * DiffuseColor;
@@ -97,6 +128,13 @@ void main()
         {
             // 点光源
             PointLight(normalize(eyeTangentDir), normalize(lightTangentDir[i]), lightDistance[i], normalize(normal), Lights[i].lightColor, Lights[i].shininess, Lights[i].strength, Lights[i].constantAttenuation, Lights[i].LinearAttenuation, Lights[i].QuadraticAttenuation, diff, spec);
+        }
+        else if(Lights[i].lightType == 3)
+        {
+            // 聚光灯
+            SpotLight(normalize(eyeTangentDir), normalize(lightTangentDir[i]), lightDistance[i], normalize(normal), Lights[i].lightColor, Lights[i].shininess, Lights[i].strength,
+            Lights[i].constantAttenuation, Lights[i].LinearAttenuation, Lights[i].QuadraticAttenuation,
+            normalize(ConeTangentDir[i]), Lights[i].SpotCosCutoff, Lights[i].SpotExponent, diff, spec);
         }
     }
     vec3 scatteredLight = ambi + diff;
