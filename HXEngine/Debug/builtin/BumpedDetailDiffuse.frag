@@ -14,29 +14,29 @@ out vec4 fColor;
 
 void main()
 {
+	// 顶点法线
 	//fColor = texture(MainTexture, vs_fs_texcoord.xy);
 	//vec3 lightDir = normalize(vec3(-1,1,1));
 	//vec3 normal = normalize(vs_fs_normal.xyz);
 	//float diffuse = max(0.0, dot(normal, lightDir));
 	//vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
 	//fColor = vec4(rgb, fColor.a);
-	//return;
 	
+	// 法线贴图
 	//fColor = texture(MainTexture, vs_fs_texcoord.xy);
 	//vec3 normal = 2.0 * texture(NormalMap, vs_fs_texcoord.zw).rgb - 1.0;
 	//normal = normalize(normal);
 	//float diffuse = max(0.0, dot(normal, vs_fs_light_dir));
 	//vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
 	//fColor = vec4(rgb, fColor.a);
-	//return;
 	
+	// 细节法线贴图
 	float _Opacity = 1.0;
 	vec4 _Color = vec4(1,1,1,1);
-	vec4 tex2 = texture(MainTexture, vs_fs_texcoord.xy);
-	vec4 tex = texture(MainTexture2, vs_fs_detailtexcoord.xy);
+	vec4 tex = texture(MainTexture, vs_fs_texcoord.xy);
+	vec4 tex2 = texture(MainTexture2, vs_fs_detailtexcoord.xy);
 	vec4 dest;
 	_Opacity*=tex.a;
-	//dest.rgb = tex2.rgb <= 0.5 ? 2*tex.rgb*tex2.rgb : 1-2*(1-tex.rgb)*(1-tex2.rgb);
 	bvec3 tmpvar = lessThanEqual(tex2.rgb, vec3(0.5,0.5,0.5));
 	if(tmpvar.x)
 	{
@@ -62,16 +62,12 @@ void main()
 	{
 		dest.b = 1-2*(1-tex.b)*(1-tex2.b);
 	}
-	//dest.rgb = lerp(tex2.rgb, dest.rgb, _Opacity);
 	dest.rgb = tex2.rgb + _Opacity*(dest.rgb-tex2.rgb);
 	dest.rgb *= _Color.rgb;
-	//o.Albedo = dest.rgb;
 	fColor.rgb = dest.rgb;
-	//o.Alpha = tex2.a * _Color.a;
 	fColor.a = tex2.a * _Color.a;
-	vec4 norm2 = texture(NormalMap, vs_fs_texcoord.zw);
-	vec4 norm = texture(NormalMap2, vs_fs_detailtexcoord.zw);
-	//dest = norm2<=0.5 ? 2*norm*norm2 : 1-2*(1-norm)*(1-norm2);
+	vec4 norm = texture(NormalMap, vs_fs_texcoord.zw);
+	vec4 norm2 = texture(NormalMap2, vs_fs_detailtexcoord.zw);
 	bvec4 tmpvar_2 = lessThanEqual(norm2, vec4(0.5,0.5,0.5,0.5));
 	if(tmpvar_2.x)
 	{
@@ -105,9 +101,7 @@ void main()
 	{
 		dest.w = 1-2*(1-norm.w)*(1-norm2.w);
 	}
-	//dest = lerp(norm2, dest, _Opacity);
 	dest = norm2 + _Opacity*(dest-norm2);
-	//o.Normal = UnpackNormal(dest);
 	vec3 normal = 2.0 * dest.rgb - 1.0;
 	float diffuse = max(0.0, dot(normal, vs_fs_light_dir));
 	vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
