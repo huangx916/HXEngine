@@ -22,9 +22,9 @@ struct LightInfo
   };
 const int MaxLights = 10;
 uniform LightInfo Lights[MaxLights];
-
 in vec3 lightTangentDir[MaxLights];
 in vec3 ConeTangentDir[MaxLights];
+in float lightDistance[MaxLights];
 
 in vec3 eyeTangentDir;
 
@@ -51,6 +51,27 @@ void DirectionalLight(vec3 eyeDir, vec3 lightDir, vec3 normal, vec3 lightColor, 
 	//spec = vec3(0);
 }
 
+void PointLight(vec3 eyeDir, vec3 lightDir, float lightDistance, vec3 normal, vec3 lightColor, float shininess, float strength,
+float constantAttenuation, float LinearAttenuation, float QuadraticAttenuation, inout vec3 diff, inout vec3 spec)
+{
+	float attenuation = 1.0 / (constantAttenuation + LinearAttenuation*lightDistance + QuadraticAttenuation*lightDistance*lightDistance);
+	vec3 halfDir = normalize(lightDir + eyeDir);
+	float diffuse = max(0.0, dot(normal, lightDir));
+	float specular = max(0.0, dot(normal, halfDir));
+	if(diffuse == 0.0)
+	{
+		specular = 0.0;
+	}
+	else
+	{
+		specular = pow(specular, shininess) * strength;
+	}
+
+	//attenuation = 0.2;
+	diff += lightColor * diffuse * attenuation;
+	spec += lightColor * specular * attenuation;
+}
+
 void main()
 {
     fColor = texture(MainTexture, vs_fs_texcoord.xy) * DiffuseColor;
@@ -71,6 +92,11 @@ void main()
         {
             // 平行光
             DirectionalLight(normalize(eyeTangentDir), normalize(lightTangentDir[i]), normalize(normal), Lights[i].lightColor, Lights[i].shininess, Lights[i].strength, diff, spec);
+        }
+        else if(Lights[i].lightType == 2)
+        {
+            // 点光源
+            PointLight(normalize(eyeTangentDir), normalize(lightTangentDir[i]), lightDistance[i], normalize(normal), Lights[i].lightColor, Lights[i].shininess, Lights[i].strength, Lights[i].constantAttenuation, Lights[i].LinearAttenuation, Lights[i].QuadraticAttenuation, diff, spec);
         }
     }
     vec3 scatteredLight = ambi + diff;

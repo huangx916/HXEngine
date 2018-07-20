@@ -13,34 +13,27 @@ uniform mat4 mvp_matrix;
 uniform vec4 MainTexture_ST;
 uniform vec4 NormalMap_ST;
 
-//struct LightInfo
-//{
-//	bool isEnable;
-//	int lightType;
-//	vec3 lightDir;
-//	vec3 lightPos;
-//	vec3 ConeDirection;
-//};
 struct LightInfo
-  {
-  	bool isEnable;
-  	int lightType;
-  	vec3 lightColor;
-  	vec3 lightDir;
-  	float shininess;
-  	float strength;
-  	vec3 lightPos;
-  	float constantAttenuation;	// 衰减系数
-  	float LinearAttenuation;
-  	float QuadraticAttenuation;
-  	vec3 ConeDirection;
-  	float SpotCosCutoff;
-  	float SpotExponent;
-  };
+{
+    bool isEnable;
+    int lightType;
+    vec3 lightColor;
+    vec3 lightDir;
+    float shininess;
+    float strength;
+    vec3 lightPos;
+    float constantAttenuation;	// 衰减系数
+    float LinearAttenuation;
+    float QuadraticAttenuation;
+    vec3 ConeDirection;
+    float SpotCosCutoff;
+    float SpotExponent;
+};
 const int MaxLights = 10;
 uniform LightInfo Lights[MaxLights];
 out vec3 lightTangentDir[MaxLights];
 out vec3 ConeTangentDir[MaxLights];
+out float lightDistance[MaxLights];
 
 uniform vec3 eyePos;
 out vec3 eyeTangentDir;
@@ -59,6 +52,7 @@ void main()
 	vec3 b = cross(n, t);
 
     vec4 worldPos = model_matrix * vec4(position.xyz, 1);
+
     vec3 eyeWorldDir = eyePos - worldPos.xyz;
     vec3 eyeObjectDir = normalize((vec4(eyeWorldDir,0) * model_matrix).xyz);
     vec3 v;
@@ -75,10 +69,23 @@ void main()
         }
         if(Lights[i].lightType == 1)
         {
+            // 平行光
             vec3 lightWorldDir = Lights[i].lightDir;
             //// 1	3x3正交矩阵 转置矩阵即是逆矩阵 矩阵右乘同转置矩阵左乘
             vec3 lightObjectDir = normalize((vec4(lightWorldDir,0) * model_matrix).xyz);
             // lighting tangent space
+            vec3 v;
+            v.x = dot (lightObjectDir, t);
+            v.y = dot (lightObjectDir, b);
+            v.z = dot (lightObjectDir, n);
+            lightTangentDir[i] = normalize (v);
+        }
+        if(Lights[i].lightType == 2)
+        {
+            // 点光源
+            vec3 lightWorldDir = Lights[i].lightPos - worldPos.xyz;
+            lightDistance[i] = length(lightWorldDir);
+            vec3 lightObjectDir = normalize((vec4(lightWorldDir,0) * model_matrix).xyz);
             vec3 v;
             v.x = dot (lightObjectDir, t);
             v.y = dot (lightObjectDir, b);
