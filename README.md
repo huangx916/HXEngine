@@ -16,7 +16,7 @@ libfbxsdk-md.lib[自行下载](https://pan.baidu.com/s/1oCiEz5Ol3jDkzU6Ut0FoQg)�
 
 OpenGL RenderSystem:
 ================================================================================
-FBX模型加载、骨骼动画、数学库、UI字体、DDS/PNG加载、相机系统、光照、材质、阴影、SKYBOX、FOG、场景可配置化、编辑器
+FBX模型加载、骨骼动画、数学库、UI字体、DDS/PNG加载、相机系统、光照、材质、阴影、SKYBOX、FOG、场景可配置化、编辑器、可渲染单位排序、动态批处理
 GLSL：支持多光照、雾、ShadowMap、法线贴图、细节贴图等的shader
 使用右手坐标系
 列主序向量 列主序矩阵
