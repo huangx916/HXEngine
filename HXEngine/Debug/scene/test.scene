@@ -5,15 +5,15 @@
 		<Rotation Rx="-0.1" Ry="-13.5" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
-	<Ambient R="0" G="0" B="0"/>
+	<Ambient R="100" G="100" B="100"/>
 	<Lights>
 		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
-			<Color Cr="0" Cg="255" Cb="0"/>
+			<Color Cr="255" Cg="255" Cb="255"/>
 			<Position Px="0" Py="0" Pz="0"/>
 			<Direct Dx="1" Dy="0" Dz="1"/>
 			<ConeDirection Cx="0" Cy="0" Cz="0"/>
 		</Light>
-		<Light Name="PointLight1" Enable="1" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="0.01" SpotCosCutoff="0" SpotExponent="0">
+		<Light Name="PointLight1" Enable="0" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="0.01" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="255" Cg="0" Cb="0"/>
 			<Position Px="0" Py="7" Pz="5"/>
 			<Direct Dx="0" Dy="0" Dz="0"/>

@@ -53,7 +53,6 @@ void HXGameWidget::initializeGL()
 	glewInit();
 
 	initializeOpenGLFunctions();
-	glClearColor(1, 1, 1, 1);
 
 	HXRoot::GetInstance()->Initialize(RenderSystem_GL);
 	HXRoot::GetInstance()->InitForEditor();

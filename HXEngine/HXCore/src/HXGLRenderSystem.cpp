@@ -59,8 +59,6 @@ namespace HX3D
 			exit(EXIT_FAILURE);
 		}
 
-		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
 		Initialize();
 	}
 
@@ -154,6 +152,8 @@ namespace HX3D
 
 	void HXGLRenderSystem::Initialize()
 	{
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glEnable(GL_MULTISAMPLE);
 		// InitTriangle();
 		mFont = new HXGLFreeTypeFont();
 		mFont->Initialize("default.ttf", 16);

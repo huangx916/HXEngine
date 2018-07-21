@@ -68,7 +68,8 @@ namespace HX3D
 				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				vglUnloadImage(&tex->mImageData);*/
 				glBindTexture(GL_TEXTURE_2D, tex->texId);
-
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+				
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
 
@@ -216,29 +217,6 @@ namespace HX3D
 			}
 		}
 
-		// shadow
-		// 每帧需要更新
-		//GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, "depth_texture");
-		//if (tex_uniform_loc != -1)
-		//{
-		//	HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
-		//	HXGLShadowMap* sm = rs->mShadowMap;
-		//	if (sm)
-		//	{
-		//		const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
-		//		vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
-		//		vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
-		//		vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
-		//		glUniformMatrix4fv(render_scene_uniforms.render_shadow_matrix_loc, 1, GL_FALSE, scale_bias_matrix * sm->light_projection_matrix * sm->light_view_matrix);
-
-		//		glUniform1i(tex_uniform_loc, nTexIndex);
-		//		glActiveTexture(GL_TEXTURE0 + nTexIndex);
-		//		//glBindTexture(tex->mImageData.target, tex->texId);
-		//		glBindTexture(GL_TEXTURE_2D, sm->depth_texture);
-		//		++nTexIndex;
-		//	}
-		//}
-
 		glUseProgram(0);
 	}
 
@@ -291,6 +269,7 @@ namespace HX3D
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				glBindTexture(GL_TEXTURE_2D, tex->texId);
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 				if (HXRoot::GetInstance()->IsEditorMode())
 				{
