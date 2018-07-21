@@ -39,6 +39,12 @@ uniform vec3 eyePos;
 out vec3 eyeTangentDir;
 out vec4 vs_fs_texcoord;
 
+///////////////////////////////////////////
+// fog
+uniform int useFog;
+out float vs_fs_distance;
+////////////////////////////////////////////
+
 void main()
 {
 	gl_Position = mvp_matrix * vec4(position.xyz, 1);
@@ -113,4 +119,12 @@ void main()
             ConeTangentDir[i] = normalize (v);
         }
     }
+    /////////////////////////////////////////////////////////////////
+    // fog
+    if(useFog == 1)
+    {
+        vec4 mvPosition = view_matrix * model_matrix * vec4(position, 1);
+        vs_fs_distance = sqrt(mvPosition.x * mvPosition.x + mvPosition.y * mvPosition.y + mvPosition.z * mvPosition.z);
+    }
+    /////////////////////////////////////////////////////////////////
 }

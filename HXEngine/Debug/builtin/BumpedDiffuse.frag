@@ -27,8 +27,17 @@ in vec3 ConeTangentDir[MaxLights];
 in float lightDistance[MaxLights];
 
 in vec3 eyeTangentDir;
-
 in vec4 vs_fs_texcoord;
+
+/////////////////////////////////////////////////////
+// fog
+uniform int useFog;
+uniform int fogType;
+uniform vec3 fogColor;
+uniform float fogStart;
+uniform float fogEnd;
+in float vs_fs_distance;
+/////////////////////////////////////////////////////
 
 out vec4 fColor;
 
@@ -143,28 +152,18 @@ void main()
     fColor = vec4(rgb, fColor.a);
     //////////////////////////////////////////////////////////////////////////////////////
 
-//    //////////////////////////////////////////////////////////////////////////////////////
-//    // 线性雾
-//    if(useFog == 1)
-//    {
-//        // linear fog
-//        if(fogType == 0)
-//        {
-//            vec4 _fogColor = vec4(fogColor, 1.0);
-//            float fog  = (vs_fs_distance - fogStart)/fogEnd;
-//            fog = clamp(fog, 0.0, 1.0);
-//            fColor = mix(fColor, _fogColor, fog);
-//        }
-//    }
-//    //////////////////////////////////////////////////////////////////////////////////////
-
-
-	
-//	// 法线贴图
-//	fColor = texture(MainTexture, vs_fs_texcoord.xy);
-//	vec3 normal = 2.0 * texture(NormalMap, vs_fs_texcoord.zw).rgb - 1.0;
-//	normal = normalize(normal);
-//	float diffuse = max(0.0, dot(normal, vs_fs_light_dir));
-//	vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
-//	fColor = vec4(rgb, fColor.a);
+    //////////////////////////////////////////////////////////////////////////////////////
+	// 线性雾
+	if(useFog == 1)
+	{
+		// linear fog
+		if(fogType == 0)
+		{
+			vec4 _fogColor = vec4(fogColor, 1.0);
+			float fog  = (vs_fs_distance - fogStart)/fogEnd;
+			fog = clamp(fog, 0.0, 1.0);
+			fColor = mix(fColor, _fogColor, fog);
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////////////////
 }
