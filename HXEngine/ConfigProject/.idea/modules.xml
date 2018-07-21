@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Debug/builtin/builtin.iml" filepath="$PROJECT_DIR$/../Debug/builtin/builtin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Debug/prefab/prefab.iml" filepath="$PROJECT_DIR$/../Debug/prefab/prefab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Debug/scene/scene.iml" filepath="$PROJECT_DIR$/../Debug/scene/scene.iml" />
+    </modules>
+  </component>
+</project>
