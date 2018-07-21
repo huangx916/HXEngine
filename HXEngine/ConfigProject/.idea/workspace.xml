@@ -11,43 +11,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
+      <file leaf-file-name="BumpedDetailDiffuse.vert" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDetailDiffuse.vert">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="543">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BumpedDetailDiffuse.frag" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDetailDiffuse.frag">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="120" column="12" lean-forward="true" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="BumpedDiffuse.vert" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDiffuse.vert">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="126" column="119" lean-forward="true" selection-start-line="126" selection-start-column="119" selection-end-line="126" selection-end-column="119" />
+            <state relative-caret-position="2643">
+              <caret line="127" column="69" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="127" selection-end-column="69" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BumpedDiffuse.frag" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BumpedDiffuse.frag" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDiffuse.frag">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="154" column="4" selection-start-line="154" selection-start-column="4" selection-end-line="154" selection-end-column="4" />
+            <state relative-caret-position="483">
+              <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Diffuse.vert" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Debug/builtin/Diffuse.vert">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="753">
-              <caret line="49" column="69" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="49" selection-end-column="69" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Diffuse.frag" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Debug/builtin/Diffuse.frag">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="732">
-              <caret line="175" column="90" lean-forward="true" selection-start-line="162" selection-start-column="4" selection-end-line="175" selection-end-column="90" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Rock2_NMP.material" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Rock2_NMP.material" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../Debug/prefab/_Material/Rock2_NMP/Rock2_NMP.material">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
@@ -59,8 +59,8 @@
       <file leaf-file-name="test.scene" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../Debug/scene/test.scene">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="3" column="47" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="47" />
+            <state relative-caret-position="60">
+              <caret line="2" column="37" lean-forward="true" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -69,17 +69,20 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>DiffuseColor</find>
       <find>shininess</find>
       <find>eyeTangentDir</find>
+      <find>DiffuseColor</find>
+      <find>_Color</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../Debug/prefab/_Material/Rock2_NMP/Rock2_NMP.material" />
         <option value="$PROJECT_DIR$/../Debug/builtin/BumpedDiffuse.vert" />
+        <option value="$PROJECT_DIR$/../Debug/builtin/BumpedDetailDiffuse.vert" />
         <option value="$PROJECT_DIR$/../Debug/builtin/BumpedDiffuse.frag" />
+        <option value="$PROJECT_DIR$/../Debug/prefab/_Material/Rock2_NMP/Rock2_NMP.material" />
+        <option value="$PROJECT_DIR$/../Debug/builtin/BumpedDetailDiffuse.frag" />
       </list>
     </option>
   </component>
@@ -334,38 +337,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Debug/scene/test.scene">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="3" column="47" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Debug/builtin/_InverseMatrix.glsl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2250">
           <caret line="75" column="4" lean-forward="true" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Debug/prefab/_Material/Rock2_NMP/Rock2_NMP.material">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Debug/builtin/Diffuse.vert">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="49" column="69" lean-forward="true" selection-start-line="42" selection-start-column="4" selection-end-line="49" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDiffuse.vert">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="126" column="119" lean-forward="true" selection-start-line="126" selection-start-column="119" selection-end-line="126" selection-end-column="119" />
         </state>
       </provider>
     </entry>
@@ -376,10 +351,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Debug/builtin/Diffuse.vert">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDiffuse.vert">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2643">
+          <caret line="127" column="69" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="127" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDetailDiffuse.vert">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Debug/scene/test.scene">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="37" lean-forward="true" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDiffuse.frag">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="154" column="4" selection-start-line="154" selection-start-column="4" selection-end-line="154" selection-end-column="4" />
+        <state relative-caret-position="483">
+          <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Debug/builtin/BumpedDetailDiffuse.frag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="120" column="12" lean-forward="true" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Debug/prefab/_Material/Rock2_NMP/Rock2_NMP.material">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
         </state>
       </provider>
     </entry>

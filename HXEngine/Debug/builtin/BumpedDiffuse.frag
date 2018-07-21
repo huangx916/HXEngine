@@ -3,31 +3,30 @@ uniform sampler2D MainTexture;
 uniform sampler2D NormalMap;
 uniform vec4 DiffuseColor;
 uniform vec3 ambient;
+in vec4 vs_fs_texcoord;
 
 struct LightInfo
-  {
-  	bool isEnable;
-  	int lightType;
-  	vec3 lightColor;
-  	vec3 lightDir;
-  	float shininess;
-  	float strength;
-  	vec3 lightPos;
-  	float constantAttenuation;	// 衰减系数
-  	float LinearAttenuation;
-  	float QuadraticAttenuation;
-  	vec3 ConeDirection;
-  	float SpotCosCutoff;
-  	float SpotExponent;
-  };
+{
+    bool isEnable;
+    int lightType;
+    vec3 lightColor;
+    vec3 lightDir;
+    float shininess;
+    float strength;
+    vec3 lightPos;
+    float constantAttenuation;	// 衰减系数
+    float LinearAttenuation;
+    float QuadraticAttenuation;
+    vec3 ConeDirection;
+    float SpotCosCutoff;
+    float SpotExponent;
+};
 const int MaxLights = 5;
 uniform LightInfo Lights[MaxLights];
 in vec3 lightTangentDir[MaxLights];
 in vec3 ConeTangentDir[MaxLights];
 in float lightDistance[MaxLights];
-
 in vec3 eyeTangentDir;
-in vec4 vs_fs_texcoord;
 
 /////////////////////////////////////////////////////
 // fog

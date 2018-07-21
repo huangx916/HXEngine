@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="2.0282" Py="1.33854" Pz="11.9512"/>
-		<Rotation Rx="-15.5" Ry="-357.7" Rz="0"/>
+		<Position Px="0.593529" Py="0.976398" Pz="11.07"/>
+		<Rotation Rx="-13.7" Ry="-359.1" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
@@ -395,28 +395,28 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.3" Sy="0.4" Sz="0.3"/>
 			<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="3000" CastShadow="1">
-				<Position Px="0" Py="0" Pz="0"/>
+				<Position Px="0" Py="-2" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="1" Sy="1.2" Sz="1"/>
 			</GameObj>
 			<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="3000" CastShadow="1">
-				<Position Px="-6" Py="0" Pz="0"/>
+				<Position Px="-6" Py="-3" Pz="0"/>
 				<Rotation Rx="0" Ry="324" Rz="0"/>
 				<Scale Sx="0.8" Sy="1" Sz="0.9"/>
 			</GameObj>
 			<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="3000" CastShadow="1">
 				<Position Px="6" Py="0" Pz="-0.5"/>
-				<Rotation Rx="0" Ry="52" Rz="-0.5"/>
-				<Scale Sx="1" Sy="1.4" Sz="1"/>
+				<Rotation Rx="0" Ry="80" Rz="-0.5"/>
+				<Scale Sx="1" Sy="1.1" Sz="1"/>
 			</GameObj>
 			<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="3000" CastShadow="1">
-				<Position Px="12" Py="0" Pz="0"/>
+				<Position Px="11" Py="-1" Pz="0"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
-				<Scale Sx="1" Sy="1.2" Sz="1"/>
+				<Scale Sx="1" Sy="1" Sz="1"/>
 			</GameObj>
 			<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="3000" CastShadow="1">
-				<Position Px="17" Py="-1" Pz="-1"/>
-				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Position Px="17" Py="-3" Pz="-1"/>
+				<Rotation Rx="0" Ry="111" Rz="0"/>
 				<Scale Sx="1" Sy="1" Sz="1"/>
 			</GameObj>
 		</GameObj>

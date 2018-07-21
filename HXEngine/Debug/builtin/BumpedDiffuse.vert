@@ -12,6 +12,7 @@ uniform mat4 mvp_matrix;
 
 uniform vec4 MainTexture_ST;
 uniform vec4 NormalMap_ST;
+out vec4 vs_fs_texcoord;
 
 struct LightInfo
 {
@@ -34,10 +35,8 @@ uniform LightInfo Lights[MaxLights];
 out vec3 lightTangentDir[MaxLights];
 out vec3 ConeTangentDir[MaxLights];
 out float lightDistance[MaxLights];
-
 uniform vec3 eyePos;
 out vec3 eyeTangentDir;
-out vec4 vs_fs_texcoord;
 
 ///////////////////////////////////////////
 // fog
@@ -47,7 +46,7 @@ out float vs_fs_distance;
 
 void main()
 {
-	gl_Position = mvp_matrix * vec4(position.xyz, 1);
+	gl_Position = mvp_matrix * vec4(position, 1);
 
 	vs_fs_texcoord.xy = texcoord * MainTexture_ST.xy + MainTexture_ST.zw;
 	vs_fs_texcoord.zw = texcoord * NormalMap_ST.xy + NormalMap_ST.zw;
@@ -56,7 +55,7 @@ void main()
 	vec3 t = normalize(tangent);
 	vec3 b = cross(n, t);
 
-    vec4 worldPos = model_matrix * vec4(position.xyz, 1);
+    vec4 worldPos = model_matrix * vec4(position, 1);
 
     vec3 eyeWorldDir = eyePos - worldPos.xyz;
     vec3 eyeObjectDir = normalize((vec4(eyeWorldDir,0) * model_matrix).xyz);
