@@ -20,7 +20,7 @@ struct LightInfo
   	float SpotCosCutoff;
   	float SpotExponent;
   };
-const int MaxLights = 10;
+const int MaxLights = 5;
 uniform LightInfo Lights[MaxLights];
 in vec3 lightTangentDir[MaxLights];
 in vec3 ConeTangentDir[MaxLights];
