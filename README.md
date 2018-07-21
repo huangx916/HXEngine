@@ -16,10 +16,10 @@ libfbxsdk-md.lib[自行下载](https://pan.baidu.com/s/1oCiEz5Ol3jDkzU6Ut0FoQg)�
 
 OpenGL RenderSystem:
 ================================================================================
-FBX模型加载、骨骼动画、数学库、UI字体、DDS/PNG加载、相机系统、光照、材质、阴影、SKYBOX、FOG、场景可配置化、编辑器、可渲染单位排序、动态批处理
-GLSL：支持多光照、雾、ShadowMap、法线贴图、细节贴图等的shader
-使用右手坐标系
-列主序向量 列主序矩阵
+FBX模型加载、骨骼动画、数学库、UI字体、DDS/PNG加载、相机系统、光照、材质、阴影、SKYBOX、FOG、场景可配置化、编辑器、可渲染单位排序、动态批处理  
+GLSL：支持多光照、雾、ShadowMap、法线贴图、细节贴图等的shader  
+使用右手坐标系  
+列主序向量 列主序矩阵  
 FBX导出UV后V要翻转下：V = 1- V (HLSL #define UNITY_UV_STARTS_AT_TOP 1)
 
 TODO:
@@ -27,22 +27,22 @@ TODO:
 
 GDI RenderSystem:
 ================================================================================
-游戏窗口创建及循环 GDI 数学库 相机 固定流水线 模型加载 骨骼动画 BMP加载
-使用左手坐标系     由 UVN N方向决定   背面裁剪三角形缠绕方向及法线方向
-行主序向量 行主序矩阵	最后渲染X轴反转以保持与OPENGL方向一致
-FBX导出UV后V要翻转下：V = 1- V (#define UNITY_UV_STARTS_AT_TOP 1)
+游戏窗口创建及循环 GDI 数学库 相机 固定流水线 模型加载 骨骼动画 BMP加载  
+使用左手坐标系     由 UVN N方向决定   背面裁剪三角形缠绕方向及法线方向  
+行主序向量 行主序矩阵	最后渲染X轴反转以保持与OPENGL方向一致  
+FBX导出UV后V要翻转下：V = 1- V (#define UNITY_UV_STARTS_AT_TOP 1)  
 世界空间背面消除
 
-TODO:
-cpu:
-	世界空间gameobject:
-		四叉树、八叉树、BSP、PVS、PORTAL(不需要每帧更新变化，游戏开始时固定生成的数据结构)
-		Frustum culling    CullSphere(只需把中心点转换到视图空间进行判断)
-	renderlist:
-		cull back
-gpu:
-	投影齐次裁剪空间renderlist:
-		Frustum culling 
+TODO:  
+cpu:  
+	世界空间gameobject:  
+		四叉树、八叉树、BSP、PVS、PORTAL(不需要每帧更新变化，游戏开始时固定生成的数据结构)  
+		Frustum culling    CullSphere(只需把中心点转换到视图空间进行判断)  
+	renderlist:  
+		cull back  
+gpu:  
+	投影齐次裁剪空间renderlist:  
+		Frustum culling  
 		Frustum cliping-->填充平底和平顶三角形时，丢弃屏幕外像素
 		
 		
