@@ -74,5 +74,3 @@ namespace HX3D
 		std::map<int, vectorRenderable> transparentMap;
 	};
 }
-
-

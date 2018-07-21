@@ -37,7 +37,6 @@ out float lightDistance[MaxLights];
 
 uniform vec3 eyePos;
 out vec3 eyeTangentDir;
-
 out vec4 vs_fs_texcoord;
 
 void main()
@@ -59,7 +58,9 @@ void main()
     v.x = dot (eyeObjectDir, t);
     v.y = dot (eyeObjectDir, b);
     v.z = dot (eyeObjectDir, n);
-    eyeTangentDir = normalize (v);
+    //eyeTangentDir = normalize (v);
+    vec3 v1 = normalize (v);
+    eyeTangentDir = v1;
 
 	for(int i = 0; i < MaxLights; ++i)
     {

@@ -460,4 +460,3 @@ namespace HX3D
 		}
 	}
 }
-
