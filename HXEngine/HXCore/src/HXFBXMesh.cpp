@@ -44,6 +44,8 @@ namespace HX3D
 		
 		if (lMaterialIndice && lMaterialMappingMode == FbxGeometryElement::eByPolygon)
 		{
+			// 一个fbx多个mesh情况下
+			int startIndex = subMeshList.size();
 			// 多个子网格
 			FBX_ASSERT(lMaterialIndice->GetCount() == nTriangleCount);
 			if (lMaterialIndice->GetCount() == nTriangleCount)
@@ -51,15 +53,15 @@ namespace HX3D
 				for (int i = 0; i < nTriangleCount; ++i)
 				{
 					const int lMaterialIndex = lMaterialIndice->GetAt(i);
-					if (subMeshList.size() < lMaterialIndex + 1)
+					if (subMeshList.size() - startIndex < lMaterialIndex + 1)
 					{
-						subMeshList.resize(lMaterialIndex + 1);
+						subMeshList.resize(startIndex + lMaterialIndex + 1);
 					}
-					if (subMeshList[lMaterialIndex] == NULL)
+					if (subMeshList[startIndex + lMaterialIndex] == NULL)
 					{
-						subMeshList[lMaterialIndex] = new HXSubMesh();
+						subMeshList[startIndex + lMaterialIndex] = new HXSubMesh();
 					}
-					subMeshList[lMaterialIndex]->triangleCount += 1;
+					subMeshList[startIndex + lMaterialIndex]->triangleCount += 1;
 					// 关联材质
 					/*FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(lMaterialIndex);
 					std::string strMaterialName = HXFBXLoader::gCurPathFileName + "|" + lMaterial->GetName();
@@ -86,7 +88,7 @@ namespace HX3D
 						// Read the tangent of each vertex  
 						ReadTangent(pFbxMesh, nCtrlPointIndex, nVertexCounter, vertex);
 
-						subMeshList[lMaterialIndex]->vertexList.push_back(vertex);
+						subMeshList[startIndex + lMaterialIndex]->vertexList.push_back(vertex);
 						nVertexCounter++;
 					}
 				}
@@ -102,9 +104,15 @@ namespace HX3D
 		else
 		{
 			// 只有一个子网格或者无材质信息
-			subMeshList.resize(1);
+			/*subMeshList.resize(1);
 			subMeshList[0] = new HXSubMesh();
-			subMeshList[0]->triangleCount = nTriangleCount;
+			subMeshList[0]->triangleCount = nTriangleCount;*/
+			// 一个fbx多个mesh情况下
+			int startIndex = subMeshList.size();
+			subMeshList.resize(startIndex + 1);
+			subMeshList[startIndex] = new HXSubMesh();
+			subMeshList[startIndex]->triangleCount = nTriangleCount;
+
 			// 关联材质
 			/*FbxSurfaceMaterial* lMaterial = pFbxMesh->GetNode()->GetMaterial(0);
 			if (lMaterial)
@@ -136,7 +144,8 @@ namespace HX3D
 					// Read the tangent of each vertex  
 					ReadTangent(pFbxMesh, nCtrlPointIndex, nVertexCounter, vertex);
 
-					subMeshList[0]->vertexList.push_back(vertex);
+					//subMeshList[0]->vertexList.push_back(vertex);
+					subMeshList[startIndex]->vertexList.push_back(vertex);
 					nVertexCounter++;
 				}
 			}

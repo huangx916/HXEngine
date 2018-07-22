@@ -26,7 +26,7 @@ batching：
 
 normal map
 
-fbx muti mesh
+fbx muti mesh	gameobject通过index参数来加载fbx中对应的mesh
 
 render state dirty update(现为编辑器模式下每帧更新)
 
