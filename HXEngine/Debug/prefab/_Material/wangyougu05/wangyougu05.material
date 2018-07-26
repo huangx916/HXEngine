@@ -30,9 +30,10 @@ ect...
 ect...
 -->
 <Material>
-	<State CullFace = "2" DepthTest="3" AlphaBlend="1" SrcAlpha="2" DestAlpha="3"/>
-    <Shader File="builtin/Diffuse">
+	<State CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
+    <Shader File="builtin/DiffuseCutout">
 		<Property Type="0" Name="MainTexture" Value="prefab/_Material/wangyougu05/wangyougu05.dds" Value1="1" Value2="1" Value3="0" Value4="0"/>
 		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="1" Value3="1" Value4="1"/>
+		<Property Type="1" Name="CutoutThreshold" Value="" Value1="0.5" Value2="0" Value3="0" Value4="0"/>
 	</Shader>
 </Material>

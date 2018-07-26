@@ -74,6 +74,7 @@ namespace HX3D
 		glFrontFace(GL_CCW);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
+		glDepthMask(GL_TRUE);
 
 		// Matrices for rendering the scene
 		//vmath::mat4 scene_model_matrix = rotate(t * 720.0f, Y);

@@ -30,7 +30,7 @@ ect...
 ect...
 -->
 <Material>
-	<State CullFace = "2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
+	<State CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
     <Shader File="builtin/BumpedDetailDiffuse">
 		<Property Type="0" Name="MainTexture" Value="prefab/_Material/Rock2_NMP/Rock2.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
 		<Property Type="0" Name="NormalMap" Value="prefab/_Material/Rock2_NMP/Rock2_nmp.png" Value1="1" Value2="1" Value3="0" Value4="0"/>

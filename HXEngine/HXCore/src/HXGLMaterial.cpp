@@ -253,10 +253,12 @@ namespace HX3D
 		{
 			glEnable(GL_BLEND);
 			glBlendFunc(mMatInfo->nSrcAlpha + GL_SRC_COLOR, mMatInfo->nDestAlpha + GL_SRC_COLOR);
+			glDepthMask(GL_FALSE);
 		}
 		else
 		{
 			glDisable(GL_BLEND);
+			glDepthMask(GL_TRUE);
 		}
 		
 		//glEnable(GL_TEXTURE_2D);
