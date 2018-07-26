@@ -229,15 +229,37 @@ namespace HX3D
 	{
 		HXStatus::GetInstance()->nBatchCall += 1;
 
-		// TODO:提取到material配置文件中
-		glEnable(GL_CULL_FACE);
-		glFrontFace(GL_CCW);
-		//glFrontFace(GL_CW);
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LEQUAL);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
+		if (mMatInfo->nCullFace > 0)
+		{
+			glEnable(GL_CULL_FACE);
+			glFrontFace(mMatInfo->nCullFace - 1 + GL_CW);
+		}
+		else
+		{
+			glDisable(GL_CULL_FACE);
+		}
+
+		if (mMatInfo->nDepthTest > 0)
+		{
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(mMatInfo->nDepthTest - 1 + GL_LESS);
+		}
+		else
+		{
+			glDisable(GL_DEPTH_TEST);
+		}
+		
+		if (mMatInfo->nAlphaBlend > 0)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(mMatInfo->nSrcAlpha + GL_SRC_COLOR, mMatInfo->nDestAlpha + GL_SRC_COLOR);
+		}
+		else
+		{
+			glDisable(GL_BLEND);
+		}
+		
+		//glEnable(GL_TEXTURE_2D);
 
 		glUseProgram(render_scene_prog);
 

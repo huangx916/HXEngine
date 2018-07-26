@@ -23,7 +23,13 @@ namespace HX3D
 		}
 
 		TiXmlElement* rootElement = doc.RootElement();
-		TiXmlElement* shaderElement = rootElement->FirstChildElement();
+		TiXmlElement* stateElement = rootElement->FirstChildElement();
+		mMatInfo.nCullFace = atoi(stateElement->Attribute("CullFace"));
+		mMatInfo.nDepthTest = atoi(stateElement->Attribute("DepthTest"));
+		mMatInfo.nAlphaBlend = atoi(stateElement->Attribute("AlphaBlend"));
+		mMatInfo.nSrcAlpha = atoi(stateElement->Attribute("SrcAlpha"));
+		mMatInfo.nDestAlpha = atoi(stateElement->Attribute("DestAlpha"));
+		TiXmlElement* shaderElement = stateElement->NextSiblingElement();
 		mMatInfo.strShaderFile = shaderElement->Attribute("File");
 		TiXmlElement* propertyElement = shaderElement->FirstChildElement();
 		for (; propertyElement != NULL; propertyElement = propertyElement->NextSiblingElement())

@@ -23,24 +23,14 @@ batching：
 不同物体有不同的MVP，shader program也可以共享
 每帧渲染时shader uniform的texture变量需要重新处理（赋值的只是纹理绑定点，纹理绑定点绑定的纹理可能被改掉了）
 
+render queue 移到 material 配置里？ 这样以submesh为单位分到opaqueMap和transparentMap中
 
-normal map
+mipmap整理
 
 fbx muti mesh	gameobject通过index参数来加载fbx中对应的mesh
 
 render state dirty update(现为编辑器模式下每帧更新)
 
 3dmax 先附加列表合并mesh  再创建子材质球  然后设置多边形材质ID  最后导出FBX
-
-// TODO:提取到material配置文件中
-glEnable(GL_CULL_FACE);
-glFrontFace(GL_CCW);
-//glFrontFace(GL_CW);
-glEnable(GL_DEPTH_TEST);
-glDepthFunc(GL_LEQUAL);
-glEnable(GL_BLEND);
-glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-glEnable(GL_TEXTURE_2D);
-
 
 diffuse shader  move lighting to vert shader except direct light 
