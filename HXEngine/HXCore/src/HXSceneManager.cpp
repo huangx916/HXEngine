@@ -150,14 +150,13 @@ namespace HX3D
 		HXMesh* pMesh = gameobject->GetMesh();
 		if (pMesh)
 		{
-			int renderQueue = gameobject->GetRenderQueue();
-
-			if (renderQueue < ERenderQueue::RQ_TRANSPARENT)
+			for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
 			{
-				// opaque
-				for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+				HXSubMesh* subMesh = (*itr);
+				int renderQueue = subMesh->renderable->m_pMaterial->mMatInfo->nRenderQueue;
+				if (renderQueue < ERenderQueue::RQ_TRANSPARENT)
 				{
-					HXSubMesh* subMesh = (*itr);
+					// opaque
 					std::string materialName = subMesh->materialName;
 					std::map<int, mapStringVector>::iterator itr1 = opaqueMap.find(renderQueue);
 					if (itr1 != opaqueMap.end())
@@ -184,13 +183,9 @@ namespace HX3D
 					}
 					subMesh->renderable->m_pTransform = gameobject->GetTransform();
 				}
-			}
-			else
-			{
-				// transparent
-				for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+				else
 				{
-					HXSubMesh* subMesh = (*itr);
+					// transparent
 					std::map<int, vectorRenderable>::iterator itr1 = transparentMap.find(renderQueue);
 					if (itr1 != transparentMap.end())
 					{
@@ -205,6 +200,61 @@ namespace HX3D
 					subMesh->renderable->m_pTransform = gameobject->GetTransform();
 				}
 			}
+
+			//int renderQueue = gameobject->GetRenderQueue();
+			//if (renderQueue < ERenderQueue::RQ_TRANSPARENT)
+			//{
+			//	// opaque
+			//	for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+			//	{
+			//		HXSubMesh* subMesh = (*itr);
+			//		std::string materialName = subMesh->materialName;
+			//		std::map<int, mapStringVector>::iterator itr1 = opaqueMap.find(renderQueue);
+			//		if (itr1 != opaqueMap.end())
+			//		{
+			//			mapStringVector::iterator itr2 = itr1->second.find(materialName);
+			//			if (itr2 != itr1->second.end())
+			//			{
+			//				itr2->second.push_back(subMesh->renderable);
+			//			}
+			//			else
+			//			{
+			//				vectorRenderable vct;
+			//				vct.push_back(subMesh->renderable);
+			//				itr1->second.insert(std::make_pair(materialName, vct));
+			//			}
+			//		}
+			//		else
+			//		{
+			//			mapStringVector sv;
+			//			vectorRenderable vct;
+			//			vct.push_back(subMesh->renderable);
+			//			sv.insert(std::make_pair(materialName, vct));
+			//			opaqueMap.insert(std::make_pair(renderQueue, sv));
+			//		}
+			//		subMesh->renderable->m_pTransform = gameobject->GetTransform();
+			//	}
+			//}
+			//else
+			//{
+			//	// transparent
+			//	for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
+			//	{
+			//		HXSubMesh* subMesh = (*itr);
+			//		std::map<int, vectorRenderable>::iterator itr1 = transparentMap.find(renderQueue);
+			//		if (itr1 != transparentMap.end())
+			//		{
+			//			itr1->second.push_back(subMesh->renderable);
+			//		}
+			//		else
+			//		{
+			//			vectorRenderable vct;
+			//			vct.push_back(subMesh->renderable);
+			//			transparentMap.insert(std::make_pair(renderQueue, vct));
+			//		}
+			//		subMesh->renderable->m_pTransform = gameobject->GetTransform();
+			//	}
+			//}
 		}
 		
 		for (std::vector<HXGameObject*>::iterator itr = gameobject->GetChildren().begin(); itr != gameobject->GetChildren().end(); ++itr)

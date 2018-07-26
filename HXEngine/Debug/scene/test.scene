@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="-1.68" Py="4.8" Pz="12.91"/>
-		<Rotation Rx="-0.1" Ry="-13.5" Rz="0"/>
+		<Position Px="-0.0187163" Py="-0.986544" Pz="6.07637"/>
+		<Rotation Rx="-12.8" Ry="-0.200002" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="100" G="100" B="100"/>
@@ -27,10 +27,15 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="0"/>
+		<GameObj Name="Rock2_NMP" Activity="0" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="2000" CastShadow="0">
+			<Position Px="0" Py="-7" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1.4" Sz="1"/>
+		</GameObj>
+		<GameObj Name="Building01GO" Activity="1" Model="prefab/Building01/Building01.model" Priority="2450" CastShadow="1">
+			<Position Px="0" Py="-2.5" Pz="4"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 		</GameObj>
 	</GameObjects>
 </Scene>

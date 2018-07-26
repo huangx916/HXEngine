@@ -23,6 +23,7 @@ namespace HX3D
 	};
 	struct HXMaterialInfo
 	{
+		int nRenderQueue;
 		int nCullFace;	// 0:glDisable(GL_CULL_FACE);1:glFrontFace(GL_CW);2:glFrontFace(GL_CCW);
 		int nDepthTest;	// 0:glDisable(GL_DEPTH_TEST);1:glDepthFunc(GL_LESS);ect...
 		int nAlphaBlend;// 0:glDisable(GL_BLEND);1:glEnable(GL_BLEND)

@@ -24,7 +24,7 @@ ect...
 ect...
 -->
 <Material>
-	<State CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
+	<State RenderQueue="2000" CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
     <Shader File="builtin/Error">
 		<Property Type="4" Name="DiffColor" Value="" Value1="1" Value2="1" Value3="0" Value4="1"/>
 	</Shader>

@@ -24,6 +24,7 @@ namespace HX3D
 
 		TiXmlElement* rootElement = doc.RootElement();
 		TiXmlElement* stateElement = rootElement->FirstChildElement();
+		mMatInfo.nRenderQueue = atoi(stateElement->Attribute("RenderQueue"));
 		mMatInfo.nCullFace = atoi(stateElement->Attribute("CullFace"));
 		mMatInfo.nDepthTest = atoi(stateElement->Attribute("DepthTest"));
 		mMatInfo.nAlphaBlend = atoi(stateElement->Attribute("AlphaBlend"));
