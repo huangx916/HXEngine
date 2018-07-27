@@ -169,7 +169,7 @@ namespace HX3D
 	void HXGLRenderSystem::RenderScene()
 	{
 		//begin shadow
-		if (mShadowMap)
+		if (mShadowMap && mShadowMap->IsEnable())
 		{
 			mShadowMap->PreRender();
 			// TODO: draw

@@ -12,6 +12,7 @@ namespace HX3D
 		~HXGLShadowMap();
 
 		void Initialize();
+		bool IsEnable();
 		void PreRender();
 		void PostRender();
 

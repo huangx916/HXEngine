@@ -341,7 +341,7 @@ namespace HX3D
 		{
 			HXGLRenderSystem* rs = (HXGLRenderSystem*)HXRoot::GetInstance()->GetRenderSystem();
 			HXGLShadowMap* sm = rs->mShadowMap;
-			if (sm)
+			if (sm && sm->IsEnable())
 			{
 				// 每帧需要更新
 				const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),

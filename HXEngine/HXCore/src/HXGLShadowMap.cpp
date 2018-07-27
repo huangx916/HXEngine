@@ -1,6 +1,8 @@
 #include "..\include\HXGLShadowMap.h"
 #include "LoadShaders.h"
 #include "HXGLRenderSystem.h"
+#include "HXLight.h"
+#include "HXSceneManager.h"
 
 namespace HX3D
 {
@@ -54,14 +56,28 @@ namespace HX3D
 		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
 	}
 
+	bool HXGLShadowMap::IsEnable()
+	{
+		HXLight* light = HXSceneManager::GetInstance()->GetMainLight();
+		if (NULL == light)
+		{
+			return false;
+		}
+		HXVector3D dir = light->direct;
+		dir.normalize();
+		vmath::vec3 light_position = vmath::vec3(dir.x*ORTHO_DISTANCE, dir.y*ORTHO_DISTANCE, dir.z*ORTHO_DISTANCE);
+		light_view_matrix = vmath::lookat(light_position, vmath::vec3(0.0f), vmath::vec3(0.0f, 1.0f, 0.0f));
+		return true;
+	}
+
 	void HXGLShadowMap::PreRender()
 	{
 		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &original_fbo);
 		//float t = float(GetTickCount() & 0xFFFF) / float(0xFFFF);
 		//static float q = 0.0f;
-		static const vmath::vec3 X(1.0f, 0.0f, 0.0f);
+		/*static const vmath::vec3 X(1.0f, 0.0f, 0.0f);
 		static const vmath::vec3 Y(0.0f, 1.0f, 0.0f);
-		static const vmath::vec3 Z(0.0f, 0.0f, 1.0f);
+		static const vmath::vec3 Z(0.0f, 0.0f, 1.0f);*/
 
 		//vmath::vec3 light_position = vmath::vec3(sinf(t * 6.0f * 3.141592f) * 300.0f, 200.0f, cosf(t * 4.0f * 3.141592f) * 100.0f + 250.0f);
 		//vec3 light_position = vec3(sinf(t * 6.0f * 3.141592f) * 150.0f, 100.0f, cosf(t * 4.0f * 3.141592f) * 50.0f + 125.0f);
@@ -85,7 +101,7 @@ namespace HX3D
 			vmath::vec4(0.5f, 0.5f, 0.5f, 1.0f));
 
 		// Matrices used when rendering from the light's position
-		light_view_matrix = vmath::lookat(light_position, vmath::vec3(0.0f), Y);
+		//light_view_matrix = vmath::lookat(light_position, vmath::vec3(0.0f), Y);
 		//vmath::mat4 matrix(vmath::frustum(-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, FRUSTUM_DEPTH));
 		vmath::mat4 matrix(vmath::Ortho(-ORTHO_HALF_SIZE, ORTHO_HALF_SIZE, -ORTHO_HALF_SIZE, ORTHO_HALF_SIZE, 1.0f, FRUSTUM_DEPTH));
 		light_projection_matrix = matrix;

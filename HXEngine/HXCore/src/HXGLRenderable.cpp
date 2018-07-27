@@ -144,7 +144,7 @@ namespace HX3D
 
 		glBindVertexArray(mVAO);
 
-		if (m_pSubMesh->IsStaticMesh == false)
+		/*if (m_pSubMesh->IsStaticMesh == false)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
@@ -160,7 +160,7 @@ namespace HX3D
 			}
 			glBufferSubData(GL_ARRAY_BUFFER, 0, nVertexCount * 3 * sizeof(GLfloat), positions);
 			delete[] positions;
-		}
+		}*/
 
 		glDrawArrays(GL_TRIANGLES, 0, m_pSubMesh->triangleCount * 3);
 		HXStatus::GetInstance()->nDrawCall += 1;
@@ -186,7 +186,7 @@ namespace HX3D
 		glBindVertexArray(mVAO);
 
 		// 如果RenderShadowMap中已更新，则这里不需要更新了
-		if (m_pSubMesh->IsStaticMesh == false && m_pSubMesh->IsCastShadow == false)
+		if (m_pSubMesh->IsStaticMesh == false/* && m_pSubMesh->IsCastShadow == false*/)
 		{
 			glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 

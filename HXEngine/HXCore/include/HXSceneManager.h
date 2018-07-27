@@ -40,6 +40,8 @@ namespace HX3D
 
 		// 平行光、点光源、聚光灯
 		HXLight* CreateLight(HXLightInfo* lightInfo);
+		// 用于产生阴影的主平行光
+		HXLight* GetMainLight();
 		HXICamera* CreateMainCamera(const HXVector3D& position, const HXVector3D& rotate,
 			float nearZ = 1.0f, float farZ = 1000.0f);
 		void CreateFog(HXFogInfo* info);

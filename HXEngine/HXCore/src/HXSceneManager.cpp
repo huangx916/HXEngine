@@ -270,6 +270,18 @@ namespace HX3D
 		return pLight;
 	}
 
+	HXLight* HXSceneManager::GetMainLight()
+	{
+		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); ++itr)
+		{
+			if ((*itr)->lightType == LIGHT_DIRECTION && (*itr)->enable)
+			{
+				return *itr;
+			}
+		}
+		return NULL;
+	}
+
 	HXICamera* HXSceneManager::CreateMainCamera(const HXVector3D& position, const HXVector3D& rotate,
 		float nearZ, float farZ)
 	{
@@ -327,12 +339,6 @@ namespace HX3D
 			return;
 		}
 
-		if (shadow)
-		{
-			HXStatus::GetInstance()->ResetStatus();
-			mainCamera->Update();
-			gameObjectTreeRoot->Update();
-		}
 		// render opaque
 		HXMaterial* curMaterial = NULL;
 		for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
@@ -378,7 +384,7 @@ namespace HX3D
 		curMaterial = NULL;
 		// render transparent
 		// Z排序
-		if (shadow)
+		if (!shadow)
 		{
 			for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
 			{
@@ -434,7 +440,12 @@ namespace HX3D
 
 		if (!shadow)
 		{
+			// 当前帧
 			HXStatus::GetInstance()->ShowStatusInfo();
+			// 下一帧
+			HXStatus::GetInstance()->ResetStatus();
+			mainCamera->Update();
+			gameObjectTreeRoot->Update();
 		}
 	}
 
