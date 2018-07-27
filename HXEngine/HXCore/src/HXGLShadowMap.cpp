@@ -35,14 +35,13 @@ namespace HX3D
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		/*GLfloat border[] = { 1.0f, 0.0f,0.0f,0.0f };
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		GLfloat border[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);*/
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Create FBO to render depth into
 		glGenFramebuffers(1, &depth_fbo);
@@ -68,7 +67,7 @@ namespace HX3D
 		//vec3 light_position = vec3(sinf(t * 6.0f * 3.141592f) * 150.0f, 100.0f, cosf(t * 4.0f * 3.141592f) * 50.0f + 125.0f);
 		//vmath::vec3 light_position = vmath::vec3(sinf(t * 6.0f * 3.141592f) * 40,40, cosf(t * 4.0f * 3.141592f) * 40);
 		// TODO:
-		vmath::vec3 light_position = vmath::vec3(20, 20, 20);
+		vmath::vec3 light_position = vmath::vec3(5, 5, 5);
 		// Setup
 		glEnable(GL_CULL_FACE);
 		glFrontFace(GL_CCW);
@@ -87,8 +86,8 @@ namespace HX3D
 
 		// Matrices used when rendering from the light's position
 		light_view_matrix = vmath::lookat(light_position, vmath::vec3(0.0f), Y);
-		vmath::mat4 matrix(vmath::frustum(-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, FRUSTUM_DEPTH));
-		//vmath::mat4 matrix(vmath::Ortho(-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, FRUSTUM_DEPTH));
+		//vmath::mat4 matrix(vmath::frustum(-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, FRUSTUM_DEPTH));
+		vmath::mat4 matrix(vmath::Ortho(-ORTHO_HALF_SIZE, ORTHO_HALF_SIZE, -ORTHO_HALF_SIZE, ORTHO_HALF_SIZE, 1.0f, FRUSTUM_DEPTH));
 		light_projection_matrix = matrix;
 
 		// Now we render from the light's position into the depth buffer.

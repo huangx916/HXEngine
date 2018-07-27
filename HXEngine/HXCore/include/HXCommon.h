@@ -31,7 +31,8 @@ namespace HX3D
 
 	// shadow mapping
 	#define FRUSTUM_DEPTH       80.0f
-	#define DEPTH_TEXTURE_SIZE  4096
+	#define DEPTH_TEXTURE_SIZE  1024
+	#define ORTHO_HALF_SIZE		10
 
 	//#define HXCOLOR_TO_24BIT(r,g,b)		(((r) & 0xff) << 16 | ((g) & 0xff) << 8 | ((b) & 0xff))
 
