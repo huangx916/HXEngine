@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="-0.0187163" Py="-0.986544" Pz="6.07637"/>
-		<Rotation Rx="-12.8" Ry="-0.200002" Rz="0"/>
+		<Position Px="-4.60218" Py="3.38961" Pz="0.967013"/>
+		<Rotation Rx="-12.8" Ry="-0.2" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="100" G="100" B="100"/>
@@ -32,10 +32,15 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1.4" Sz="1"/>
 		</GameObj>
-		<GameObj Name="Building01GO" Activity="1" Model="prefab/Building01/Building01.model" Priority="2450" CastShadow="1">
+		<GameObj Name="Building01GO" Activity="0" Model="prefab/Building01/Building01.model" Priority="2450" CastShadow="1">
 			<Position Px="0" Py="-2.5" Pz="4"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
+		</GameObj>
+		<GameObj Name="MultiMesh" Activity="1" Model="prefab/MultiMesh/MultiMesh.model" Priority="2000" CastShadow="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 		</GameObj>
 	</GameObjects>
 </Scene>

@@ -23,9 +23,8 @@ batching：
 不同物体有不同的MVP，shader program也可以共享
 每帧渲染时shader uniform的texture变量需要重新处理（赋值的只是纹理绑定点，纹理绑定点绑定的纹理可能被改掉了）
 
-render queue 移到 material 配置里？ 这样以submesh为单位分到opaqueMap和transparentMap中
 
-mipmap整理
+mipmap整理 (当前为png使用mipmap，dds未使用)
 
 fbx muti mesh	gameobject通过index参数来加载fbx中对应的mesh
 

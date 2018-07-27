@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/MultiMesh/platform_frame_cables_01.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/_Material/MultiMeshMat1/MultiMeshMat1.material"/>
+	<Material File="prefab/_Material/MultiMeshMat2/MultiMeshMat2.material"/>
+</Model>
