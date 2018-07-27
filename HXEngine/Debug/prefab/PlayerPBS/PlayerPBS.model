@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/PlayerPBS/PlayerPBS.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/_Material/PlayerPBS/PlayerPBS.material"/>
+</Model>
