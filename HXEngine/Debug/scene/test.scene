@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="-4.60218" Py="3.38961" Pz="0.967013"/>
-		<Rotation Rx="-12.8" Ry="-0.2" Rz="0"/>
+		<Position Px="-2.44965" Py="0.773899" Pz="6.61784"/>
+		<Rotation Rx="-18.2" Ry="-44.4" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="100" G="100" B="100"/>
@@ -10,37 +10,20 @@
 		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="255" Cg="255" Cb="255"/>
 			<Position Px="0" Py="0" Pz="0"/>
-			<Direct Dx="1" Dy="0" Dz="1"/>
+			<Direct Dx="1" Dy="1" Dz="1"/>
 			<ConeDirection Cx="0" Cy="0" Cz="0"/>
-		</Light>
-		<Light Name="PointLight1" Enable="0" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="0.01" SpotCosCutoff="0" SpotExponent="0">
-			<Color Cr="255" Cg="0" Cb="0"/>
-			<Position Px="0" Py="7" Pz="5"/>
-			<Direct Dx="0" Dy="0" Dz="0"/>
-			<ConeDirection Cx="0" Cy="0" Cz="0"/>
-		</Light>
-		<Light Name="SpotLight" Enable="1" LightType="3" Shininess="10" Strength="0.01" constantAttenuation="0.1" LinearAttenuation="0.05" QuadraticAttenuation="0.01" SpotCosCutoff="0" SpotExponent="10">
-			<Color Cr="255" Cg="255" Cb="255"/>
-			<Position Px="0" Py="1" Pz="9"/>
-			<Direct Dx="0" Dy="0" Dz="0"/>
-			<ConeDirection Cx="0" Cy="0" Cz="-1"/>
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="Rock2_NMP" Activity="0" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="-7" Pz="0"/>
+		<GameObj Name="Rock2_NMP" Activity="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="2000" CastShadow="1">
+			<Position Px="0" Py="-2" Pz="5"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1.4" Sz="1"/>
+			<Scale Sx="0.1" Sy="0.14" Sz="0.1"/>
 		</GameObj>
-		<GameObj Name="Building01GO" Activity="0" Model="prefab/Building01/Building01.model" Priority="2450" CastShadow="1">
-			<Position Px="0" Py="-2.5" Pz="4"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
-		</GameObj>
-		<GameObj Name="MultiMesh" Activity="1" Model="prefab/MultiMesh/MultiMesh.model" Priority="2000" CastShadow="0">
+		<GameObj Name="TerrainGO" Activity="1" Model="prefab/Terrain/Terrain.model" Priority="2000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>
 	</GameObjects>
 </Scene>
