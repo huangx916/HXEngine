@@ -41,3 +41,5 @@ light config castshadow
 vbo等与mesh对应，不与gameobject对应，以减少显存 ?(静态批处理增加的是系统内存，不是显存 ?) u3d shader入门精要 p317.
 
 动态静态批处理合并drawcall
+
+PlayerPBS Diff.png 纹理错误，可能mipmap引起，待检查

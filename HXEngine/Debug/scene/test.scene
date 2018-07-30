@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="0.15642" Py="2.52549" Pz="3.91934"/>
-		<Rotation Rx="3.3" Ry="6.4" Rz="0"/>
+		<Position Px="-0.0423716" Py="0.382306" Pz="2.76825"/>
+		<Rotation Rx="-5.2" Ry="-2.3" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="100" G="100" B="100"/>
@@ -16,9 +16,9 @@
 	</Lights>
 	<GameObjects>
 		<GameObj Name="PlayerPBS" Activity="1" Model="prefab/PlayerPBS/PlayerPBS.model" Priority="2000" CastShadow="0">
-			<Position Px="0" Py="0" Pz="0"/>
+			<Position Px="0" Py="0" Pz="2"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="100" Sy="100" Sz="100"/>
+			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 		</GameObj>
 	</GameObjects>
 </Scene>
