@@ -36,4 +36,8 @@ diffuse shader  move lighting to vert shader except direct light
 
 light config castshadow
 
-静态物体不必update	HXGameObject::Update()
+静态物体不必update	HXGameObject::Update()		包围盒CPU裁剪 视椎体剔除frustum culling  遮挡剔除occlusion culling
+
+vbo等与mesh对应，不与gameobject对应，以减少显存 ?(静态批处理增加的是系统内存，不是显存 ?) u3d shader入门精要 p317.
+
+动态静态批处理合并drawcall

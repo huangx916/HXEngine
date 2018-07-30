@@ -19,3 +19,5 @@ HXEngine/.vs/HXEngine/v14/.suo
 !libpng16.lib
 !zlib.lib
 !!libfbxsdk-md.lib
+HXEngine/ConfigProject/.idea/workspace.xml
+HXEngine/HXEditor/HXEditor.vcxproj.user
