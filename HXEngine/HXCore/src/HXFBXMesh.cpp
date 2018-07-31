@@ -164,9 +164,6 @@ namespace HX3D
 				FbxVector4 curPoint = pVertices[(*itr1).ctrlPointIndex];
 				curPoint = matrixMeshGlobalPositionIn3DMax.MultT(curPoint);
 
-				/*(*itr1).pos.x = pVertices[(*itr1).ctrlPointIndex][0];
-				(*itr1).pos.y = pVertices[(*itr1).ctrlPointIndex][1];
-				(*itr1).pos.z = pVertices[(*itr1).ctrlPointIndex][2];*/
 				(*itr1).pos.x = curPoint[0];
 				(*itr1).pos.y = curPoint[1];
 				(*itr1).pos.z = curPoint[2];

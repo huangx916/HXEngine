@@ -747,7 +747,6 @@ namespace HX3D
 				for (std::vector<HXVertJointWeights>::iterator itr = pFind->second.begin(); itr != pFind->second.end(); ++itr)
 				{
 					HXJoint* pJoint = mSkinSkeleton->xSkeleton.vctJoint[itr->nAttachJointIndex];
-					//HXJointPose* pJointPose = pJoint->vctJointPose[nCurKeyframe];
 					HXJointPose* pJointPose = pJoint->mapJointAnim[pAnimInst->strCurPlayAnim].vctJointPose[pAnimInst->nCurKeyframe];
 					// Compute the influence of the link on the vertex.
 					FbxAMatrix lInfluence = pJointPose->mtVertexTransformMatrix;

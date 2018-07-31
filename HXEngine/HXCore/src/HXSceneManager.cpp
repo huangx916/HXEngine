@@ -27,6 +27,7 @@ namespace HX3D
 		ambient = HXCOLOR(0,0,0,255);
 		gameObjectTreeRoot = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
 		gameObjectTreeRoot->SetName("GameObjectTreeRoot");
+		gameObjectTreeRoot->GetTransform()->CaculateModelMatrix();
 	}
 
 	HXSceneManager::~HXSceneManager()

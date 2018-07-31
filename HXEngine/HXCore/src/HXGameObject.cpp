@@ -109,18 +109,20 @@ namespace HX3D
 		m_pTransform->SetScale(gameobjectinfo->scale);
 		m_pTransform->SetRotation(gameobjectinfo->rotation);
 		m_pTransform->SetPosition(gameobjectinfo->position);
+
+		m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);
 	}
 
 	void HXGameObject::Update()
 	{
-		if (m_pFather)
+		/*if (m_pFather)
 		{
 			m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);
 		}
 		else
 		{
 			m_pTransform->CaculateModelMatrix();
-		}
+		}*/
 		if (m_pMesh)
 		{
 			m_pMesh->UpdateAnimation();
