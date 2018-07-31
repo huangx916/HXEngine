@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="-0.0423716" Py="0.382306" Pz="2.76825"/>
-		<Rotation Rx="-5.2" Ry="-2.3" Rz="0"/>
+		<Position Px="0.0605462" Py="0.579513" Pz="2.76078"/>
+		<Rotation Rx="-4" Ry="-2.7" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="100" G="100" B="100"/>

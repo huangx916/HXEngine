@@ -42,4 +42,6 @@ vbo等与mesh对应，不与gameobject对应，以减少显存 ?(静态批处理
 
 动态静态批处理合并drawcall
 
-PlayerPBS Diff.png 纹理错误，可能mipmap引起，待检查
+PlayerPBS Diff.png 纹理错误，png uv 00点在左下角。dds uv 00点在左上角
+
+天空盒 renderqueue geometry+1		opaque从前往后渲染	减少overdraw			2500为分界线

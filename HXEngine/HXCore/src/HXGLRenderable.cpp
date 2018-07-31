@@ -82,7 +82,7 @@ namespace HX3D
 			colors[nIndex * 4 + 2] = itr->color.b / 255.0f;
 			colors[nIndex * 4 + 3] = itr->color.a / 255.0f;
 			uvs[nIndex * 2 + 0] = itr->u;
-			uvs[nIndex * 2 + 1] = 1.0f - itr->v;
+			uvs[nIndex * 2 + 1] = itr->v;
 			normals[nIndex * 3 + 0] = itr->normal.x;
 			normals[nIndex * 3 + 1] = itr->normal.y;
 			normals[nIndex * 3 + 2] = itr->normal.z;

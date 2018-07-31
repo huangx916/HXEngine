@@ -567,6 +567,22 @@ static GLenum vgl_GetTargetFromDDSHeader(const DDS_FILE_HEADER& header)
     return GL_TEXTURE_2D;
 }
 
+static void swapDDS(void * pData, size_t stride, size_t height)
+{
+	for (size_t h = 0; h < height / 2; ++h)
+	{
+		char swapByte;
+		for (size_t w = 0; w < stride; ++w)
+		{
+			char* p0 = (char*)pData + h * stride + w;
+			char* p1 = (char*)pData + (height - 1 - h) * stride + w;
+			swapByte = *p0;
+			*p0 = *p1;
+			*p1 = swapByte;
+		}
+	}
+}
+
 extern "C"
 {
 
@@ -630,6 +646,8 @@ void vglLoadDDS(const char* filename, vglImageData* image)
 
     for (level = 0; level < image->mipLevels; ++level)
     {
+		swapDDS(ptr, vgl_GetDDSStride(file_header, width), height);
+
         image->mip[level].data = ptr;
         image->mip[level].width = width;
         image->mip[level].height = height;
