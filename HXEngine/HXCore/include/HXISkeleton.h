@@ -5,7 +5,13 @@ namespace HX3D
 {
 	struct HXAnimationInstance
 	{
-		std::string strCurPlayAnim;
+		HXAnimationInstance()
+		{
+			nCurPlayAnimIndex = 999;
+			nCurKeyframe = 0;
+			nSpeed = 1;
+		}
+		int nCurPlayAnimIndex;
 		int nCurKeyframe;
 		int nSpeed;
 		HXMesh* mMesh;

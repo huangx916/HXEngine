@@ -31,12 +31,10 @@ namespace HX3D
 			{
 			std::cout << attributeOfAnim->Name() << " : " << attributeOfAnim->Value() << std::endl;
 			}*/
-			std::string strName = animElement->Attribute("name");
-			std::string strFileName = animElement->Attribute("File");
 
 			HXAnimInfo animInfo;
-			animInfo.strAnimName = strName;
-			animInfo.strFileName = strFileName;
+			animInfo.strAnimName = animElement->Attribute("name");
+			animInfo.strFileName = animElement->Attribute("File");
 			vctAnimsInfo.push_back(animInfo);
 		}
 

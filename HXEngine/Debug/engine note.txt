@@ -44,4 +44,6 @@ vbo等与mesh对应，不与gameobject对应，以减少显存 ?(静态批处理
 
 天空盒 renderqueue geometry+1		opaque从前往后渲染	减少overdraw			2500为分界线
 
-map查找能放循环外层的尽量放外层
+map查找能放循环外层的尽量放外层		或者用vector代替map
+
+gameobject anim in scene config

@@ -24,8 +24,7 @@ namespace HX3D
 
 	struct HXJoint 
 	{
-		//std::vector<HXJointPose*> vctJointPose;
-		std::map<std::string, HXJointAnim> mapJointAnim;
+		std::vector<HXJointAnim*> vctJointAnim;
 	};
 
 	struct HXSkeleton
@@ -37,6 +36,37 @@ namespace HX3D
 		int nJointCount;
 		std::vector<HXJoint*> vctJoint;
 	};
+
+	/*struct HXJointPose
+	{
+		FbxAMatrix mtVertexTransformMatrix;
+	};
+
+	struct HXJointAnim
+	{
+		HXJointAnim()
+		{
+			nKeyNums = 0;
+		}
+		int nKeyNums;
+		std::vector<HXJointPose*> vctJointPose;
+	};
+
+	struct HXSkeletonAnim
+	{
+		HXSkeletonAnim()
+		{
+			nJointCount = 0;
+		}
+		int nJointCount;
+		std::string strAnimName;
+		std::vector<HXJointAnim*> vctJoint;
+	};
+
+	struct HXSkeleton
+	{
+		std::map<std::string, HXSkeletonAnim*> mapSkeletonAnim;
+	};*/
 
 	struct HXVertJointWeights 
 	{
@@ -51,11 +81,6 @@ namespace HX3D
 
 	struct HXSkinSkeleton 
 	{
-		/*HXSkinSkeleton()
-		{
-			nKeyNums = 0;
-		}
-		int nKeyNums;*/
 		HXSkeleton xSkeleton;
 		std::map<int, std::vector<HXVertJointWeights>> mapVertJointInfo;	//#include <map>
 	};
@@ -73,7 +98,7 @@ namespace HX3D
 		// ¼ÓÔØ¹Ç÷À
 		void LoadSkeleton(FbxScene* pScene);
 		// ¼ÓÔØ¹Ç÷À¶¯»­
-		void LoadAnimationCurve(std::string strAnimName, FbxScene* pScene);
+		void LoadAnimationCurve(int nAnimIndex, std::string strAnimName, FbxScene* pScene);
 
 		virtual std::vector<std::string> GetAnimNameList();
 
@@ -143,8 +168,9 @@ namespace HX3D
 		FbxTime mCache_Start, mCache_Stop;
 		FbxScene * mScene;
 		double mLastTime;
-		std::string mCurLoadAnim;
-		
+		std::string mCurLoadAnimName;
+		int mCurLoadAnimIndex;
+
 		HXSkinSkeleton* mSkinSkeleton;
 		FbxVector4* srcControlPoints;
 		int nControlPointCount;

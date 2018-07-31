@@ -17,6 +17,7 @@ namespace HX3D
 		m_pMesh = NULL;
 		m_pFather = pFather;
 		m_pTransform = pRenderSystem->CreateTransform();
+		m_bActivity = true;
 	}
 
 	HXGameObject::~HXGameObject()
@@ -115,6 +116,10 @@ namespace HX3D
 
 	void HXGameObject::Update()
 	{
+		if (!m_bActivity)
+		{
+			return;
+		}
 		/*if (m_pFather)
 		{
 			m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);

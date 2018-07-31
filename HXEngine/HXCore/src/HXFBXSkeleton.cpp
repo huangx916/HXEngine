@@ -271,21 +271,18 @@ namespace HX3D
 
 				HXJointPose* pJointPose = new HXJointPose;
 				pJointPose->mtVertexTransformMatrix = lVertexTransformMatrix;
-				//mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->vctJointPose.push_back(pJointPose);
-				std::map<std::string, HXJointAnim>::iterator pFind = mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->mapJointAnim.find(mCurLoadAnim);
-				if (pFind != mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->mapJointAnim.end())
+				
+				
+				if (mCurLoadAnimIndex + 1 > mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->vctJointAnim.size())
 				{
-					pFind->second.nKeyNums++;
-					pFind->second.vctJointPose.push_back(pJointPose);
+					HXJointAnim* pJointAnim = new HXJointAnim;
+					mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->vctJointAnim.push_back(pJointAnim);
+					
 				}
-				else
-				{
-					HXJointAnim xJointAnim;
-					xJointAnim.strAnimName = mCurLoadAnim;
-					xJointAnim.nKeyNums++;
-					xJointAnim.vctJointPose.push_back(pJointPose);
-					mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->mapJointAnim.insert(std::make_pair(mCurLoadAnim, xJointAnim));
-				}
+				HXJointAnim* pJointAnim = mSkinSkeleton->xSkeleton.vctJoint[lClusterIndex]->vctJointAnim[mCurLoadAnimIndex];
+				pJointAnim->strAnimName = mCurLoadAnimName;
+				pJointAnim->nKeyNums++;
+				pJointAnim->vctJointPose.push_back(pJointPose);
 
 				//int lVertexIndexCount = lCluster->GetControlPointIndicesCount();
 				//for (int k = 0; k < lVertexIndexCount; ++k)
@@ -714,14 +711,15 @@ namespace HX3D
 		{
 			return;
 		}
-		std::map<std::string, HXJointAnim>::iterator itr = mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.find(pAnimInst->strCurPlayAnim);
-		if (itr == mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.end())
+
+		if (pAnimInst->nCurPlayAnimIndex + 1 > mSkinSkeleton->xSkeleton.vctJoint[0]->vctJointAnim.size())
 		{
 			return;
 		}
 
+
 		pAnimInst->nCurKeyframe += pAnimInst->nSpeed;
-		if (pAnimInst->nCurKeyframe > itr->second.nKeyNums - 1)
+		if (pAnimInst->nCurKeyframe > mSkinSkeleton->xSkeleton.vctJoint[0]->vctJointAnim[pAnimInst->nCurPlayAnimIndex]->nKeyNums - 1)
 		{
 			pAnimInst->nCurKeyframe = 0;
 		}
@@ -736,6 +734,10 @@ namespace HX3D
 		FbxVector4* destVertexArray = new FbxVector4[lVertexCount];
 		//memset(destVertexArray, 0, lVertexCount * sizeof(FbxVector4));
 
+		//HXJoint* pJoint = mSkinSkeleton->xSkeleton.vctJoint[0];
+		//HXJointAnim* pJointAnim = pJoint->vctJointAnim[pAnimInst->nCurPlayAnimIndex];
+		//HXJointPose* pJointPose = pJointAnim->vctJointPose[pAnimInst->nCurKeyframe];
+
 		for (int i = 0; i < lVertexCount; i++)
 		{
 			FbxVector4 lSrcVertex = srcControlPoints[i];
@@ -747,7 +749,9 @@ namespace HX3D
 				for (std::vector<HXVertJointWeights>::iterator itr = pFind->second.begin(); itr != pFind->second.end(); ++itr)
 				{
 					HXJoint* pJoint = mSkinSkeleton->xSkeleton.vctJoint[itr->nAttachJointIndex];
-					HXJointPose* pJointPose = pJoint->mapJointAnim[pAnimInst->strCurPlayAnim].vctJointPose[pAnimInst->nCurKeyframe];
+					HXJointAnim* pJointAnim = pJoint->vctJointAnim[pAnimInst->nCurPlayAnimIndex];
+					HXJointPose* pJointPose = pJointAnim->vctJointPose[pAnimInst->nCurKeyframe];
+
 					// Compute the influence of the link on the vertex.
 					FbxAMatrix lInfluence = pJointPose->mtVertexTransformMatrix;
 					MatrixScale(lInfluence, itr->fWeightBias);
@@ -833,10 +837,11 @@ namespace HX3D
 		}//lClusterCount
 	}
 
-	void HXFBXSkeleton::LoadAnimationCurve(std::string strAnimName, FbxScene* pScene)
+	void HXFBXSkeleton::LoadAnimationCurve(int nAnimIndex, std::string strAnimName, FbxScene* pScene)
 	{
 		mScene = pScene;
-		mCurLoadAnim = strAnimName;
+		mCurLoadAnimIndex = nAnimIndex;
+		mCurLoadAnimName = strAnimName;
 
 		// initialize cache start and stop time
 		mCache_Start = FBXSDK_TIME_INFINITE;
@@ -870,9 +875,9 @@ namespace HX3D
 	std::vector<std::string> HXFBXSkeleton::GetAnimNameList()
 	{
 		std::vector<std::string> lt;
-		for (std::map<std::string, HXJointAnim>::iterator itr = mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.begin(); itr != mSkinSkeleton->xSkeleton.vctJoint[0]->mapJointAnim.end(); ++itr)
+		for (std::vector<HXJointAnim*>::iterator itr = mSkinSkeleton->xSkeleton.vctJoint[0]->vctJointAnim.begin(); itr != mSkinSkeleton->xSkeleton.vctJoint[0]->vctJointAnim.end(); ++itr)
 		{
-			lt.push_back(itr->second.strAnimName);
+			lt.push_back((*itr)->strAnimName);
 		}
 		return lt;
 	}

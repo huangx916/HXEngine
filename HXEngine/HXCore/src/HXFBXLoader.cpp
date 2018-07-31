@@ -225,6 +225,7 @@ namespace HX3D
 				HXLoadConfigAnim animConfig;
 				if (animConfig.LoadFile(strAnimName))
 				{
+					int nIndex = 0;
 					for (std::vector<HXAnimInfo>::iterator itr = animConfig.vctAnimsInfo.begin(); itr != animConfig.vctAnimsInfo.end(); itr++)
 					{
 						// 读取模型文本文档
@@ -233,7 +234,8 @@ namespace HX3D
 						{
 							return false;
 						}
-						pSkeleton->LoadAnimationCurve(itr->strAnimName, m_pScene);
+						pSkeleton->LoadAnimationCurve(nIndex, itr->strAnimName, m_pScene);
+						nIndex++;
 					}
 				}
 			}
