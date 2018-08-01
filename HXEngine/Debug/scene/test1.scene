@@ -2,7 +2,7 @@
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
 		<Position Px="0.59" Py="0.98" Pz="11.07"/>
-		<Rotation Rx="-9.59999" Ry="-359.4" Rz="0"/>
+		<Rotation Rx="-9.6" Ry="-359.4" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
@@ -16,12 +16,17 @@
 	</Lights>
 	<GameObjects>
 		<GameObj Name="DogGo" Activity="1" Model="prefab/Dog/Dog.model" Priority="2450" CastShadow="1">
-			<Position Px="2" Py="-2.4" Pz="7"/>
+			<Position Px="2" Py="-2.4" Pz="4"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="0.5" Sy="0.5" Sz="0.5"/>
 		</GameObj>
 		<GameObj Name="DogGo" Activity="1" Model="prefab/Dog/Dog.model" Priority="2450" CastShadow="1">
-			<Position Px="0" Py="-2.4" Pz="7"/>
+			<Position Px="0" Py="-2.4" Pz="3"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+		</GameObj>
+		<GameObj Name="DogGo" Activity="1" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="1">
+			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>

@@ -83,6 +83,8 @@ namespace HX3D
 	{
 		HXSkeleton xSkeleton;
 		std::map<int, std::vector<HXVertJointWeights>> mapVertJointInfo;	//#include <map>
+		// update时使用vector以提高性能
+		std::vector<std::vector<HXVertJointWeights>> vctVertJointInfo;
 	};
 
 	class HXFBXMesh;

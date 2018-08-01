@@ -743,21 +743,36 @@ namespace HX3D
 			FbxVector4 lSrcVertex = srcControlPoints[i];
 			FbxVector4& lDstVertex = destVertexArray[i];
 
-			std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = mSkinSkeleton->mapVertJointInfo.find(i);
-			if (pFind != mSkinSkeleton->mapVertJointInfo.end())
-			{
-				for (std::vector<HXVertJointWeights>::iterator itr = pFind->second.begin(); itr != pFind->second.end(); ++itr)
-				{
-					HXJoint* pJoint = mSkinSkeleton->xSkeleton.vctJoint[itr->nAttachJointIndex];
-					HXJointAnim* pJointAnim = pJoint->vctJointAnim[pAnimInst->nCurPlayAnimIndex];
-					HXJointPose* pJointPose = pJointAnim->vctJointPose[pAnimInst->nCurKeyframe];
+			//std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = mSkinSkeleton->mapVertJointInfo.find(i);
+			//if (pFind != mSkinSkeleton->mapVertJointInfo.end())
+			//{
+			//	for (std::vector<HXVertJointWeights>::iterator itr = pFind->second.begin(); itr != pFind->second.end(); ++itr)
+			//	{
+			//		HXJoint* pJoint = mSkinSkeleton->xSkeleton.vctJoint[itr->nAttachJointIndex];
+			//		HXJointAnim* pJointAnim = pJoint->vctJointAnim[pAnimInst->nCurPlayAnimIndex];
+			//		HXJointPose* pJointPose = pJointAnim->vctJointPose[pAnimInst->nCurKeyframe];
 
-					// Compute the influence of the link on the vertex.
-					FbxAMatrix lInfluence = pJointPose->mtVertexTransformMatrix;
-					MatrixScale(lInfluence, itr->fWeightBias);
-					MatrixAdd(lClusterDeformation[i], lInfluence);
-					lClusterWeight[i] += itr->fWeightBias;
-				}
+			//		// Compute the influence of the link on the vertex.
+			//		FbxAMatrix lInfluence = pJointPose->mtVertexTransformMatrix;
+			//		MatrixScale(lInfluence, itr->fWeightBias);
+			//		MatrixAdd(lClusterDeformation[i], lInfluence);
+			//		lClusterWeight[i] += itr->fWeightBias;
+			//	}
+			//}
+
+			// 使用vector提高性能，使用引用防止值拷贝影响性能
+			std::vector<HXVertJointWeights>& vct = mSkinSkeleton->vctVertJointInfo[i];
+			for (std::vector<HXVertJointWeights>::iterator itr = vct.begin(); itr != vct.end(); ++itr)
+			{
+				HXJoint* pJoint = mSkinSkeleton->xSkeleton.vctJoint[itr->nAttachJointIndex];
+				HXJointAnim* pJointAnim = pJoint->vctJointAnim[pAnimInst->nCurPlayAnimIndex];
+				HXJointPose* pJointPose = pJointAnim->vctJointPose[pAnimInst->nCurKeyframe];
+
+				// Compute the influence of the link on the vertex.
+				FbxAMatrix lInfluence = pJointPose->mtVertexTransformMatrix;
+				MatrixScale(lInfluence, itr->fWeightBias);
+				MatrixAdd(lClusterDeformation[i], lInfluence);
+				lClusterWeight[i] += itr->fWeightBias;
 			}
 
 			double lWeight = lClusterWeight[i];
@@ -799,6 +814,14 @@ namespace HX3D
 		{
 			return;
 		}
+
+		// 提前按顶点顺序填充，保证与vctVertJointInfo对应
+		const int lVertexCount = pFbxMesh->GetControlPointsCount();
+		for (int i = 0; i < lVertexCount; ++i)
+		{
+			mSkinSkeleton->mapVertJointInfo.insert(std::make_pair(i, std::vector<HXVertJointWeights>()));
+		}
+
 		FbxSkin* lSkinDeformer = (FbxSkin*)pFbxMesh->GetDeformer(0, FbxDeformer::eSkin);
 		int lClusterCount = lSkinDeformer->GetClusterCount();
 		for (int lClusterIndex = 0; lClusterIndex < lClusterCount; ++lClusterIndex)
@@ -823,6 +846,7 @@ namespace HX3D
 				HXVertJointWeights xVertJointWeight;
 				xVertJointWeight.nAttachJointIndex = lClusterIndex;
 				xVertJointWeight.fWeightBias = (float)lWeight;
+				
 				std::map<int, std::vector<HXVertJointWeights>>::iterator pFind = mSkinSkeleton->mapVertJointInfo.find(lIndex);
 				if (pFind != mSkinSkeleton->mapVertJointInfo.end())
 				{
@@ -835,6 +859,11 @@ namespace HX3D
 				
 			}//For each vertex			
 		}//lClusterCount
+
+		for (std::map<int, std::vector<HXVertJointWeights>>::iterator itr = mSkinSkeleton->mapVertJointInfo.begin(); itr != mSkinSkeleton->mapVertJointInfo.end(); ++itr)
+		{
+			mSkinSkeleton->vctVertJointInfo.push_back(itr->second);
+		}
 	}
 
 	void HXFBXSkeleton::LoadAnimationCurve(int nAnimIndex, std::string strAnimName, FbxScene* pScene)
