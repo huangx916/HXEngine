@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="Bigtree01" Activity="1" Model="prefab/Bigtree01/Bigtree01.model" Priority="3000" CastShadow="1">
+	<GameObj Name="Bigtree01" Activity="1" Static="1" Model="prefab/Bigtree01/Bigtree01.model" Priority="3000" CastShadow="1">
 		<Position Px="-4" Py="-2.5" Pz="6"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>

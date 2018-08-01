@@ -18,6 +18,7 @@ namespace HX3D
 		m_pFather = pFather;
 		m_pTransform = pRenderSystem->CreateTransform();
 		m_bActivity = true;
+		m_bStatic = true;
 	}
 
 	HXGameObject::~HXGameObject()
@@ -101,6 +102,7 @@ namespace HX3D
 		m_nRenderQueue = gameobjectinfo->nPriority;
 		SetCastShadow(gameobjectinfo->bCastShadow);
 		SetActivity(gameobjectinfo->bActivity);
+		SetStatic(gameobjectinfo->bStatic);
 
 		if (NULL == m_pFather)
 		{
@@ -120,14 +122,17 @@ namespace HX3D
 		{
 			return;
 		}
-		/*if (m_pFather)
+		if (!m_bStatic)
 		{
-			m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);
+			if (m_pFather)
+			{
+				m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);
+			}
+			else
+			{
+				m_pTransform->CaculateModelMatrix();
+			}
 		}
-		else
-		{
-			m_pTransform->CaculateModelMatrix();
-		}*/
 		if (m_pMesh)
 		{
 			m_pMesh->UpdateAnimation();
@@ -212,6 +217,16 @@ namespace HX3D
 	{
 		m_nRenderQueue = nRenderQueue;
 		HXSceneManager::GetInstance()->UpdateRenderableQueue();
+	}
+
+	bool HXGameObject::GetStatic() const
+	{
+		return m_bStatic;
+	}
+
+	void HXGameObject::SetStatic(bool bStatic)
+	{
+		m_bStatic = bStatic;
 	}
 }
 

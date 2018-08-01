@@ -15,7 +15,7 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="PlayerPBS" Activity="1" Model="prefab/PlayerPBS/PlayerPBS.model" Priority="2000" CastShadow="0">
+		<GameObj Name="PlayerPBS" Activity="1" Static="1" Model="prefab/PlayerPBS/PlayerPBS.model" Priority="2000" CastShadow="0">
 			<Position Px="0" Py="0" Pz="2"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>

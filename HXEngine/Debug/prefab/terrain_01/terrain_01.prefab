@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prefab>
-	<GameObj Name="terrain_01" Activity="1" Model="prefab/terrain_01/terrain_01.model" Priority="2000" CastShadow="0">
+	<GameObj Name="terrain_01" Activity="1" Static="1" Model="prefab/terrain_01/terrain_01.model" Priority="2000" CastShadow="0">
 		<Position Px="0" Py="0" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>

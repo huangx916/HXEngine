@@ -20,6 +20,7 @@ namespace HX3D
 		std::string strModelFile;
 		int nPriority;
 		bool bCastShadow;
+		bool bStatic;
 		HXVector3D position;
 		HXVector3D rotation;
 		HXVector3D scale;

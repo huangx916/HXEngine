@@ -39,6 +39,7 @@ namespace HX3D
 
 			gameObjInfo->strGameObjName = gameobjElement->Attribute("Name");
 			gameObjInfo->bActivity = atoi(gameobjElement->Attribute("Activity"));
+			gameObjInfo->bStatic = atoi(gameobjElement->Attribute("Static"));
 			gameObjInfo->strModelFile = gameobjElement->Attribute("Model");
 			gameObjInfo->nPriority = atoi(gameobjElement->Attribute("Priority")) + fatherPriority;
 			gameObjInfo->bCastShadow = atoi(gameobjElement->Attribute("CastShadow"));

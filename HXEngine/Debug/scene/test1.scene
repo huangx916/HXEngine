@@ -15,17 +15,17 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="DogGo" Activity="1" Model="prefab/Dog/Dog.model" Priority="2450" CastShadow="1">
+		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" Priority="2450" CastShadow="1">
 			<Position Px="2" Py="-2.4" Pz="4"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="0.5" Sy="0.5" Sz="0.5"/>
 		</GameObj>
-		<GameObj Name="DogGo" Activity="1" Model="prefab/Dog/Dog.model" Priority="2450" CastShadow="1">
+		<GameObj Name="DogGo" Activity="1" Static="0" Model="prefab/Dog/Dog.model" Priority="2450" CastShadow="1">
 			<Position Px="0" Py="-2.4" Pz="3"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>
-		<GameObj Name="DogGo" Activity="1" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="1">
+		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="1">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>

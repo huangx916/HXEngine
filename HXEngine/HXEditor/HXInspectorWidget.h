@@ -75,6 +75,7 @@ private:
 	// gameobject
 	QTreeWidgetItem *gameobject;
 	QCheckBox* checkboxActivity;
+	QCheckBox* checkboxStatic;
 	QLineEdit* editGameObjectName;
 	QSpinBox* spinboxPriority;
 	QCheckBox* checkboxCastShadow;
@@ -118,6 +119,7 @@ private:
 	public Q_SLOTS:
 	// gameobject
 	void ActivityToggled(bool activity);
+	void StaticToggled(bool bStatic);
 	void PriorityChanged(int value);
 	void CastShadowToggled(bool castShadow);
 

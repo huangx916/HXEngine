@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="Bush4h" Activity="1" Model="prefab/Bush4h/Bush4h.model" Priority="3000" CastShadow="1">
+	<GameObj Name="Bush4h" Activity="1" Static="1" Model="prefab/Bush4h/Bush4h.model" Priority="3000" CastShadow="1">
 		<Position Px="0" Py="0" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="0.005" Sy="0.005" Sz="0.005"/>

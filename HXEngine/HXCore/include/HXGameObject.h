@@ -36,12 +36,15 @@ namespace HX3D
 		void SetCastShadow(bool bCastShadow);
 		int GetRenderQueue() const;
 		void SetRenderQueue(int nRenderQueue);
+		bool GetStatic() const;
+		void SetStatic(bool bStatic);
 
 		std::string m_strName;
 		std::string m_strModelFile;
 		
 	private:
 		bool m_bActivity;
+		bool m_bStatic;
 		// Local Coordinate
 		HXITransform* m_pTransform;
 		bool m_bCastShadow;

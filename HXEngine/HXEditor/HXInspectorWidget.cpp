@@ -83,6 +83,8 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	// gameobject
 	checkboxActivity = new QCheckBox();
 
+	checkboxStatic = new QCheckBox();
+
 	editGameObjectName = new QLineEdit();
 
 	spinboxPriority = new QSpinBox();
@@ -326,6 +328,13 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	goname->setText(0, "name");
 	gameobject->addChild(goname);
 	treeWidget->setItemWidget(goname, 1, editGameObjectName);
+
+	// static
+	QTreeWidgetItem *isStatic = new QTreeWidgetItem;
+	isStatic->setText(0, "static");
+	gameobject->addChild(isStatic);
+	treeWidget->setItemWidget(isStatic, 1, checkboxStatic);
+
 	// gameobject priority
 	QTreeWidgetItem *priority = new QTreeWidgetItem;
 	priority->setText(0, "priority");
@@ -616,6 +625,8 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	// gameobject
 	connect(checkboxActivity, SIGNAL(toggled(bool)), this, SLOT(ActivityToggled(bool)));
 
+	connect(checkboxStatic, SIGNAL(toggled(bool)), this, SLOT(StaticToggled(bool)));
+
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
 
 	connect(spinboxPriority, SIGNAL(valueChanged(int)), this, SLOT(PriorityChanged(int)));
@@ -677,6 +688,15 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 		else
 		{
 			checkboxActivity->setCheckState(Qt::Unchecked);
+		}
+
+		if (pGameObject->GetStatic())
+		{
+			checkboxStatic->setCheckState(Qt::Checked);
+		}
+		else
+		{
+			checkboxStatic->setCheckState(Qt::Unchecked);
 		}
 
 		editGameObjectName->setText(pGameObject->GetName().c_str());
@@ -836,6 +856,14 @@ void HXInspectorWidget::ActivityToggled(bool activity)
 	if (selectedGameObject)
 	{
 		selectedGameObject->SetActivity(activity);
+	}
+}
+
+void HXInspectorWidget::StaticToggled(bool bStatic)
+{
+	if (selectedGameObject)
+	{
+		selectedGameObject->SetStatic(bStatic);
 	}
 }
 
