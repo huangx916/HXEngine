@@ -52,6 +52,11 @@ namespace HX3D
 		glutInit(&one, &name);
 
 		glutCreateWindow(strName.c_str());
+		//glutIconifyWindow();
+		//glutSetIconTitle("icon.png");
+		//glutSetWindowTitle("HXEngine");
+		//HWND hwnd = GetActiveWindow();
+
 
 		if (glewInit())
 		{
