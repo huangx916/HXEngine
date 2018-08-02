@@ -44,6 +44,7 @@ public:
         if (HXEditorWinClass->objectName().isEmpty())
             HXEditorWinClass->setObjectName(QStringLiteral("HXEditorWinClass"));
         HXEditorWinClass->resize(1000, 600);
+        HXEditorWinClass->setStyleSheet(QStringLiteral(""));
         actionLoadScene = new QAction(HXEditorWinClass);
         actionLoadScene->setObjectName(QStringLiteral("actionLoadScene"));
         actionLoadGameObject = new QAction(HXEditorWinClass);

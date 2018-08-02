@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>HXEditorWin</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

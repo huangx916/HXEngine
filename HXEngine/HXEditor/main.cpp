@@ -2,6 +2,8 @@
 #include <QApplication>
 //#include <QStyleFactory>
 //#include "vgl.h"
+#include <QFile>
+#include "HXWinWrap.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +12,13 @@ int main(int argc, char *argv[])
 	QApplication::setPalette(QApplication::style()->standardPalette());*/
 	QApplication a(argc, argv);
 	//glutInit(&argc, argv);
-	HXEditorWin::GetInstance()->show();
+	QFile qss(":/stylesheet.qss");
+	qss.open(QFile::ReadOnly);
+	a.setStyleSheet(qss.readAll());
+	qss.close();
+	//HXEditorWin::GetInstance()->show();
+	HXWinWrap ww;
+	ww.show();
 
 	return a.exec();
 }

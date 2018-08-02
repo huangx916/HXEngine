@@ -6,6 +6,7 @@
 #include <QMessageBox.h>
 #include "HXSceneManager.h"
 #include "HXFogLinear.h"
+#include "title_bar.h"
 
 HXEditorWin* HXEditorWin::m_pInstance = NULL;
 HXEditorWin::HXEditorWin(QWidget *parent)
@@ -37,6 +38,8 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	//QPalette palette(palette());
 	//palette.setColor(QPalette::Background, Qt::black);
 	//setPalette(palette);
+
+	setWindowFlags(Qt::FramelessWindowHint | windowFlags());
 }
 
 HXEditorWin::~HXEditorWin()

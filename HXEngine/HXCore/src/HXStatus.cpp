@@ -49,19 +49,19 @@ namespace HX3D
 			rs->BeginText();
 
 			std::string strFPS = "FPS: " + FloatToString(CalcLastFPS());
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 0, strFPS.c_str(), HXCOLOR(255, 0, 0, 255));
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 0, strFPS.c_str(), HXCOLOR(150, 0, 150, 255));
 
 			std::string strTriangleCount = "TriangleCount: " + FloatToString(nTriangleCount);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 18, strTriangleCount.c_str(), HXCOLOR(255, 0, 0, 255));
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 18, strTriangleCount.c_str(), HXCOLOR(150, 0, 150, 255));
 
 			std::string strVertexCount = "VertexCount: " + FloatToString(nVertexCount);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 36, strVertexCount.c_str(), HXCOLOR(255, 0, 0, 255));
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 36, strVertexCount.c_str(), HXCOLOR(150, 0, 150, 255));
 
 			std::string strDrawCall = "DrawCall: " + FloatToString(nDrawCall);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 54, strDrawCall.c_str(), HXCOLOR(255, 0, 0, 255));
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 54, strDrawCall.c_str(), HXCOLOR(150, 0, 150, 255));
 
 			std::string strBatchCall = "DynamicBatch: " + FloatToString(nBatchCall);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 72, strBatchCall.c_str(), HXCOLOR(255, 0, 0, 255));
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 72, strBatchCall.c_str(), HXCOLOR(150, 0, 150, 255));
 
 			rs->EndText();
 		}
