@@ -388,6 +388,18 @@ namespace HX3D
 			}
 
 			// light
+			// 如果有删除的light，则需要刷新
+			for (int index = 0; index < 5; ++index)
+			{
+				std::stringstream ss;
+				std::string strIndex;
+				ss << index;
+				ss >> strIndex;
+				std::string strLight = "Lights[" + strIndex + "]";
+				property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".isEnable").c_str());
+				GLint isEnable = 0;
+				glUniform1i(property_loc, isEnable);
+			}
 			for (int index = 0; index < HXSceneManager::GetInstance()->lightVct.size(); ++index)
 			{
 				HXLight* light = HXSceneManager::GetInstance()->lightVct[index];

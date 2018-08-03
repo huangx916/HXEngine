@@ -29,6 +29,10 @@ private:
 	void loadGameObject();
 	void deleteGameObject();
 	void exportGameObject();
+	void createDirectionLight();
+	void createPointLight();
+	void createSpotLight();
+	void deleteLight();
 
 	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level, int fatherPriority);
 	void serializeScene(QTextStream& out);

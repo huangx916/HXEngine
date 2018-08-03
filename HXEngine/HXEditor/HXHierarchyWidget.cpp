@@ -9,6 +9,7 @@ HXHierarchyWidget::HXHierarchyWidget(FPtr gameobjectcallback, FLightPtr lightcal
 	: QTreeWidget(parent)
 	, clickGameObjectCallback(NULL)
 	, clickLightCallback(NULL)
+	, lightRoot(NULL)
 {
 	clickGameObjectCallback = gameobjectcallback;
 	clickLightCallback = lightcallback;
@@ -43,13 +44,15 @@ void HXHierarchyWidget::UpdateSceneTree()
 
 	QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Scene")));
 
+	lightRoot = new QTreeWidgetItem(root, QStringList(QString("LightList")));
+
 	HXGameObject* gameObjectTreeRoot = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
 	for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
 	{
 		AddGameObjectLeafRecurve(root, *itr);
 	}
 
-	AddLightLeaf(root);
+	AddLightLeaf(lightRoot);
 
 	//QList<QTreeWidgetItem *> rootList;
 	//rootList << root;
@@ -81,6 +84,23 @@ void HXHierarchyWidget::AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::
 	{
 		AddGameObjectLeafRecurve(tw, *itr);
 	}
+}
+
+void HXHierarchyWidget::OnCreateLight(HX3D::HXLight* light)
+{
+	if (lightRoot)
+	{
+		QTreeWidgetItem* tw = new QTreeWidgetItem(lightRoot, QStringList(QString(light->name.c_str())));
+		QVariant var;
+		var.setValue(light);
+		tw->setData(1, Qt::UserRole, var);
+	}
+}
+
+void HXHierarchyWidget::OnDeleteLight()
+{
+	delete this->currentItem();
+	HXEditorWin::GetInstance()->m_pInspectorWidget->OnDeleteLight();
 }
 
 void HXHierarchyWidget::AddLightLeaf(QTreeWidgetItem* parent)

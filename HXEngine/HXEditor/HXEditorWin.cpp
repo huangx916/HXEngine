@@ -34,6 +34,10 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
 	connect(ui.actionDeleteGameObject, &QAction::triggered, this, &HXEditorWin::deleteGameObject);
 	connect(ui.actionExportGameObject, &QAction::triggered, this, &HXEditorWin::exportGameObject);
+	connect(ui.actionDirectionLight, &QAction::triggered, this, &HXEditorWin::createDirectionLight);
+	connect(ui.actionPointLight, &QAction::triggered, this, &HXEditorWin::createPointLight);
+	connect(ui.actionSpotLight, &QAction::triggered, this, &HXEditorWin::createSpotLight);
+	connect(ui.actionDeleteLight, &QAction::triggered, this, &HXEditorWin::deleteLight);
 
 	/* set background color */
 	//QPalette palette(palette());
@@ -358,6 +362,13 @@ void HXEditorWin::serializePrefab(QTextStream& out)
 
 void HXEditorWin::createEmpty()
 {
+	QString scene = m_pGameWidget->GetCurScene();
+	if (scene.isEmpty())
+	{
+		QMessageBox::warning(this, tr("Read File"),
+			tr("Please load or new a scene first"));
+		return;
+	}
 	m_pGameWidget->LoadGameObject(m_pInspectorWidget->selectedGameObject, "./prefab/Empty/Empty.prefab");
 }
 
@@ -444,6 +455,75 @@ void HXEditorWin::exportGameObject()
 	else {
 		QMessageBox::warning(this, tr("Path"),
 			tr("You did not select any file."));
+	}
+}
+
+void HXEditorWin::createDirectionLight()
+{
+	QString scene = m_pGameWidget->GetCurScene();
+	if (scene.isEmpty())
+	{
+		QMessageBox::warning(this, tr("Read File"),
+			tr("Please load or new a scene first"));
+		return;
+	}
+	HXLight* light = HXSceneManager::GetInstance()->CreateLight(LIGHT_DIRECTION);
+	if (light)
+	{
+		m_pHierarchyWidget->OnCreateLight(light);
+	}
+}
+
+void HXEditorWin::createPointLight()
+{
+	QString scene = m_pGameWidget->GetCurScene();
+	if (scene.isEmpty())
+	{
+		QMessageBox::warning(this, tr("Read File"),
+			tr("Please load or new a scene first"));
+		return;
+	}
+	HXLight* light = HXSceneManager::GetInstance()->CreateLight(LIGHT_POINT);
+	if (light)
+	{
+		m_pHierarchyWidget->OnCreateLight(light);
+	}
+}
+
+void HXEditorWin::createSpotLight()
+{
+	QString scene = m_pGameWidget->GetCurScene();
+	if (scene.isEmpty())
+	{
+		QMessageBox::warning(this, tr("Read File"),
+			tr("Please load or new a scene first"));
+		return;
+	}
+	HXLight* light = HXSceneManager::GetInstance()->CreateLight(LIGHT_SPOT);
+	if (light)
+	{
+		m_pHierarchyWidget->OnCreateLight(light);
+	}
+}
+
+void HXEditorWin::deleteLight()
+{
+	if (NULL == m_pInspectorWidget->selectedLight)
+	{
+		QMessageBox::warning(this, tr("Light"),
+			tr("You did not select any light."));
+		return;
+	}
+
+	if (QMessageBox::Yes == QMessageBox::question(this,
+		tr("Light"),
+		tr("Delete this light ?"),
+		QMessageBox::Yes | QMessageBox::No,
+		QMessageBox::Yes)) {
+		if (HXSceneManager::GetInstance()->DeleteLight(m_pInspectorWidget->selectedLight))
+		{
+			m_pHierarchyWidget->OnDeleteLight();
+		}
 	}
 }
 

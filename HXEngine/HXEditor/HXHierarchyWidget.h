@@ -18,6 +18,8 @@ public:
 	void UpdateSceneTree();
 	void OnCreateGameObject(HX3D::HXGameObject* go);
 	void OnDeleteGameObject();
+	void OnCreateLight(HX3D::HXLight* light);
+	void OnDeleteLight();
 
 private:
 	void AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go);
@@ -28,4 +30,6 @@ private:
 
 	FPtr clickGameObjectCallback;
 	FLightPtr clickLightCallback;
+
+	QTreeWidgetItem* lightRoot;
 };

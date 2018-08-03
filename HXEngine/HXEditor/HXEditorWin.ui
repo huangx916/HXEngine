@@ -44,8 +44,24 @@
     <addaction name="separator"/>
     <addaction name="actionExportGameObject"/>
    </widget>
+   <widget class="QMenu" name="menuLight">
+    <property name="title">
+     <string>Light</string>
+    </property>
+    <widget class="QMenu" name="menuCreateLight">
+     <property name="title">
+      <string>Create</string>
+     </property>
+     <addaction name="actionDirectionLight"/>
+     <addaction name="actionPointLight"/>
+     <addaction name="actionSpotLight"/>
+    </widget>
+    <addaction name="menuCreateLight"/>
+    <addaction name="actionDeleteLight"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuGameObject"/>
+   <addaction name="menuLight"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -89,6 +105,26 @@
   <action name="actionNewScene">
    <property name="text">
     <string>New</string>
+   </property>
+  </action>
+  <action name="actionDirectionLight">
+   <property name="text">
+    <string>DirectionalLight</string>
+   </property>
+  </action>
+  <action name="actionPointLight">
+   <property name="text">
+    <string>PointLight</string>
+   </property>
+  </action>
+  <action name="actionSpotLight">
+   <property name="text">
+    <string>SpotLight</string>
+   </property>
+  </action>
+  <action name="actionDeleteLight">
+   <property name="text">
+    <string>Delete...</string>
    </property>
   </action>
  </widget>

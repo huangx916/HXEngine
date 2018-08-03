@@ -39,6 +39,8 @@ namespace HX3D
 		void InsertGameObjectToOrderQueueRecurve(HXGameObject* gameobject);
 
 		// 平行光、点光源、聚光灯
+		HXLight* CreateLight(LIGHT_TYPE type);
+		bool DeleteLight(HXLight* light);
 		HXLight* CreateLight(HXLightInfo* lightInfo);
 		// 用于产生阴影的主平行光
 		HXLight* GetMainLight();

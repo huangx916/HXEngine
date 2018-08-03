@@ -34,6 +34,7 @@ public:
 	void SetCameraInfo(HXICamera* pCamera);
 
 	void OnDeleteGameObject();
+	void OnDeleteLight();
 
 	// data
 	HXGameObject* selectedGameObject;

@@ -264,6 +264,53 @@ namespace HX3D
 		}
 	}
 
+	HXLight* HXSceneManager::CreateLight(LIGHT_TYPE type)
+	{
+		HXLight* pLight = new HXLight();
+		pLight->enable = true;
+		pLight->lightType = type;
+		pLight->shininess = 10;
+		pLight->strength = 0.01;
+		pLight->constantAttenuation = 0.05;
+		pLight->LinearAttenuation = 0.05;
+		pLight->QuadraticAttenuation = 0.01;
+		pLight->SpotCosCutoff = 0;
+		pLight->SpotExponent = 10;
+		pLight->color = HXCOLOR(255, 255, 255, 255);
+		pLight->position = HXVector3D(0,0,0);
+		pLight->direct = HXVector3D(1, 1, 1);
+		pLight->ConeDirection = HXVector3D(1,1,1);
+		if (type == LIGHT_DIRECTION)
+		{
+			pLight->name = "Directional Light";
+		}
+		else if (type == LIGHT_POINT)
+		{
+			pLight->name = "Point Light";
+		}
+		else if (type == LIGHT_SPOT)
+		{
+			pLight->name = "Spot Light";
+		}
+		lightVct.push_back(pLight);
+		return pLight;
+	}
+
+	bool HXSceneManager::DeleteLight(HXLight* light)
+	{
+		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); ++itr)
+		{
+			if ((*itr) == light)
+			{
+				lightVct.erase(itr);
+				delete light;
+				light = NULL;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	HXLight* HXSceneManager::CreateLight(HXLightInfo* lightInfo)
 	{
 		HXLight* pLight = new HXLight(lightInfo);

@@ -1369,3 +1369,9 @@ void HXInspectorWidget::OnDeleteGameObject()
 	selectedGameObject = NULL;
 	gameobject->setHidden(true);
 }
+
+void HXInspectorWidget::OnDeleteLight()
+{
+	selectedLight = NULL;
+	light->setHidden(true);
+}

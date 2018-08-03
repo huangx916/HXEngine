@@ -33,10 +33,16 @@ public:
     QAction *actionExportGameObject;
     QAction *actionCreateEmptyGO;
     QAction *actionNewScene;
+    QAction *actionDirectionLight;
+    QAction *actionPointLight;
+    QAction *actionSpotLight;
+    QAction *actionDeleteLight;
     QWidget *centralWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuGameObject;
+    QMenu *menuLight;
+    QMenu *menuCreateLight;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -60,6 +66,14 @@ public:
         actionCreateEmptyGO->setObjectName(QStringLiteral("actionCreateEmptyGO"));
         actionNewScene = new QAction(HXEditorWinClass);
         actionNewScene->setObjectName(QStringLiteral("actionNewScene"));
+        actionDirectionLight = new QAction(HXEditorWinClass);
+        actionDirectionLight->setObjectName(QStringLiteral("actionDirectionLight"));
+        actionPointLight = new QAction(HXEditorWinClass);
+        actionPointLight->setObjectName(QStringLiteral("actionPointLight"));
+        actionSpotLight = new QAction(HXEditorWinClass);
+        actionSpotLight->setObjectName(QStringLiteral("actionSpotLight"));
+        actionDeleteLight = new QAction(HXEditorWinClass);
+        actionDeleteLight->setObjectName(QStringLiteral("actionDeleteLight"));
         centralWidget = new QWidget(HXEditorWinClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         HXEditorWinClass->setCentralWidget(centralWidget);
@@ -70,6 +84,10 @@ public:
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuGameObject = new QMenu(menuBar);
         menuGameObject->setObjectName(QStringLiteral("menuGameObject"));
+        menuLight = new QMenu(menuBar);
+        menuLight->setObjectName(QStringLiteral("menuLight"));
+        menuCreateLight = new QMenu(menuLight);
+        menuCreateLight->setObjectName(QStringLiteral("menuCreateLight"));
         HXEditorWinClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(HXEditorWinClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -80,6 +98,7 @@ public:
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuGameObject->menuAction());
+        menuBar->addAction(menuLight->menuAction());
         menuFile->addAction(actionLoadScene);
         menuFile->addAction(actionSaveScene);
         menuFile->addAction(actionNewScene);
@@ -88,6 +107,11 @@ public:
         menuGameObject->addAction(actionDeleteGameObject);
         menuGameObject->addSeparator();
         menuGameObject->addAction(actionExportGameObject);
+        menuLight->addAction(menuCreateLight->menuAction());
+        menuLight->addAction(actionDeleteLight);
+        menuCreateLight->addAction(actionDirectionLight);
+        menuCreateLight->addAction(actionPointLight);
+        menuCreateLight->addAction(actionSpotLight);
 
         retranslateUi(HXEditorWinClass);
 
@@ -104,8 +128,14 @@ public:
         actionExportGameObject->setText(QApplication::translate("HXEditorWinClass", "Export...", nullptr));
         actionCreateEmptyGO->setText(QApplication::translate("HXEditorWinClass", "CreateEmpty", nullptr));
         actionNewScene->setText(QApplication::translate("HXEditorWinClass", "New", nullptr));
+        actionDirectionLight->setText(QApplication::translate("HXEditorWinClass", "DirectionalLight", nullptr));
+        actionPointLight->setText(QApplication::translate("HXEditorWinClass", "PointLight", nullptr));
+        actionSpotLight->setText(QApplication::translate("HXEditorWinClass", "SpotLight", nullptr));
+        actionDeleteLight->setText(QApplication::translate("HXEditorWinClass", "Delete...", nullptr));
         menuFile->setTitle(QApplication::translate("HXEditorWinClass", "Scene", nullptr));
         menuGameObject->setTitle(QApplication::translate("HXEditorWinClass", "GameObject", nullptr));
+        menuLight->setTitle(QApplication::translate("HXEditorWinClass", "Light", nullptr));
+        menuCreateLight->setTitle(QApplication::translate("HXEditorWinClass", "Create", nullptr));
     } // retranslateUi
 
 };
