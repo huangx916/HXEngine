@@ -24,6 +24,7 @@ private:
 
 	void loadScene();
 	void saveScene();
+	void newScene();
 	void createEmpty();
 	void loadGameObject();
 	void deleteGameObject();

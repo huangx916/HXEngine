@@ -29,6 +29,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 
 	connect(ui.actionLoadScene, &QAction::triggered, this, &HXEditorWin::loadScene);
 	connect(ui.actionSaveScene, &QAction::triggered, this, &HXEditorWin::saveScene);
+	connect(ui.actionNewScene, &QAction::triggered, this, &HXEditorWin::newScene);
 	connect(ui.actionCreateEmptyGO, &QAction::triggered, this, &HXEditorWin::createEmpty);
 	connect(ui.actionLoadGameObject, &QAction::triggered, this, &HXEditorWin::loadGameObject);
 	connect(ui.actionDeleteGameObject, &QAction::triggered, this, &HXEditorWin::deleteGameObject);
@@ -121,6 +122,11 @@ void HXEditorWin::saveScene()
 		QMessageBox::warning(this, tr("Path"),
 			tr("You did not select any file."));
 	}
+}
+
+void HXEditorWin::newScene()
+{
+	m_pGameWidget->LoadScene("./scene/empty.scene", HXEditorWin::loadSceneCallBack, HXEditorWin::updateCallBack, HXEditorWin::createGoCallBack);
 }
 
 void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level, int fatherPriority)

@@ -32,6 +32,7 @@
     </property>
     <addaction name="actionLoadScene"/>
     <addaction name="actionSaveScene"/>
+    <addaction name="actionNewScene"/>
    </widget>
    <widget class="QMenu" name="menuGameObject">
     <property name="title">
@@ -83,6 +84,11 @@
   <action name="actionCreateEmptyGO">
    <property name="text">
     <string>CreateEmpty</string>
+   </property>
+  </action>
+  <action name="actionNewScene">
+   <property name="text">
+    <string>New</string>
    </property>
   </action>
  </widget>
