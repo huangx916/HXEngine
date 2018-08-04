@@ -97,9 +97,6 @@
     <ClCompile Include="src\HXGLTest.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\HXGLTexture.cpp">
-      <Filter>RenderSystem\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXGLTransform.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
@@ -165,6 +162,12 @@
     </ClCompile>
     <ClCompile Include="src\HXLoadConfigGameIni.cpp">
       <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLTexture.cpp">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLFontBG.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,22 +354,19 @@
     <ClInclude Include="include\HXLoadConfigGameIni.h">
       <Filter>Config</Filter>
     </ClInclude>
+    <ClInclude Include="include\HXGLFontBG.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
       <UniqueIdentifier>{2f823a1b-0269-4d6d-9268-25f0aad3642f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FBX">
-      <UniqueIdentifier>{f6d5d896-01e2-4968-aea5-eb9ff658d3a1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{79176824-38c9-4339-8865-d6872038214f}</UniqueIdentifier>
     </Filter>
     <Filter Include="RenderSystem">
       <UniqueIdentifier>{02ffcf7e-f51f-44ca-b9a0-551880c2e75f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{f1b78185-5a17-4a04-9c5e-6555b64969aa}</UniqueIdentifier>
     </Filter>
     <Filter Include="TinyXML">
       <UniqueIdentifier>{bc11d5b9-53ef-47c8-aba4-3af4be76f03a}</UniqueIdentifier>
@@ -385,6 +385,12 @@
     </Filter>
     <Filter Include="RenderSystem\OpenGL\Util">
       <UniqueIdentifier>{6e7e0e62-8643-4506-9b83-475e2874bdb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{f1b78185-5a17-4a04-9c5e-6555b64969aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FBX">
+      <UniqueIdentifier>{f6d5d896-01e2-4968-aea5-eb9ff658d3a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

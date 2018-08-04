@@ -32,6 +32,7 @@
     <ClInclude Include="include\HXGLShadowMap.h" />
     <ClInclude Include="include\HXGLTexture.h" />
     <ClInclude Include="include\HXGLTransform.h" />
+    <ClInclude Include="include\HXGLFontBG.h" />
     <ClInclude Include="include\HXICamera.h" />
     <ClInclude Include="include\HXCommon.h" />
     <ClInclude Include="include\HXCore.h" />
@@ -105,6 +106,7 @@
     <ClCompile Include="src\HXGLTest.cpp" />
     <ClCompile Include="src\HXGLTexture.cpp" />
     <ClCompile Include="src\HXGLTransform.cpp" />
+    <ClCompile Include="src\HXGLFontBG.cpp" />
     <ClCompile Include="src\HXGraphics.cpp" />
     <ClCompile Include="src\HXITransform.cpp" />
     <ClCompile Include="src\HXLight.cpp" />

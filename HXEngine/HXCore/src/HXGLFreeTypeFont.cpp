@@ -3,15 +3,19 @@
 #include "LoadShaders.h"
 #include "vmath.h"
 #include "HXStatus.h"
+#include "HXGLFontBG.h"
 
 namespace HX3D
 {
 	HXGLFreeTypeFont::HXGLFreeTypeFont()
 	{
+		bg = new HXGLFontBG();
+		bg->Initialize();
 	}
 
 	HXGLFreeTypeFont::~HXGLFreeTypeFont()
 	{
+		delete bg;
 	}
 
 	void HXGLFreeTypeFont::Initialize(const char* fontFile, int fontSize)
@@ -65,6 +69,8 @@ namespace HX3D
 
 	void HXGLFreeTypeFont::BeginText()
 	{
+		bg->Render();
+		
 		glBindVertexArray(_vaoId);
 		glBindBuffer(GL_ARRAY_BUFFER, _vboId);
 		glUseProgram(_programId);

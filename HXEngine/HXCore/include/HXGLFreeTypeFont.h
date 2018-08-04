@@ -4,6 +4,7 @@
 
 namespace HX3D
 {
+	class HXGLFontBG;
 	class HXGLFreeTypeFont : public HXIFreeTypeFont
 	{
 	public:
@@ -24,6 +25,8 @@ namespace HX3D
 		// TODO: 是否不要每帧赋值传输不变的数据,在外层_DrawText时用renderlist管理起来,如何删除（用键值对？）
 		unsigned	_vboId;
 		unsigned	_programId;
+
+		HXGLFontBG* bg;
 	};
 }
 
