@@ -207,6 +207,15 @@ namespace HX3D
 		}
 	}
 
+	void HXGameObject::SetCastShadowRecurve(bool bCastShadow)
+	{
+		SetCastShadow(bCastShadow);
+		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		{
+			(*itr)->SetCastShadowRecurve(bCastShadow);
+		}
+	}
+
 	bool HXGameObject::GetStatic() const
 	{
 		return m_bStatic;
@@ -219,7 +228,7 @@ namespace HX3D
 
 	void HXGameObject::SetStaticRecurve(bool bStatic)
 	{
-		m_bStatic = bStatic;
+		SetStatic(bStatic);
 		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
 		{
 			(*itr)->SetStaticRecurve(bStatic);

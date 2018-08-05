@@ -852,15 +852,22 @@ void HXInspectorWidget::StaticToggled(bool bStatic)
 {
 	if (selectedGameObject)
 	{
-		if (QMessageBox::Yes == QMessageBox::question(this,
-			tr("Change Static Flags"),
-			tr("Do you want to change the static flags for all the child objects as well ?"),
-			QMessageBox::Yes | QMessageBox::No,
-			QMessageBox::Yes)) 
+		if (selectedGameObject->GetChildren().size() > 0)
 		{
-			selectedGameObject->SetStaticRecurve(bStatic);
+			if (QMessageBox::Yes == QMessageBox::question(this,
+				tr("Change Static Flags"),
+				tr("Do you want to change the static flags for all the child objects as well ?"),
+				QMessageBox::Yes | QMessageBox::No,
+				QMessageBox::Yes))
+			{
+				selectedGameObject->SetStaticRecurve(bStatic);
+			}
+			else
+			{
+				selectedGameObject->SetStatic(bStatic);
+			}
 		}
-		else 
+		else
 		{
 			selectedGameObject->SetStatic(bStatic);
 		}
@@ -887,7 +894,25 @@ void HXInspectorWidget::CastShadowToggled(bool castShadow)
 {
 	if (selectedGameObject)
 	{
-		selectedGameObject->SetCastShadow(castShadow);
+		if (selectedGameObject->GetChildren().size() > 0)
+		{
+			if (QMessageBox::Yes == QMessageBox::question(this,
+				tr("Change CastShadow Flags"),
+				tr("Do you want to change the castshadow flags for all the child objects as well ?"),
+				QMessageBox::Yes | QMessageBox::No,
+				QMessageBox::Yes))
+			{
+				selectedGameObject->SetCastShadowRecurve(castShadow);
+			}
+			else
+			{
+				selectedGameObject->SetCastShadow(castShadow);
+			}
+		}
+		else
+		{
+			selectedGameObject->SetCastShadow(castShadow);
+		}
 	}
 }
 

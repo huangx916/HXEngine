@@ -34,6 +34,7 @@ namespace HX3D
 		void SetActivity(bool activity);
 		bool GetCastShadow() const;
 		void SetCastShadow(bool bCastShadow);
+		void SetCastShadowRecurve(bool bCastShadow);
 		bool GetStatic() const;
 		void SetStatic(bool bStatic);
 		void SetStaticRecurve(bool bStatic);
