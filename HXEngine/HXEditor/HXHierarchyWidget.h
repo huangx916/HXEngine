@@ -26,7 +26,7 @@ private:
 	void AddLightLeaf(QTreeWidgetItem* parent);
 
 	void GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-	//void TreeWidgetItemOnClick(QTreeWidgetItem *item, int column);
+	void TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int column);
 
 	FPtr clickGameObjectCallback;
 	FLightPtr clickLightCallback;

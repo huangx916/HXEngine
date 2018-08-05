@@ -57,3 +57,5 @@ optimize anim
 delete gameobject renderqueue and in editor
 
 mutiCamera	layer
+
+编辑器选中物体坐标轴模型 描边 相机移动

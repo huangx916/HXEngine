@@ -170,6 +170,29 @@ namespace HX3D
 		RQ_OVERLAY = 4000
 	};
 
+	enum ELayer
+	{
+		L_NOTHING,
+		L_EVERYTHING,
+		L_DEFAULT,
+		L_UI,
+		L_WATER
+	};
+
+	enum ECameraProjection
+	{
+		CP_ORTHOGRAPHIC,
+		CP_PERSPECTIVE
+	};
+
+	enum EClearFlag
+	{
+		CF_SKYBOX,
+		CF_SOLIDCOLOR,
+		CF_DEPTHONLY,
+		CF_DONTCLEAR
+	};
+
 	// TODO: 如何根据当前子网格顶点数动态生成顶点数组大小
 	const int MAX_TRIANGLE_COUNT = 100000;	// 最大子网格面数
 }
