@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="1.43953" Py="1.5134" Pz="11.9147"/>
-		<Rotation Rx="-1.7" Ry="-357.7" Rz="0"/>
+		<Position Px="0.79" Py="0.93" Pz="10.51"/>
+		<Rotation Rx="-17" Ry="-360.4" Rz="0"/>
 	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
@@ -21,9 +21,9 @@
 			<Scale Sx="400" Sy="400" Sz="400"/>
 		</GameObj>
 		<GameObj Name="TerrainGO" Activity="1" Static="1" Model="prefab/Terrain/Terrain.model" Priority="2000" CastShadow="0">
-			<Position Px="-5" Py="0" Pz="0"/>
+			<Position Px="-5" Py="0" Pz="-39"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="1" Sy="1" Sz="1"/>
+			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 		</GameObj>
 		<GameObj Name="DogGo" Activity="1" Static="0" Model="prefab/Dog/Dog.model" Priority="2450" CastShadow="1">
 			<Position Px="2" Py="-2.5" Pz="6.5"/>

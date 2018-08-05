@@ -52,6 +52,8 @@ gameobject anim in scene config
 
 optimize anim
 
-
-
 ![show](style.gif)
+
+delete gameobject renderqueue and in editor
+
+mutiCamera
