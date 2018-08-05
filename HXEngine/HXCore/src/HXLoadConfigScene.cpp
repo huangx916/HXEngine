@@ -11,7 +11,7 @@ namespace HX3D
 	{
 	}
 
-	bool HXLoadConfigScene::ReadGameObjectRecurve(TiXmlElement* gameobjElement, std::vector<HXGameObjectInfo*>& list, int fatherPriority)
+	bool HXLoadConfigScene::ReadGameObjectRecurve(TiXmlElement* gameobjElement, std::vector<HXGameObjectInfo*>& list)
 	{
 		for (; gameobjElement != NULL; gameobjElement = gameobjElement->NextSiblingElement())
 		{
@@ -21,7 +21,6 @@ namespace HX3D
 			gameObjInfo->bActivity = atoi(gameobjElement->Attribute("Activity"));
 			gameObjInfo->bStatic = atoi(gameobjElement->Attribute("Static"));
 			gameObjInfo->strModelFile = gameobjElement->Attribute("Model");
-			gameObjInfo->nPriority = atoi(gameobjElement->Attribute("Priority")) + fatherPriority;
 			gameObjInfo->bCastShadow = atoi(gameobjElement->Attribute("CastShadow"));
 			TiXmlElement* positionElement = gameobjElement->FirstChildElement();
 			gameObjInfo->position.x = atof(positionElement->Attribute("Px"));
@@ -39,7 +38,7 @@ namespace HX3D
 			list.push_back(gameObjInfo);
 
 			TiXmlElement* child = scaleElement->NextSiblingElement();
-			ReadGameObjectRecurve(child, gameObjInfo->children, gameObjInfo->nPriority);
+			ReadGameObjectRecurve(child, gameObjInfo->children);
 		}
 		return true;
 	}
@@ -126,7 +125,7 @@ namespace HX3D
 		// gameObject
 		TiXmlElement* gameobjects = lights->NextSiblingElement();
 		TiXmlElement* gameobjElement = gameobjects->FirstChildElement();
-		ReadGameObjectRecurve(gameobjElement, mSceneInfo.vctGameObjInfo, 0);
+		ReadGameObjectRecurve(gameobjElement, mSceneInfo.vctGameObjInfo);
 
 		return true;
 	}

@@ -87,9 +87,6 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	editGameObjectName = new QLineEdit();
 
-	spinboxPriority = new QSpinBox();
-	spinboxPriority->setRange(PRIORITY_MIN, PRIORITY_MAX);
-
 	checkboxCastShadow = new QCheckBox();
 
 	spinboxPositionX = new QDoubleSpinBox();
@@ -334,12 +331,6 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	isStatic->setText(0, "static");
 	gameobject->addChild(isStatic);
 	treeWidget->setItemWidget(isStatic, 1, checkboxStatic);
-
-	// gameobject priority
-	QTreeWidgetItem *priority = new QTreeWidgetItem;
-	priority->setText(0, "priority");
-	gameobject->addChild(priority);
-	treeWidget->setItemWidget(priority, 1, spinboxPriority);
 
 	// castshadow
 	QTreeWidgetItem *castshadow = new QTreeWidgetItem;
@@ -629,7 +620,6 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
 
-	connect(spinboxPriority, SIGNAL(valueChanged(int)), this, SLOT(PriorityChanged(int)));
 	connect(checkboxCastShadow, SIGNAL(toggled(bool)), this, SLOT(CastShadowToggled(bool)));
 
 	connect(spinboxPositionX, SIGNAL(valueChanged(double)), this, SLOT(PositionXValueChanged(double)));
@@ -700,8 +690,6 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 		}
 
 		editGameObjectName->setText(pGameObject->GetName().c_str());
-
-		spinboxPriority->setValue(pGameObject->GetRenderQueue());
 
 		if (pGameObject->GetCastShadow())
 		{
@@ -880,14 +868,6 @@ void HXInspectorWidget::GameObjectNameChanged(const QString& name)
 		}
 
 		//HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
-	}
-}
-
-void HXInspectorWidget::PriorityChanged(int value)
-{
-	if (selectedGameObject)
-	{
-		selectedGameObject->SetRenderQueue(value);
 	}
 }
 

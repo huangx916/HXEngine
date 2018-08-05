@@ -34,8 +34,6 @@ namespace HX3D
 		void SetActivity(bool activity);
 		bool GetCastShadow() const;
 		void SetCastShadow(bool bCastShadow);
-		int GetRenderQueue() const;
-		void SetRenderQueue(int nRenderQueue);
 		bool GetStatic() const;
 		void SetStatic(bool bStatic);
 
@@ -48,7 +46,6 @@ namespace HX3D
 		// Local Coordinate
 		HXITransform* m_pTransform;
 		bool m_bCastShadow;
-		int m_nRenderQueue;	// 渲染优先级
 		HXMesh* m_pMesh;
 		HXGameObject* m_pFather;	// 用作计算World Coordinate
 		std::vector<HXGameObject*> vctChildren;

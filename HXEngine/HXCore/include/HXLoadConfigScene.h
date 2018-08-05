@@ -68,7 +68,7 @@ namespace HX3D
 		HXLoadConfigScene();
 		~HXLoadConfigScene();
 
-		bool ReadGameObjectRecurve(TiXmlElement* gameobjElement, std::vector<HXGameObjectInfo*>& list, int fatherPriority);
+		bool ReadGameObjectRecurve(TiXmlElement* gameobjElement, std::vector<HXGameObjectInfo*>& list);
 		bool LoadFile(std::string strFileName);
 
 		HXSceneInfo mSceneInfo;

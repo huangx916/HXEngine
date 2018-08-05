@@ -34,7 +34,7 @@ private:
 	void createSpotLight();
 	void deleteLight();
 
-	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level, int fatherPriority);
+	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level);
 	void serializeScene(QTextStream& out);
 	void serializePrefab(QTextStream& out);
 

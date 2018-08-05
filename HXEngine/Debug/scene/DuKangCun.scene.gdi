@@ -9,7 +9,7 @@
 	<Lights>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" Priority="3000" CastShadow="0">
+		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" CastShadow="0">
 			<Postion Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>

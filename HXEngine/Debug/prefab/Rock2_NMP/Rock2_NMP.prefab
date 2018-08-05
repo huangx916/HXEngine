@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="Rock2_NMP" Activity="1" Static="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" Priority="3000" CastShadow="1">
+	<GameObj Name="Rock2_NMP" Activity="1" Static="1" Model="prefab/Rock2_NMP/Rock2_NMP.model" CastShadow="1">
 		<Position Px="0" Py="0" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="1" Sy="1.4" Sz="1"/>

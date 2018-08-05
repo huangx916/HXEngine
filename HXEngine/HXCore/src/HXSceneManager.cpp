@@ -356,11 +356,6 @@ namespace HX3D
 		}
 	}
 
-	bool mycompare(HXGameObject* i, HXGameObject* j)
-	{
-		return( i->GetRenderQueue() < j->GetRenderQueue());
-	}
-
 	void HXSceneManager::PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest)
 	{
 		dest.push_back(src);

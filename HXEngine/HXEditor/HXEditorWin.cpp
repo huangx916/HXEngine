@@ -133,7 +133,7 @@ void HXEditorWin::newScene()
 	m_pGameWidget->LoadScene("./scene/empty.scene", HXEditorWin::loadSceneCallBack, HXEditorWin::updateCallBack, HXEditorWin::createGoCallBack);
 }
 
-void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level, int fatherPriority)
+void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level)
 {
 	for (std::vector<HXGameObject*>::iterator itr = list.begin(); itr != list.end(); ++itr)
 	{
@@ -149,8 +149,6 @@ void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3
 		out << (*itr)->GetStatic();
 		out << "\" Model=\"";
 		out << (*itr)->m_strModelFile.c_str();
-		out << "\" Priority=\"";
-		out << (*itr)->GetRenderQueue() - fatherPriority;
 		out << "\" CastShadow=\"";
 		out << (*itr)->GetCastShadow();
 		out << "\">\n";
@@ -191,7 +189,7 @@ void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3
 		out << (*itr)->GetTransform()->GetScale().z;
 		out << "\"/>\n";
 
-		serializeGameObjectRecursive(out, (*itr)->GetChildren(), level+1, (*itr)->GetRenderQueue());
+		serializeGameObjectRecursive(out, (*itr)->GetChildren(), level+1);
 
 		for (int i = 0; i < level + 2; ++i)
 		{
@@ -342,7 +340,7 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	// GameObjects
 	out << "	<GameObjects>\n";
 	HXGameObject* gameObjectTreeRoot = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
-	serializeGameObjectRecursive(out, gameObjectTreeRoot->GetChildren(), 0, 0);
+	serializeGameObjectRecursive(out, gameObjectTreeRoot->GetChildren(), 0);
 	out << "	</GameObjects>\n";
 
 	out << "</Scene>";
@@ -355,7 +353,7 @@ void HXEditorWin::serializePrefab(QTextStream& out)
 
 	std::vector<HX3D::HXGameObject*> list;
 	list.push_back(m_pInspectorWidget->selectedGameObject);
-	serializeGameObjectRecursive(out, list, -1, 0);
+	serializeGameObjectRecursive(out, list, -1);
 
 	out << "</Scene>";
 }

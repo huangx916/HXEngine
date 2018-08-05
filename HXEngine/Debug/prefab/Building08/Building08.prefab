@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="Building08" Activity="1" Static="1" Model="prefab/Building08/Building08.model" Priority="3000" CastShadow="1">
+	<GameObj Name="Building08" Activity="1" Static="1" Model="prefab/Building08/Building08.model" CastShadow="1">
 		<Position Px="0" Py="-2" Pz="7.5"/>
 		<Rotation Rx="0" Ry="90" Rz="0"/>
 		<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>

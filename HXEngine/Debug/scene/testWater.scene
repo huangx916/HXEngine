@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
 	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="-11.0806" Py="48.5454" Pz="104.711"/>
+		<Position Px="-11.08" Py="48.55" Pz="104.71"/>
 		<Rotation Rx="-47.6" Ry="-0.3" Rz="0"/>
 	</Camera>
 	<Fog Use="0" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
@@ -15,12 +15,12 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="Water" Activity="1" Static="1" Model="prefab/Water/Water.model" Priority="3000" CastShadow="0">
+		<GameObj Name="Water" Activity="1" Static="1" Model="prefab/Water/Water.model" CastShadow="0">
 			<Position Px="0" Py="-2.9" Pz="10"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="100" Sy="1" Sz="100"/>
 		</GameObj>
-		<GameObj Name="TerrainGO" Activity="1" Static="1" Model="prefab/Terrain/Terrain.model" Priority="2000" CastShadow="0">
+		<GameObj Name="TerrainGO" Activity="1" Static="1" Model="prefab/Terrain/Terrain.model" CastShadow="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>

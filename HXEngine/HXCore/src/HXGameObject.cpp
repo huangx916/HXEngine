@@ -99,7 +99,6 @@ namespace HX3D
 
 		m_strName = gameobjectinfo->strGameObjName;
 		m_strModelFile = gameobjectinfo->strModelFile;
-		m_nRenderQueue = gameobjectinfo->nPriority;
 		SetCastShadow(gameobjectinfo->bCastShadow);
 		SetActivity(gameobjectinfo->bActivity);
 		SetStatic(gameobjectinfo->bStatic);
@@ -206,17 +205,6 @@ namespace HX3D
 				(*itr)->IsCastShadow = bCastShadow;
 			}
 		}
-	}
-
-	int HXGameObject::GetRenderQueue() const
-	{
-		return m_nRenderQueue;
-	}
-
-	void HXGameObject::SetRenderQueue(int nRenderQueue)
-	{
-		m_nRenderQueue = nRenderQueue;
-		HXSceneManager::GetInstance()->UpdateRenderableQueue();
 	}
 
 	bool HXGameObject::GetStatic() const

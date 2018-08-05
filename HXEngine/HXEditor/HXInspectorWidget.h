@@ -21,8 +21,6 @@ class HXInspectorWidget : public QTreeWidget
 	const double MAX = 100000;
 	const int COLOR_MIN = 0;
 	const int COLOR_MAX = 255;
-	const int PRIORITY_MIN = 0;
-	const int PRIORITY_MAX = 100000;
 public:
 	HXInspectorWidget(QWidget * parent = 0);
 	~HXInspectorWidget();
@@ -78,7 +76,6 @@ private:
 	QCheckBox* checkboxActivity;
 	QCheckBox* checkboxStatic;
 	QLineEdit* editGameObjectName;
-	QSpinBox* spinboxPriority;
 	QCheckBox* checkboxCastShadow;
 	QDoubleSpinBox* spinboxPositionX;
 	QDoubleSpinBox* spinboxPositionY;
@@ -121,7 +118,6 @@ private:
 	// gameobject
 	void ActivityToggled(bool activity);
 	void StaticToggled(bool bStatic);
-	void PriorityChanged(int value);
 	void CastShadowToggled(bool castShadow);
 
 	void PositionXValueChanged(double value);

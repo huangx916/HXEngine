@@ -18,7 +18,6 @@ namespace HX3D
 		std::string strGameObjName;
 		bool bActivity;
 		std::string strModelFile;
-		int nPriority;
 		bool bCastShadow;
 		bool bStatic;
 		HXVector3D position;
@@ -33,7 +32,7 @@ namespace HX3D
 		HXLoadConfigPrefab();
 		~HXLoadConfigPrefab();
 
-		bool ReadGameObjectRecurve(TiXmlElement* gameobjElement, std::vector<HXGameObjectInfo*>& list, int fatherPriority);
+		bool ReadGameObjectRecurve(TiXmlElement* gameobjElement, std::vector<HXGameObjectInfo*>& list);
 		bool LoadFile(std::string strFileName);
 
 		// 最上层单个HXGameObjectInfo
