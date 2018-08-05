@@ -56,4 +56,4 @@ optimize anim
 
 delete gameobject renderqueue and in editor
 
-mutiCamera
+mutiCamera	layer

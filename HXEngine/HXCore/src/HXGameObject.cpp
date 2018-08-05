@@ -216,6 +216,15 @@ namespace HX3D
 	{
 		m_bStatic = bStatic;
 	}
+
+	void HXGameObject::SetStaticRecurve(bool bStatic)
+	{
+		m_bStatic = bStatic;
+		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		{
+			(*itr)->SetStaticRecurve(bStatic);
+		}
+	}
 }
 
 

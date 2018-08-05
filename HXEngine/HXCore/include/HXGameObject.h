@@ -36,6 +36,7 @@ namespace HX3D
 		void SetCastShadow(bool bCastShadow);
 		bool GetStatic() const;
 		void SetStatic(bool bStatic);
+		void SetStaticRecurve(bool bStatic);
 
 		std::string m_strName;
 		std::string m_strModelFile;

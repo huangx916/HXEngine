@@ -10,6 +10,7 @@
 #include "HXRenderSystem.h"
 #include "HXEditorWin.h"
 #include "HXHierarchyWidget.h"
+#include <QMessageBox.h>
 
 HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 , selectedGameObject(NULL)
@@ -851,7 +852,18 @@ void HXInspectorWidget::StaticToggled(bool bStatic)
 {
 	if (selectedGameObject)
 	{
-		selectedGameObject->SetStatic(bStatic);
+		if (QMessageBox::Yes == QMessageBox::question(this,
+			tr("Change Static Flags"),
+			tr("Do you want to change the static flags for all the child objects as well ?"),
+			QMessageBox::Yes | QMessageBox::No,
+			QMessageBox::Yes)) 
+		{
+			selectedGameObject->SetStaticRecurve(bStatic);
+		}
+		else 
+		{
+			selectedGameObject->SetStatic(bStatic);
+		}
 	}
 }
 
