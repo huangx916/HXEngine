@@ -134,14 +134,14 @@ void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetIt
 
 void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int column)
 {
-	/*HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
-	if (clickGameObjectCallback)
+	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
+	if (gameObject)
 	{
-		clickGameObjectCallback(gameObject);
+		HXSceneManager::GetInstance()->mainCamera->transform->SetPosition(gameObject->GetTransform()->GetPosition());
 	}
 	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
-	if (clickLightCallback)
+	if (light)
 	{
-		clickLightCallback(light);
-	}*/
+		HXSceneManager::GetInstance()->mainCamera->transform->SetPosition(light->position);
+	}
 }
