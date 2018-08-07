@@ -16,5 +16,6 @@ namespace HX3D
 		unsigned	_vaoId;
 		unsigned	_vboId;
 		unsigned	_programId;
+		unsigned	_texId;
 	};
 }

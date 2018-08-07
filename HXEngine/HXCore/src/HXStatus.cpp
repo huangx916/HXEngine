@@ -51,19 +51,19 @@ namespace HX3D
 			rs->BeginText();
 
 			std::string strFPS = "FPS: " + FloatToString(CalcLastFPS());
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 0, strFPS.c_str(), color);
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/4, 8, strFPS.c_str(), color);
 
 			std::string strTriangleCount = "TriangleCount: " + FloatToString(nTriangleCount);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 18, strTriangleCount.c_str(), color);
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/4, 24, strTriangleCount.c_str(), color);
 
 			std::string strVertexCount = "VertexCount: " + FloatToString(nVertexCount);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 36, strVertexCount.c_str(), color);
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/4, 40, strVertexCount.c_str(), color);
 
 			std::string strDrawCall = "DrawCall: " + FloatToString(nDrawCall);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 54, strDrawCall.c_str(), color);
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/4, 56, strDrawCall.c_str(), color);
 
 			std::string strBatchCall = "DynamicBatch: " + FloatToString(nBatchCall);
-			rs->_DrawText(/*SCREEN_WIDTH / 2*/2, 72, strBatchCall.c_str(), color);
+			rs->_DrawText(/*SCREEN_WIDTH / 2*/4, 72, strBatchCall.c_str(), color);
 
 			rs->EndText();
 		}

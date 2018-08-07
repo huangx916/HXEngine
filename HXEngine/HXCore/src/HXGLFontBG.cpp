@@ -2,6 +2,7 @@
 #include "vgl.h"
 #include "LoadShaders.h"
 #include "vmath.h"
+#include "HXGLTexture.h"
 
 namespace HX3D
 {
@@ -23,6 +24,9 @@ namespace HX3D
 			{ GL_NONE, NULL }
 		};
 		_programId = LoadShaders(shaders);
+		
+		HXGLTexture* tex = new HXGLTexture("prefab/_Material/FontBG/status.png");
+		_texId = tex->texId;
 	}
 
 	void HXGLFontBG::BeginRender()
@@ -46,7 +50,7 @@ namespace HX3D
 	{
 		BeginRender();
 
-		typedef float   Vertex[3];
+		typedef float Vertex[5];
 		Vertex* pVert = new Vertex[4];
 
 		int nWidth = 150;
@@ -60,24 +64,32 @@ namespace HX3D
 		pVert[0][0] = 0;
 		pVert[0][1] = 0;
 		pVert[0][2] = 0;
+		pVert[0][3] = 0;
+		pVert[0][4] = 1;
 		/**
 		*   第二个点
 		*/
 		pVert[1][0] = nWidth;
 		pVert[1][1] = 0;
 		pVert[1][2] = 0;
+		pVert[1][3] = 1;
+		pVert[1][4] = 1;
 		/**
 		*   第三个点
 		*/
 		pVert[2][0] = nWidth;
 		pVert[2][1] = nHeight;
 		pVert[2][2] = 0;
+		pVert[2][3] = 1;
+		pVert[2][4] = 0;
 		/**
 		*   第四个点
 		*/
 		pVert[3][0] = 0;
 		pVert[3][1] = nHeight;
 		pVert[3][2] = 0;
+		pVert[3][3] = 0;
+		pVert[3][4] = 0;
 
 		glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), pVert, GL_STATIC_DRAW);
 
@@ -85,6 +97,8 @@ namespace HX3D
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(0));
 		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(0 + 3 * sizeof(GL_FLOAT)));
+		glEnableVertexAttribArray(1);
 
 		glUseProgram(_programId);
 
@@ -92,6 +106,14 @@ namespace HX3D
 		vmath::mat4 matModelView = vmath::mat4::identity();
 		vmath::mat4 matProjection = vmath::Ortho(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 1, -1);
 		glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, matProjection * matModelView);
+
+		GLint tex_uniform_loc = glGetUniformLocation(_programId, "MainTexture");
+		// 采样器
+		glUniform1i(tex_uniform_loc, 0);
+		// 纹理单元
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, _texId);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 		glDrawArrays(GL_QUADS, 0, 4);
 
