@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/CoordArrow/CoordArrow.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/_Material/CoordArrow/CoordArrow.material"/>
+</Model>
