@@ -91,5 +91,6 @@ namespace HX3D
 		bottom *= n;
 		top *= n;
 		mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
+		//mMatrixProjection = vmath::Ortho(-5, 5, -5, 5, 0.01, 1000);
 	}
 }

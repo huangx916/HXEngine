@@ -62,6 +62,7 @@ namespace HX3D
 		HXCOLOR ambient;
 		HXFogBase* fog;
 		HXICamera* mainCamera;
+		std::vector<HXICamera*>		cameraVct;
 
 	private:
 		static HXSceneManager* m_pInstance;

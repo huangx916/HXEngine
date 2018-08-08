@@ -51,6 +51,7 @@ public:
 	HXGameWidget* m_pGameWidget;
 	HXHierarchyWidget* m_pHierarchyWidget;
 	HXInspectorWidget* m_pInspectorWidget;
+	HX3D::HXGameObject* m_pCoordArrowGO;
 };
 
 #endif // HXEDITORWIN_H

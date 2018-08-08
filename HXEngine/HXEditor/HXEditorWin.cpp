@@ -15,6 +15,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	, m_pGameWidget(NULL)
 	, m_pHierarchyWidget(NULL)
 	, m_pInspectorWidget(NULL)
+	, m_pCoordArrowGO(NULL)
 {
 	ui.setupUi(this);
 	m_pGameWidget = new HXGameWidget();
@@ -527,6 +528,7 @@ void HXEditorWin::deleteLight()
 
 void HXEditorWin::loadSceneCallBack()
 {
+	HXEditorWin::GetInstance()->m_pCoordArrowGO = HXSceneManager::GetInstance()->CreateGameObjectFromPrefab(NULL, "./prefab/CoordArrow/CoordArrow.prefab");
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateSceneTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
