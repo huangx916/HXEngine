@@ -13,6 +13,7 @@ namespace HX3D
 	struct HXFogInfo;
 	struct HXGameObjectInfo;
 	class HXRenderable;
+	struct HXCameraInfo;
 	class HXSceneManager
 	{
 	public:
@@ -44,8 +45,7 @@ namespace HX3D
 		HXLight* CreateLight(HXLightInfo* lightInfo);
 		// 用于产生阴影的主平行光
 		HXLight* GetMainLight();
-		HXICamera* CreateMainCamera(const HXVector3D& position, const HXVector3D& rotate,
-			float nearZ = 1.0f, float farZ = 1000.0f);
+		HXICamera* CreateMainCamera(const HXCameraInfo* cameraInfo);
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 

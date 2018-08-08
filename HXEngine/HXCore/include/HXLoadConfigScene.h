@@ -14,6 +14,11 @@ namespace HX3D
 		HXVector3D rotation;
 		float nearZ;
 		float farZ;
+		EClearFlag clearFlag;
+		HXCOLOR background;
+		ECullingMask cullingMask;
+		ECameraProjection projection;
+		int depth;
 	};
 	struct HXFogInfo
 	{

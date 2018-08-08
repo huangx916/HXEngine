@@ -60,6 +60,14 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	spinboxCameraFar = new QDoubleSpinBox();
 	spinboxCameraFar->setRange(MIN, MAX);
 
+	comboboxCullingMask = new QComboBox();
+	comboboxCullingMask->addItem("Nothing");
+	comboboxCullingMask->addItem("Everything");
+	comboboxCullingMask->addItem("Default");
+	comboboxCullingMask->addItem("UI");
+	comboboxCullingMask->addItem("Editor");
+	comboboxCullingMask->addItem("Water");
+
 	pushbuttonCameraTransSync = new QPushButton();
 	pushbuttonCameraTransSync->setText("Sync transform");
 
@@ -89,6 +97,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	editGameObjectName = new QLineEdit();
 
 	checkboxCastShadow = new QCheckBox();
+
+	comboboxLayer = new QComboBox();
+	comboboxLayer->addItem("Default");
+	comboboxLayer->addItem("UI");
+	comboboxLayer->addItem("Editor");
+	comboboxLayer->addItem("Water");
 
 	spinboxPositionX = new QDoubleSpinBox();
 	spinboxPositionX->setRange(MIN, MAX);
@@ -270,6 +284,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	camera->addChild(farz);
 	treeWidget->setItemWidget(farz, 1, spinboxCameraFar);
 
+	// culling mask
+	QTreeWidgetItem *cullingMask = new QTreeWidgetItem;
+	cullingMask->setText(0, "culling mask");
+	camera->addChild(cullingMask);
+	treeWidget->setItemWidget(cullingMask, 1, comboboxCullingMask);
+
 	// camera transform
 	QTreeWidgetItem *camTrans = new QTreeWidgetItem;
 	camTrans->setText(0, "transform");
@@ -338,6 +358,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	castshadow->setText(0, "cast shadow");
 	gameobject->addChild(castshadow);
 	treeWidget->setItemWidget(castshadow, 1, checkboxCastShadow);
+
+	// layer
+	QTreeWidgetItem *layer = new QTreeWidgetItem;
+	layer->setText(0, "layer");
+	gameobject->addChild(layer);
+	treeWidget->setItemWidget(layer, 1, comboboxLayer);
 
 	// gameobject transform
 	QTreeWidgetItem *transform = new QTreeWidgetItem;
@@ -603,6 +629,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	// camera
 	connect(spinboxCameraNear, SIGNAL(valueChanged(double)), this, SLOT(CameraNearChanged(double)));
 	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
+	connect(comboboxCullingMask, SIGNAL(activated(int)), this, SLOT(CullingMaskActivated(int)));
 
 	connect(pushbuttonCameraTransSync, SIGNAL(clicked()), this, SLOT(TransSyncOnClick()));
 
@@ -622,6 +649,8 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(editGameObjectName, &QLineEdit::textChanged, this, &HXInspectorWidget::GameObjectNameChanged);
 
 	connect(checkboxCastShadow, SIGNAL(toggled(bool)), this, SLOT(CastShadowToggled(bool)));
+
+	connect(comboboxLayer, SIGNAL(activated(int)), this, SLOT(LayerActivated(int)));
 
 	connect(spinboxPositionX, SIGNAL(valueChanged(double)), this, SLOT(PositionXValueChanged(double)));
 	connect(spinboxPositionY, SIGNAL(valueChanged(double)), this, SLOT(PositionYValueChanged(double)));
@@ -690,6 +719,8 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 			checkboxStatic->setCheckState(Qt::Unchecked);
 		}
 
+		comboboxLayer->setCurrentIndex(pGameObject->GetLayer());
+		
 		editGameObjectName->setText(pGameObject->GetName().c_str());
 
 		if (pGameObject->GetCastShadow())
@@ -826,6 +857,8 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		spinboxCameraNear->setValue(cameraData->mNear);
 		spinboxCameraFar->setValue(cameraData->mFar);
 
+		comboboxCullingMask->setCurrentIndex(cameraData->cullingMask);
+
 		spinboxCameraPositionX->setValue(cameraData->transform->mPostion.x);
 		spinboxCameraPositionY->setValue(cameraData->transform->mPostion.y);
 		spinboxCameraPositionZ->setValue(cameraData->transform->mPostion.z);
@@ -912,6 +945,32 @@ void HXInspectorWidget::CastShadowToggled(bool castShadow)
 		else
 		{
 			selectedGameObject->SetCastShadow(castShadow);
+		}
+	}
+}
+
+void HXInspectorWidget::LayerActivated(int index)
+{
+	if (selectedGameObject)
+	{
+		if (selectedGameObject->GetChildren().size() > 0)
+		{
+			if (QMessageBox::Yes == QMessageBox::question(this,
+				tr("Change Layer Flags"),
+				tr("Do you want to change the layer flags for all the child objects as well ?"),
+				QMessageBox::Yes | QMessageBox::No,
+				QMessageBox::Yes))
+			{
+				selectedGameObject->SetLayerRecurve((ELayer)index);
+			}
+			else
+			{
+				selectedGameObject->SetLayer((ELayer)index);
+			}
+		}
+		else
+		{
+			selectedGameObject->SetLayer((ELayer)index);
 		}
 	}
 }
@@ -1146,6 +1205,14 @@ void HXInspectorWidget::CameraFarChanged(double value)
 		cameraData->mFar = value;
 		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
 		cameraData->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, cameraData->mNear, cameraData->mFar);
+	}
+}
+
+void HXInspectorWidget::CullingMaskActivated(int index)
+{
+	if (cameraData)
+	{
+		cameraData->cullingMask = (ECullingMask)index;
 	}
 }
 

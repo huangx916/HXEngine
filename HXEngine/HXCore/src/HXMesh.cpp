@@ -10,7 +10,11 @@ namespace HX3D
 {
 
 	//----------------------------------SubMesh-------------------------------------------
-	HXSubMesh::HXSubMesh() :useIndex(false),IsStaticMesh(true),IsCastShadow(false)
+	HXSubMesh::HXSubMesh()
+		: useIndex(false)
+		, IsStaticMesh(true)
+		, IsCastShadow(false)
+		, layer(L_DEFAULT)
 	{
 
 	}
@@ -39,6 +43,7 @@ namespace HX3D
 		pHXSubMesh->useIndex = useIndex;
 		pHXSubMesh->IsStaticMesh = IsStaticMesh;
 		pHXSubMesh->IsCastShadow = IsCastShadow;
+		pHXSubMesh->layer = layer;
 
 		pHXSubMesh->materialName = materialName;
 		pHXSubMesh->triangleCount = triangleCount;

@@ -7,6 +7,7 @@
 #include "HXGLTransform.h"
 #include "HXGLShadowMap.h"
 #include "HXGLMaterial.h"
+#include "HXLoadConfigScene.h"
 
 namespace HX3D
 {
@@ -112,11 +113,15 @@ namespace HX3D
 		}
 	}
 
-	HXICamera* HXGLRenderSystem::CreateCamera(const HXVector3D& position, const HXVector3D& rotate,
-		float nearZ, float farZ)
+	HXICamera* HXGLRenderSystem::CreateCamera(const HXCameraInfo* cameraInfo)
 	{
 		HXICamera* pCam = new HXGLCamera();
-		pCam->Initialize(position, rotate, nearZ, farZ);
+		pCam->Initialize(cameraInfo->position, cameraInfo->rotation, cameraInfo->nearZ, cameraInfo->farZ);
+		pCam->clearFlag = cameraInfo->clearFlag;
+		pCam->background = cameraInfo->background;
+		pCam->cullingMask = cameraInfo->cullingMask;
+		pCam->projection = cameraInfo->projection;
+		pCam->depth = cameraInfo->depth;
 		return pCam;
 	}
 

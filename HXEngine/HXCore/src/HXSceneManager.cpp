@@ -69,8 +69,7 @@ namespace HX3D
 		HXLoadConfigScene cfg;
 		cfg.LoadFile(strSceneCfgFile);
 		// camera
-		CreateMainCamera(cfg.mSceneInfo.cameraInfo.position, cfg.mSceneInfo.cameraInfo.rotation
-			, cfg.mSceneInfo.cameraInfo.nearZ, cfg.mSceneInfo.cameraInfo.farZ);
+		CreateMainCamera(&cfg.mSceneInfo.cameraInfo);
 		// fog
 		CreateFog(&cfg.mSceneInfo.fogInfo);
 		// ambient
@@ -330,12 +329,11 @@ namespace HX3D
 		return NULL;
 	}
 
-	HXICamera* HXSceneManager::CreateMainCamera(const HXVector3D& position, const HXVector3D& rotate,
-		float nearZ, float farZ)
+	HXICamera* HXSceneManager::CreateMainCamera(const HXCameraInfo* cameraInfo)
 	{
 		if (HXRoot::GetInstance()->GetRenderSystem())
 		{
-			mainCamera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(position, rotate, nearZ, farZ);
+			mainCamera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(cameraInfo);
 		}
 		return mainCamera;
 	}
@@ -372,12 +370,13 @@ namespace HX3D
 
 	void HXSceneManager::OnDisplay(bool shadow)
 	{
-		if (!mainCamera)
+		HXRenderSystem* pRenderSystem = HXRoot::GetInstance()->GetRenderSystem();
+		if (NULL == pRenderSystem)
 		{
 			return;
 		}
-		HXRenderSystem* pRenderSystem = HXRoot::GetInstance()->GetRenderSystem();
-		if (NULL == pRenderSystem)
+
+		if (!mainCamera)
 		{
 			return;
 		}
@@ -392,6 +391,10 @@ namespace HX3D
 				{
 					HXRenderable* renderable = *itr2;
 					if (shadow && !renderable->m_pSubMesh->IsCastShadow)
+					{
+						continue;
+					}
+					if (IsCulled(renderable->m_pSubMesh->layer, mainCamera->cullingMask))
 					{
 						continue;
 					}
@@ -451,6 +454,10 @@ namespace HX3D
 			{
 				HXRenderable* renderable = *itr1;
 				if (shadow && !renderable->m_pSubMesh->IsCastShadow)
+				{
+					continue;
+				}
+				if (IsCulled(renderable->m_pSubMesh->layer, mainCamera->cullingMask))
 				{
 					continue;
 				}

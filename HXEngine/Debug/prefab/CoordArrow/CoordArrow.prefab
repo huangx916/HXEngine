@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="CoordArrow" Activity="1" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0">
+	<GameObj Name="CoordArrow" Activity="1" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="2">
 		<Position Px="0" Py="0" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>

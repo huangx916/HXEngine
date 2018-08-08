@@ -38,6 +38,9 @@ namespace HX3D
 		bool GetStatic() const;
 		void SetStatic(bool bStatic);
 		void SetStaticRecurve(bool bStatic);
+		ELayer GetLayer() const;
+		void SetLayer(ELayer eLayer);
+		void SetLayerRecurve(ELayer eLayer);
 
 		std::string m_strName;
 		std::string m_strModelFile;
@@ -45,6 +48,7 @@ namespace HX3D
 	private:
 		bool m_bActivity;
 		bool m_bStatic;
+		ELayer layer;
 		// Local Coordinate
 		HXITransform* m_pTransform;
 		bool m_bCastShadow;

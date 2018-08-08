@@ -10,6 +10,7 @@ namespace HX3D
 	class HXITransform;
 	class HXMaterial;
 	struct HXMaterialInfo;
+	struct HXCameraInfo;
 	class HXRenderSystem
 	{
 	public:
@@ -23,8 +24,7 @@ namespace HX3D
 		virtual HXRenderable* GenerateRenderable(HXSubMesh* pSubMesh) = 0;
 		virtual void RenderSingle(HXRenderable* pRenderable, bool shadow) = 0;
 
-		virtual HXICamera* CreateCamera(const HXVector3D& position, const HXVector3D& rotate,
-			float nearZ, float farZ) = 0;
+		virtual HXICamera* CreateCamera(const HXCameraInfo* cameraInfo) = 0;
 
 		virtual HXITransform* CreateTransform() = 0;
 

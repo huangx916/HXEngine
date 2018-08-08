@@ -96,6 +96,7 @@ namespace HX3D
 		bool useIndex;
 		bool IsStaticMesh;
 		bool IsCastShadow;
+		ELayer layer;
 
 		std::vector<HXVertex>	vertexList;
 		std::vector<int>	indexList;

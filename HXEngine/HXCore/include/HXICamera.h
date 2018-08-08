@@ -37,5 +37,11 @@ namespace HX3D
 		std::list<HXGameObject*> followedGO;*/
 
 		HXITransform* transform;
+
+		EClearFlag clearFlag;
+		HXCOLOR background;
+		ECullingMask cullingMask;
+		ECameraProjection projection;
+		int depth;
 	};
 }

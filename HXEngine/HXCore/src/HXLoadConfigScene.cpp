@@ -22,6 +22,7 @@ namespace HX3D
 			gameObjInfo->bStatic = atoi(gameobjElement->Attribute("Static"));
 			gameObjInfo->strModelFile = gameobjElement->Attribute("Model");
 			gameObjInfo->bCastShadow = atoi(gameobjElement->Attribute("CastShadow"));
+			gameObjInfo->layer = (ELayer)atoi(gameobjElement->Attribute("Layer"));
 			TiXmlElement* positionElement = gameobjElement->FirstChildElement();
 			gameObjInfo->position.x = atof(positionElement->Attribute("Px"));
 			gameObjInfo->position.y = atof(positionElement->Attribute("Py"));
@@ -60,7 +61,15 @@ namespace HX3D
 		TiXmlElement* cameraElement = rootElement->FirstChildElement();
 		mSceneInfo.cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
 		mSceneInfo.cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));
-		TiXmlElement* eyeElement = cameraElement->FirstChildElement();
+		mSceneInfo.cameraInfo.clearFlag = (EClearFlag)atoi(cameraElement->Attribute("ClearFlag"));
+		mSceneInfo.cameraInfo.cullingMask = (ECullingMask)atoi(cameraElement->Attribute("CullingMask"));
+		mSceneInfo.cameraInfo.projection = (ECameraProjection)atoi(cameraElement->Attribute("Projection"));
+		mSceneInfo.cameraInfo.depth = (ECameraProjection)atoi(cameraElement->Attribute("Depth"));
+		TiXmlElement* colorElement = cameraElement->FirstChildElement();
+		mSceneInfo.cameraInfo.position.x = atof(colorElement->Attribute("Cr"));
+		mSceneInfo.cameraInfo.position.y = atof(colorElement->Attribute("Cg"));
+		mSceneInfo.cameraInfo.position.z = atof(colorElement->Attribute("Cb"));
+		TiXmlElement* eyeElement = colorElement->NextSiblingElement();
 		mSceneInfo.cameraInfo.position.x = atof(eyeElement->Attribute("Px"));
 		mSceneInfo.cameraInfo.position.y = atof(eyeElement->Attribute("Py"));
 		mSceneInfo.cameraInfo.position.z = atof(eyeElement->Attribute("Pz"));

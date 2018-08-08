@@ -10,5 +10,5 @@ void main()
 {
 	//fColor = vec4(0.2, 0.2, 0.2, 0.8);
 	fColor = texture(MainTexture, vs_fs_TexCoord);
-	//fColor = fColor * vec4(0.7,0.7,0.7,1);
+	fColor = fColor * vec4(0.9,0.9,0.9,0.9);
 }

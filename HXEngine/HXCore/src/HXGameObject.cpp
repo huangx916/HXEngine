@@ -19,6 +19,7 @@ namespace HX3D
 		m_pTransform = pRenderSystem->CreateTransform();
 		m_bActivity = true;
 		m_bStatic = true;
+		layer = L_DEFAULT;
 	}
 
 	HXGameObject::~HXGameObject()
@@ -102,6 +103,7 @@ namespace HX3D
 		SetCastShadow(gameobjectinfo->bCastShadow);
 		SetActivity(gameobjectinfo->bActivity);
 		SetStatic(gameobjectinfo->bStatic);
+		SetLayer(gameobjectinfo->layer);
 
 		if (NULL == m_pFather)
 		{
@@ -232,6 +234,33 @@ namespace HX3D
 		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
 		{
 			(*itr)->SetStaticRecurve(bStatic);
+		}
+	}
+
+	ELayer HXGameObject::GetLayer() const
+	{
+		return layer;
+	}
+
+	void HXGameObject::SetLayer(ELayer eLayer)
+	{
+		layer = eLayer;
+		if (m_pMesh)
+		{
+			for (std::vector<HXSubMesh*>::iterator itr = m_pMesh->subMeshList.begin(); itr != m_pMesh->subMeshList.end(); ++itr)
+			{
+				// 设置是否投射阴影
+				(*itr)->layer = eLayer;
+			}
+		}
+	}
+
+	void HXGameObject::SetLayerRecurve(ELayer eLayer)
+	{
+		SetLayer(eLayer);
+		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		{
+			(*itr)->SetLayerRecurve(eLayer);
 		}
 	}
 }

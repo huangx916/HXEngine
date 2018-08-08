@@ -42,6 +42,7 @@ namespace HX3D
 			gameObjInfo->bStatic = atoi(gameobjElement->Attribute("Static"));
 			gameObjInfo->strModelFile = gameobjElement->Attribute("Model");
 			gameObjInfo->bCastShadow = atoi(gameobjElement->Attribute("CastShadow"));
+			gameObjInfo->layer = (ELayer)atoi(gameobjElement->Attribute("Layer"));
 			TiXmlElement* positionElement = gameobjElement->FirstChildElement();
 			gameObjInfo->position.x = atof(positionElement->Attribute("Px"));
 			gameObjInfo->position.y = atof(positionElement->Attribute("Py"));

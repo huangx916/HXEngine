@@ -63,6 +63,7 @@ private:
 	QTreeWidgetItem *camera;
 	QDoubleSpinBox* spinboxCameraNear;
 	QDoubleSpinBox* spinboxCameraFar;
+	QComboBox* comboboxCullingMask;
 	QPushButton* pushbuttonCameraTransSync;
 	QDoubleSpinBox* spinboxCameraPositionX;
 	QDoubleSpinBox* spinboxCameraPositionY;
@@ -77,6 +78,7 @@ private:
 	QCheckBox* checkboxStatic;
 	QLineEdit* editGameObjectName;
 	QCheckBox* checkboxCastShadow;
+	QComboBox* comboboxLayer;
 	QDoubleSpinBox* spinboxPositionX;
 	QDoubleSpinBox* spinboxPositionY;
 	QDoubleSpinBox* spinboxPositionZ;
@@ -119,6 +121,7 @@ private:
 	void ActivityToggled(bool activity);
 	void StaticToggled(bool bStatic);
 	void CastShadowToggled(bool castShadow);
+	void LayerActivated(int index);
 
 	void PositionXValueChanged(double value);
 	void PositionYValueChanged(double value);
@@ -148,6 +151,8 @@ private:
 
 	void CameraNearChanged(double value);
 	void CameraFarChanged(double value);
+
+	void CullingMaskActivated(int index);
 
 	void TransSyncOnClick();
 

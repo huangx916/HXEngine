@@ -172,12 +172,41 @@ namespace HX3D
 
 	enum ELayer
 	{
-		L_NOTHING,
-		L_EVERYTHING,
 		L_DEFAULT,
 		L_UI,
+		L_EDITOR,
 		L_WATER
 	};
+
+	enum ECullingMask
+	{
+		CM_NOTHING,
+		CM_EVERYTHING,
+		CM_DEFAULT,
+		CM_UI,
+		CM_EDITOR,
+		CM_WATER
+	};
+
+	inline bool IsCulled(ELayer layer, ECullingMask mask)
+	{
+		if (mask == CM_NOTHING)
+		{
+			return true;
+		}
+		else if (mask == CM_EVERYTHING)
+		{
+			return false;
+		}
+		else if (layer + 2 == mask)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 
 	enum ECameraProjection
 	{
@@ -187,7 +216,7 @@ namespace HX3D
 
 	enum EClearFlag
 	{
-		CF_SKYBOX,
+		//CF_SKYBOX,
 		CF_SOLIDCOLOR,
 		CF_DEPTHONLY,
 		CF_DONTCLEAR
