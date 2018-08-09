@@ -10,6 +10,7 @@ namespace HX3D
 {
 	struct HXCameraInfo
 	{
+		std::string name;
 		HXVector3D position;
 		HXVector3D rotation;
 		float nearZ;
@@ -53,7 +54,7 @@ namespace HX3D
 		HXSceneInfo() {};
 		~HXSceneInfo()
 		{
-			// TODO: 递归删除
+			// 已在析构函数里递归删除
 			for (std::vector<HXGameObjectInfo*>::iterator itr = vctGameObjInfo.begin(); itr != vctGameObjInfo.end(); ++itr)
 			{
 				delete (*itr);
@@ -65,6 +66,7 @@ namespace HX3D
 		HXFogInfo fogInfo;
 		HXCOLOR ambient;
 		std::vector<HXLightInfo> vctLight;
+		std::vector<HXCameraInfo> vctCamera;
 	};
 
 	class HXLoadConfigScene

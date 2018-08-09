@@ -57,29 +57,8 @@ namespace HX3D
 
 		TiXmlElement* rootElement = doc.RootElement();
 
-		// camera
-		TiXmlElement* cameraElement = rootElement->FirstChildElement();
-		mSceneInfo.cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
-		mSceneInfo.cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));
-		mSceneInfo.cameraInfo.clearFlag = (EClearFlag)atoi(cameraElement->Attribute("ClearFlag"));
-		mSceneInfo.cameraInfo.cullingMask = (ECullingMask)atoi(cameraElement->Attribute("CullingMask"));
-		mSceneInfo.cameraInfo.projection = (ECameraProjection)atoi(cameraElement->Attribute("Projection"));
-		mSceneInfo.cameraInfo.depth = (ECameraProjection)atoi(cameraElement->Attribute("Depth"));
-		TiXmlElement* colorElement = cameraElement->FirstChildElement();
-		mSceneInfo.cameraInfo.position.x = atof(colorElement->Attribute("Cr"));
-		mSceneInfo.cameraInfo.position.y = atof(colorElement->Attribute("Cg"));
-		mSceneInfo.cameraInfo.position.z = atof(colorElement->Attribute("Cb"));
-		TiXmlElement* eyeElement = colorElement->NextSiblingElement();
-		mSceneInfo.cameraInfo.position.x = atof(eyeElement->Attribute("Px"));
-		mSceneInfo.cameraInfo.position.y = atof(eyeElement->Attribute("Py"));
-		mSceneInfo.cameraInfo.position.z = atof(eyeElement->Attribute("Pz"));
-		TiXmlElement* atElement = eyeElement->NextSiblingElement();
-		mSceneInfo.cameraInfo.rotation.x = atof(atElement->Attribute("Rx"));
-		mSceneInfo.cameraInfo.rotation.y = atof(atElement->Attribute("Ry"));
-		mSceneInfo.cameraInfo.rotation.z = atof(atElement->Attribute("Rz"));
-
 		// fog
-		TiXmlElement* fogElement = cameraElement->NextSiblingElement();
+		TiXmlElement* fogElement = rootElement->FirstChildElement();
 		mSceneInfo.fogInfo.bUse = atoi(fogElement->Attribute("Use"));
 		mSceneInfo.fogInfo.type = (HXFogType)atoi(fogElement->Attribute("Type"));
 		mSceneInfo.fogInfo.color.r = atof(fogElement->Attribute("R"));
@@ -94,8 +73,38 @@ namespace HX3D
 		mSceneInfo.ambient.g = atof(ambientElement->Attribute("G"));
 		mSceneInfo.ambient.b = atof(ambientElement->Attribute("B"));
 
+
+		// cameras
+		TiXmlElement* cameras = ambientElement->NextSiblingElement();
+		TiXmlElement* cameraElement = cameras->FirstChildElement();
+		for (; cameraElement != NULL; cameraElement = cameraElement->NextSiblingElement())
+		{
+			HXCameraInfo cameraInfo;
+			cameraInfo.name = cameraElement->Attribute("Name");
+			cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
+			cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));
+			cameraInfo.clearFlag = (EClearFlag)atoi(cameraElement->Attribute("ClearFlag"));
+			cameraInfo.cullingMask = (ECullingMask)atoi(cameraElement->Attribute("CullingMask"));
+			cameraInfo.projection = (ECameraProjection)atoi(cameraElement->Attribute("Projection"));
+			cameraInfo.depth = (ECameraProjection)atoi(cameraElement->Attribute("Depth"));
+			TiXmlElement* colorElement = cameraElement->FirstChildElement();
+			cameraInfo.position.x = atof(colorElement->Attribute("Cr"));
+			cameraInfo.position.y = atof(colorElement->Attribute("Cg"));
+			cameraInfo.position.z = atof(colorElement->Attribute("Cb"));
+			TiXmlElement* eyeElement = colorElement->NextSiblingElement();
+			cameraInfo.position.x = atof(eyeElement->Attribute("Px"));
+			cameraInfo.position.y = atof(eyeElement->Attribute("Py"));
+			cameraInfo.position.z = atof(eyeElement->Attribute("Pz"));
+			TiXmlElement* atElement = eyeElement->NextSiblingElement();
+			cameraInfo.rotation.x = atof(atElement->Attribute("Rx"));
+			cameraInfo.rotation.y = atof(atElement->Attribute("Ry"));
+			cameraInfo.rotation.z = atof(atElement->Attribute("Rz"));
+
+			mSceneInfo.vctCamera.push_back(cameraInfo);
+		}
+
 		// lights
-		TiXmlElement* lights = ambientElement->NextSiblingElement();
+		TiXmlElement* lights = cameras->NextSiblingElement();
 		TiXmlElement* lightElement = lights->FirstChildElement();
 		for (; lightElement != NULL; lightElement = lightElement->NextSiblingElement())
 		{

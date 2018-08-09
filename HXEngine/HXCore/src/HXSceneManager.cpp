@@ -45,6 +45,12 @@ namespace HX3D
 		}
 		lightVct.clear();
 
+		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); itr++)
+		{
+			delete *itr;
+		}
+		cameraVct.clear();
+
 		if (mainCamera)
 		{
 			delete mainCamera;
@@ -74,10 +80,15 @@ namespace HX3D
 		CreateFog(&cfg.mSceneInfo.fogInfo);
 		// ambient
 		ambient = cfg.mSceneInfo.ambient;
+		for (std::vector<HXCameraInfo>::iterator itr = cfg.mSceneInfo.vctCamera.begin(); itr != cfg.mSceneInfo.vctCamera.end(); ++itr)
+		{
+			HXCameraInfo& info = *itr;
+			CreateCamera(&info);
+		}
 		// light
 		for (std::vector<HXLightInfo>::iterator itr = cfg.mSceneInfo.vctLight.begin(); itr != cfg.mSceneInfo.vctLight.end(); ++itr)
 		{
-			HXLightInfo info = *itr;
+			HXLightInfo& info = *itr;
 			CreateLight(&info);
 		}
 
@@ -97,6 +108,11 @@ namespace HX3D
 			delete fog;
 			fog = NULL;
 		}
+		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
+		{
+			delete *itr;
+		}
+		cameraVct.clear();
 		for (std::vector<HXLight*>::iterator itr = lightVct.begin(); itr != lightVct.end(); ++itr)
 		{
 			delete *itr;
@@ -338,6 +354,17 @@ namespace HX3D
 		return mainCamera;
 	}
 
+	HXICamera* HXSceneManager::CreateCamera(const HXCameraInfo* cameraInfo)
+	{
+		if (HXRoot::GetInstance()->GetRenderSystem())
+		{
+			HXICamera* camera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(cameraInfo);
+			cameraVct.push_back(camera);
+			return camera;
+		}
+		return NULL;
+	}
+
 	void HXSceneManager::CreateFog(HXFogInfo* info)
 	{
 		if (info->type == HXFogType::FOG_Linear)
@@ -376,25 +403,92 @@ namespace HX3D
 			return;
 		}
 
-		if (!mainCamera)
+		/*if (!mainCamera)
 		{
 			return;
-		}
+		}*/
 
-		// render opaque
-		HXMaterial* curMaterial = NULL;
-		for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
+		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
 		{
-			for (mapStringVector::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
+			HXICamera* curCamera = *itr;
+
+			// render opaque
+			HXMaterial* curMaterial = NULL;
+			for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
 			{
-				for (vectorRenderable::iterator itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
+				for (mapStringVector::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
 				{
-					HXRenderable* renderable = *itr2;
+					for (vectorRenderable::iterator itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
+					{
+						HXRenderable* renderable = *itr2;
+						if (shadow && !renderable->m_pSubMesh->IsCastShadow)
+						{
+							continue;
+						}
+						if (IsCulled(renderable->m_pSubMesh->layer, curCamera->cullingMask))
+						{
+							continue;
+						}
+						if (curMaterial != renderable->m_pMaterial)
+						{
+							curMaterial = renderable->m_pMaterial;
+							if (shadow)
+							{
+								curMaterial->SetShadowMapMaterialRenderStateAllRenderable();
+							}
+							else
+							{
+								curMaterial->SetMaterialRenderStateAllRenderable();
+							}
+						}
+						HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
+						HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
+						renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+						renderable->SetViewMatrix(curCamera);
+						renderable->SetProjectionMatrix(curCamera);
+						if (shadow)
+						{
+							curMaterial->SetShadowMapMaterialRenderStateEachRenderable(renderable);
+						}
+						else
+						{
+							curMaterial->SetMaterialRenderStateEachRenderable(renderable);
+						}
+						pRenderSystem->RenderSingle(renderable, shadow);
+					}
+				}
+			}
+			curMaterial = NULL;
+			// render transparent
+			// Z≈≈–Ú
+			if (!shadow)
+			{
+				for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
+				{
+					for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
+					{
+						HXRenderable* renderable = *itr1;
+						renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+						renderable->SetViewMatrix(curCamera);
+						renderable->SetProjectionMatrix(curCamera);
+					}
+				}
+				for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
+				{
+					std::sort(itr->second.begin(), itr->second.end(), Zcompare);
+				}
+			}
+			curMaterial = NULL;
+			for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
+			{
+				for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
+				{
+					HXRenderable* renderable = *itr1;
 					if (shadow && !renderable->m_pSubMesh->IsCastShadow)
 					{
 						continue;
 					}
-					if (IsCulled(renderable->m_pSubMesh->layer, mainCamera->cullingMask))
+					if (IsCulled(renderable->m_pSubMesh->layer, curCamera->cullingMask))
 					{
 						continue;
 					}
@@ -412,9 +506,6 @@ namespace HX3D
 					}
 					HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
 					HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
-					renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
-					renderable->SetViewMatrix(mainCamera);
-					renderable->SetProjectionMatrix(mainCamera);
 					if (shadow)
 					{
 						curMaterial->SetShadowMapMaterialRenderStateEachRenderable(renderable);
@@ -426,67 +517,8 @@ namespace HX3D
 					pRenderSystem->RenderSingle(renderable, shadow);
 				}
 			}
+			curMaterial = NULL;
 		}
-		curMaterial = NULL;
-		// render transparent
-		// Z≈≈–Ú
-		if (!shadow)
-		{
-			for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
-			{
-				for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
-				{
-					HXRenderable* renderable = *itr1;
-					renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
-					renderable->SetViewMatrix(mainCamera);
-					renderable->SetProjectionMatrix(mainCamera);
-				}
-			}
-			for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
-			{
-				std::sort(itr->second.begin(), itr->second.end(), Zcompare);
-			}
-		}
-		curMaterial = NULL;
-		for (std::map<int, vectorRenderable>::iterator itr = transparentMap.begin(); itr != transparentMap.end(); ++itr)
-		{
-			for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
-			{
-				HXRenderable* renderable = *itr1;
-				if (shadow && !renderable->m_pSubMesh->IsCastShadow)
-				{
-					continue;
-				}
-				if (IsCulled(renderable->m_pSubMesh->layer, mainCamera->cullingMask))
-				{
-					continue;
-				}
-				if (curMaterial != renderable->m_pMaterial)
-				{
-					curMaterial = renderable->m_pMaterial;
-					if (shadow)
-					{
-						curMaterial->SetShadowMapMaterialRenderStateAllRenderable();
-					}
-					else
-					{
-						curMaterial->SetMaterialRenderStateAllRenderable();
-					}
-				}
-				HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
-				HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
-				if (shadow)
-				{
-					curMaterial->SetShadowMapMaterialRenderStateEachRenderable(renderable);
-				}
-				else
-				{
-					curMaterial->SetMaterialRenderStateEachRenderable(renderable);
-				}
-				pRenderSystem->RenderSingle(renderable, shadow);
-			}
-		}
-		curMaterial = NULL;
 
 		if (!shadow)
 		{
@@ -494,7 +526,11 @@ namespace HX3D
 			HXStatus::GetInstance()->ShowStatusInfo();
 			// œ¬“ª÷°
 			HXStatus::GetInstance()->ResetStatus();
-			mainCamera->Update();
+			//mainCamera->Update();
+			for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
+			{
+				(*itr)->Update();
+			}
 			gameObjectTreeRoot->Update();
 		}
 	}

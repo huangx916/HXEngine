@@ -46,6 +46,7 @@ namespace HX3D
 		// 用于产生阴影的主平行光
 		HXLight* GetMainLight();
 		HXICamera* CreateMainCamera(const HXCameraInfo* cameraInfo);
+		HXICamera* CreateCamera(const HXCameraInfo* cameraInfo);
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
