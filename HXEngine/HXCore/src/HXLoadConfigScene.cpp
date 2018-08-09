@@ -88,9 +88,9 @@ namespace HX3D
 			cameraInfo.projection = (ECameraProjection)atoi(cameraElement->Attribute("Projection"));
 			cameraInfo.depth = (ECameraProjection)atoi(cameraElement->Attribute("Depth"));
 			TiXmlElement* colorElement = cameraElement->FirstChildElement();
-			cameraInfo.position.x = atof(colorElement->Attribute("Cr"));
-			cameraInfo.position.y = atof(colorElement->Attribute("Cg"));
-			cameraInfo.position.z = atof(colorElement->Attribute("Cb"));
+			cameraInfo.background.r = atof(colorElement->Attribute("Cr"));
+			cameraInfo.background.g = atof(colorElement->Attribute("Cg"));
+			cameraInfo.background.b = atof(colorElement->Attribute("Cb"));
 			TiXmlElement* eyeElement = colorElement->NextSiblingElement();
 			cameraInfo.position.x = atof(eyeElement->Attribute("Px"));
 			cameraInfo.position.y = atof(eyeElement->Attribute("Py"));

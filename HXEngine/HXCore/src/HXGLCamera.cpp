@@ -28,6 +28,29 @@ namespace HX3D
 		UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, mNear, mFar);
 	}
 
+	void HXGLCamera::PreRender()
+	{
+		switch (clearFlag)
+		{
+		case HX3D::CF_SOLIDCOLOR:
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(background.r / 256, background.g / 256, background.b / 256, 1.0f);
+			break;
+		case HX3D::CF_DEPTHONLY:
+			glClear(GL_DEPTH_BUFFER_BIT);
+			break;
+		case HX3D::CF_DONTCLEAR:
+			break;
+		default:
+			break;
+		}
+	}
+
+	void HXGLCamera::PostRender()
+	{
+
+	}
+
 	void HXGLCamera::Update()
 	{
 		UpdateViewMatrix(transform->mPostion, UpdateAt(), UpdateUp());

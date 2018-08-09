@@ -61,7 +61,7 @@ void HXGameWidget::initializeGL()
 	
 
 	//QMetaObject::invokeMethod(this, "update", Qt::QueuedConnection);
-	glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
+	//glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 }
 
 void HXGameWidget::resizeGL(int w, int h)

@@ -436,6 +436,8 @@ namespace HX3D
 		{
 			HXICamera* curCamera = *itr;
 
+			curCamera->PreRender();
+
 			// render opaque
 			HXMaterial* curMaterial = NULL;
 			for (std::map<int, mapStringVector>::iterator itr = opaqueMap.begin(); itr != opaqueMap.end(); ++itr)
@@ -542,6 +544,8 @@ namespace HX3D
 				}
 			}
 			curMaterial = NULL;
+
+			curCamera->PostRender();
 		}
 
 		if (!shadow)
