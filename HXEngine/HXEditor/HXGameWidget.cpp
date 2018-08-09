@@ -186,29 +186,29 @@ void HXGameWidget::OnKeyboard(unsigned char key, int x, int y)
 
 void HXGameWidget::OnMouseMove(int nButton, int deltaX, int deltaY)
 {
-	if (HXSceneManager::GetInstance()->mainCamera == NULL)
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
 	{
 		return;
 	}
 	if (nButton == 0)
 	{
 		// 左键按下状态
-		HXSceneManager::GetInstance()->mainCamera->move(HXVector3D((deltaX) / 10.0f, -float(deltaY) / 10.0f, 0));
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D((deltaX) / 10.0f, -float(deltaY) / 10.0f, 0));
 	}
 	else if (nButton == 2)
 	{
 		// 右键按下状态
 		//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
-		HXSceneManager::GetInstance()->mainCamera->yaw(float(deltaX) / 10.0f);
-		HXSceneManager::GetInstance()->mainCamera->pitch(float(deltaY) / 10.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY) / 10.0f);
 	}
 }
 
 void HXGameWidget::OnMouseWheel(float fDistance)
 {
-	if (HXSceneManager::GetInstance()->mainCamera == NULL)
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
 	{
 		return;
 	}
-	HXSceneManager::GetInstance()->mainCamera->move(HXVector3D(0, 0, -fDistance));
+	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, 0, -fDistance));
 }

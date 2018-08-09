@@ -56,9 +56,13 @@ void HXGame::OnDisplay(bool shadow)
 
 void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 {
-	if (HXSceneManager::GetInstance()->mainCamera)
+	/*if (HXSceneManager::GetInstance()->mainCamera)
 	{
 		HXSceneManager::GetInstance()->mainCamera->OnViewPortResize(nScreenWidth, nScreenHeight);
+	}*/
+	for (std::vector<HXICamera*>::iterator itr = HXSceneManager::GetInstance()->cameraVct.begin(); itr != HXSceneManager::GetInstance()->cameraVct.end(); ++itr)
+	{
+		(*itr)->OnViewPortResize(nScreenWidth, nScreenHeight);
 	}
 }
 
@@ -76,29 +80,29 @@ void HXGame::OnKeyboard(unsigned char key, int x, int y)
 
 void HXGame::OnMouseMove(int nButton, int deltaX, int deltaY)
 {
-	if (HXSceneManager::GetInstance()->mainCamera == NULL)
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
 	{
 		return;
 	}
 	if (nButton == 0)
 	{
 		// ×ó¼ü°´ÏÂ×´Ì¬
-		HXSceneManager::GetInstance()->mainCamera->move(HXVector3D((deltaX) / 10.0f, -float(deltaY) / 10.0f, 0));
+		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D((deltaX) / 10.0f, -float(deltaY) / 10.0f, 0));
 	}
 	else if (nButton == 2)
 	{
 		// ÓÒ¼ü°´ÏÂ×´Ì¬
 		//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
-		HXSceneManager::GetInstance()->mainCamera->yaw(float(deltaX) / 10.0f);
-		HXSceneManager::GetInstance()->mainCamera->pitch(float(deltaY) / 10.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
+		HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY) / 10.0f);
 	}
 }
 
 void HXGame::OnMouseWheel(float fDistance)
 {
-	if (HXSceneManager::GetInstance()->mainCamera == NULL)
+	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
 	{
 		return;
 	}
-	HXSceneManager::GetInstance()->mainCamera->move(HXVector3D(0, 0, -fDistance));
+	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, 0, -fDistance));
 }

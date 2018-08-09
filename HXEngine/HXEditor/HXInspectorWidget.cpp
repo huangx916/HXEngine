@@ -1218,7 +1218,7 @@ void HXInspectorWidget::CullingMaskActivated(int index)
 
 void HXInspectorWidget::TransSyncOnClick()
 {
-	SetCameraInfo(HXSceneManager::GetInstance()->mainCamera);
+	SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
 }
 
 void HXInspectorWidget::CameraPositionXValueChanged(double value)

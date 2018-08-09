@@ -22,7 +22,7 @@ namespace HX3D
 {
 	HXSceneManager* HXSceneManager::m_pInstance = NULL;
 
-	HXSceneManager::HXSceneManager():mainCamera(NULL), fog(NULL)
+	HXSceneManager::HXSceneManager():/*mainCamera(NULL), */fog(NULL)
 	{
 		ambient = HXCOLOR(0,0,0,255);
 		gameObjectTreeRoot = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
@@ -51,10 +51,10 @@ namespace HX3D
 		}
 		cameraVct.clear();
 
-		if (mainCamera)
+		/*if (mainCamera)
 		{
 			delete mainCamera;
-		}
+		}*/
 
 		if (fog)
 		{
@@ -75,16 +75,18 @@ namespace HX3D
 		HXLoadConfigScene cfg;
 		cfg.LoadFile(strSceneCfgFile);
 		// camera
-		CreateMainCamera(&cfg.mSceneInfo.cameraInfo);
+		// CreateMainCamera(&cfg.mSceneInfo.cameraInfo);
 		// fog
 		CreateFog(&cfg.mSceneInfo.fogInfo);
 		// ambient
 		ambient = cfg.mSceneInfo.ambient;
+		// camera
 		for (std::vector<HXCameraInfo>::iterator itr = cfg.mSceneInfo.vctCamera.begin(); itr != cfg.mSceneInfo.vctCamera.end(); ++itr)
 		{
 			HXCameraInfo& info = *itr;
 			CreateCamera(&info);
 		}
+		SortCameraList();
 		// light
 		for (std::vector<HXLightInfo>::iterator itr = cfg.mSceneInfo.vctLight.begin(); itr != cfg.mSceneInfo.vctLight.end(); ++itr)
 		{
@@ -98,11 +100,11 @@ namespace HX3D
 
 	void HXSceneManager::UnLoadScene()
 	{
-		if (mainCamera)
+		/*if (mainCamera)
 		{
 			delete mainCamera;
 			mainCamera = NULL;
-		}
+		}*/
 		if (fog)
 		{
 			delete fog;
@@ -345,14 +347,14 @@ namespace HX3D
 		return NULL;
 	}
 
-	HXICamera* HXSceneManager::CreateMainCamera(const HXCameraInfo* cameraInfo)
+	/*HXICamera* HXSceneManager::CreateMainCamera(const HXCameraInfo* cameraInfo)
 	{
 		if (HXRoot::GetInstance()->GetRenderSystem())
 		{
 			mainCamera = HXRoot::GetInstance()->GetRenderSystem()->CreateCamera(cameraInfo);
 		}
 		return mainCamera;
-	}
+	}*/
 
 	HXICamera* HXSceneManager::CreateCamera(const HXCameraInfo* cameraInfo)
 	{
@@ -363,6 +365,28 @@ namespace HX3D
 			return camera;
 		}
 		return NULL;
+	}
+
+	bool Depthcompare(HXICamera* i, HXICamera* j)
+	{
+		return i->depth < j->depth;
+	}
+
+	void HXSceneManager::SortCameraList()
+	{
+		std::sort(cameraVct.begin(), cameraVct.end(), Depthcompare);
+	}
+
+	HXICamera* HXSceneManager::GetMainCamera()
+	{
+		if (cameraVct.size() > 0)
+		{
+			return cameraVct[0];
+		}
+		else
+		{
+			return NULL;
+		}
 	}
 
 	void HXSceneManager::CreateFog(HXFogInfo* info)
@@ -438,7 +462,7 @@ namespace HX3D
 							}
 							else
 							{
-								curMaterial->SetMaterialRenderStateAllRenderable();
+								curMaterial->SetMaterialRenderStateAllRenderable(curCamera);
 							}
 						}
 						HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
@@ -501,7 +525,7 @@ namespace HX3D
 						}
 						else
 						{
-							curMaterial->SetMaterialRenderStateAllRenderable();
+							curMaterial->SetMaterialRenderStateAllRenderable(curCamera);
 						}
 					}
 					HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
@@ -537,9 +561,13 @@ namespace HX3D
 
 	void HXSceneManager::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 	{
-		if (mainCamera)
+		/*if (mainCamera)
 		{
 			mainCamera->OnViewPortResize(nScreenWidth, nScreenHeight);
+		}*/
+		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
+		{
+			(*itr)->OnViewPortResize(nScreenWidth, nScreenHeight);
 		}
 	}
 

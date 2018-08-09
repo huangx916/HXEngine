@@ -225,7 +225,7 @@ namespace HX3D
 		glDeleteProgram(render_scene_prog);
 	}
 
-	void HXGLMaterial::SetMaterialRenderStateAllRenderable()
+	void HXGLMaterial::SetMaterialRenderStateAllRenderable(HXICamera* curCamera)
 	{
 		HXStatus::GetInstance()->nBatchCall += 1;
 
@@ -265,7 +265,8 @@ namespace HX3D
 
 		glUseProgram(render_scene_prog);
 
-		HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->mainCamera;
+		//HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->mainCamera;
+		HXGLCamera* pCamera = (HXGLCamera*)curCamera;
 		HXVector3D eyePos = pCamera->transform->mPostion;
 		glUniform3f(render_scene_uniforms.render_eye_pos_loc, eyePos.x, eyePos.y, eyePos.z);
 		glUniformMatrix4fv(render_scene_uniforms.render_view_matrix_loc, 1, GL_FALSE, pCamera->mMatrixView);

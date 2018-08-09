@@ -12,7 +12,7 @@ namespace HX3D
 		HXGLMaterial(HXMaterialInfo* pMatInfo);
 		~HXGLMaterial();
 		
-		virtual void SetMaterialRenderStateAllRenderable();
+		virtual void SetMaterialRenderStateAllRenderable(HXICamera* curCamera);
 		virtual void SetMaterialRenderStateEachRenderable(HXRenderable* renderable);
 		virtual void SetShadowMapMaterialRenderStateAllRenderable();
 		virtual void SetShadowMapMaterialRenderStateEachRenderable(HXRenderable* renderable);

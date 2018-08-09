@@ -206,7 +206,7 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "<Scene>\n";
 	
 	// Camera
-	HXGLCamera* camera = (HXGLCamera*)HXSceneManager::GetInstance()->mainCamera;
+	HXGLCamera* camera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
 	out << "	<Camera NearZ=\"";
 	out << camera->mNear;
 	out << "\" FarZ=\"";
@@ -532,7 +532,7 @@ void HXEditorWin::loadSceneCallBack()
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateSceneTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
-	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->mainCamera);
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
 }
 
 void HXEditorWin::updateCallBack()

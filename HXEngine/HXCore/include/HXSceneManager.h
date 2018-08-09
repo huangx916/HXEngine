@@ -45,8 +45,13 @@ namespace HX3D
 		HXLight* CreateLight(HXLightInfo* lightInfo);
 		// 用于产生阴影的主平行光
 		HXLight* GetMainLight();
-		HXICamera* CreateMainCamera(const HXCameraInfo* cameraInfo);
+
+		//HXICamera* CreateMainCamera(const HXCameraInfo* cameraInfo);
 		HXICamera* CreateCamera(const HXCameraInfo* cameraInfo);
+		void SortCameraList();
+		// 最早渲染的(depth最小)camera为主camera
+		HXICamera* GetMainCamera();
+
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);
 
@@ -62,7 +67,7 @@ namespace HX3D
 		// 环境光单独保存 保证唯一性
 		HXCOLOR ambient;
 		HXFogBase* fog;
-		HXICamera* mainCamera;
+		//HXICamera* mainCamera;
 		std::vector<HXICamera*>		cameraVct;
 
 	private:

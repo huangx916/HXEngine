@@ -134,7 +134,7 @@ void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetIt
 
 void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int column)
 {
-	HXITransform* trans = HXSceneManager::GetInstance()->mainCamera->transform;
+	HXITransform* trans = HXSceneManager::GetInstance()->GetMainCamera()->transform;
 	HXQuaternion q;
 	q.FromEulerDegree(trans->mEulerDegree.x, trans->mEulerDegree.y, trans->mEulerDegree.z);
 	HXVector3D vec = HXVector3D(0, 0, 1);
