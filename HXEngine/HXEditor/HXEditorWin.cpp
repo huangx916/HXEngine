@@ -19,7 +19,7 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 {
 	ui.setupUi(this);
 	m_pGameWidget = new HXGameWidget();
-	m_pHierarchyWidget = new HXHierarchyWidget(HXEditorWin::updateGameObject, HXEditorWin::updateLight);
+	m_pHierarchyWidget = new HXHierarchyWidget(HXEditorWin::updateGameObject, HXEditorWin::updateLight, HXEditorWin::updateCamera);
 	m_pInspectorWidget = new HXInspectorWidget();
 
 	m_pMainLayout = new QHBoxLayout();
@@ -532,7 +532,7 @@ void HXEditorWin::loadSceneCallBack()
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateSceneTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
-	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+	//HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
 }
 
 void HXEditorWin::updateCallBack()
@@ -554,4 +554,9 @@ void HXEditorWin::updateGameObject(HX3D::HXGameObject* gameObject)
 void HXEditorWin::updateLight(HX3D::HXLight* light)
 {
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetLightInfo(light);
+}
+
+void HXEditorWin::updateCamera(HX3D::HXICamera* camera)
+{
+	HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(camera);
 }

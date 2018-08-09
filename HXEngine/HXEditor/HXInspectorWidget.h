@@ -37,9 +37,9 @@ public:
 	// data
 	HXGameObject* selectedGameObject;
 	HXLight* selectedLight;
+	HXGLCamera* selectedCamera;
 	HXFogBase* fogData;
 	HXCOLOR* ambientData;
-	HXGLCamera* cameraData;
 
 private:
 
@@ -61,6 +61,7 @@ private:
 
 	// camera
 	QTreeWidgetItem *camera;
+	QLineEdit* editCameraName;
 	QDoubleSpinBox* spinboxCameraNear;
 	QDoubleSpinBox* spinboxCameraFar;
 	QComboBox* comboboxCullingMask;
@@ -116,6 +117,7 @@ private:
 
 	void GameObjectNameChanged(const QString& name);
 	void LightNameChanged(const QString& name);
+	void CameraNameChanged(const QString& name);
 	public Q_SLOTS:
 	// gameobject
 	void ActivityToggled(bool activity);

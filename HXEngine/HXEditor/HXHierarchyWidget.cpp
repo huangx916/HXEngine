@@ -5,14 +5,17 @@
 
 using namespace HX3D;
 
-HXHierarchyWidget::HXHierarchyWidget(FPtr gameobjectcallback, FLightPtr lightcallback, QWidget * parent)
+HXHierarchyWidget::HXHierarchyWidget(FPtr gameobjectcallback, FLightPtr lightcallback, FCameraPtr cameracallback, QWidget * parent)
 	: QTreeWidget(parent)
 	, clickGameObjectCallback(NULL)
 	, clickLightCallback(NULL)
+	, clickCameraCallback(NULL)
 	, lightRoot(NULL)
+	, cameraRoot(NULL)
 {
 	clickGameObjectCallback = gameobjectcallback;
 	clickLightCallback = lightcallback;
+	clickCameraCallback = cameracallback;
 
 	QFont font("Microsoft YaHei", 10, 75);
 
@@ -44,6 +47,8 @@ void HXHierarchyWidget::UpdateSceneTree()
 
 	QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Scene")));
 
+	cameraRoot = new QTreeWidgetItem(root, QStringList(QString("CameraList")));
+
 	lightRoot = new QTreeWidgetItem(root, QStringList(QString("LightList")));
 
 	HXGameObject* gameObjectTreeRoot = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
@@ -51,6 +56,8 @@ void HXHierarchyWidget::UpdateSceneTree()
 	{
 		AddGameObjectLeafRecurve(root, *itr);
 	}
+
+	AddCameraLeaf(cameraRoot);
 
 	AddLightLeaf(lightRoot);
 
@@ -115,6 +122,18 @@ void HXHierarchyWidget::AddLightLeaf(QTreeWidgetItem* parent)
 	}
 }
 
+void HXHierarchyWidget::AddCameraLeaf(QTreeWidgetItem* parent)
+{
+	for (std::vector<HXICamera*>::iterator itr = HXSceneManager::GetInstance()->cameraVct.begin(); itr != HXSceneManager::GetInstance()->cameraVct.end(); ++itr)
+	{
+		std::string name = (*itr)->name;
+		QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));
+		QVariant var;
+		var.setValue(*itr);
+		tw->setData(2, Qt::UserRole, var);
+	}
+}
+
 void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
 	if (current)
@@ -128,6 +147,11 @@ void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetIt
 		if (clickLightCallback)
 		{
 			clickLightCallback(light);
+		}
+		HXICamera* camera = current->data(2, Qt::UserRole).value<HXICamera*>();
+		if (clickCameraCallback)
+		{
+			clickCameraCallback(camera);
 		}
 	}
 }

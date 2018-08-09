@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include "HXGameObject.h"
 #include "HXLight.h"
+#include "HXICamera.h"
 #include <QTextStream.h>
 
 class HXGameWidget;
@@ -43,6 +44,7 @@ private:
 	static void createGoCallBack(HX3D::HXGameObject* gameObject);
 	static void updateGameObject(HX3D::HXGameObject* gameObject);
 	static void updateLight(HX3D::HXLight* light);
+	static void updateCamera(HX3D::HXICamera* camera);
 
 	Ui::HXEditorWinClass ui;
 	QHBoxLayout* m_pMainLayout;

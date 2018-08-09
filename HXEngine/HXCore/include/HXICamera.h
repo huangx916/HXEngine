@@ -38,6 +38,7 @@ namespace HX3D
 
 		HXITransform* transform;
 
+		std::string name;
 		EClearFlag clearFlag;
 		HXCOLOR background;
 		ECullingMask cullingMask;
