@@ -63,6 +63,9 @@ private:
 	QTreeWidgetItem *camera;
 	QLineEdit* editCameraName;
 	QComboBox* comboboxClearFlag;
+	QSpinBox* spinboxBGColorR;
+	QSpinBox* spinboxBGColorG;
+	QSpinBox* spinboxBGColorB;
 	QDoubleSpinBox* spinboxCameraNear;
 	QDoubleSpinBox* spinboxCameraFar;
 	QComboBox* comboboxCullingMask;
@@ -156,6 +159,10 @@ private:
 	void CameraFarChanged(double value);
 
 	void ClearFlagActivated(int index);
+
+	void BGColorRChanged(int value);
+	void BGColorGChanged(int value);
+	void BGColorBChanged(int value);
 
 	void CullingMaskActivated(int index);
 

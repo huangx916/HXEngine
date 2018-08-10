@@ -62,6 +62,15 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	comboboxClearFlag->addItem("Depth only");
 	comboboxClearFlag->addItem("Dont clear");
 
+	spinboxBGColorR = new QSpinBox();
+	spinboxBGColorR->setRange(COLOR_MIN, COLOR_MAX);
+
+	spinboxBGColorG = new QSpinBox();
+	spinboxBGColorG->setRange(COLOR_MIN, COLOR_MAX);
+
+	spinboxBGColorB = new QSpinBox();
+	spinboxBGColorB->setRange(COLOR_MIN, COLOR_MAX);
+
 	spinboxCameraNear = new QDoubleSpinBox();
 	spinboxCameraNear->setRange(MIN, MAX);
 
@@ -292,6 +301,26 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	clearFlag->setText(0, "clear flags");
 	camera->addChild(clearFlag);
 	treeWidget->setItemWidget(clearFlag, 1, comboboxClearFlag);
+
+	// background color
+	QTreeWidgetItem *bgcolor = new QTreeWidgetItem;
+	bgcolor->setText(0, "back ground");
+	camera->addChild(bgcolor);
+	// background color R
+	QTreeWidgetItem *bgcolorR = new QTreeWidgetItem;
+	bgcolorR->setText(0, "R");
+	bgcolor->addChild(bgcolorR);
+	treeWidget->setItemWidget(bgcolorR, 1, spinboxBGColorR);
+	// background color G
+	QTreeWidgetItem *bgcolorG = new QTreeWidgetItem;
+	bgcolorG->setText(0, "G");
+	bgcolor->addChild(bgcolorG);
+	treeWidget->setItemWidget(bgcolorG, 1, spinboxBGColorG);
+	// background color B
+	QTreeWidgetItem *bgcolorB = new QTreeWidgetItem;
+	bgcolorB->setText(0, "B");
+	bgcolor->addChild(bgcolorB);
+	treeWidget->setItemWidget(bgcolorB, 1, spinboxBGColorB);
 
 	// camera near
 	QTreeWidgetItem *nearz = new QTreeWidgetItem;
@@ -649,6 +678,9 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	// camera
 	connect(editCameraName, &QLineEdit::textChanged, this, &HXInspectorWidget::CameraNameChanged);
 	connect(comboboxClearFlag, SIGNAL(activated(int)), this, SLOT(ClearFlagActivated(int)));
+	connect(spinboxBGColorR, SIGNAL(valueChanged(int)), this, SLOT(BGColorRChanged(int)));
+	connect(spinboxBGColorG, SIGNAL(valueChanged(int)), this, SLOT(BGColorGChanged(int)));
+	connect(spinboxBGColorB, SIGNAL(valueChanged(int)), this, SLOT(BGColorBChanged(int)));
 	connect(spinboxCameraNear, SIGNAL(valueChanged(double)), this, SLOT(CameraNearChanged(double)));
 	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
 	connect(comboboxCullingMask, SIGNAL(activated(int)), this, SLOT(CullingMaskActivated(int)));
@@ -879,6 +911,10 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		editCameraName->setText(selectedCamera->name.c_str());
 
 		comboboxClearFlag->setCurrentIndex(selectedCamera->clearFlag);
+
+		spinboxBGColorR->setValue(selectedCamera->background.r);
+		spinboxBGColorG->setValue(selectedCamera->background.g);
+		spinboxBGColorB->setValue(selectedCamera->background.b);
 
 		spinboxCameraNear->setValue(selectedCamera->mNear);
 		spinboxCameraFar->setValue(selectedCamera->mFar);
@@ -1255,6 +1291,28 @@ void HXInspectorWidget::ClearFlagActivated(int index)
 	if (selectedCamera)
 	{
 		selectedCamera->clearFlag = (EClearFlag)index;
+	}
+}
+
+void HXInspectorWidget::BGColorRChanged(int value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->background.r = value;
+	}
+}
+void HXInspectorWidget::BGColorGChanged(int value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->background.g = value;
+	}
+}
+void HXInspectorWidget::BGColorBChanged(int value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->background.b = value;
 	}
 }
 
