@@ -62,6 +62,7 @@ private:
 	// camera
 	QTreeWidgetItem *camera;
 	QLineEdit* editCameraName;
+	QComboBox* comboboxClearFlag;
 	QDoubleSpinBox* spinboxCameraNear;
 	QDoubleSpinBox* spinboxCameraFar;
 	QComboBox* comboboxCullingMask;
@@ -153,6 +154,8 @@ private:
 
 	void CameraNearChanged(double value);
 	void CameraFarChanged(double value);
+
+	void ClearFlagActivated(int index);
 
 	void CullingMaskActivated(int index);
 

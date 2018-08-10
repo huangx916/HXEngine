@@ -56,6 +56,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	// camera
 	editCameraName = new QLineEdit();
 
+	comboboxClearFlag = new QComboBox();
+	//comboboxClearFlag->addItem("Skybox");
+	comboboxClearFlag->addItem("Solid color");
+	comboboxClearFlag->addItem("Depth only");
+	comboboxClearFlag->addItem("Dont clear");
+
 	spinboxCameraNear = new QDoubleSpinBox();
 	spinboxCameraNear->setRange(MIN, MAX);
 
@@ -280,6 +286,13 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	cameraname->setText(0, "name");
 	camera->addChild(cameraname);
 	treeWidget->setItemWidget(cameraname, 1, editCameraName);
+
+	// clear flags
+	QTreeWidgetItem *clearFlag = new QTreeWidgetItem;
+	clearFlag->setText(0, "clear flags");
+	camera->addChild(clearFlag);
+	treeWidget->setItemWidget(clearFlag, 1, comboboxClearFlag);
+
 	// camera near
 	QTreeWidgetItem *nearz = new QTreeWidgetItem;
 	nearz->setText(0, "near z");
@@ -635,7 +648,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	// camera
 	connect(editCameraName, &QLineEdit::textChanged, this, &HXInspectorWidget::CameraNameChanged);
-
+	connect(comboboxClearFlag, SIGNAL(activated(int)), this, SLOT(ClearFlagActivated(int)));
 	connect(spinboxCameraNear, SIGNAL(valueChanged(double)), this, SLOT(CameraNearChanged(double)));
 	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
 	connect(comboboxCullingMask, SIGNAL(activated(int)), this, SLOT(CullingMaskActivated(int)));
@@ -864,6 +877,8 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		camera->setHidden(false);
 
 		editCameraName->setText(selectedCamera->name.c_str());
+
+		comboboxClearFlag->setCurrentIndex(selectedCamera->clearFlag);
 
 		spinboxCameraNear->setValue(selectedCamera->mNear);
 		spinboxCameraFar->setValue(selectedCamera->mFar);
@@ -1232,6 +1247,14 @@ void HXInspectorWidget::CameraFarChanged(double value)
 		selectedCamera->mFar = value;
 		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
 		selectedCamera->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, selectedCamera->mNear, selectedCamera->mFar);
+	}
+}
+
+void HXInspectorWidget::ClearFlagActivated(int index)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->clearFlag = (EClearFlag)index;
 	}
 }
 
