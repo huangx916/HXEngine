@@ -113,7 +113,13 @@ namespace HX3D
 		right *= n;
 		bottom *= n;
 		top *= n;
-		mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
-		//mMatrixProjection = vmath::Ortho(-5, 5, -5, 5, 0.01, 1000);
+		if (projection == CP_ORTHOGRAPHIC)
+		{
+			mMatrixProjection = vmath::Ortho(-5, 5, -5, 5, n, f);
+		}
+		else
+		{
+			mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
+		}
 	}
 }

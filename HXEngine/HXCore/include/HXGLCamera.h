@@ -38,8 +38,8 @@ namespace HX3D
 		vmath::mat4 mMatrixView;
 		vmath::mat4 mMatrixProjection;
 
-		float mNear;
-		float mFar;
+		/*float mNear;
+		float mFar;*/
 	};
 }
 

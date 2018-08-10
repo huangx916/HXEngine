@@ -47,6 +47,10 @@ namespace HX3D
 		HXCOLOR background;
 		ECullingMask cullingMask;
 		ECameraProjection projection;
+		float mField;
+		float mSize;
+		float mNear;
+		float mFar;
 		int depth;
 	};
 }
