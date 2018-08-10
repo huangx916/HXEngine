@@ -70,6 +70,7 @@ private:
 	QDoubleSpinBox* spinboxCameraFar;
 	QComboBox* comboboxCullingMask;
 	QComboBox* comboboxProjection;
+	QSpinBox* spinboxDepth;
 	QPushButton* pushbuttonCameraTransSync;
 	QDoubleSpinBox* spinboxCameraPositionX;
 	QDoubleSpinBox* spinboxCameraPositionY;
@@ -168,6 +169,8 @@ private:
 	void CullingMaskActivated(int index);
 
 	void ProjectionActivated(int index);
+
+	void DepthChanged(int value);
 
 	void TransSyncOnClick();
 

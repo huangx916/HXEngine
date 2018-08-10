@@ -89,6 +89,9 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	comboboxProjection->addItem("Orthographic");
 	comboboxProjection->addItem("Perspective");
 
+	spinboxDepth = new QSpinBox();
+	spinboxDepth->setRange(-100, 100);
+
 	pushbuttonCameraTransSync = new QPushButton();
 	pushbuttonCameraTransSync->setText("Sync transform");
 
@@ -348,6 +351,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	projection->setText(0, "projection");
 	camera->addChild(projection);
 	treeWidget->setItemWidget(projection, 1, comboboxProjection);
+
+	// depth
+	QTreeWidgetItem *depth = new QTreeWidgetItem;
+	depth->setText(0, "depth");
+	camera->addChild(depth);
+	treeWidget->setItemWidget(depth, 1, spinboxDepth);
 
 	// camera transform
 	QTreeWidgetItem *camTrans = new QTreeWidgetItem;
@@ -695,6 +704,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
 	connect(comboboxCullingMask, SIGNAL(activated(int)), this, SLOT(CullingMaskActivated(int)));
 	connect(comboboxProjection, SIGNAL(activated(int)), this, SLOT(ProjectionActivated(int)));
+	connect(spinboxDepth, SIGNAL(valueChanged(int)), this, SLOT(DepthChanged(int)));
 
 	connect(pushbuttonCameraTransSync, SIGNAL(clicked()), this, SLOT(TransSyncOnClick()));
 
@@ -933,6 +943,8 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		comboboxCullingMask->setCurrentIndex(selectedCamera->cullingMask);
 
 		comboboxProjection->setCurrentIndex(selectedCamera->projection);
+
+		spinboxDepth->setValue(selectedCamera->depth);
 
 		spinboxCameraPositionX->setValue(selectedCamera->transform->mPostion.x);
 		spinboxCameraPositionY->setValue(selectedCamera->transform->mPostion.y);
@@ -1342,6 +1354,15 @@ void HXInspectorWidget::ProjectionActivated(int index)
 	if (selectedCamera)
 	{
 		selectedCamera->projection = (ECameraProjection)index;
+	}
+}
+
+void HXInspectorWidget::DepthChanged(int value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->depth = value;
+		HXSceneManager::GetInstance()->SortCameraList();
 	}
 }
 
