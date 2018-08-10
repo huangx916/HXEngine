@@ -55,6 +55,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	// camera
 	editCameraName = new QLineEdit();
+	checkboxCamera = new QCheckBox();
 
 	comboboxClearFlag = new QComboBox();
 	//comboboxClearFlag->addItem("Skybox");
@@ -302,6 +303,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	cameraname->setText(0, "name");
 	camera->addChild(cameraname);
 	treeWidget->setItemWidget(cameraname, 1, editCameraName);
+
+	// use camera
+	QTreeWidgetItem *usecamera = new QTreeWidgetItem;
+	usecamera->setText(0, "enable");
+	camera->addChild(usecamera);
+	treeWidget->setItemWidget(usecamera, 1, checkboxCamera);
 
 	// clear flags
 	QTreeWidgetItem *clearFlag = new QTreeWidgetItem;
@@ -696,6 +703,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	// camera
 	connect(editCameraName, &QLineEdit::textChanged, this, &HXInspectorWidget::CameraNameChanged);
+	connect(checkboxCamera, SIGNAL(toggled(bool)), this, SLOT(CameraToggled(bool)));
 	connect(comboboxClearFlag, SIGNAL(activated(int)), this, SLOT(ClearFlagActivated(int)));
 	connect(spinboxBGColorR, SIGNAL(valueChanged(int)), this, SLOT(BGColorRChanged(int)));
 	connect(spinboxBGColorG, SIGNAL(valueChanged(int)), this, SLOT(BGColorGChanged(int)));
@@ -930,6 +938,14 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		camera->setHidden(false);
 
 		editCameraName->setText(selectedCamera->name.c_str());
+		if (selectedCamera->enable)
+		{
+			checkboxCamera->setCheckState(Qt::Checked);
+		}
+		else
+		{
+			checkboxCamera->setCheckState(Qt::Unchecked);
+		}
 
 		comboboxClearFlag->setCurrentIndex(selectedCamera->clearFlag);
 
@@ -1288,6 +1304,14 @@ void HXInspectorWidget::CameraNameChanged(const QString& name)
 		}
 
 		//HXEditorWin::GetInstance()->m_pHierarchyWidget->currentItem()->setText(0, name);
+	}
+}
+
+void HXInspectorWidget::CameraToggled(bool useCamera)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->enable = useCamera;
 	}
 }
 

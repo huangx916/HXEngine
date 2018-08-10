@@ -62,6 +62,7 @@ private:
 	// camera
 	QTreeWidgetItem *camera;
 	QLineEdit* editCameraName;
+	QCheckBox* checkboxCamera;
 	QComboBox* comboboxClearFlag;
 	QSpinBox* spinboxBGColorR;
 	QSpinBox* spinboxBGColorG;
@@ -157,6 +158,7 @@ private:
 	void AmbientColorGChanged(int value);
 	void AmbientColorBChanged(int value);
 
+	void CameraToggled(bool useCamera);
 	void CameraNearChanged(double value);
 	void CameraFarChanged(double value);
 

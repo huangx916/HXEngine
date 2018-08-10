@@ -11,6 +11,7 @@ namespace HX3D
 	struct HXCameraInfo
 	{
 		std::string name;
+		bool enable;
 		HXVector3D position;
 		HXVector3D rotation;
 		float nearZ;

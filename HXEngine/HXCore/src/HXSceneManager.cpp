@@ -435,6 +435,10 @@ namespace HX3D
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
 		{
 			HXICamera* curCamera = *itr;
+			if (false == curCamera->enable)
+			{
+				continue;
+			}
 
 			curCamera->PreRender();
 

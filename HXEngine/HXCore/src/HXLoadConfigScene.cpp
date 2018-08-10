@@ -81,6 +81,7 @@ namespace HX3D
 		{
 			HXCameraInfo cameraInfo;
 			cameraInfo.name = cameraElement->Attribute("Name");
+			cameraInfo.enable = atoi(cameraElement->Attribute("Enable"));
 			cameraInfo.nearZ = atof(cameraElement->Attribute("NearZ"));
 			cameraInfo.farZ = atof(cameraElement->Attribute("FarZ"));
 			cameraInfo.clearFlag = (EClearFlag)atoi(cameraElement->Attribute("ClearFlag"));
