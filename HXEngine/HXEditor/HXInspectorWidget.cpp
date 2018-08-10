@@ -85,6 +85,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	comboboxCullingMask->addItem("Editor");
 	comboboxCullingMask->addItem("Water");
 
+	comboboxProjection = new QComboBox();
+	comboboxProjection->addItem("Orthographic");
+	comboboxProjection->addItem("Perspective");
+
 	pushbuttonCameraTransSync = new QPushButton();
 	pushbuttonCameraTransSync->setText("Sync transform");
 
@@ -338,6 +342,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	cullingMask->setText(0, "culling mask");
 	camera->addChild(cullingMask);
 	treeWidget->setItemWidget(cullingMask, 1, comboboxCullingMask);
+
+	// projection
+	QTreeWidgetItem *projection = new QTreeWidgetItem;
+	projection->setText(0, "projection");
+	camera->addChild(projection);
+	treeWidget->setItemWidget(projection, 1, comboboxProjection);
 
 	// camera transform
 	QTreeWidgetItem *camTrans = new QTreeWidgetItem;
@@ -684,6 +694,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(spinboxCameraNear, SIGNAL(valueChanged(double)), this, SLOT(CameraNearChanged(double)));
 	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
 	connect(comboboxCullingMask, SIGNAL(activated(int)), this, SLOT(CullingMaskActivated(int)));
+	connect(comboboxProjection, SIGNAL(activated(int)), this, SLOT(ProjectionActivated(int)));
 
 	connect(pushbuttonCameraTransSync, SIGNAL(clicked()), this, SLOT(TransSyncOnClick()));
 
@@ -920,6 +931,8 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		spinboxCameraFar->setValue(selectedCamera->mFar);
 
 		comboboxCullingMask->setCurrentIndex(selectedCamera->cullingMask);
+
+		comboboxProjection->setCurrentIndex(selectedCamera->projection);
 
 		spinboxCameraPositionX->setValue(selectedCamera->transform->mPostion.x);
 		spinboxCameraPositionY->setValue(selectedCamera->transform->mPostion.y);
@@ -1321,6 +1334,14 @@ void HXInspectorWidget::CullingMaskActivated(int index)
 	if (selectedCamera)
 	{
 		selectedCamera->cullingMask = (ECullingMask)index;
+	}
+}
+
+void HXInspectorWidget::ProjectionActivated(int index)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->projection = (ECameraProjection)index;
 	}
 }
 

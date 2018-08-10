@@ -69,6 +69,7 @@ private:
 	QDoubleSpinBox* spinboxCameraNear;
 	QDoubleSpinBox* spinboxCameraFar;
 	QComboBox* comboboxCullingMask;
+	QComboBox* comboboxProjection;
 	QPushButton* pushbuttonCameraTransSync;
 	QDoubleSpinBox* spinboxCameraPositionX;
 	QDoubleSpinBox* spinboxCameraPositionY;
@@ -165,6 +166,8 @@ private:
 	void BGColorBChanged(int value);
 
 	void CullingMaskActivated(int index);
+
+	void ProjectionActivated(int index);
 
 	void TransSyncOnClick();
 
