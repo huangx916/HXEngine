@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="Water" Activity="1" Static="1" Model="prefab/Water/Water.model" CastShadow="0">
+	<GameObj Name="Water" Activity="1" Static="1" Model="prefab/Water/Water.model" CastShadow="0" Layer="0">
 		<Position Px="0" Py="0" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="1" Sy="1" Sz="1"/>

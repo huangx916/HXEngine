@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="tree05_2" Activity="1" Static="1" Model="prefab/tree05_2/tree05_2.model" CastShadow="1">
+	<GameObj Name="tree05_2" Activity="1" Static="1" Model="prefab/tree05_2/tree05_2.model" CastShadow="1" Layer="0">
 		<Position Px="4" Py="-2.5" Pz="5"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>

@@ -161,7 +161,7 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 	HXITransform* trans = HXSceneManager::GetInstance()->GetMainCamera()->transform;
 	HXQuaternion q;
 	q.FromEulerDegree(trans->mEulerDegree.x, trans->mEulerDegree.y, trans->mEulerDegree.z);
-	HXVector3D vec = HXVector3D(0, 0, 1);
+	HXVector3D vec = HXVector3D(0, 0, 5);
 	vec = q.Transform(vec);
 
 	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
@@ -173,7 +173,15 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
 	if (light)
 	{
-		HXVector3D pos = light->position + vec;
+		HXVector3D pos = light->position;
 		trans->SetPosition(pos);
+		if (light->lightType == LIGHT_DIRECTION)
+		{
+			trans->SetRotation(light->direct);
+		}
+		else if (light->lightType == LIGHT_SPOT)
+		{
+			trans->SetRotation(light->ConeDirection);
+		}
 	}
 }

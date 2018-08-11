@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<GameObj Name="Rock2_104" Activity="1" Static="1" Model="prefab/Rock2_104/Rock2_104.model" CastShadow="1">
+	<GameObj Name="Rock2_104" Activity="1" Static="1" Model="prefab/Rock2_104/Rock2_104.model" CastShadow="1" Layer="0">
 		<Position Px="0" Py="-1.5" Pz="0"/>
 		<Rotation Rx="0" Ry="0" Rz="0"/>
 		<Scale Sx="0.3" Sy="0.5" Sz="0.3"/>
