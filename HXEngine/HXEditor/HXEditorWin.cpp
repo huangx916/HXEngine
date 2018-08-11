@@ -152,6 +152,8 @@ void HXEditorWin::serializeGameObjectRecursive(QTextStream& out, std::vector<HX3
 		out << (*itr)->m_strModelFile.c_str();
 		out << "\" CastShadow=\"";
 		out << (*itr)->GetCastShadow();
+		out << "\" Layer=\"";
+		out << (*itr)->GetLayer();
 		out << "\">\n";
 
 		for (int i = 0; i < level + 3; ++i)
@@ -205,29 +207,6 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	out << "<Scene>\n";
 	
-	// Camera
-	HXGLCamera* camera = (HXGLCamera*)HXSceneManager::GetInstance()->GetMainCamera();
-	out << "	<Camera NearZ=\"";
-	out << camera->mNear;
-	out << "\" FarZ=\"";
-	out << camera->mFar;
-	out << "\">\n";
-	out << "		<Position Px=\"";
-	out << camera->transform->mPostion.x;
-	out << "\" Py=\"";
-	out << camera->transform->mPostion.y;
-	out << "\" Pz=\"";
-	out << camera->transform->mPostion.z;
-	out << "\"/>\n";
-	out << "		<Rotation Rx=\"";
-	out << camera->transform->mEulerDegree.x;
-	out << "\" Ry=\"";
-	out << camera->transform->mEulerDegree.y;
-	out << "\" Rz=\"";
-	out << camera->transform->mEulerDegree.z;
-	out << "\"/>\n";
-	out << "	</Camera>\n";
-
 	// Fog
 	HXFogBase* fogBase = HXSceneManager::GetInstance()->fog;
 	out << "	<Fog Use=\"";
@@ -273,6 +252,58 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "\" B=\"";
 	out << Ambient->b;
 	out << "\"/>\n";
+
+	// Cameras
+	out << "	<Cameras>\n";
+	std::vector<HXICamera*> cameraVct = HXSceneManager::GetInstance()->cameraVct;
+	for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
+	{
+		out << "		<Camera Name=\"";
+		out << (*itr)->name.c_str();
+		out << "\" Enable=\"";
+		int enable = (*itr)->enable ? 1 : 0;
+		out << enable;
+		out << "\" ClearFlag=\"";
+		out << (*itr)->clearFlag;
+		out << "\" CullingMask=\"";
+		out << (*itr)->cullingMask;
+		out << "\" Projection=\"";
+		out << (*itr)->projection;
+		out << "\" Field=\"";
+		out << (*itr)->mField;
+		out << "\" Size=\"";
+		out << (*itr)->mSize;
+		out << "\" NearZ=\"";
+		out << (*itr)->mNear;
+		out << "\" FarZ=\"";
+		out << (*itr)->mFar;
+		out << "\" Depth=\"";
+		out << (*itr)->depth;
+		out << "\">\n";
+		out << "			<ClearColor Cr=\"";
+		out << (*itr)->background.r;
+		out << "\" Cg=\"";
+		out << (*itr)->background.g;
+		out << "\" Cb=\"";
+		out << (*itr)->background.b;
+		out << "\"/>\n";
+		out << "			<Position Px=\"";
+		out << (*itr)->transform->mPostion.x;
+		out << "\" Py=\"";
+		out << (*itr)->transform->mPostion.y;
+		out << "\" Pz=\"";
+		out << (*itr)->transform->mPostion.z;
+		out << "\"/>\n";
+		out << "			<Rotation Rx=\"";
+		out << (*itr)->transform->mEulerDegree.x;
+		out << "\" Ry=\"";
+		out << (*itr)->transform->mEulerDegree.y;
+		out << "\" Rz=\"";
+		out << (*itr)->transform->mEulerDegree.z;
+		out << "\"/>\n";
+		out << "		</Camera>\n";
+	}
+	out << "	</Cameras>\n";
 
 	// Lights
 	out << "	<Lights>\n";
@@ -528,7 +559,7 @@ void HXEditorWin::deleteLight()
 
 void HXEditorWin::loadSceneCallBack()
 {
-	HXEditorWin::GetInstance()->m_pCoordArrowGO = HXSceneManager::GetInstance()->CreateGameObjectFromPrefab(NULL, "./prefab/CoordArrow/CoordArrow.prefab");
+	//HXEditorWin::GetInstance()->m_pCoordArrowGO = HXSceneManager::GetInstance()->CreateGameObjectFromPrefab(NULL, "./prefab/CoordArrow/CoordArrow.prefab");
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateSceneTree();
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
 	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));

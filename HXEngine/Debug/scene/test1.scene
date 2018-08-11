@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<Camera NearZ="0.01" FarZ="1000">
-		<Position Px="0.59" Py="0.98" Pz="11.07"/>
-		<Rotation Rx="-9.6" Ry="-359.4" Rz="0"/>
-	</Camera>
 	<Fog Use="1" Type="0" R="150" G="150" B="150" Start="16" End="30"/>
 	<Ambient R="50" G="50" B="50"/>
+	<Cameras>
+		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
+			<ClearColor Cr="63" Cg="63" Cb="63"/>
+			<Position Px="0.59" Py="0.98" Pz="11.07"/>
+			<Rotation Rx="-9.6" Ry="-359.4" Rz="0"/>
+		</Camera>
+	</Cameras>
 	<Lights>
 		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="255" Cg="255" Cb="255"/>
@@ -15,17 +18,17 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" CastShadow="1">
+		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" CastShadow="1" Layer="0">
 			<Position Px="2" Py="-2.4" Pz="4"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="0.5" Sy="0.5" Sz="0.5"/>
 		</GameObj>
-		<GameObj Name="DogGo" Activity="1" Static="0" Model="prefab/Dog/Dog.model" CastShadow="1">
+		<GameObj Name="DogGo" Activity="1" Static="0" Model="prefab/Dog/Dog.model" CastShadow="1" Layer="0">
 			<Position Px="0" Py="-2.4" Pz="3"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>
-		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" CastShadow="1">
+		<GameObj Name="DogGo" Activity="1" Static="1" Model="prefab/Dog/Dog.model" CastShadow="1" Layer="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
