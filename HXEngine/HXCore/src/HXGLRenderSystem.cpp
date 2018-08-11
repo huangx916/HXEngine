@@ -116,7 +116,6 @@ namespace HX3D
 	HXICamera* HXGLRenderSystem::CreateCamera(const HXCameraInfo* cameraInfo)
 	{
 		HXICamera* pCam = new HXGLCamera();
-		pCam->Initialize(cameraInfo->position, cameraInfo->rotation, cameraInfo->nearZ, cameraInfo->farZ);
 		pCam->name = cameraInfo->name;
 		pCam->enable = cameraInfo->enable;
 		pCam->clearFlag = cameraInfo->clearFlag;
@@ -124,6 +123,7 @@ namespace HX3D
 		pCam->cullingMask = cameraInfo->cullingMask;
 		pCam->projection = cameraInfo->projection;
 		pCam->depth = cameraInfo->depth;
+		pCam->Initialize(cameraInfo->position, cameraInfo->rotation, cameraInfo->nearZ, cameraInfo->farZ);
 		return pCam;
 	}
 
