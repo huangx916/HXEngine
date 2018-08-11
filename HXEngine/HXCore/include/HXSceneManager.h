@@ -48,9 +48,11 @@ namespace HX3D
 
 		//HXICamera* CreateMainCamera(const HXCameraInfo* cameraInfo);
 		HXICamera* CreateCamera(const HXCameraInfo* cameraInfo);
+		HXICamera* CreateDefaultCamera();
 		void SortCameraList();
 		// 最早渲染的(depth最小)camera为主camera
 		HXICamera* GetMainCamera();
+		bool DeleteCamera(HXICamera* camera);
 
 		void CreateFog(HXFogInfo* info);
 		void UseFog(bool useFog);

@@ -25,6 +25,8 @@ public:
 	HXInspectorWidget(QWidget * parent = 0);
 	~HXInspectorWidget();
 
+	void OnLoadSceneCallback();
+
 	void SetGameObjectInfo(HXGameObject* pGameObject);
 	void SetLightInfo(HXLight* pLight);
 	void SetFogInfo(HXFogBase* pFog);
@@ -33,6 +35,7 @@ public:
 
 	void OnDeleteGameObject();
 	void OnDeleteLight();
+	void OnDeleteCamera();
 
 	// data
 	HXGameObject* selectedGameObject;

@@ -39,6 +39,8 @@ HXEditorWin::HXEditorWin(QWidget *parent)
 	connect(ui.actionPointLight, &QAction::triggered, this, &HXEditorWin::createPointLight);
 	connect(ui.actionSpotLight, &QAction::triggered, this, &HXEditorWin::createSpotLight);
 	connect(ui.actionDeleteLight, &QAction::triggered, this, &HXEditorWin::deleteLight);
+	connect(ui.actionCreateCamera, &QAction::triggered, this, &HXEditorWin::createCamera);
+	connect(ui.actionDeleteCamera, &QAction::triggered, this, &HXEditorWin::deleteCamera);
 
 	/* set background color */
 	//QPalette palette(palette());
@@ -557,13 +559,47 @@ void HXEditorWin::deleteLight()
 	}
 }
 
+void HXEditorWin::createCamera()
+{
+	QString scene = m_pGameWidget->GetCurScene();
+	if (scene.isEmpty())
+	{
+		QMessageBox::warning(this, tr("Read File"),
+			tr("Please load or new a scene first"));
+		return;
+	}
+	HXICamera* camera = HXSceneManager::GetInstance()->CreateDefaultCamera();
+	if (camera)
+	{
+		m_pHierarchyWidget->OnCreateCamera(camera);
+	}
+}
+
+void HXEditorWin::deleteCamera()
+{
+	if (NULL == m_pInspectorWidget->selectedCamera)
+	{
+		QMessageBox::warning(this, tr("Camera"),
+			tr("You did not select any camera."));
+		return;
+	}
+
+	if (QMessageBox::Yes == QMessageBox::question(this,
+		tr("Camera"),
+		tr("Delete this camera ?"),
+		QMessageBox::Yes | QMessageBox::No,
+		QMessageBox::Yes)) {
+		if (HXSceneManager::GetInstance()->DeleteCamera(m_pInspectorWidget->selectedCamera))
+		{
+			m_pHierarchyWidget->OnDeleteCamera();
+		}
+	}
+}
+
 void HXEditorWin::loadSceneCallBack()
 {
-	//HXEditorWin::GetInstance()->m_pCoordArrowGO = HXSceneManager::GetInstance()->CreateGameObjectFromPrefab(NULL, "./prefab/CoordArrow/CoordArrow.prefab");
 	HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateSceneTree();
-	HXEditorWin::GetInstance()->m_pInspectorWidget->SetFogInfo(HXSceneManager::GetInstance()->fog);
-	HXEditorWin::GetInstance()->m_pInspectorWidget->SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
-	//HXEditorWin::GetInstance()->m_pInspectorWidget->SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+	HXEditorWin::GetInstance()->m_pInspectorWidget->OnLoadSceneCallback();
 }
 
 void HXEditorWin::updateCallBack()

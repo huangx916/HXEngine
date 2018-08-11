@@ -12,17 +12,17 @@ namespace HX3D
 	{
 		std::string name;
 		bool enable;
-		HXVector3D position;
-		HXVector3D rotation;
-		float nearZ;
-		float farZ;
 		EClearFlag clearFlag;
 		HXCOLOR background;
 		ECullingMask cullingMask;
 		ECameraProjection projection;
 		float feild;
 		float size;
+		float nearZ;
+		float farZ;
 		int depth;
+		HXVector3D position;
+		HXVector3D rotation;
 	};
 	struct HXFogInfo
 	{

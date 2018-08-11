@@ -367,6 +367,24 @@ namespace HX3D
 		return NULL;
 	}
 
+	HXICamera* HXSceneManager::CreateDefaultCamera()
+	{
+		HXCameraInfo cameraInfo;
+		cameraInfo.name = "Camera";
+		cameraInfo.enable = true;
+		cameraInfo.clearFlag = CF_SOLIDCOLOR;
+
+		cameraInfo.cullingMask = CM_EVERYTHING;
+		cameraInfo.projection = CP_PERSPECTIVE;
+		cameraInfo.feild = 60;
+		cameraInfo.size = 5;
+		cameraInfo.nearZ = 0.01f;
+		cameraInfo.farZ = 1000;
+		cameraInfo.depth = -1;
+
+		return CreateCamera(&cameraInfo);
+	}
+
 	bool Depthcompare(HXICamera* i, HXICamera* j)
 	{
 		return i->depth < j->depth;
@@ -387,6 +405,21 @@ namespace HX3D
 		{
 			return NULL;
 		}
+	}
+
+	bool HXSceneManager::DeleteCamera(HXICamera* camera)
+	{
+		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
+		{
+			if ((*itr) == camera)
+			{
+				cameraVct.erase(itr);
+				delete camera;
+				camera = NULL;
+				return true;
+			}
+		}
+		return false;
 	}
 
 	void HXSceneManager::CreateFog(HXFogInfo* info)

@@ -37,12 +37,15 @@ public:
     QAction *actionPointLight;
     QAction *actionSpotLight;
     QAction *actionDeleteLight;
+    QAction *actionCreateCamera;
+    QAction *actionDeleteCamera;
     QWidget *centralWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuGameObject;
     QMenu *menuLight;
     QMenu *menuCreateLight;
+    QMenu *menuCamera;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -74,12 +77,16 @@ public:
         actionSpotLight->setObjectName(QStringLiteral("actionSpotLight"));
         actionDeleteLight = new QAction(HXEditorWinClass);
         actionDeleteLight->setObjectName(QStringLiteral("actionDeleteLight"));
+        actionCreateCamera = new QAction(HXEditorWinClass);
+        actionCreateCamera->setObjectName(QStringLiteral("actionCreateCamera"));
+        actionDeleteCamera = new QAction(HXEditorWinClass);
+        actionDeleteCamera->setObjectName(QStringLiteral("actionDeleteCamera"));
         centralWidget = new QWidget(HXEditorWinClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         HXEditorWinClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(HXEditorWinClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1000, 23));
+        menuBar->setGeometry(QRect(0, 0, 1000, 18));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuGameObject = new QMenu(menuBar);
@@ -88,6 +95,8 @@ public:
         menuLight->setObjectName(QStringLiteral("menuLight"));
         menuCreateLight = new QMenu(menuLight);
         menuCreateLight->setObjectName(QStringLiteral("menuCreateLight"));
+        menuCamera = new QMenu(menuBar);
+        menuCamera->setObjectName(QStringLiteral("menuCamera"));
         HXEditorWinClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(HXEditorWinClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -99,6 +108,7 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuGameObject->menuAction());
         menuBar->addAction(menuLight->menuAction());
+        menuBar->addAction(menuCamera->menuAction());
         menuFile->addAction(actionLoadScene);
         menuFile->addAction(actionSaveScene);
         menuFile->addAction(actionNewScene);
@@ -112,6 +122,8 @@ public:
         menuCreateLight->addAction(actionDirectionLight);
         menuCreateLight->addAction(actionPointLight);
         menuCreateLight->addAction(actionSpotLight);
+        menuCamera->addAction(actionCreateCamera);
+        menuCamera->addAction(actionDeleteCamera);
 
         retranslateUi(HXEditorWinClass);
 
@@ -132,10 +144,13 @@ public:
         actionPointLight->setText(QApplication::translate("HXEditorWinClass", "PointLight", nullptr));
         actionSpotLight->setText(QApplication::translate("HXEditorWinClass", "SpotLight", nullptr));
         actionDeleteLight->setText(QApplication::translate("HXEditorWinClass", "Delete...", nullptr));
+        actionCreateCamera->setText(QApplication::translate("HXEditorWinClass", "Create", nullptr));
+        actionDeleteCamera->setText(QApplication::translate("HXEditorWinClass", "Delete...", nullptr));
         menuFile->setTitle(QApplication::translate("HXEditorWinClass", "Scene", nullptr));
         menuGameObject->setTitle(QApplication::translate("HXEditorWinClass", "GameObject", nullptr));
         menuLight->setTitle(QApplication::translate("HXEditorWinClass", "Light", nullptr));
         menuCreateLight->setTitle(QApplication::translate("HXEditorWinClass", "Create", nullptr));
+        menuCamera->setTitle(QApplication::translate("HXEditorWinClass", "Camera", nullptr));
     } // retranslateUi
 
 };

@@ -110,6 +110,23 @@ void HXHierarchyWidget::OnDeleteLight()
 	HXEditorWin::GetInstance()->m_pInspectorWidget->OnDeleteLight();
 }
 
+void HXHierarchyWidget::OnCreateCamera(HX3D::HXICamera* camera)
+{
+	if (cameraRoot)
+	{
+		QTreeWidgetItem* tw = new QTreeWidgetItem(cameraRoot, QStringList(QString(camera->name.c_str())));
+		QVariant var;
+		var.setValue(camera);
+		tw->setData(2, Qt::UserRole, var);
+	}
+}
+
+void HXHierarchyWidget::OnDeleteCamera()
+{
+	delete this->currentItem();
+	HXEditorWin::GetInstance()->m_pInspectorWidget->OnDeleteCamera();
+}
+
 void HXHierarchyWidget::AddLightLeaf(QTreeWidgetItem* parent)
 {
 	for (std::vector<HXLight*>::iterator itr = HXSceneManager::GetInstance()->lightVct.begin(); itr != HXSceneManager::GetInstance()->lightVct.end(); ++itr)

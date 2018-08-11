@@ -23,6 +23,8 @@ public:
 	void OnDeleteGameObject();
 	void OnCreateLight(HX3D::HXLight* light);
 	void OnDeleteLight();
+	void OnCreateCamera(HX3D::HXICamera* camera);
+	void OnDeleteCamera();
 
 private:
 	void AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go);

@@ -797,6 +797,15 @@ HXInspectorWidget::~HXInspectorWidget()
 
 }
 
+void HXInspectorWidget::OnLoadSceneCallback()
+{
+	SetFogInfo(HXSceneManager::GetInstance()->fog);
+	SetAmbientInfo(&(HXSceneManager::GetInstance()->ambient));
+	OnDeleteGameObject();
+	OnDeleteLight();
+	OnDeleteCamera();
+}
+
 void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 {
 	selectedGameObject = NULL;
@@ -982,6 +991,16 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		comboboxCullingMask->setCurrentIndex(selectedCamera->cullingMask);
 
 		comboboxProjection->setCurrentIndex(selectedCamera->projection);
+		if (selectedCamera->projection == CP_ORTHOGRAPHIC)
+		{
+			spinboxCameraField->setHidden(true);
+			spinboxCameraSize->setHidden(false);
+		}
+		else if (selectedCamera->projection == CP_PERSPECTIVE)
+		{
+			spinboxCameraField->setHidden(false);
+			spinboxCameraSize->setHidden(true);
+		}
 
 		spinboxDepth->setValue(selectedCamera->depth);
 
@@ -1417,6 +1436,17 @@ void HXInspectorWidget::ProjectionActivated(int index)
 	if (selectedCamera)
 	{
 		selectedCamera->projection = (ECameraProjection)index;
+		if (selectedCamera->projection == CP_ORTHOGRAPHIC)
+		{
+			spinboxCameraField->setHidden(true);
+			spinboxCameraSize->setHidden(false);
+		}
+		else if (selectedCamera->projection == CP_PERSPECTIVE)
+		{
+			spinboxCameraField->setHidden(false);
+			spinboxCameraSize->setHidden(true);
+		}
+		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
 	}
 }
 
@@ -1671,4 +1701,10 @@ void HXInspectorWidget::OnDeleteLight()
 {
 	selectedLight = NULL;
 	light->setHidden(true);
+}
+
+void HXInspectorWidget::OnDeleteCamera()
+{
+	selectedCamera = NULL;
+	camera->setHidden(true);
 }

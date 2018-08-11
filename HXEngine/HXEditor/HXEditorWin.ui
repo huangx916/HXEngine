@@ -23,7 +23,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>23</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -59,9 +59,17 @@
     <addaction name="menuCreateLight"/>
     <addaction name="actionDeleteLight"/>
    </widget>
+   <widget class="QMenu" name="menuCamera">
+    <property name="title">
+     <string>Camera</string>
+    </property>
+    <addaction name="actionCreateCamera"/>
+    <addaction name="actionDeleteCamera"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuGameObject"/>
    <addaction name="menuLight"/>
+   <addaction name="menuCamera"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -123,6 +131,16 @@
    </property>
   </action>
   <action name="actionDeleteLight">
+   <property name="text">
+    <string>Delete...</string>
+   </property>
+  </action>
+  <action name="actionCreateCamera">
+   <property name="text">
+    <string>Create</string>
+   </property>
+  </action>
+  <action name="actionDeleteCamera">
    <property name="text">
     <string>Delete...</string>
    </property>

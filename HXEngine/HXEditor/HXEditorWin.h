@@ -34,6 +34,8 @@ private:
 	void createPointLight();
 	void createSpotLight();
 	void deleteLight();
+	void createCamera();
+	void deleteCamera();
 
 	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level);
 	void serializeScene(QTextStream& out);
