@@ -87,6 +87,8 @@ namespace HX3D
 			cameraInfo.clearFlag = (EClearFlag)atoi(cameraElement->Attribute("ClearFlag"));
 			cameraInfo.cullingMask = (ECullingMask)atoi(cameraElement->Attribute("CullingMask"));
 			cameraInfo.projection = (ECameraProjection)atoi(cameraElement->Attribute("Projection"));
+			cameraInfo.feild = atof(cameraElement->Attribute("Field"));
+			cameraInfo.size = atof(cameraElement->Attribute("Size"));
 			cameraInfo.depth = (ECameraProjection)atoi(cameraElement->Attribute("Depth"));
 			TiXmlElement* colorElement = cameraElement->FirstChildElement();
 			cameraInfo.background.r = atof(colorElement->Attribute("Cr"));

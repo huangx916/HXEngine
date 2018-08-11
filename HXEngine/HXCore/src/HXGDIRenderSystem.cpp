@@ -244,6 +244,8 @@ namespace HX3D
 		pCam->background = cameraInfo->background;
 		pCam->cullingMask = cameraInfo->cullingMask;
 		pCam->projection = cameraInfo->projection;
+		pCam->mField = cameraInfo->feild;
+		pCam->mSize = cameraInfo->size;
 		pCam->depth = cameraInfo->depth;
 		pCam->Initialize(cameraInfo->position, cameraInfo->rotation, cameraInfo->nearZ, cameraInfo->farZ);
 		return pCam;

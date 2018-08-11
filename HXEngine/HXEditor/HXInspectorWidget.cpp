@@ -72,12 +72,6 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	spinboxBGColorB = new QSpinBox();
 	spinboxBGColorB->setRange(COLOR_MIN, COLOR_MAX);
 
-	spinboxCameraNear = new QDoubleSpinBox();
-	spinboxCameraNear->setRange(MIN, MAX);
-
-	spinboxCameraFar = new QDoubleSpinBox();
-	spinboxCameraFar->setRange(MIN, MAX);
-
 	comboboxCullingMask = new QComboBox();
 	comboboxCullingMask->addItem("Nothing");
 	comboboxCullingMask->addItem("Everything");
@@ -89,6 +83,18 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	comboboxProjection = new QComboBox();
 	comboboxProjection->addItem("Orthographic");
 	comboboxProjection->addItem("Perspective");
+
+	spinboxCameraField = new QDoubleSpinBox();
+	spinboxCameraField->setRange(1, 179);
+
+	spinboxCameraSize = new QDoubleSpinBox();
+	spinboxCameraSize->setRange(1, 1000);
+
+	spinboxCameraNear = new QDoubleSpinBox();
+	spinboxCameraNear->setRange(MIN, MAX);
+
+	spinboxCameraFar = new QDoubleSpinBox();
+	spinboxCameraFar->setRange(MIN, MAX);
 
 	spinboxDepth = new QSpinBox();
 	spinboxDepth->setRange(-100, 100);
@@ -336,17 +342,6 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	bgcolor->addChild(bgcolorB);
 	treeWidget->setItemWidget(bgcolorB, 1, spinboxBGColorB);
 
-	// camera near
-	QTreeWidgetItem *nearz = new QTreeWidgetItem;
-	nearz->setText(0, "near z");
-	camera->addChild(nearz);
-	treeWidget->setItemWidget(nearz, 1, spinboxCameraNear);
-	// camera far
-	QTreeWidgetItem *farz = new QTreeWidgetItem;
-	farz->setText(0, "far z");
-	camera->addChild(farz);
-	treeWidget->setItemWidget(farz, 1, spinboxCameraFar);
-
 	// culling mask
 	QTreeWidgetItem *cullingMask = new QTreeWidgetItem;
 	cullingMask->setText(0, "culling mask");
@@ -358,6 +353,29 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	projection->setText(0, "projection");
 	camera->addChild(projection);
 	treeWidget->setItemWidget(projection, 1, comboboxProjection);
+
+	// field
+	QTreeWidgetItem *field = new QTreeWidgetItem;
+	field->setText(0, "field");
+	camera->addChild(field);
+	treeWidget->setItemWidget(field, 1, spinboxCameraField);
+
+	// size
+	QTreeWidgetItem *size = new QTreeWidgetItem;
+	size->setText(0, "size");
+	camera->addChild(size);
+	treeWidget->setItemWidget(size, 1, spinboxCameraSize);
+
+	// camera near
+	QTreeWidgetItem *nearz = new QTreeWidgetItem;
+	nearz->setText(0, "near z");
+	camera->addChild(nearz);
+	treeWidget->setItemWidget(nearz, 1, spinboxCameraNear);
+	// camera far
+	QTreeWidgetItem *farz = new QTreeWidgetItem;
+	farz->setText(0, "far z");
+	camera->addChild(farz);
+	treeWidget->setItemWidget(farz, 1, spinboxCameraFar);
 
 	// depth
 	QTreeWidgetItem *depth = new QTreeWidgetItem;
@@ -708,6 +726,8 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(spinboxBGColorR, SIGNAL(valueChanged(int)), this, SLOT(BGColorRChanged(int)));
 	connect(spinboxBGColorG, SIGNAL(valueChanged(int)), this, SLOT(BGColorGChanged(int)));
 	connect(spinboxBGColorB, SIGNAL(valueChanged(int)), this, SLOT(BGColorBChanged(int)));
+	connect(spinboxCameraField, SIGNAL(valueChanged(double)), this, SLOT(CameraFieldChanged(double)));
+	connect(spinboxCameraSize, SIGNAL(valueChanged(double)), this, SLOT(CameraSizeChanged(double)));
 	connect(spinboxCameraNear, SIGNAL(valueChanged(double)), this, SLOT(CameraNearChanged(double)));
 	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
 	connect(comboboxCullingMask, SIGNAL(activated(int)), this, SLOT(CullingMaskActivated(int)));
@@ -952,6 +972,9 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		spinboxBGColorR->setValue(selectedCamera->background.r);
 		spinboxBGColorG->setValue(selectedCamera->background.g);
 		spinboxBGColorB->setValue(selectedCamera->background.b);
+
+		spinboxCameraField->setValue(selectedCamera->mField);
+		spinboxCameraSize->setValue(selectedCamera->mSize);
 
 		spinboxCameraNear->setValue(selectedCamera->mNear);
 		spinboxCameraFar->setValue(selectedCamera->mFar);
@@ -1315,13 +1338,30 @@ void HXInspectorWidget::CameraToggled(bool useCamera)
 	}
 }
 
+void HXInspectorWidget::CameraFieldChanged(double value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->mField = value;
+		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
+	}
+}
+
+void HXInspectorWidget::CameraSizeChanged(double value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->mSize = value;
+		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
+	}
+}
+
 void HXInspectorWidget::CameraNearChanged(double value)
 {
 	if (selectedCamera)
 	{
 		selectedCamera->mNear = value;
-		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
-		selectedCamera->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, selectedCamera->mNear, selectedCamera->mFar);
+		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
 	}
 }
 
@@ -1330,8 +1370,7 @@ void HXInspectorWidget::CameraFarChanged(double value)
 	if (selectedCamera)
 	{
 		selectedCamera->mFar = value;
-		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
-		selectedCamera->UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, selectedCamera->mNear, selectedCamera->mFar);
+		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
 	}
 }
 

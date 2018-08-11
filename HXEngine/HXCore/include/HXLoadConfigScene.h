@@ -20,6 +20,8 @@ namespace HX3D
 		HXCOLOR background;
 		ECullingMask cullingMask;
 		ECameraProjection projection;
+		float feild;
+		float size;
 		int depth;
 	};
 	struct HXFogInfo

@@ -33,7 +33,8 @@ namespace HX3D
 		virtual void pitch(float fDegree);
 
 		void UpdateViewMatrix(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up);
-		void UpdateProjectionMatrix(float left, float right, float bottom, float top, float n, float f);
+		//void UpdateProjectionMatrix(float left, float right, float bottom, float top, float n, float f);
+		void UpdateProjectionMatrix(float field, float size, float n, float f);
 
 		vmath::mat4 mMatrixView;
 		vmath::mat4 mMatrixProjection;

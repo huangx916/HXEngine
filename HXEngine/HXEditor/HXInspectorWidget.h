@@ -67,10 +67,12 @@ private:
 	QSpinBox* spinboxBGColorR;
 	QSpinBox* spinboxBGColorG;
 	QSpinBox* spinboxBGColorB;
-	QDoubleSpinBox* spinboxCameraNear;
-	QDoubleSpinBox* spinboxCameraFar;
 	QComboBox* comboboxCullingMask;
 	QComboBox* comboboxProjection;
+	QDoubleSpinBox* spinboxCameraField;
+	QDoubleSpinBox* spinboxCameraSize;
+	QDoubleSpinBox* spinboxCameraNear;
+	QDoubleSpinBox* spinboxCameraFar;
 	QSpinBox* spinboxDepth;
 	QPushButton* pushbuttonCameraTransSync;
 	QDoubleSpinBox* spinboxCameraPositionX;
@@ -159,6 +161,8 @@ private:
 	void AmbientColorBChanged(int value);
 
 	void CameraToggled(bool useCamera);
+	void CameraFieldChanged(double value);
+	void CameraSizeChanged(double value);
 	void CameraNearChanged(double value);
 	void CameraFarChanged(double value);
 

@@ -24,8 +24,7 @@ namespace HX3D
 		transform->mPostion = position;
 		transform->mEulerDegree = rotate;
 
-		float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
-		UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, mNear, mFar);
+		UpdateProjectionMatrix(mField, mSize, mNear, mFar);
 	}
 
 	void HXGLCamera::PreRender()
@@ -75,8 +74,7 @@ namespace HX3D
 
 	void HXGLCamera::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 	{
-		float gAspect = (float)nScreenHeight / (float)nScreenWidth;
-		UpdateProjectionMatrix(-1, 1, -gAspect, gAspect, mNear, mFar);
+		UpdateProjectionMatrix(mField, mSize, mNear, mFar);
 	}
 
 	void HXGLCamera::move(const HXVector3D& mov)
@@ -106,20 +104,36 @@ namespace HX3D
 		mMatrixView = vmath::lookat(vmath::vec3(eye.x, eye.y, eye.z), vmath::vec3(at.x, at.y, at.z), vmath::vec3(up.x, up.y, up.z));
 	}
 
-	void HXGLCamera::UpdateProjectionMatrix(float left, float right, float bottom, float top, float n, float f)
+	//void HXGLCamera::UpdateProjectionMatrix(float left, float right, float bottom, float top, float n, float f)
+	//{
+	//	// 默认使用90度视野 left = -n	right = n;
+	//	left *= n;
+	//	right *= n;
+	//	bottom *= n;
+	//	top *= n;
+	//	if (projection == CP_ORTHOGRAPHIC)
+	//	{
+	//		mMatrixProjection = vmath::Ortho(-5, 5, -5, 5, n, f);
+	//	}
+	//	else
+	//	{
+	//		mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
+	//	}
+	//}
+
+	void HXGLCamera::UpdateProjectionMatrix(float field, float size, float n, float f)
 	{
-		// 默认使用90度视野 left = -n	right = n;
-		left *= n;
-		right *= n;
-		bottom *= n;
-		top *= n;
-		if (projection == CP_ORTHOGRAPHIC)
-		{
-			mMatrixProjection = vmath::Ortho(-5, 5, -5, 5, n, f);
-		}
-		else
-		{
-			mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
-		}
+		 if (projection == CP_ORTHOGRAPHIC)
+		 {
+			 mMatrixProjection = vmath::Ortho(-size, size, -size, size, n, f);
+		 }
+		 else
+		 {
+			 float fRadian = Degree_TO_Radian(field);
+			 float top = tan(fRadian / 2) * n;
+			 float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
+			 float right = gAspect * top;
+			 mMatrixProjection = vmath::frustum(-right, right, -top, top, n, f);
+		 }
 	}
 }

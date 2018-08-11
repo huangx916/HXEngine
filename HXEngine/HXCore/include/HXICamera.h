@@ -47,7 +47,7 @@ namespace HX3D
 		HXCOLOR background;
 		ECullingMask cullingMask;
 		ECameraProjection projection;
-		float mField;
+		float mField;	// 竖直方向角度
 		float mSize;
 		float mNear;
 		float mFar;
