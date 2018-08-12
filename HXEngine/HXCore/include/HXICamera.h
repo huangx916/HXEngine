@@ -36,8 +36,10 @@ namespace HX3D
 		inline void DetachGameObject(HXGameObject* go) { followedGO.remove(go); };
 		std::list<HXGameObject*> followedGO;*/
 
-		virtual void PreRender() {};
+		virtual bool PreRender() { return true; };
 		virtual void PostRender() {};
+		virtual bool PreRenderShadowMap() { return true; };
+		virtual void PostRenderShadowMap() {};
 
 		HXITransform* transform;
 

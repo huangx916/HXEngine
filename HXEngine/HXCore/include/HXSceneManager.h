@@ -58,7 +58,7 @@ namespace HX3D
 		void UseFog(bool useFog);
 
 		void PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest);
-		void OnDisplay(bool shadow);
+		void OnDisplay();
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 		
 		// 比较好性能，仅用于编辑器编辑时调用

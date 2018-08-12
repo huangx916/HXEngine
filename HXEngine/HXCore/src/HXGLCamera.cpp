@@ -2,6 +2,8 @@
 #include "HXMath.h"
 #include "HXGLTransform.h"
 #include "HXRenderSystem.h"
+#include "HXGLRenderSystem.h"
+#include "HXGLShadowMap.h"
 
 namespace HX3D
 {
@@ -27,7 +29,7 @@ namespace HX3D
 		UpdateProjectionMatrix(mField, mSize, mNear, mFar);
 	}
 
-	void HXGLCamera::PreRender()
+	bool HXGLCamera::PreRender()
 	{
 		switch (clearFlag)
 		{
@@ -43,11 +45,33 @@ namespace HX3D
 		default:
 			break;
 		}
+		return true;
 	}
 
 	void HXGLCamera::PostRender()
 	{
 
+	}
+
+	bool HXGLCamera::PreRenderShadowMap()
+	{
+		if (HXGLRenderSystem::mShadowMap && HXGLRenderSystem::mShadowMap->IsEnable())
+		{
+			HXGLRenderSystem::mShadowMap->PreRender();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	void HXGLCamera::PostRenderShadowMap()
+	{
+		if (HXGLRenderSystem::mShadowMap && HXGLRenderSystem::mShadowMap->IsEnable())
+		{
+			HXGLRenderSystem::mShadowMap->PostRender();
+		}
 	}
 
 	void HXGLCamera::Update()

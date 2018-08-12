@@ -163,9 +163,9 @@ void HXGameWidget::keyReleaseEvent(QKeyEvent *event)
 	//HXRenderSystem::Keyboard(event->key(), 0, 0);
 }
 
-void HXGameWidget::OnDisplay(bool shadow)
+void HXGameWidget::OnDisplay()
 {
-	HXSceneManager::GetInstance()->OnDisplay(shadow);
+	HXSceneManager::GetInstance()->OnDisplay();
 }
 
 void HXGameWidget::OnViewPortResize(int nScreenWidth, int nScreenHeight)

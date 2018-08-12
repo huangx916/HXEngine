@@ -182,27 +182,9 @@ namespace HX3D
 
 	void HXGLRenderSystem::RenderScene()
 	{
-		//begin shadow
-		if (mShadowMap && mShadowMap->IsEnable())
-		{
-			mShadowMap->PreRender();
-			// TODO: draw
-			if (m_pDisplayListener)
-			{
-				// TODO: gameobject和UI分离
-				m_pDisplayListener->OnDisplay(true);
-			}
-			mShadowMap->PostRender();
-		}
-		//end shadow
-
-		// 在HXGLCamera::PreRender中处理
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		if (m_pDisplayListener)
 		{
-			// TODO: gameobject和UI分离
-			m_pDisplayListener->OnDisplay(false);
+			m_pDisplayListener->OnDisplay();
 		}
 	}
 }

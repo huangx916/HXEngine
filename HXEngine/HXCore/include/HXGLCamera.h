@@ -17,8 +17,10 @@ namespace HX3D
 		virtual void Initialize(const HXVector3D& position, const HXVector3D& rotate,
 			float nearZ, float farZ);
 
-		virtual void PreRender();
+		virtual bool PreRender();
 		virtual void PostRender();
+		virtual bool PreRenderShadowMap();
+		virtual void PostRenderShadowMap();
 
 		virtual void Update();
 		HXVector3D UpdateAt();

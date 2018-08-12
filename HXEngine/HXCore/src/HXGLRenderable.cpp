@@ -138,10 +138,6 @@ namespace HX3D
 			return;
 		}
 
-		// TODO: 提取到相同材质的外层
-		//mMaterial->SetShadowMapMaterialRenderStateAllRenderable();
-		//mMaterial->SetShadowMapMaterialRenderStateEachRenderable(this);
-
 		glBindVertexArray(mVAO);
 
 		/*if (m_pSubMesh->IsStaticMesh == false)
@@ -178,10 +174,6 @@ namespace HX3D
 			//std::cerr << "Mesh over max triangle count" << std::endl;
 			return;
 		}
-		
-		// TODO: 提取到相同材质的外层
-		//mMaterial->SetMaterialRenderStateAllRenderable();
-		//mMaterial->SetMaterialRenderStateEachRenderable(this);
 
 		glBindVertexArray(mVAO);
 

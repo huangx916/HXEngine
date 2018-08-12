@@ -9,7 +9,7 @@ public:
 	~HXGame();
 
 	void CreateGameScene();
-	virtual void OnDisplay(bool shadow);
+	virtual void OnDisplay();
 	virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 	virtual void OnKeyboard(unsigned char key, int x, int y);
 	virtual void OnMouseMove(int nButton, int deltaX, int deltaY);
