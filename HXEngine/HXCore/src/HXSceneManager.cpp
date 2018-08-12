@@ -610,10 +610,6 @@ namespace HX3D
 
 	void HXSceneManager::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 	{
-		/*if (mainCamera)
-		{
-			mainCamera->OnViewPortResize(nScreenWidth, nScreenHeight);
-		}*/
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
 		{
 			(*itr)->OnViewPortResize(nScreenWidth, nScreenHeight);

@@ -8,6 +8,7 @@
 #include "HXGLShadowMap.h"
 #include "HXGLMaterial.h"
 #include "HXLoadConfigScene.h"
+#include "HXSceneManager.h"
 
 namespace HX3D
 {
@@ -184,7 +185,9 @@ namespace HX3D
 	{
 		if (m_pDisplayListener)
 		{
-			m_pDisplayListener->OnDisplay();
+			m_pDisplayListener->Update();
+			HXSceneManager::GetInstance()->OnDisplay();
+			m_pDisplayListener->LateUpdate();
 		}
 	}
 }

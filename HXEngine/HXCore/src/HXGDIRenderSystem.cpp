@@ -7,6 +7,7 @@
 #include "HXGDITransform.h"
 #include "HXGDIMaterial.h"
 #include "HXLoadConfigScene.h"
+#include "HXSceneManager.h"
 
 namespace HX3D
 {
@@ -208,9 +209,9 @@ namespace HX3D
 			HXGraphics::GetInstance()->ClearBuffer();
 
 			// 仅用作相机和gameobject状态更新
-			m_pDisplayListener->OnDisplay();
-
-			// HXStatus::GetInstance()->ShowStatusInfo();
+			m_pDisplayListener->Update();
+			HXSceneManager::GetInstance()->OnDisplay();
+			m_pDisplayListener->LateUpdate();
 
 			// 双缓冲技术防止闪烁
 			HXGraphics::GetInstance()->SwapBuffer(hdc);

@@ -1,5 +1,6 @@
 #include "..\include\HXRenderSystem.h"
 #include "HXIDisplayListener.h"
+#include "HXSceneManager.h"
 
 namespace HX3D
 {
@@ -42,6 +43,7 @@ namespace HX3D
 		if (m_pDisplayListener)
 		{
 			m_pDisplayListener->OnViewPortResize(nWidth, nHeight);
+			HXSceneManager::GetInstance()->OnViewPortResize(nWidth, nHeight);
 		}
 	}
 

@@ -17,53 +17,26 @@ HXGame::~HXGame()
 {
 }
 
-////HXGLTest* pGLTest = NULL;
-//void Test()
-//{
-//	//// for test begin
-//	/*pGLTest = new HXGLTest();
-//	pGLTest->InitTriangle();*/
-//
-//	/*HXQuaternion q;
-//	q.FromAngleAxis(90, HXVector3D(0,1,0));
-//	HXVector3D P(1,0,1);
-//	HXVector3D destP = q.Transform(P);
-//	int nTest = 0;*/
-//	//// for test end
-//}
-
-//#include "HXGLMaterial.h"
-//void Test()
-//{
-//	HXGLMaterial* mat = new HXGLMaterial(NULL);
-//	delete mat;
-//}
-
 void HXGame::CreateGameScene()
 {
 	HXLoadConfigGameIni cfg;
 	cfg.LoadFile("game.ini");
 	HXSceneManager::GetInstance()->LoadScene(cfg.strScene);
-	//HXSceneManager::GetInstance()->LoadScene("./scene/DuKangCun.scene");
-	//HXSceneManager::GetInstance()->LoadScene("./scene/Test.scene");
-	//Test();
 }
 
-void HXGame::OnDisplay()
+void HXGame::Update()
 {
-	HXSceneManager::GetInstance()->OnDisplay();
+	
+}
+
+void HXGame::LateUpdate()
+{
+
 }
 
 void HXGame::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 {
-	/*if (HXSceneManager::GetInstance()->mainCamera)
-	{
-		HXSceneManager::GetInstance()->mainCamera->OnViewPortResize(nScreenWidth, nScreenHeight);
-	}*/
-	for (std::vector<HXICamera*>::iterator itr = HXSceneManager::GetInstance()->cameraVct.begin(); itr != HXSceneManager::GetInstance()->cameraVct.end(); ++itr)
-	{
-		(*itr)->OnViewPortResize(nScreenWidth, nScreenHeight);
-	}
+	
 }
 
 void HXGame::OnKeyboard(unsigned char key, int x, int y)
