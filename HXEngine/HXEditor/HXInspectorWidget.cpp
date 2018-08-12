@@ -1537,6 +1537,10 @@ void HXInspectorWidget::DepthChanged(int value)
 void HXInspectorWidget::TransSyncOnClick()
 {
 	SetCameraInfo(selectedCamera);
+	//HXVector3D vec = selectedCamera->WorldToViewportPoint(HXVector3D(-6.6,-5.8,0));
+	//HXVector3D vec = selectedCamera->WorldToViewportPoint(HXVector3D(-5.72, -5.02, 0));
+	//vec = selectedCamera->ViewportToWorldPoint(vec);
+	//int nTest = 0;
 }
 
 void HXInspectorWidget::CameraPositionXValueChanged(double value)

@@ -78,8 +78,10 @@
     <ClInclude Include="include\hxtest.h" />
     <ClInclude Include="include\HXUtil.h" />
     <ClInclude Include="include\HXVector.h" />
+    <ClInclude Include="include\Matrices.h" />
     <ClInclude Include="include\tinystr.h" />
     <ClInclude Include="include\tinyxml.h" />
+    <ClInclude Include="include\Vectors.h" />
     <ClInclude Include="opengl\include\LoadShaders.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +137,7 @@
     <ClCompile Include="src\hxtest.cpp" />
     <ClCompile Include="src\HXVector.cpp" />
     <ClCompile Include="src\HXGLLoadPNG.cpp" />
+    <ClCompile Include="src\Matrices.cpp" />
     <ClCompile Include="src\tinystr.cpp" />
     <ClCompile Include="src\tinyxml.cpp" />
     <ClCompile Include="src\tinyxmlerror.cpp" />

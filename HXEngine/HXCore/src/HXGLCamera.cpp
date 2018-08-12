@@ -4,6 +4,7 @@
 #include "HXRenderSystem.h"
 #include "HXGLRenderSystem.h"
 #include "HXGLShadowMap.h"
+#include "Matrices.h"
 
 namespace HX3D
 {
@@ -104,6 +105,29 @@ namespace HX3D
 	void HXGLCamera::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 	{
 		UpdateProjectionMatrix(mField, mSize, mNear, mFar);
+	}
+
+	HXVector3D HXGLCamera::WorldToViewportPoint(HXVector3D position)
+	{
+		//vmath::vec4 vec(position.x, position.y, position.z, 1.0f);
+		//vec = mMatrixProjection * mMatrixView * vec;
+		//return HXVector3D(vec[0] / vec[3], vec[1] / vec[3], vec[2] / vec[3]);
+
+		Matrix4 matProj = Matrix4(mMatrixProjection);
+		Matrix4 matView =  Matrix4(mMatrixView);
+		Vector4 v = Vector4(position.x, position.y, position.z, 1.0f);
+		v = matProj * matView * v;
+		return HXVector3D(v[0] / v[3], v[1] / v[3], v[2] / v[3]);
+		
+	}
+
+	HXVector3D HXGLCamera::ViewportToWorldPoint(HXVector3D position)
+	{
+		Matrix4 matProj = Matrix4(mMatrixProjection);
+		Matrix4 matView = Matrix4(mMatrixView);
+		Vector4 v = Vector4(position.x, position.y, position.z, 1.0f);
+		v = matView.invert() * matProj.invert() * v;
+		return HXVector3D(v[0] / v[3], v[1] / v[3], v[2] / v[3]);
 	}
 
 	void HXGLCamera::move(const HXVector3D& mov)

@@ -169,6 +169,9 @@
     <ClCompile Include="src\HXGLFontBG.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Matrices.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -356,6 +359,12 @@
     </ClInclude>
     <ClInclude Include="include\HXGLFontBG.h">
       <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Matrices.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vectors.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
