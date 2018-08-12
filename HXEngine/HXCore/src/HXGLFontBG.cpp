@@ -3,6 +3,7 @@
 #include "LoadShaders.h"
 #include "vmath.h"
 #include "HXGLTexture.h"
+#include "HXRenderSystem.h"
 
 namespace HX3D
 {
@@ -104,7 +105,7 @@ namespace HX3D
 
 		GLint render_mvp_matrix_loc = glGetUniformLocation(_programId, "mvp_matrix");
 		vmath::mat4 matModelView = vmath::mat4::identity();
-		vmath::mat4 matProjection = vmath::Ortho(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 1, -1);
+		vmath::mat4 matProjection = vmath::Ortho(0, HXRenderSystem::gCurScreenWidth, HXRenderSystem::gCurScreenHeight, 0, 1, -1);
 		glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, matProjection * matModelView);
 
 		GLint tex_uniform_loc = glGetUniformLocation(_programId, "MainTexture");
