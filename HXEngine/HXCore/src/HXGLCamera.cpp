@@ -125,7 +125,10 @@ namespace HX3D
 	{
 		 if (projection == CP_ORTHOGRAPHIC)
 		 {
-			 mMatrixProjection = vmath::Ortho(-size, size, -size, size, n, f);
+			 float top = size;
+			 float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
+			 float right = gAspect * top;
+			 mMatrixProjection = vmath::Ortho(-right, right, -top, top, n, f);
 		 }
 		 else
 		 {

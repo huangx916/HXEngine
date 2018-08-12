@@ -48,7 +48,7 @@ namespace HX3D
 		ECullingMask cullingMask;
 		ECameraProjection projection;
 		float mField;	// 竖直方向角度
-		float mSize;
+		float mSize;	// 竖直方向高度
 		float mNear;
 		float mFar;
 		int depth;

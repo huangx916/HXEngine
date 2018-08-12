@@ -982,15 +982,14 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		spinboxBGColorG->setValue(selectedCamera->background.g);
 		spinboxBGColorB->setValue(selectedCamera->background.b);
 
-		spinboxCameraField->setValue(selectedCamera->mField);
-		spinboxCameraSize->setValue(selectedCamera->mSize);
-
-		spinboxCameraNear->setValue(selectedCamera->mNear);
-		spinboxCameraFar->setValue(selectedCamera->mFar);
-
 		comboboxCullingMask->setCurrentIndex(selectedCamera->cullingMask);
 
 		comboboxProjection->setCurrentIndex(selectedCamera->projection);
+
+		spinboxCameraField->setValue(selectedCamera->mField);
+		spinboxCameraSize->setValue(selectedCamera->mSize);
+
+		// TODO: 不起作用 刷新后作用消失
 		if (selectedCamera->projection == CP_ORTHOGRAPHIC)
 		{
 			spinboxCameraField->setHidden(true);
@@ -1001,6 +1000,9 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 			spinboxCameraField->setHidden(false);
 			spinboxCameraSize->setHidden(true);
 		}
+
+		spinboxCameraNear->setValue(selectedCamera->mNear);
+		spinboxCameraFar->setValue(selectedCamera->mFar);
 
 		spinboxDepth->setValue(selectedCamera->depth);
 
@@ -1461,7 +1463,7 @@ void HXInspectorWidget::DepthChanged(int value)
 
 void HXInspectorWidget::TransSyncOnClick()
 {
-	SetCameraInfo(HXSceneManager::GetInstance()->GetMainCamera());
+	SetCameraInfo(selectedCamera);
 }
 
 void HXInspectorWidget::CameraPositionXValueChanged(double value)
