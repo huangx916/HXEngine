@@ -20,6 +20,10 @@ namespace HX3D
 		float size;
 		float nearZ;
 		float farZ;
+		float viewportRectX;
+		float viewportRectY;
+		float viewportRectW;
+		float viewportRectH;
 		int depth;
 		HXVector3D position;
 		HXVector3D rotation;

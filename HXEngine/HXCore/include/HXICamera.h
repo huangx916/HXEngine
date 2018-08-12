@@ -53,6 +53,10 @@ namespace HX3D
 		float mSize;	// 竖直方向高度
 		float mNear;
 		float mFar;
+		float mViewportRectX;
+		float mViewportRectY;
+		float mViewportRectW;
+		float mViewportRectH;
 		int depth;
 	};
 }

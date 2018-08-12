@@ -8,6 +8,8 @@
 #include "HXResourceManager.h"
 #include "HXICamera.h"
 #include <QMessageBox.h>
+#include "HXEditorWin.h"
+#include "HXInspectorWidget.h"
 
 HXGameWidget::HXGameWidget(QWidget * parent)
  : QOpenGLWidget(parent)
@@ -163,14 +165,9 @@ void HXGameWidget::keyReleaseEvent(QKeyEvent *event)
 	//HXRenderSystem::Keyboard(event->key(), 0, 0);
 }
 
-void HXGameWidget::OnDisplay()
-{
-	HXSceneManager::GetInstance()->OnDisplay();
-}
-
 void HXGameWidget::OnViewPortResize(int nScreenWidth, int nScreenHeight)
 {
-	HXSceneManager::GetInstance()->OnViewPortResize(nScreenWidth, nScreenHeight);
+	
 }
 
 void HXGameWidget::OnKeyboard(unsigned char key, int x, int y)
@@ -186,29 +183,49 @@ void HXGameWidget::OnKeyboard(unsigned char key, int x, int y)
 
 void HXGameWidget::OnMouseMove(int nButton, int deltaX, int deltaY)
 {
-	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
+	HXICamera* camera = NULL;
+	if (HXEditorWin::GetInstance()->m_pInspectorWidget->selectedCamera)
+	{
+		camera = HXEditorWin::GetInstance()->m_pInspectorWidget->selectedCamera;
+	}
+	else if (HXSceneManager::GetInstance()->GetMainCamera())
+	{
+		camera = HXSceneManager::GetInstance()->GetMainCamera();
+	}
+	if (camera == NULL)
 	{
 		return;
 	}
+
 	if (nButton == 0)
 	{
 		// 左键按下状态
-		HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D((deltaX) / 10.0f, -float(deltaY) / 10.0f, 0));
+		camera->move(HXVector3D((deltaX) / 10.0f, -float(deltaY) / 10.0f, 0));
 	}
 	else if (nButton == 2)
 	{
 		// 右键按下状态
 		//std::cout << "x = " << deltaX << ";     y = " << deltaY << std::endl;
-		HXSceneManager::GetInstance()->GetMainCamera()->yaw(float(deltaX) / 10.0f);
-		HXSceneManager::GetInstance()->GetMainCamera()->pitch(float(deltaY) / 10.0f);
+		camera->yaw(float(deltaX) / 10.0f);
+		camera->pitch(float(deltaY) / 10.0f);
 	}
 }
 
 void HXGameWidget::OnMouseWheel(float fDistance)
 {
-	if (HXSceneManager::GetInstance()->GetMainCamera() == NULL)
+	HXICamera* camera = NULL;
+	if (HXEditorWin::GetInstance()->m_pInspectorWidget->selectedCamera)
+	{
+		camera = HXEditorWin::GetInstance()->m_pInspectorWidget->selectedCamera;
+	}
+	else if (HXSceneManager::GetInstance()->GetMainCamera())
+	{
+		camera = HXSceneManager::GetInstance()->GetMainCamera();
+	}
+	if (camera == NULL)
 	{
 		return;
 	}
-	HXSceneManager::GetInstance()->GetMainCamera()->move(HXVector3D(0, 0, -fDistance));
+
+	camera->move(HXVector3D(0, 0, -fDistance));
 }

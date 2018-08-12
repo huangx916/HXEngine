@@ -90,7 +90,8 @@ namespace HX3D
 
 	void HXGLRenderSystem::Reshape(int nWidth, int nHeight)
 	{
-		glViewport(0, 0, nWidth, nHeight);
+		// ¸÷camera preRenderÀïÉèÖÃ
+		//glViewport(0, 0, nWidth, nHeight);
 		HXRenderSystem::Reshape(nWidth, nHeight);
 	}
 
@@ -125,6 +126,10 @@ namespace HX3D
 		pCam->projection = cameraInfo->projection;
 		pCam->mField = cameraInfo->feild;
 		pCam->mSize = cameraInfo->size;
+		pCam->mViewportRectX = cameraInfo->viewportRectX;
+		pCam->mViewportRectY = cameraInfo->viewportRectY;
+		pCam->mViewportRectW = cameraInfo->viewportRectW;
+		pCam->mViewportRectH = cameraInfo->viewportRectH;
 		pCam->depth = cameraInfo->depth;
 		pCam->Initialize(cameraInfo->position, cameraInfo->rotation, cameraInfo->nearZ, cameraInfo->farZ);
 		return pCam;

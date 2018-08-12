@@ -135,6 +135,7 @@ namespace HX3D
 
 		// Restore the default framebuffer and field of view
 		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
-		glViewport(0, 0, HXGLRenderSystem::gCurScreenWidth, HXGLRenderSystem::gCurScreenHeight);
+		// ∏˜camera preRender¿Ô…Ë÷√
+		// glViewport(0, 0, HXGLRenderSystem::gCurScreenWidth, HXGLRenderSystem::gCurScreenHeight);
 	}
 }

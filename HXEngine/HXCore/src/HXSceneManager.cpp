@@ -380,6 +380,10 @@ namespace HX3D
 		cameraInfo.size = 5;
 		cameraInfo.nearZ = 0.01f;
 		cameraInfo.farZ = 1000;
+		cameraInfo.viewportRectX = 0;
+		cameraInfo.viewportRectY = 0;
+		cameraInfo.viewportRectW = 1;
+		cameraInfo.viewportRectH = 1;
 		cameraInfo.depth = -1;
 
 		return CreateCamera(&cameraInfo);

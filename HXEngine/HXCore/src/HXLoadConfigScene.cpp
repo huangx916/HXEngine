@@ -94,7 +94,12 @@ namespace HX3D
 			cameraInfo.background.r = atof(colorElement->Attribute("Cr"));
 			cameraInfo.background.g = atof(colorElement->Attribute("Cg"));
 			cameraInfo.background.b = atof(colorElement->Attribute("Cb"));
-			TiXmlElement* eyeElement = colorElement->NextSiblingElement();
+			TiXmlElement* rectElement = colorElement->NextSiblingElement();
+			cameraInfo.viewportRectX = atof(rectElement->Attribute("X"));
+			cameraInfo.viewportRectY = atof(rectElement->Attribute("Y"));
+			cameraInfo.viewportRectW = atof(rectElement->Attribute("W"));
+			cameraInfo.viewportRectH = atof(rectElement->Attribute("H"));
+			TiXmlElement* eyeElement = rectElement->NextSiblingElement();
 			cameraInfo.position.x = atof(eyeElement->Attribute("Px"));
 			cameraInfo.position.y = atof(eyeElement->Attribute("Py"));
 			cameraInfo.position.z = atof(eyeElement->Attribute("Pz"));

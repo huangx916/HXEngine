@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_HXInspectorWidget_t {
-    QByteArrayData data[73];
-    char stringdata0[1407];
+    QByteArrayData data[77];
+    char stringdata0[1499];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -68,42 +68,46 @@ QT_MOC_LITERAL(33, 514, 18), // "CameraFieldChanged"
 QT_MOC_LITERAL(34, 533, 17), // "CameraSizeChanged"
 QT_MOC_LITERAL(35, 551, 17), // "CameraNearChanged"
 QT_MOC_LITERAL(36, 569, 16), // "CameraFarChanged"
-QT_MOC_LITERAL(37, 586, 18), // "ClearFlagActivated"
-QT_MOC_LITERAL(38, 605, 15), // "BGColorRChanged"
-QT_MOC_LITERAL(39, 621, 15), // "BGColorGChanged"
-QT_MOC_LITERAL(40, 637, 15), // "BGColorBChanged"
-QT_MOC_LITERAL(41, 653, 20), // "CullingMaskActivated"
-QT_MOC_LITERAL(42, 674, 19), // "ProjectionActivated"
-QT_MOC_LITERAL(43, 694, 12), // "DepthChanged"
-QT_MOC_LITERAL(44, 707, 16), // "TransSyncOnClick"
-QT_MOC_LITERAL(45, 724, 27), // "CameraPositionXValueChanged"
-QT_MOC_LITERAL(46, 752, 27), // "CameraPositionYValueChanged"
-QT_MOC_LITERAL(47, 780, 27), // "CameraPositionZValueChanged"
-QT_MOC_LITERAL(48, 808, 27), // "CameraRotationXValueChanged"
-QT_MOC_LITERAL(49, 836, 27), // "CameraRotationYValueChanged"
-QT_MOC_LITERAL(50, 864, 27), // "CameraRotationZValueChanged"
-QT_MOC_LITERAL(51, 892, 12), // "LightToggled"
-QT_MOC_LITERAL(52, 905, 8), // "useLight"
-QT_MOC_LITERAL(53, 914, 18), // "LightTypeActivated"
-QT_MOC_LITERAL(54, 933, 21), // "ShininessValueChanged"
-QT_MOC_LITERAL(55, 955, 20), // "StrengthValueChanged"
-QT_MOC_LITERAL(56, 976, 31), // "ConstantAttenuationValueChanged"
-QT_MOC_LITERAL(57, 1008, 29), // "LinearAttenuationValueChanged"
-QT_MOC_LITERAL(58, 1038, 32), // "QuadraticAttenuationValueChanged"
-QT_MOC_LITERAL(59, 1071, 25), // "SpotCosCutoffValueChanged"
-QT_MOC_LITERAL(60, 1097, 24), // "SpotExponentValueChanged"
-QT_MOC_LITERAL(61, 1122, 18), // "LightColorRChanged"
-QT_MOC_LITERAL(62, 1141, 18), // "LightColorGChanged"
-QT_MOC_LITERAL(63, 1160, 18), // "LightColorBChanged"
-QT_MOC_LITERAL(64, 1179, 26), // "LightPositionXValueChanged"
-QT_MOC_LITERAL(65, 1206, 26), // "LightPositionYValueChanged"
-QT_MOC_LITERAL(66, 1233, 26), // "LightPositionZValueChanged"
-QT_MOC_LITERAL(67, 1260, 27), // "LightDirectionXValueChanged"
-QT_MOC_LITERAL(68, 1288, 27), // "LightDirectionYValueChanged"
-QT_MOC_LITERAL(69, 1316, 27), // "LightDirectionZValueChanged"
-QT_MOC_LITERAL(70, 1344, 20), // "ConeDirXValueChanged"
-QT_MOC_LITERAL(71, 1365, 20), // "ConeDirYValueChanged"
-QT_MOC_LITERAL(72, 1386, 20) // "ConeDirZValueChanged"
+QT_MOC_LITERAL(37, 586, 22), // "CameraViewportXChanged"
+QT_MOC_LITERAL(38, 609, 22), // "CameraViewportYChanged"
+QT_MOC_LITERAL(39, 632, 22), // "CameraViewportWChanged"
+QT_MOC_LITERAL(40, 655, 22), // "CameraViewportHChanged"
+QT_MOC_LITERAL(41, 678, 18), // "ClearFlagActivated"
+QT_MOC_LITERAL(42, 697, 15), // "BGColorRChanged"
+QT_MOC_LITERAL(43, 713, 15), // "BGColorGChanged"
+QT_MOC_LITERAL(44, 729, 15), // "BGColorBChanged"
+QT_MOC_LITERAL(45, 745, 20), // "CullingMaskActivated"
+QT_MOC_LITERAL(46, 766, 19), // "ProjectionActivated"
+QT_MOC_LITERAL(47, 786, 12), // "DepthChanged"
+QT_MOC_LITERAL(48, 799, 16), // "TransSyncOnClick"
+QT_MOC_LITERAL(49, 816, 27), // "CameraPositionXValueChanged"
+QT_MOC_LITERAL(50, 844, 27), // "CameraPositionYValueChanged"
+QT_MOC_LITERAL(51, 872, 27), // "CameraPositionZValueChanged"
+QT_MOC_LITERAL(52, 900, 27), // "CameraRotationXValueChanged"
+QT_MOC_LITERAL(53, 928, 27), // "CameraRotationYValueChanged"
+QT_MOC_LITERAL(54, 956, 27), // "CameraRotationZValueChanged"
+QT_MOC_LITERAL(55, 984, 12), // "LightToggled"
+QT_MOC_LITERAL(56, 997, 8), // "useLight"
+QT_MOC_LITERAL(57, 1006, 18), // "LightTypeActivated"
+QT_MOC_LITERAL(58, 1025, 21), // "ShininessValueChanged"
+QT_MOC_LITERAL(59, 1047, 20), // "StrengthValueChanged"
+QT_MOC_LITERAL(60, 1068, 31), // "ConstantAttenuationValueChanged"
+QT_MOC_LITERAL(61, 1100, 29), // "LinearAttenuationValueChanged"
+QT_MOC_LITERAL(62, 1130, 32), // "QuadraticAttenuationValueChanged"
+QT_MOC_LITERAL(63, 1163, 25), // "SpotCosCutoffValueChanged"
+QT_MOC_LITERAL(64, 1189, 24), // "SpotExponentValueChanged"
+QT_MOC_LITERAL(65, 1214, 18), // "LightColorRChanged"
+QT_MOC_LITERAL(66, 1233, 18), // "LightColorGChanged"
+QT_MOC_LITERAL(67, 1252, 18), // "LightColorBChanged"
+QT_MOC_LITERAL(68, 1271, 26), // "LightPositionXValueChanged"
+QT_MOC_LITERAL(69, 1298, 26), // "LightPositionYValueChanged"
+QT_MOC_LITERAL(70, 1325, 26), // "LightPositionZValueChanged"
+QT_MOC_LITERAL(71, 1352, 27), // "LightDirectionXValueChanged"
+QT_MOC_LITERAL(72, 1380, 27), // "LightDirectionYValueChanged"
+QT_MOC_LITERAL(73, 1408, 27), // "LightDirectionZValueChanged"
+QT_MOC_LITERAL(74, 1436, 20), // "ConeDirXValueChanged"
+QT_MOC_LITERAL(75, 1457, 20), // "ConeDirYValueChanged"
+QT_MOC_LITERAL(76, 1478, 20) // "ConeDirZValueChanged"
 
     },
     "HXInspectorWidget\0ActivityToggled\0\0"
@@ -122,7 +126,9 @@ QT_MOC_LITERAL(72, 1386, 20) // "ConeDirZValueChanged"
     "AmbientColorBChanged\0CameraToggled\0"
     "useCamera\0CameraFieldChanged\0"
     "CameraSizeChanged\0CameraNearChanged\0"
-    "CameraFarChanged\0ClearFlagActivated\0"
+    "CameraFarChanged\0CameraViewportXChanged\0"
+    "CameraViewportYChanged\0CameraViewportWChanged\0"
+    "CameraViewportHChanged\0ClearFlagActivated\0"
     "BGColorRChanged\0BGColorGChanged\0"
     "BGColorBChanged\0CullingMaskActivated\0"
     "ProjectionActivated\0DepthChanged\0"
@@ -157,7 +163,7 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      63,   14, // methods
+      67,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -165,69 +171,73 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,  329,    2, 0x0a /* Public */,
-       4,    1,  332,    2, 0x0a /* Public */,
-       6,    1,  335,    2, 0x0a /* Public */,
-       8,    1,  338,    2, 0x0a /* Public */,
-      10,    1,  341,    2, 0x0a /* Public */,
-      12,    1,  344,    2, 0x0a /* Public */,
-      13,    1,  347,    2, 0x0a /* Public */,
-      14,    1,  350,    2, 0x0a /* Public */,
-      15,    1,  353,    2, 0x0a /* Public */,
-      16,    1,  356,    2, 0x0a /* Public */,
-      17,    1,  359,    2, 0x0a /* Public */,
-      18,    1,  362,    2, 0x0a /* Public */,
-      19,    1,  365,    2, 0x0a /* Public */,
-      20,    1,  368,    2, 0x0a /* Public */,
-      22,    1,  371,    2, 0x0a /* Public */,
-      23,    1,  374,    2, 0x0a /* Public */,
-      24,    1,  377,    2, 0x0a /* Public */,
-      25,    1,  380,    2, 0x0a /* Public */,
-      26,    1,  383,    2, 0x0a /* Public */,
-      27,    1,  386,    2, 0x0a /* Public */,
-      28,    1,  389,    2, 0x0a /* Public */,
-      29,    1,  392,    2, 0x0a /* Public */,
-      30,    1,  395,    2, 0x0a /* Public */,
-      31,    1,  398,    2, 0x0a /* Public */,
-      33,    1,  401,    2, 0x0a /* Public */,
-      34,    1,  404,    2, 0x0a /* Public */,
-      35,    1,  407,    2, 0x0a /* Public */,
-      36,    1,  410,    2, 0x0a /* Public */,
-      37,    1,  413,    2, 0x0a /* Public */,
-      38,    1,  416,    2, 0x0a /* Public */,
-      39,    1,  419,    2, 0x0a /* Public */,
-      40,    1,  422,    2, 0x0a /* Public */,
-      41,    1,  425,    2, 0x0a /* Public */,
-      42,    1,  428,    2, 0x0a /* Public */,
-      43,    1,  431,    2, 0x0a /* Public */,
-      44,    0,  434,    2, 0x0a /* Public */,
-      45,    1,  435,    2, 0x0a /* Public */,
-      46,    1,  438,    2, 0x0a /* Public */,
-      47,    1,  441,    2, 0x0a /* Public */,
-      48,    1,  444,    2, 0x0a /* Public */,
-      49,    1,  447,    2, 0x0a /* Public */,
-      50,    1,  450,    2, 0x0a /* Public */,
-      51,    1,  453,    2, 0x0a /* Public */,
-      53,    1,  456,    2, 0x0a /* Public */,
-      54,    1,  459,    2, 0x0a /* Public */,
-      55,    1,  462,    2, 0x0a /* Public */,
-      56,    1,  465,    2, 0x0a /* Public */,
-      57,    1,  468,    2, 0x0a /* Public */,
-      58,    1,  471,    2, 0x0a /* Public */,
-      59,    1,  474,    2, 0x0a /* Public */,
-      60,    1,  477,    2, 0x0a /* Public */,
-      61,    1,  480,    2, 0x0a /* Public */,
-      62,    1,  483,    2, 0x0a /* Public */,
-      63,    1,  486,    2, 0x0a /* Public */,
-      64,    1,  489,    2, 0x0a /* Public */,
-      65,    1,  492,    2, 0x0a /* Public */,
-      66,    1,  495,    2, 0x0a /* Public */,
-      67,    1,  498,    2, 0x0a /* Public */,
-      68,    1,  501,    2, 0x0a /* Public */,
-      69,    1,  504,    2, 0x0a /* Public */,
-      70,    1,  507,    2, 0x0a /* Public */,
-      71,    1,  510,    2, 0x0a /* Public */,
-      72,    1,  513,    2, 0x0a /* Public */,
+       1,    1,  349,    2, 0x0a /* Public */,
+       4,    1,  352,    2, 0x0a /* Public */,
+       6,    1,  355,    2, 0x0a /* Public */,
+       8,    1,  358,    2, 0x0a /* Public */,
+      10,    1,  361,    2, 0x0a /* Public */,
+      12,    1,  364,    2, 0x0a /* Public */,
+      13,    1,  367,    2, 0x0a /* Public */,
+      14,    1,  370,    2, 0x0a /* Public */,
+      15,    1,  373,    2, 0x0a /* Public */,
+      16,    1,  376,    2, 0x0a /* Public */,
+      17,    1,  379,    2, 0x0a /* Public */,
+      18,    1,  382,    2, 0x0a /* Public */,
+      19,    1,  385,    2, 0x0a /* Public */,
+      20,    1,  388,    2, 0x0a /* Public */,
+      22,    1,  391,    2, 0x0a /* Public */,
+      23,    1,  394,    2, 0x0a /* Public */,
+      24,    1,  397,    2, 0x0a /* Public */,
+      25,    1,  400,    2, 0x0a /* Public */,
+      26,    1,  403,    2, 0x0a /* Public */,
+      27,    1,  406,    2, 0x0a /* Public */,
+      28,    1,  409,    2, 0x0a /* Public */,
+      29,    1,  412,    2, 0x0a /* Public */,
+      30,    1,  415,    2, 0x0a /* Public */,
+      31,    1,  418,    2, 0x0a /* Public */,
+      33,    1,  421,    2, 0x0a /* Public */,
+      34,    1,  424,    2, 0x0a /* Public */,
+      35,    1,  427,    2, 0x0a /* Public */,
+      36,    1,  430,    2, 0x0a /* Public */,
+      37,    1,  433,    2, 0x0a /* Public */,
+      38,    1,  436,    2, 0x0a /* Public */,
+      39,    1,  439,    2, 0x0a /* Public */,
+      40,    1,  442,    2, 0x0a /* Public */,
+      41,    1,  445,    2, 0x0a /* Public */,
+      42,    1,  448,    2, 0x0a /* Public */,
+      43,    1,  451,    2, 0x0a /* Public */,
+      44,    1,  454,    2, 0x0a /* Public */,
+      45,    1,  457,    2, 0x0a /* Public */,
+      46,    1,  460,    2, 0x0a /* Public */,
+      47,    1,  463,    2, 0x0a /* Public */,
+      48,    0,  466,    2, 0x0a /* Public */,
+      49,    1,  467,    2, 0x0a /* Public */,
+      50,    1,  470,    2, 0x0a /* Public */,
+      51,    1,  473,    2, 0x0a /* Public */,
+      52,    1,  476,    2, 0x0a /* Public */,
+      53,    1,  479,    2, 0x0a /* Public */,
+      54,    1,  482,    2, 0x0a /* Public */,
+      55,    1,  485,    2, 0x0a /* Public */,
+      57,    1,  488,    2, 0x0a /* Public */,
+      58,    1,  491,    2, 0x0a /* Public */,
+      59,    1,  494,    2, 0x0a /* Public */,
+      60,    1,  497,    2, 0x0a /* Public */,
+      61,    1,  500,    2, 0x0a /* Public */,
+      62,    1,  503,    2, 0x0a /* Public */,
+      63,    1,  506,    2, 0x0a /* Public */,
+      64,    1,  509,    2, 0x0a /* Public */,
+      65,    1,  512,    2, 0x0a /* Public */,
+      66,    1,  515,    2, 0x0a /* Public */,
+      67,    1,  518,    2, 0x0a /* Public */,
+      68,    1,  521,    2, 0x0a /* Public */,
+      69,    1,  524,    2, 0x0a /* Public */,
+      70,    1,  527,    2, 0x0a /* Public */,
+      71,    1,  530,    2, 0x0a /* Public */,
+      72,    1,  533,    2, 0x0a /* Public */,
+      73,    1,  536,    2, 0x0a /* Public */,
+      74,    1,  539,    2, 0x0a /* Public */,
+      75,    1,  542,    2, 0x0a /* Public */,
+      76,    1,  545,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -258,6 +268,10 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Double,   11,
+    QMetaType::Void, QMetaType::Double,   11,
+    QMetaType::Void, QMetaType::Double,   11,
+    QMetaType::Void, QMetaType::Double,   11,
+    QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Int,    9,
     QMetaType::Void, QMetaType::Int,   11,
     QMetaType::Void, QMetaType::Int,   11,
@@ -272,7 +286,7 @@ static const uint qt_meta_data_HXInspectorWidget[] = {
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Double,   11,
-    QMetaType::Void, QMetaType::Bool,   52,
+    QMetaType::Void, QMetaType::Bool,   56,
     QMetaType::Void, QMetaType::Int,    9,
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Double,   11,
@@ -331,41 +345,45 @@ void HXInspectorWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 25: _t->CameraSizeChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 26: _t->CameraNearChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 27: _t->CameraFarChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 28: _t->ClearFlagActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 29: _t->BGColorRChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 30: _t->BGColorGChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 31: _t->BGColorBChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 32: _t->CullingMaskActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 33: _t->ProjectionActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 34: _t->DepthChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 35: _t->TransSyncOnClick(); break;
-        case 36: _t->CameraPositionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 37: _t->CameraPositionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 38: _t->CameraPositionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 39: _t->CameraRotationXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 40: _t->CameraRotationYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 41: _t->CameraRotationZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 42: _t->LightToggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 43: _t->LightTypeActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 44: _t->ShininessValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 45: _t->StrengthValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 46: _t->ConstantAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 47: _t->LinearAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 48: _t->QuadraticAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 49: _t->SpotCosCutoffValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 50: _t->SpotExponentValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 51: _t->LightColorRChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 52: _t->LightColorGChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 53: _t->LightColorBChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 54: _t->LightPositionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 55: _t->LightPositionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 56: _t->LightPositionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 57: _t->LightDirectionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 58: _t->LightDirectionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 59: _t->LightDirectionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 60: _t->ConeDirXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 61: _t->ConeDirYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 62: _t->ConeDirZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 28: _t->CameraViewportXChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 29: _t->CameraViewportYChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 30: _t->CameraViewportWChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 31: _t->CameraViewportHChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 32: _t->ClearFlagActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 33: _t->BGColorRChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 34: _t->BGColorGChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 35: _t->BGColorBChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 36: _t->CullingMaskActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 37: _t->ProjectionActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 38: _t->DepthChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 39: _t->TransSyncOnClick(); break;
+        case 40: _t->CameraPositionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 41: _t->CameraPositionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 42: _t->CameraPositionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 43: _t->CameraRotationXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 44: _t->CameraRotationYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 45: _t->CameraRotationZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 46: _t->LightToggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 47: _t->LightTypeActivated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 48: _t->ShininessValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 49: _t->StrengthValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 50: _t->ConstantAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 51: _t->LinearAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 52: _t->QuadraticAttenuationValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 53: _t->SpotCosCutoffValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 54: _t->SpotExponentValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 55: _t->LightColorRChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 56: _t->LightColorGChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 57: _t->LightColorBChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 58: _t->LightPositionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 59: _t->LightPositionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 60: _t->LightPositionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 61: _t->LightDirectionXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 62: _t->LightDirectionYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 63: _t->LightDirectionZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 64: _t->ConeDirXValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 65: _t->ConeDirYValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 66: _t->ConeDirZValueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -396,13 +414,13 @@ int HXInspectorWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 63)
+        if (_id < 67)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 63;
+        _id -= 67;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 63)
+        if (_id < 67)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 63;
+        _id -= 67;
     }
     return _id;
 }

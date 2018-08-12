@@ -289,6 +289,15 @@ void HXEditorWin::serializeScene(QTextStream& out)
 		out << "\" Cb=\"";
 		out << (*itr)->background.b;
 		out << "\"/>\n";
+		out << "			<ViewportRect X=\"";
+		out << (*itr)->mViewportRectX;
+		out << "\" Y=\"";
+		out << (*itr)->mViewportRectY;
+		out << "\" W=\"";
+		out << (*itr)->mViewportRectW;
+		out << "\" H=\"";
+		out << (*itr)->mViewportRectH;
+		out << "\"/>\n";
 		out << "			<Position Px=\"";
 		out << (*itr)->transform->mPostion.x;
 		out << "\" Py=\"";

@@ -76,6 +76,10 @@ private:
 	QDoubleSpinBox* spinboxCameraSize;
 	QDoubleSpinBox* spinboxCameraNear;
 	QDoubleSpinBox* spinboxCameraFar;
+	QDoubleSpinBox* spinboxCameraViewportX;
+	QDoubleSpinBox* spinboxCameraViewportY;
+	QDoubleSpinBox* spinboxCameraViewportW;
+	QDoubleSpinBox* spinboxCameraViewportH;
 	QSpinBox* spinboxDepth;
 	QPushButton* pushbuttonCameraTransSync;
 	QDoubleSpinBox* spinboxCameraPositionX;
@@ -168,6 +172,11 @@ private:
 	void CameraSizeChanged(double value);
 	void CameraNearChanged(double value);
 	void CameraFarChanged(double value);
+
+	void CameraViewportXChanged(double value);
+	void CameraViewportYChanged(double value);
+	void CameraViewportWChanged(double value);
+	void CameraViewportHChanged(double value);
 
 	void ClearFlagActivated(int index);
 

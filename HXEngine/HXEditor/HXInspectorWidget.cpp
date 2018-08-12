@@ -96,6 +96,15 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	spinboxCameraFar = new QDoubleSpinBox();
 	spinboxCameraFar->setRange(MIN, MAX);
 
+	spinboxCameraViewportX = new QDoubleSpinBox();
+	spinboxCameraViewportX->setRange(-1, 1);
+	spinboxCameraViewportY = new QDoubleSpinBox();
+	spinboxCameraViewportY->setRange(-1, 1);
+	spinboxCameraViewportW = new QDoubleSpinBox();
+	spinboxCameraViewportW->setRange(0, 1);
+	spinboxCameraViewportH = new QDoubleSpinBox();
+	spinboxCameraViewportH->setRange(0, 1);
+
 	spinboxDepth = new QSpinBox();
 	spinboxDepth->setRange(-100, 100);
 
@@ -376,6 +385,27 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	farz->setText(0, "far z");
 	camera->addChild(farz);
 	treeWidget->setItemWidget(farz, 1, spinboxCameraFar);
+
+	// viewport X
+	QTreeWidgetItem *viewportX = new QTreeWidgetItem;
+	viewportX->setText(0, "viewport x");
+	camera->addChild(viewportX);
+	treeWidget->setItemWidget(viewportX, 1, spinboxCameraViewportX);
+	// viewport Y
+	QTreeWidgetItem *viewportY = new QTreeWidgetItem;
+	viewportY->setText(0, "viewport y");
+	camera->addChild(viewportY);
+	treeWidget->setItemWidget(viewportY, 1, spinboxCameraViewportY);
+	// viewport W
+	QTreeWidgetItem *viewportW = new QTreeWidgetItem;
+	viewportW->setText(0, "viewport w");
+	camera->addChild(viewportW);
+	treeWidget->setItemWidget(viewportW, 1, spinboxCameraViewportW);
+	// viewport H
+	QTreeWidgetItem *viewportH = new QTreeWidgetItem;
+	viewportH->setText(0, "viewport h");
+	camera->addChild(viewportH);
+	treeWidget->setItemWidget(viewportH, 1, spinboxCameraViewportH);
 
 	// depth
 	QTreeWidgetItem *depth = new QTreeWidgetItem;
@@ -730,6 +760,10 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	connect(spinboxCameraSize, SIGNAL(valueChanged(double)), this, SLOT(CameraSizeChanged(double)));
 	connect(spinboxCameraNear, SIGNAL(valueChanged(double)), this, SLOT(CameraNearChanged(double)));
 	connect(spinboxCameraFar, SIGNAL(valueChanged(double)), this, SLOT(CameraFarChanged(double)));
+	connect(spinboxCameraViewportX, SIGNAL(valueChanged(double)), this, SLOT(CameraViewportXChanged(double)));
+	connect(spinboxCameraViewportY, SIGNAL(valueChanged(double)), this, SLOT(CameraViewportYChanged(double)));
+	connect(spinboxCameraViewportW, SIGNAL(valueChanged(double)), this, SLOT(CameraViewportWChanged(double)));
+	connect(spinboxCameraViewportH, SIGNAL(valueChanged(double)), this, SLOT(CameraViewportHChanged(double)));
 	connect(comboboxCullingMask, SIGNAL(activated(int)), this, SLOT(CullingMaskActivated(int)));
 	connect(comboboxProjection, SIGNAL(activated(int)), this, SLOT(ProjectionActivated(int)));
 	connect(spinboxDepth, SIGNAL(valueChanged(int)), this, SLOT(DepthChanged(int)));
@@ -1003,6 +1037,11 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 
 		spinboxCameraNear->setValue(selectedCamera->mNear);
 		spinboxCameraFar->setValue(selectedCamera->mFar);
+
+		spinboxCameraViewportX->setValue(selectedCamera->mViewportRectX);
+		spinboxCameraViewportY->setValue(selectedCamera->mViewportRectY);
+		spinboxCameraViewportW->setValue(selectedCamera->mViewportRectW);
+		spinboxCameraViewportH->setValue(selectedCamera->mViewportRectH);
 
 		spinboxDepth->setValue(selectedCamera->depth);
 
@@ -1391,6 +1430,40 @@ void HXInspectorWidget::CameraFarChanged(double value)
 	if (selectedCamera)
 	{
 		selectedCamera->mFar = value;
+		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
+	}
+}
+
+void HXInspectorWidget::CameraViewportXChanged(double value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->mViewportRectX = value;
+	}
+}
+
+void HXInspectorWidget::CameraViewportYChanged(double value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->mViewportRectY = value;
+	}
+}
+
+void HXInspectorWidget::CameraViewportWChanged(double value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->mViewportRectW = value;
+		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
+	}
+}
+
+void HXInspectorWidget::CameraViewportHChanged(double value)
+{
+	if (selectedCamera)
+	{
+		selectedCamera->mViewportRectH = value;
 		selectedCamera->UpdateProjectionMatrix(selectedCamera->mField, selectedCamera->mSize, selectedCamera->mNear, selectedCamera->mFar);
 	}
 }

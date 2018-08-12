@@ -31,6 +31,10 @@ namespace HX3D
 
 	bool HXGLCamera::PreRender()
 	{
+		glViewport(mViewportRectX * HXGLRenderSystem::gCurScreenWidth, mViewportRectY * HXGLRenderSystem::gCurScreenHeight, mViewportRectW * HXGLRenderSystem::gCurScreenWidth, mViewportRectH * HXGLRenderSystem::gCurScreenHeight);
+		// 清除部分绘制区域
+		glScissor(mViewportRectX * HXGLRenderSystem::gCurScreenWidth, mViewportRectY * HXGLRenderSystem::gCurScreenHeight, mViewportRectW * HXGLRenderSystem::gCurScreenWidth, mViewportRectH * HXGLRenderSystem::gCurScreenHeight);
+		glEnable(GL_SCISSOR_TEST);
 		switch (clearFlag)
 		{
 		case HX3D::CF_SOLIDCOLOR:
@@ -45,12 +49,13 @@ namespace HX3D
 		default:
 			break;
 		}
+		glDisable(GL_SCISSOR_TEST);
 		return true;
 	}
 
 	void HXGLCamera::PostRender()
 	{
-
+		glViewport(0, 0, HXGLRenderSystem::gCurScreenWidth, HXGLRenderSystem::gCurScreenHeight);
 	}
 
 	bool HXGLCamera::PreRenderShadowMap()
@@ -147,20 +152,34 @@ namespace HX3D
 
 	void HXGLCamera::UpdateProjectionMatrix(float field, float size, float n, float f)
 	{
-		 if (projection == CP_ORTHOGRAPHIC)
-		 {
-			 float top = size;
-			 float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
-			 float right = gAspect * top;
-			 mMatrixProjection = vmath::Ortho(-right, right, -top, top, n, f);
-		 }
-		 else
-		 {
-			 float fRadian = Degree_TO_Radian(field);
-			 float top = tan(fRadian / 2) * n;
-			 float gAspect = (float)HXRenderSystem::gCurScreenWidth / (float)HXRenderSystem::gCurScreenHeight;
-			 float right = gAspect * top;
-			 mMatrixProjection = vmath::frustum(-right, right, -top, top, n, f);
-		 }
+		if (projection == CP_ORTHOGRAPHIC)
+		{
+			if (mViewportRectH <= 0 || mViewportRectW <= 0)
+			{
+				mMatrixProjection = vmath::Ortho(0, 0, 0, 0, n, f);
+			}
+			else
+			{
+				float top = size;
+				float gAspect = (mViewportRectW * HXRenderSystem::gCurScreenWidth) / (mViewportRectH * HXRenderSystem::gCurScreenHeight);
+				float right = gAspect * top;
+				mMatrixProjection = vmath::Ortho(-right, right, -top, top, n, f);
+			}
+		}
+		else
+		{
+			if (mViewportRectH <= 0 || mViewportRectW <= 0)
+			{
+				mMatrixProjection = vmath::frustum(0, 0, 0, 0, n, f);
+			}
+			else
+			{
+				float fRadian = Degree_TO_Radian(field);
+				float top = tan(fRadian / 2) * n;
+				float gAspect = (mViewportRectW * HXRenderSystem::gCurScreenWidth) / (mViewportRectH * HXRenderSystem::gCurScreenHeight);
+				float right = gAspect * top;
+				mMatrixProjection = vmath::frustum(-right, right, -top, top, n, f);
+			}
+		}
 	}
 }
