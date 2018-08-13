@@ -10,6 +10,7 @@
 #include <QMessageBox.h>
 #include "HXEditorWin.h"
 #include "HXInspectorWidget.h"
+#include "HXHierarchyWidget.h"
 
 HXGameWidget::HXGameWidget(QWidget * parent)
  : QOpenGLWidget(parent)
@@ -209,6 +210,12 @@ void HXGameWidget::OnMouseMove(int nButton, int deltaX, int deltaY)
 		camera->yaw(float(deltaX) / 10.0f);
 		camera->pitch(float(deltaY) / 10.0f);
 	}
+
+	HXGameObject* curGameobject = HXEditorWin::GetInstance()->m_pInspectorWidget->selectedGameObject;
+	if (curGameobject)
+	{
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(curGameobject->GetTransform());
+	}
 }
 
 void HXGameWidget::OnMouseWheel(float fDistance)
@@ -228,4 +235,10 @@ void HXGameWidget::OnMouseWheel(float fDistance)
 	}
 
 	camera->move(HXVector3D(0, 0, -fDistance));
+
+	HXGameObject* curGameobject = HXEditorWin::GetInstance()->m_pInspectorWidget->selectedGameObject;
+	if (curGameobject)
+	{
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(curGameobject->GetTransform());
+	}
 }

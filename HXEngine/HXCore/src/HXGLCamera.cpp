@@ -107,7 +107,7 @@ namespace HX3D
 		UpdateProjectionMatrix(mField, mSize, mNear, mFar);
 	}
 
-	HXVector3D HXGLCamera::WorldToViewportPoint(HXVector3D position)
+	HXVector3D HXGLCamera::WorldToNDCPoint(HXVector3D position)
 	{
 		//vmath::vec4 vec(position.x, position.y, position.z, 1.0f);
 		//vec = mMatrixProjection * mMatrixView * vec;
@@ -121,7 +121,7 @@ namespace HX3D
 		
 	}
 
-	HXVector3D HXGLCamera::ViewportToWorldPoint(HXVector3D position)
+	HXVector3D HXGLCamera::NDCToWorldPoint(HXVector3D position)
 	{
 		Matrix4 matProj = Matrix4(mMatrixProjection);
 		Matrix4 matView = Matrix4(mMatrixView);

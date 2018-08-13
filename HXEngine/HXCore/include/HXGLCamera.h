@@ -27,10 +27,12 @@ namespace HX3D
 		HXVector3D UpdateUp();
 		void OnViewPortResize(int nScreenWidth, int nScreenHeight);
 	
-		//HXVector3D WorldToScreenPoint(HXVector3D position);
-		//HXVector3D ScreenToWorldPoint(HXVector3D position);
-		HXVector3D WorldToViewportPoint(HXVector3D position);	//([-1,1],[-1,1])
-		HXVector3D ViewportToWorldPoint(HXVector3D position);
+		//virtual HXVector3D WorldToScreenPoint(HXVector3D position);
+		//virtual HXVector3D ScreenToWorldPoint(HXVector3D position);
+		//virtual HXVector3D WorldToViewportPoint(HXVector3D position);	//([0,1],[0,1])
+		//virtual HXVector3D ViewportToWorldPoint(HXVector3D position);
+		virtual HXVector3D WorldToNDCPoint(HXVector3D position);	//([-1,1],[-1,1])
+		virtual HXVector3D NDCToWorldPoint(HXVector3D position);
 
 		// Ïà»úÒÆ¶¯
 		virtual void move(const HXVector3D& mov);

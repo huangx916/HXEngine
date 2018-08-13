@@ -11,6 +11,7 @@
 #include "HXEditorWin.h"
 #include "HXHierarchyWidget.h"
 #include <QMessageBox.h>
+#include "HXVector.h"
 
 HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 , selectedGameObject(NULL)
@@ -845,6 +846,8 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	selectedGameObject = NULL;
 	if (pGameObject)
 	{
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(pGameObject->GetTransform());
+
 		gameobject->setHidden(false);
 
 		if (pGameObject->GetActivity())
@@ -895,6 +898,7 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	else
 	{
 		gameobject->setHidden(true);
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
 	}
 
 	selectedGameObject = pGameObject;
@@ -1169,6 +1173,8 @@ void HXInspectorWidget::PositionXValueChanged(double value)
 		{
 			HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
 			selectedGameObject->GetTransform()->SetPosition(HXVector3D(value, pos.y, pos.z));
+
+			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
@@ -1184,6 +1190,8 @@ void HXInspectorWidget::PositionYValueChanged(double value)
 		{
 			HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
 			selectedGameObject->GetTransform()->SetPosition(HXVector3D(pos.x, value, pos.z));
+
+			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
@@ -1199,6 +1207,8 @@ void HXInspectorWidget::PositionZValueChanged(double value)
 		{
 			HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
 			selectedGameObject->GetTransform()->SetPosition(HXVector3D(pos.x, pos.y, value));
+
+			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
@@ -1215,6 +1225,8 @@ void HXInspectorWidget::RotationXValueChanged(double value)
 		{
 			HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
 			selectedGameObject->GetTransform()->SetRotation(HXVector3D(value, rotate.y, rotate.z));
+
+			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
@@ -1230,6 +1242,8 @@ void HXInspectorWidget::RotationYValueChanged(double value)
 		{
 			HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
 			selectedGameObject->GetTransform()->SetRotation(HXVector3D(rotate.x, value, rotate.z));
+
+			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
@@ -1245,6 +1259,8 @@ void HXInspectorWidget::RotationZValueChanged(double value)
 		{
 			HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
 			selectedGameObject->GetTransform()->SetRotation(HXVector3D(rotate.x, rotate.y, value));
+
+			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
@@ -1774,6 +1790,7 @@ void HXInspectorWidget::OnDeleteGameObject()
 {
 	selectedGameObject = NULL;
 	gameobject->setHidden(true);
+	HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
 }
 
 void HXInspectorWidget::OnDeleteLight()

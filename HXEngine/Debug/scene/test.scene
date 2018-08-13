@@ -9,7 +9,7 @@
 			<Position Px="0" Py="0" Pz="32"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 		</Camera>
-		<Camera Name="EditorCamera" Enable="1" ClearFlag="1" CullingMask="4" Projection="0" Field="60" Size="2" NearZ="0.01" FarZ="1000" Depth="0">
+		<Camera Name="_EditorCamera" Enable="1" ClearFlag="1" CullingMask="4" Projection="0" Field="60" Size="2" NearZ="0.01" FarZ="1000" Depth="0">
 			<ClearColor Cr="63" Cg="63" Cb="63"/>
 			<ViewportRect X="0" Y="0" W="1" H="1"/>
 			<Position Px="0" Py="0" Pz="3"/>
@@ -30,7 +30,7 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>
-		<GameObj Name="CoordArrow" Activity="1" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="2">
+		<GameObj Name="_CoordArrow" Activity="1" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="2">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>

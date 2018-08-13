@@ -1,5 +1,6 @@
 #pragma once
 #include "HXCommon.h"
+#include "HXVector.h"
 
 namespace HX3D
 {
@@ -17,6 +18,12 @@ namespace HX3D
 		virtual void Update() = 0;
 		virtual void OnViewPortResize(int nScreenWidth, int nScreenHeight) = 0;
 
+		//virtual HXVector3D WorldToScreenPoint(HXVector3D position);
+		//virtual HXVector3D ScreenToWorldPoint(HXVector3D position);
+		//virtual HXVector3D WorldToViewportPoint(HXVector3D position);	//([0,1],[0,1])
+		//virtual HXVector3D ViewportToWorldPoint(HXVector3D position);
+		virtual HXVector3D WorldToNDCPoint(HXVector3D position) { return position; };	//([-1,1],[-1,1])
+		virtual HXVector3D NDCToWorldPoint(HXVector3D position) { return position; };
 
 		// Ïà»úÒÆ¶¯
 		virtual void move(const HXVector3D& mov) = 0;

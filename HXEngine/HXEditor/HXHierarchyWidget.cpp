@@ -12,6 +12,8 @@ HXHierarchyWidget::HXHierarchyWidget(FPtr gameobjectcallback, FLightPtr lightcal
 	, clickCameraCallback(NULL)
 	, lightRoot(NULL)
 	, cameraRoot(NULL)
+	, _EditorCamera(NULL)
+	, _CoordArrow(NULL)
 {
 	clickGameObjectCallback = gameobjectcallback;
 	clickLightCallback = lightcallback;
@@ -44,6 +46,8 @@ void HXHierarchyWidget::UpdateSceneTree()
 {
 	QTreeWidgetItem *preRoot = topLevelItem(0);
 	delete preRoot;
+	_EditorCamera = NULL;
+	_CoordArrow = NULL;
 
 	QTreeWidgetItem *root = new QTreeWidgetItem(this, QStringList(QString("Scene")));
 
@@ -81,6 +85,14 @@ void HXHierarchyWidget::OnDeleteGameObject()
 void HXHierarchyWidget::AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go)
 {
 	std::string name = go->GetName();
+
+	if (name == "_CoordArrow")
+	{
+		_CoordArrow = go;
+		_CoordArrow->SetActivity(false);
+		return;
+	}
+
 	QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));
 	QVariant var;
 	var.setValue(go);
@@ -144,6 +156,12 @@ void HXHierarchyWidget::AddCameraLeaf(QTreeWidgetItem* parent)
 	for (std::vector<HXICamera*>::iterator itr = HXSceneManager::GetInstance()->cameraVct.begin(); itr != HXSceneManager::GetInstance()->cameraVct.end(); ++itr)
 	{
 		std::string name = (*itr)->name;
+		if (name == "_EditorCamera")
+		{
+			_EditorCamera = (*itr);
+			return;
+		}
+
 		QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));
 		QVariant var;
 		var.setValue(*itr);
@@ -201,4 +219,34 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 			trans->SetRotation(light->ConeDirection);
 		}
 	}
+}
+
+void HXHierarchyWidget::UpdateCoordArrow(HX3D::HXITransform* trans)
+{
+	if (_CoordArrow == NULL || _EditorCamera == NULL)
+	{
+		return;
+	}
+	HXICamera* mainCamera = HXSceneManager::GetInstance()->GetMainCamera();
+
+	_CoordArrow->SetActivity(true);
+
+	_EditorCamera->transform->SetRotation(mainCamera->transform->GetRotation());
+	_CoordArrow->GetTransform()->SetRotation(trans->GetRotation());
+
+	mainCamera->Update();
+	_EditorCamera->Update();
+
+	HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetPosition());
+	pos = _EditorCamera->NDCToWorldPoint(pos);
+	_CoordArrow->GetTransform()->SetPosition(pos);
+}
+
+void HXHierarchyWidget::HideCoordArrow()
+{
+	if (_CoordArrow == NULL || _EditorCamera == NULL)
+	{
+		return;
+	}
+	_CoordArrow->SetActivity(false);
 }

@@ -26,6 +26,9 @@ public:
 	void OnCreateCamera(HX3D::HXICamera* camera);
 	void OnDeleteCamera();
 
+	void UpdateCoordArrow(HX3D::HXITransform* trans);
+	void HideCoordArrow();
+
 private:
 	void AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::HXGameObject* go);
 	void AddLightLeaf(QTreeWidgetItem* parent);
@@ -40,4 +43,6 @@ private:
 
 	QTreeWidgetItem* lightRoot;
 	QTreeWidgetItem* cameraRoot;
+	HX3D::HXICamera* _EditorCamera;	// ±à¼­Æ÷2DÏà»ú
+	HX3D::HXGameObject* _CoordArrow;	// ±à¼­Æ÷¿Ø¼þ
 };
