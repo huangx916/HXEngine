@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<Fog Use="1" Type="0" R="180" G="200" B="220" Start="16" End="30"/>
+	<Fog Use="1" Type="0" R="180" G="200" B="220" Start="10" End="50" Density="0.02" Gradiant="2"/>
 	<Ambient R="50" G="50" B="50"/>
 	<Cameras>
 		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
