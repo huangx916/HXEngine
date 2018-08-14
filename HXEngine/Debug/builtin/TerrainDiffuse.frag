@@ -19,6 +19,8 @@ uniform int fogType;
 uniform vec3 fogColor;
 uniform float fogStart;
 uniform float fogEnd;
+uniform float fogDensity;
+uniform float fogGradiant;
 in float vs_fs_distance;
 /////////////////////////////////////////////////////
 
@@ -182,14 +184,26 @@ void main()
 	//////////////////////////////////////////////////////////////////////////////////////
 	if(useFog == 1)
 	{
-		// linear fog
+	    vec4 _fogColor = vec4(fogColor, 1.0);
+	    float factor = 0;
 		if(fogType == 0)
 		{
-			vec4 _fogColor = vec4(fogColor, 1.0);
-			float fog  = (vs_fs_distance - fogStart)/fogEnd;
-			fog = clamp(fog, 0.0, 1.0);
-			fColor = mix(fColor, _fogColor, fog);
+		    // linear fog
+			factor  = (vs_fs_distance - fogStart)/(fogEnd - fogStart);
 		}
+		else if(fogType == 1)
+		{
+		    // exp fog
+            factor = 1 - exp(-vs_fs_distance * fogDensity);
+
+		}
+		else if(fogType == 2)
+        {
+            // expx fog
+            factor = 1 - exp(-pow(vs_fs_distance * fogDensity, fogGradiant));
+        }
+        factor = clamp(factor, 0.0, 1.0);
+		fColor = mix(fColor, _fogColor, factor);
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
 }

@@ -10,14 +10,21 @@ namespace HX3D
 		FOG_EXPX = 2,
 	};
 
-	class HXFogBase
+	struct HXFogInfo;
+	class HXFog
 	{
 	public:
-		HXFogBase() {};
-		virtual ~HXFogBase() {};
+		HXFog();
+		HXFog(HXFogInfo* info);
+		virtual ~HXFog();
 
 		bool useFog;
 		HXFogType fogType;
 		HXCOLOR fogColor;
+
+		float fogStart;
+		float fogEnd;
+		float fogDensity;
+		float fogGradiant;
 	};
 }

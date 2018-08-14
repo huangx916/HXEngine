@@ -66,6 +66,8 @@ namespace HX3D
 		mSceneInfo.fogInfo.color.b = atof(fogElement->Attribute("B"));
 		mSceneInfo.fogInfo.start = atof(fogElement->Attribute("Start"));
 		mSceneInfo.fogInfo.end = atof(fogElement->Attribute("End"));
+		mSceneInfo.fogInfo.density = atof(fogElement->Attribute("Density"));
+		mSceneInfo.fogInfo.gradiant = atof(fogElement->Attribute("Gradiant"));
 
 		// ambient
 		TiXmlElement* ambientElement = fogElement->NextSiblingElement();

@@ -5,7 +5,7 @@
 #include <QFileDialog.h>
 #include <QMessageBox.h>
 #include "HXSceneManager.h"
-#include "HXFogLinear.h"
+#include "HXFog.h"
 #include "title_bar.h"
 
 HXEditorWin* HXEditorWin::m_pInstance = NULL;
@@ -210,9 +210,9 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "<Scene>\n";
 	
 	// Fog
-	HXFogBase* fogBase = HXSceneManager::GetInstance()->fog;
+	HXFog* fog = HXSceneManager::GetInstance()->fog;
 	out << "	<Fog Use=\"";
-	if (fogBase->useFog)
+	if (fog->useFog)
 	{
 		out << 1;
 	}
@@ -221,28 +221,21 @@ void HXEditorWin::serializeScene(QTextStream& out)
 		out << 0;
 	}
 	out << "\" Type=\"";
-	out << fogBase->fogType;
+	out << fog->fogType;
 	out << "\" R=\"";
-	out << fogBase->fogColor.r;
+	out << fog->fogColor.r;
 	out << "\" G=\"";
-	out << fogBase->fogColor.g;
+	out << fog->fogColor.g;
 	out << "\" B=\"";
-	out << fogBase->fogColor.b;
-	if (fogBase->fogType == HXFogType::FOG_Linear)
-	{
-		out << "\" Start=\"";
-		HXFogLinear* fogLinear = (HXFogLinear*)fogBase;
-		out << fogLinear->fogStart;
-		out << "\" End=\"";
-		out << fogLinear->fogEnd;
-	}
-	else
-	{
-		out << "\" Start=\"";
-		out << 0;
-		out << "\" End=\"";
-		out << 0;
-	}
+	out << fog->fogColor.b;
+	out << "\" Start=\"";
+	out << fog->fogStart;
+	out << "\" End=\"";
+	out << fog->fogEnd;
+	out << "\" Density=\"";
+	out << fog->fogDensity;
+	out << "\" Gradiant=\"";
+	out << fog->fogGradiant;
 	out << "\"/>\n";
 
 	// Ambient

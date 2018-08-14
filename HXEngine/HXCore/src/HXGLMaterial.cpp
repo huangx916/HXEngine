@@ -3,7 +3,7 @@
 #include "LoadShaders.h"
 #include "HXResourceManager.h"
 #include "HXSceneManager.h"
-#include "HXFogLinear.h"
+#include "HXFog.h"
 #include "HXGLCamera.h"
 #include "HXGLTransform.h"
 #include "HXRoot.h"
@@ -121,30 +121,34 @@ namespace HX3D
 		GLint property_loc = glGetUniformLocation(render_scene_prog, "useFog");
 		if (property_loc != -1)
 		{
-			GLint nUseFog = HXSceneManager::GetInstance()->fog->useFog;
+			HXFog* fog = HXSceneManager::GetInstance()->fog;
+			GLint nUseFog = fog->useFog;
 			glUniform1i(property_loc, nUseFog);
 			if (nUseFog == 1)
 			{
 				property_loc = glGetUniformLocation(render_scene_prog, "fogType");
-				GLint nfogType = HXSceneManager::GetInstance()->fog->fogType;
+				GLint nfogType = fog->fogType;
 				glUniform1i(property_loc, nfogType);
 
 				property_loc = glGetUniformLocation(render_scene_prog, "fogColor");
-				HXCOLOR color = HXSceneManager::GetInstance()->fog->fogColor;
+				HXCOLOR color = fog->fogColor;
 				glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
-				if (nfogType == HXFogType::FOG_Linear)
-				{
-					HXFogLinear* fogLinear = (HXFogLinear*)HXSceneManager::GetInstance()->fog;
+				property_loc = glGetUniformLocation(render_scene_prog, "fogStart");
+				GLfloat nfogStart = fog->fogStart;
+				glUniform1f(property_loc, nfogStart);
 
-					property_loc = glGetUniformLocation(render_scene_prog, "fogStart");
-					GLfloat nfogStart = fogLinear->fogStart;
-					glUniform1f(property_loc, nfogStart);
+				property_loc = glGetUniformLocation(render_scene_prog, "fogEnd");
+				GLfloat nfogEnd = fog->fogEnd;
+				glUniform1f(property_loc, nfogEnd);
 
-					property_loc = glGetUniformLocation(render_scene_prog, "fogEnd");
-					GLfloat nfogEnd = fogLinear->fogEnd;
-					glUniform1f(property_loc, nfogEnd);
-				}
+				property_loc = glGetUniformLocation(render_scene_prog, "fogDensity");
+				GLfloat nfogDensity = fog->fogDensity;
+				glUniform1f(property_loc, nfogDensity);
+
+				property_loc = glGetUniformLocation(render_scene_prog, "fogGradiant");
+				GLfloat nfogGradiant = fog->fogGradiant;
+				glUniform1f(property_loc, nfogGradiant);
 			}
 		}
 		
@@ -362,29 +366,36 @@ namespace HX3D
 		{
 			// FOG TODO: Uniform Block ¹²Ïí
 			GLint property_loc = glGetUniformLocation(render_scene_prog, "useFog");
-			GLint nUseFog = HXSceneManager::GetInstance()->fog->useFog;
-			glUniform1i(property_loc, nUseFog);
-			if (nUseFog == 1)
+			if (property_loc != -1)
 			{
-				property_loc = glGetUniformLocation(render_scene_prog, "fogType");
-				GLint nfogType = HXSceneManager::GetInstance()->fog->fogType;
-				glUniform1i(property_loc, nfogType);
-
-				property_loc = glGetUniformLocation(render_scene_prog, "fogColor");
-				HXCOLOR color = HXSceneManager::GetInstance()->fog->fogColor;
-				glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
-
-				if (nfogType == HXFogType::FOG_Linear)
+				HXFog* fog = HXSceneManager::GetInstance()->fog;
+				GLint nUseFog = fog->useFog;
+				glUniform1i(property_loc, nUseFog);
+				if (nUseFog == 1)
 				{
-					HXFogLinear* fogLinear = (HXFogLinear*)HXSceneManager::GetInstance()->fog;
+					property_loc = glGetUniformLocation(render_scene_prog, "fogType");
+					GLint nfogType = fog->fogType;
+					glUniform1i(property_loc, nfogType);
+
+					property_loc = glGetUniformLocation(render_scene_prog, "fogColor");
+					HXCOLOR color = fog->fogColor;
+					glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
 					property_loc = glGetUniformLocation(render_scene_prog, "fogStart");
-					GLfloat nfogStart = fogLinear->fogStart;
+					GLfloat nfogStart = fog->fogStart;
 					glUniform1f(property_loc, nfogStart);
 
 					property_loc = glGetUniformLocation(render_scene_prog, "fogEnd");
-					GLfloat nfogEnd = fogLinear->fogEnd;
+					GLfloat nfogEnd = fog->fogEnd;
 					glUniform1f(property_loc, nfogEnd);
+
+					property_loc = glGetUniformLocation(render_scene_prog, "fogDensity");
+					GLfloat nfogDensity = fog->fogDensity;
+					glUniform1f(property_loc, nfogDensity);
+
+					property_loc = glGetUniformLocation(render_scene_prog, "fogGradiant");
+					GLfloat nfogGradiant = fog->fogGradiant;
+					glUniform1f(property_loc, nfogGradiant);
 				}
 			}
 

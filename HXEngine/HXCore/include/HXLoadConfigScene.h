@@ -1,7 +1,7 @@
 #pragma once
 #include "HXCommon.h"
 #include "HXVector.h"
-#include "HXFogBase.h"
+#include "HXFog.h"
 #include "HXLight.h"
 #include "tinyxml.h"
 #include "HXLoadConfigPrefab.h"
@@ -35,6 +35,8 @@ namespace HX3D
 		HXCOLOR color;
 		float start;
 		float end;
+		float density;
+		float gradiant;
 	};
 	struct HXLightInfo
 	{

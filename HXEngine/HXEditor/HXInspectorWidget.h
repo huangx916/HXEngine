@@ -3,7 +3,7 @@
 #include "HXGameObject.h"
 #include "HXLight.h"
 #include "HXITransform.h"
-#include "HXFogBase.h"
+#include "HXFog.h"
 #include <QSpinBox>
 #include <QLineEdit.h>
 #include <QCheckBox.h>
@@ -29,7 +29,7 @@ public:
 
 	void SetGameObjectInfo(HXGameObject* pGameObject);
 	void SetLightInfo(HXLight* pLight);
-	void SetFogInfo(HXFogBase* pFog);
+	void SetFogInfo(HXFog* pFog);
 	void SetAmbientInfo(HXCOLOR* pAmbient);
 	void SetCameraInfo(HXICamera* pCamera);
 
@@ -41,7 +41,7 @@ public:
 	HXGameObject* selectedGameObject;
 	HXLight* selectedLight;
 	HXGLCamera* selectedCamera;
-	HXFogBase* fogData;
+	HXFog* fogData;
 	HXCOLOR* ambientData;
 
 private:
@@ -55,6 +55,8 @@ private:
 	QSpinBox* spinboxFogColorB;
 	QDoubleSpinBox* spinboxFogStart;
 	QDoubleSpinBox* spinboxFogEnd;
+	QDoubleSpinBox* spinboxFogDensity;
+	QDoubleSpinBox* spinboxFogGradiant;
 
 	// ambient
 	QTreeWidgetItem *ambient;
@@ -162,6 +164,8 @@ private:
 
 	void FogStartChanged(double value);
 	void FogEndChanged(double value);
+	void FogDensityChanged(double value);
+	void FogGradiantChanged(double value);
 
 	void AmbientColorRChanged(int value);
 	void AmbientColorGChanged(int value);

@@ -3,7 +3,7 @@
 //#include <QSpinBox.h>
 #include <QBoxLayout.h>
 #include <QFormLayout>
-#include "HXFogLinear.h"
+#include "HXFog.h"
 #include <QHeaderView.h>
 #include "HXGLCamera.h"
 #include "HXSceneManager.h"
@@ -43,6 +43,12 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	spinboxFogEnd = new QDoubleSpinBox();
 	spinboxFogEnd->setRange(MIN, MAX);
+
+	spinboxFogDensity = new QDoubleSpinBox();
+	spinboxFogDensity->setRange(0, 100);
+
+	spinboxFogGradiant = new QDoubleSpinBox();
+	spinboxFogGradiant->setRange(0, 100);
 
 	// ambient
 	spinboxAmbientColorR = new QSpinBox();
@@ -283,6 +289,16 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	fogend->setText(0, "end");
 	fog->addChild(fogend);
 	treeWidget->setItemWidget(fogend, 1, spinboxFogEnd);
+	// fog density
+	QTreeWidgetItem *fogdensity = new QTreeWidgetItem;
+	fogdensity->setText(0, "density");
+	fog->addChild(fogdensity);
+	treeWidget->setItemWidget(fogdensity, 1, spinboxFogDensity);
+	// fog gradiant
+	QTreeWidgetItem *foggradiant = new QTreeWidgetItem;
+	foggradiant->setText(0, "gradiant");
+	fog->addChild(foggradiant);
+	treeWidget->setItemWidget(foggradiant, 1, spinboxFogGradiant);
 
 	//ambient
 	ambient = new QTreeWidgetItem;
@@ -744,6 +760,8 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 
 	connect(spinboxFogStart, SIGNAL(valueChanged(double)), this, SLOT(FogStartChanged(double)));
 	connect(spinboxFogEnd, SIGNAL(valueChanged(double)), this, SLOT(FogEndChanged(double)));
+	connect(spinboxFogDensity, SIGNAL(valueChanged(double)), this, SLOT(FogDensityChanged(double)));
+	connect(spinboxFogGradiant, SIGNAL(valueChanged(double)), this, SLOT(FogGradiantChanged(double)));
 
 	// ambient
 	connect(spinboxAmbientColorR, SIGNAL(valueChanged(int)), this, SLOT(AmbientColorRChanged(int)));
@@ -946,7 +964,7 @@ void HXInspectorWidget::SetLightInfo(HXLight* pLight)
 	}
 }
 
-void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
+void HXInspectorWidget::SetFogInfo(HXFog* pFog)
 {
 	fogData = pFog;
 	if (pFog)
@@ -967,13 +985,11 @@ void HXInspectorWidget::SetFogInfo(HXFogBase* pFog)
 		spinboxFogColorR->setValue(pFog->fogColor.r);
 		spinboxFogColorG->setValue(pFog->fogColor.g);
 		spinboxFogColorB->setValue(pFog->fogColor.b);
-		if (pFog->fogType == HXFogType::FOG_Linear)
-		{
-			comboboxFogType->setCurrentIndex(0);
-			HXFogLinear* pFogLinear = (HXFogLinear*)pFog;
-			spinboxFogStart->setValue(pFogLinear->fogStart);
-			spinboxFogEnd->setValue(pFogLinear->fogEnd);
-		}
+		comboboxFogType->setCurrentIndex(0);
+		spinboxFogStart->setValue(pFog->fogStart);
+		spinboxFogEnd->setValue(pFog->fogEnd);
+		spinboxFogDensity->setValue(pFog->fogDensity);
+		spinboxFogGradiant->setValue(pFog->fogGradiant);
 	}
 	else
 	{
@@ -1325,7 +1341,10 @@ void HXInspectorWidget::FogToggled(bool useFog)
 
 void HXInspectorWidget::FogTypeActivated(int index)
 {
-	// TODO: 暂时只实现了线性雾
+	if (fogData)
+	{
+		fogData->fogType = (HXFogType)index;
+	}
 }
 
 void HXInspectorWidget::FogColorRChanged(int value)
@@ -1352,20 +1371,26 @@ void HXInspectorWidget::FogColorBChanged(int value)
 
 void HXInspectorWidget::FogStartChanged(double value)
 {
-	if (fogData && fogData->fogType == HXFogType::FOG_Linear)
-	{
-		HXFogLinear* fogLinear = (HXFogLinear*)fogData;
-		fogLinear->fogStart = value;
-	}
+	HXFog* fog = (HXFog*)fogData;
+	fog->fogStart = value;
 }
 
 void HXInspectorWidget::FogEndChanged(double value)
 {
-	if (fogData && fogData->fogType == HXFogType::FOG_Linear)
-	{
-		HXFogLinear* fogLinear = (HXFogLinear*)fogData;
-		fogLinear->fogEnd = value;
-	}
+	HXFog* fog = (HXFog*)fogData;
+	fog->fogEnd = value;
+}
+
+void HXInspectorWidget::FogDensityChanged(double value)
+{
+	HXFog* fog = (HXFog*)fogData;
+	fog->fogDensity = value;
+}
+
+void HXInspectorWidget::FogGradiantChanged(double value)
+{
+	HXFog* fog = (HXFog*)fogData;
+	fog->fogGradiant = value;
 }
 
 void HXInspectorWidget::AmbientColorRChanged(int value)

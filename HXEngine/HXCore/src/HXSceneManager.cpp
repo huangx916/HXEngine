@@ -13,7 +13,7 @@
 #include "HXLoadConfigModel.h"
 #include "HXLoadConfigMat.h"
 #include <algorithm>
-#include "HXFogLinear.h"
+#include "HXFog.h"
 #include "HXLoadConfigScene.h"
 #include "HXLoadConfigPrefab.h"
 #include "HXMaterial.h"
@@ -428,10 +428,7 @@ namespace HX3D
 
 	void HXSceneManager::CreateFog(HXFogInfo* info)
 	{
-		if (info->type == HXFogType::FOG_Linear)
-		{
-			fog = new HXFogLinear(info);
-		}
+		fog = new HXFog(info);
 	}
 
 	void HXSceneManager::UseFog(bool useFog)

@@ -9,7 +9,7 @@
 #include "HXGLTransform.h"
 #include "HXRenderSystem.h"
 #include "HXSceneManager.h"
-#include "HXFogLinear.h"
+#include "HXFog.h"
 #include "HXRoot.h"
 #include "HXGLRenderSystem.h"
 #include "HXGLShadowMap.h"

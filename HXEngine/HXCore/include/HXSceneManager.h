@@ -2,7 +2,7 @@
 #include "HXCommon.h"
 #include <map>
 #include "HXLight.h"
-#include "HXFogBase.h"
+#include "HXFog.h"
 
 namespace HX3D
 {
@@ -68,7 +68,7 @@ namespace HX3D
 		std::vector<HXLight*>		lightVct;
 		// 环境光单独保存 保证唯一性
 		HXCOLOR ambient;
-		HXFogBase* fog;
+		HXFog* fog;
 		//HXICamera* mainCamera;
 		std::vector<HXICamera*>		cameraVct;
 
