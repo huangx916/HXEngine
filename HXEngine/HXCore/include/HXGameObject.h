@@ -28,7 +28,7 @@ namespace HX3D
 		HXGameObject* GetFather();
 		void SetFather(HXGameObject* father);
 		void AddChild(HXGameObject* child);
-		std::vector<HXGameObject*>& GetChildren();
+		//std::vector<HXGameObject*>& GetChildren();
 		HXITransform* GetTransform();
 		bool GetActivity() const;
 		void SetActivity(bool activity);
@@ -50,11 +50,11 @@ namespace HX3D
 		bool m_bStatic;
 		ELayer layer;
 		// Local Coordinate
-		HXITransform* m_pTransform;
+		HXITransform* transform;
 		bool m_bCastShadow;
 		HXMesh* m_pMesh;
-		HXGameObject* m_pFather;	// 用作计算World Coordinate
-		std::vector<HXGameObject*> vctChildren;
+		//HXGameObject* m_pFather;	// 用作计算World Coordinate
+		//std::vector<HXGameObject*> vctChildren;
 	};
 }
 

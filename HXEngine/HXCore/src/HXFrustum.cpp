@@ -48,11 +48,11 @@ namespace HX3D
 	{
 		HXVector4D lookTarget = updateTarget();
 
-		HXMatrix44 matTransInv = GetTranslateMatrix44(-transform->mPostion.x, -transform->mPostion.y, -transform->mPostion.z);
+		HXMatrix44 matTransInv = GetTranslateMatrix44(-transform->mLocalPostion.x, -transform->mLocalPostion.y, -transform->mLocalPostion.z);
 
 		////camN = lookTarget - camPosition;	// 此处N为相机前方，所以用左手坐标系
 		////camN = camPosition - lookTarget;	// 此处N为相机后方，所以用右手坐标系
-		camN = lookTarget - HXVector4D(transform->mPostion, 1);	// 此处N为相机前方，所以用左手坐标系
+		camN = lookTarget - HXVector4D(transform->mLocalPostion, 1);	// 此处N为相机前方，所以用左手坐标系
 		camU = HXVector4D::UNIT_Y.crossProduct(camN);
 		camV = camN.crossProduct(camU);
 
@@ -70,10 +70,10 @@ namespace HX3D
 	HXVector4D HXFrustum::updateTarget()
 	{
 		HXQuaternion q;
-		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
+		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
 		HXVector3D vec = HXVector3D(0, 0, -1);
 		vec = q.Transform(vec);
-		return HXVector4D(transform->mPostion + vec, 1);
+		return HXVector4D(transform->mLocalPostion + vec, 1);
 	}
 }
 

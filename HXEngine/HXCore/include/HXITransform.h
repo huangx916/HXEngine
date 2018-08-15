@@ -5,32 +5,41 @@
 
 namespace HX3D
 {
+	class HXGameObject;
 	class HXITransform
 	{
 	public:
 		HXITransform();
 		virtual ~HXITransform();
 
-		void SetPosition(const HXVector3D& pos);
-		HXVector3D GetPosition();
+		void SetLocalPosition(const HXVector3D& pos);
+		const HXVector3D& GetLocalPosition();
+		//const HXVector3D& GetGlobalPosition();
 		void Move(const HXVector3D& mov);
 
-		void SetRotation(const HXVector3D& rotation);
-		HXVector3D GetRotation();
+		void SetLocalRotation(const HXVector3D& rotation);
+		const HXVector3D& GetLocalRotation();
 		void Pitch(float fDegree);	// ÈÆXÖáÐý×ª
 		void Yaw(float fDegree);	// ÈÆYÖáÐý×ª
 		void Roll(float fDegree);	// ÈÆZÖáÐý×ª
 
-		void SetScale(const HXVector3D& scale);
-		HXVector3D GetScale();
+		void SetLocalScale(const HXVector3D& scale);
+		const HXVector3D& GetLocalScale();
 
 		virtual void CaculateModelMatrix(HXMatrix44& fatherModelMatrix) = 0;
 		virtual void CaculateModelMatrix() = 0;
 
-		HXVector3D mPostion;
-		HXVector3D mEulerDegree;
-		HXVector3D mScale;
+		void AddChild(HXITransform* child);
+		std::vector<HXITransform*>& GetChildren();
 
-		HXMatrix44 mCurModelMatrix;
+		HXITransform* parent;
+		HXGameObject* gameObject;
+		std::vector<HXITransform*> vctChildren;
+
+		HXVector3D mLocalPostion;
+		HXVector3D mLocalEulerDegree;
+		HXVector3D mLocalScale;
+
+		HXMatrix44 mGlobalModelMatrix;
 	};
 }

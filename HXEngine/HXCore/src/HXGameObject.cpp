@@ -15,8 +15,12 @@ namespace HX3D
 	{
 		m_strName = "";
 		m_pMesh = NULL;
-		m_pFather = pFather;
-		m_pTransform = pRenderSystem->CreateTransform();
+		transform = pRenderSystem->CreateTransform();
+		transform->gameObject = this;
+		if (pFather)
+		{
+			transform->parent = pFather->GetTransform();
+		}
 		m_bActivity = true;
 		m_bStatic = true;
 		layer = L_DEFAULT;
@@ -29,16 +33,16 @@ namespace HX3D
 			delete m_pMesh;
 			m_pMesh = NULL;
 		}
-		if (m_pTransform)
+		for (std::vector<HXITransform*>::iterator itr = transform->GetChildren().begin(); itr != transform->GetChildren().end(); ++itr)
 		{
-			delete m_pTransform;
-			m_pTransform = NULL;
+			delete (*itr)->gameObject;
 		}
-		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		transform->GetChildren().clear();
+		if (transform)
 		{
-			delete *itr;
+			delete transform;
+			transform = NULL;
 		}
-		vctChildren.clear();
 	}
 
 	void HXGameObject::Initialize(HXGameObjectInfo* gameobjectinfo)
@@ -105,16 +109,16 @@ namespace HX3D
 		SetStatic(gameobjectinfo->bStatic);
 		SetLayer(gameobjectinfo->layer);
 
-		if (NULL == m_pFather)
+		if (NULL == transform->parent)
 		{
-			m_pFather = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
+			transform->parent = HXSceneManager::GetInstance()->GetGameObjectTreeRoot()->transform;
 		}
-		m_pFather->AddChild(this);
-		m_pTransform->SetScale(gameobjectinfo->scale);
-		m_pTransform->SetRotation(gameobjectinfo->rotation);
-		m_pTransform->SetPosition(gameobjectinfo->position);
+		transform->parent->AddChild(transform);
+		transform->SetLocalScale(gameobjectinfo->scale);
+		transform->SetLocalRotation(gameobjectinfo->rotation);
+		transform->SetLocalPosition(gameobjectinfo->position);
 
-		m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);
+		transform->CaculateModelMatrix(transform->parent->mGlobalModelMatrix);
 	}
 
 	void HXGameObject::Update()
@@ -125,13 +129,13 @@ namespace HX3D
 		}
 		if (!m_bStatic)
 		{
-			if (m_pFather)
+			if (transform->parent)
 			{
-				m_pTransform->CaculateModelMatrix(m_pFather->m_pTransform->mCurModelMatrix);
+				transform->CaculateModelMatrix(transform->parent->mGlobalModelMatrix);
 			}
 			else
 			{
-				m_pTransform->CaculateModelMatrix();
+				transform->CaculateModelMatrix();
 			}
 		}
 		if (m_pMesh)
@@ -139,9 +143,9 @@ namespace HX3D
 			m_pMesh->UpdateAnimation();
 		}
 
-		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		for (std::vector<HXITransform*>::iterator itr = transform->GetChildren().begin(); itr != transform->GetChildren().end(); ++itr)
 		{
-			(*itr)->Update();
+			(*itr)->gameObject->Update();
 		}
 	}
 
@@ -157,27 +161,28 @@ namespace HX3D
 
 	HXGameObject* HXGameObject::GetFather()
 	{
-		return m_pFather;
+		return transform->parent->gameObject;
 	}
 
 	void HXGameObject::SetFather(HXGameObject* father)
 	{
-		m_pFather = father;
+		transform->parent = father->transform;
 	}
 
 	void HXGameObject::AddChild(HXGameObject* child)
 	{
-		vctChildren.push_back(child);
+		//vctChildren.push_back(child);
+		transform->AddChild(child->transform);
 	}
 
-	std::vector<HXGameObject*>& HXGameObject::GetChildren()
+	/*std::vector<HXGameObject*>& HXGameObject::GetChildren()
 	{
 		return vctChildren;
-	}
+	}*/
 
 	HXITransform* HXGameObject::GetTransform()
 	{
-		return m_pTransform;
+		return transform;
 	}
 
 	bool HXGameObject::GetActivity() const
@@ -212,9 +217,9 @@ namespace HX3D
 	void HXGameObject::SetCastShadowRecurve(bool bCastShadow)
 	{
 		SetCastShadow(bCastShadow);
-		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		for (std::vector<HXITransform*>::iterator itr = transform->GetChildren().begin(); itr != transform->GetChildren().end(); ++itr)
 		{
-			(*itr)->SetCastShadowRecurve(bCastShadow);
+			(*itr)->gameObject->SetCastShadowRecurve(bCastShadow);
 		}
 	}
 
@@ -231,9 +236,9 @@ namespace HX3D
 	void HXGameObject::SetStaticRecurve(bool bStatic)
 	{
 		SetStatic(bStatic);
-		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		for (std::vector<HXITransform*>::iterator itr = transform->GetChildren().begin(); itr != transform->GetChildren().end(); ++itr)
 		{
-			(*itr)->SetStaticRecurve(bStatic);
+			(*itr)->gameObject->SetStaticRecurve(bStatic);
 		}
 	}
 
@@ -258,9 +263,9 @@ namespace HX3D
 	void HXGameObject::SetLayerRecurve(ELayer eLayer)
 	{
 		SetLayer(eLayer);
-		for (std::vector<HXGameObject*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		for (std::vector<HXITransform*>::iterator itr = transform->GetChildren().begin(); itr != transform->GetChildren().end(); ++itr)
 		{
-			(*itr)->SetLayerRecurve(eLayer);
+			(*itr)->gameObject->SetLayerRecurve(eLayer);
 		}
 	}
 }

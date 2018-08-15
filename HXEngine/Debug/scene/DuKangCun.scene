@@ -69,7 +69,7 @@
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="tree05_2List" Activity="1" Static="1" Model="" CastShadow="0" Layer="0">
+		<GameObj Name="tree05_2List" Activity="1" Static="1" Model="" CastShadow="1" Layer="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -89,7 +89,7 @@
 				<Scale Sx="0.003" Sy="0.003" Sz="0.003"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="Brickwall_el1List" Activity="1" Static="1" Model="" CastShadow="0" Layer="0">
+		<GameObj Name="Brickwall_el1List" Activity="1" Static="1" Model="" CastShadow="1" Layer="0">
 			<Position Px="3.6" Py="-2.5" Pz="7.5"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -129,27 +129,27 @@
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
 			<GameObj Name="Brickwall_el1" Activity="1" Static="1" Model="prefab/Brickwall_el1/Brickwall_el1.model" CastShadow="1" Layer="0">
-				<Position Px="-6.5" Py="0.2" Pz="-0.5"/>
+				<Position Px="-6.5" Py="0" Pz="-0.5"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
 			<GameObj Name="Brickwall_el1" Activity="1" Static="1" Model="prefab/Brickwall_el1/Brickwall_el1.model" CastShadow="1" Layer="0">
-				<Position Px="-6.5" Py="0.2" Pz="-1.5"/>
+				<Position Px="-6.5" Py="0" Pz="-1.5"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
 			<GameObj Name="Brickwall_el1" Activity="1" Static="1" Model="prefab/Brickwall_el1/Brickwall_el1.model" CastShadow="1" Layer="0">
-				<Position Px="-6.5" Py="0.2" Pz="-2.5"/>
+				<Position Px="-6.5" Py="0" Pz="-2.5"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
 			<GameObj Name="Brickwall_el1" Activity="1" Static="1" Model="prefab/Brickwall_el1/Brickwall_el1.model" CastShadow="1" Layer="0">
-				<Position Px="-6.5" Py="0.2" Pz="-3.5"/>
+				<Position Px="-6.5" Py="0" Pz="-3.5"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
 			<GameObj Name="Brickwall_el1" Activity="1" Static="1" Model="prefab/Brickwall_el1/Brickwall_el1.model" CastShadow="1" Layer="0">
-				<Position Px="-6.5" Py="0.2" Pz="-4.5"/>
+				<Position Px="-6.5" Py="0" Pz="-4.5"/>
 				<Rotation Rx="0" Ry="90" Rz="0"/>
 				<Scale Sx="0.3" Sy="0.3" Sz="0.3"/>
 			</GameObj>
@@ -194,7 +194,7 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
 		</GameObj>
-		<GameObj Name="GameObject" Activity="1" Static="1" Model="" CastShadow="0" Layer="0">
+		<GameObj Name="GameObject" Activity="1" Static="1" Model="" CastShadow="1" Layer="0">
 			<Position Px="0" Py="0" Pz="8"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -239,7 +239,7 @@
 				<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="Lettuce1_lod0List" Activity="1" Static="1" Model="" CastShadow="0" Layer="0">
+		<GameObj Name="Lettuce1_lod0List" Activity="1" Static="1" Model="" CastShadow="1" Layer="0">
 			<Position Px="3.5" Py="0" Pz="7"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
@@ -274,7 +274,7 @@
 				<Scale Sx="0.001" Sy="0.001" Sz="0.001"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="Lettuce1_lod0List" Activity="1" Static="1" Model="" CastShadow="0" Layer="0">
+		<GameObj Name="Lettuce1_lod0List" Activity="1" Static="1" Model="" CastShadow="1" Layer="0">
 			<Position Px="3.5" Py="0" Pz="6.7"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>

@@ -56,9 +56,9 @@ void HXHierarchyWidget::UpdateSceneTree()
 	lightRoot = new QTreeWidgetItem(root, QStringList(QString("LightList")));
 
 	HXGameObject* gameObjectTreeRoot = HXSceneManager::GetInstance()->GetGameObjectTreeRoot();
-	for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
+	for (std::vector<HXITransform*>::iterator itr = gameObjectTreeRoot->GetTransform()->GetChildren().begin(); itr != gameObjectTreeRoot->GetTransform()->GetChildren().end(); ++itr)
 	{
-		AddGameObjectLeafRecurve(root, *itr);
+		AddGameObjectLeafRecurve(root, (*itr)->gameObject);
 	}
 
 	AddCameraLeaf(cameraRoot);
@@ -98,10 +98,10 @@ void HXHierarchyWidget::AddGameObjectLeafRecurve(QTreeWidgetItem* parent, HX3D::
 	var.setValue(go);
 	tw->setData(0, Qt::UserRole, var);
 
-	std::vector<HXGameObject*> childList = go->GetChildren();
-	for (std::vector<HXGameObject*>::iterator itr = childList.begin(); itr != childList.end(); ++itr)
+	std::vector<HXITransform*> childList = go->GetTransform()->GetChildren();
+	for (std::vector<HXITransform*>::iterator itr = childList.begin(); itr != childList.end(); ++itr)
 	{
-		AddGameObjectLeafRecurve(tw, *itr);
+		AddGameObjectLeafRecurve(tw, (*itr)->gameObject);
 	}
 }
 
@@ -195,28 +195,28 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 {
 	HXITransform* trans = HXSceneManager::GetInstance()->GetMainCamera()->transform;
 	HXQuaternion q;
-	q.FromEulerDegree(trans->mEulerDegree.x, trans->mEulerDegree.y, trans->mEulerDegree.z);
+	q.FromEulerDegree(trans->mLocalEulerDegree.x, trans->mLocalEulerDegree.y, trans->mLocalEulerDegree.z);
 	HXVector3D vec = HXVector3D(0, 0, 5);
 	vec = q.Transform(vec);
 
 	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
 	if (gameObject)
 	{
-		HXVector3D pos = gameObject->GetTransform()->GetPosition() + vec;
-		trans->SetPosition(pos);
+		HXVector3D pos = gameObject->GetTransform()->GetLocalPosition() + vec;
+		trans->SetLocalPosition(pos);
 	}
 	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
 	if (light)
 	{
 		HXVector3D pos = light->position;
-		trans->SetPosition(pos);
+		trans->SetLocalPosition(pos);
 		if (light->lightType == LIGHT_DIRECTION)
 		{
-			trans->SetRotation(light->direct);
+			trans->SetLocalRotation(light->direct);
 		}
 		else if (light->lightType == LIGHT_SPOT)
 		{
-			trans->SetRotation(light->ConeDirection);
+			trans->SetLocalRotation(light->ConeDirection);
 		}
 	}
 }
@@ -231,15 +231,15 @@ void HXHierarchyWidget::UpdateCoordArrow(HX3D::HXITransform* trans)
 
 	_CoordArrow->SetActivity(true);
 
-	_EditorCamera->transform->SetRotation(mainCamera->transform->GetRotation());
-	_CoordArrow->GetTransform()->SetRotation(trans->GetRotation());
+	_EditorCamera->transform->SetLocalRotation(mainCamera->transform->GetLocalRotation());
+	_CoordArrow->GetTransform()->SetLocalRotation(trans->GetLocalRotation());
 
 	mainCamera->Update();
 	_EditorCamera->Update();
 
-	HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetPosition());
+	HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetLocalPosition());
 	pos = _EditorCamera->NDCToWorldPoint(pos);
-	_CoordArrow->GetTransform()->SetPosition(pos);
+	_CoordArrow->GetTransform()->SetLocalPosition(pos);
 }
 
 void HXHierarchyWidget::HideCoordArrow()

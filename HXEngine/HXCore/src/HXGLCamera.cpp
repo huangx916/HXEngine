@@ -24,8 +24,8 @@ namespace HX3D
 		mNear = nearZ;
 		mFar = farZ;
 
-		transform->mPostion = position;
-		transform->mEulerDegree = rotate;
+		transform->mLocalPostion = position;
+		transform->mLocalEulerDegree = rotate;
 
 		UpdateProjectionMatrix(mField, mSize, mNear, mFar);
 	}
@@ -82,22 +82,22 @@ namespace HX3D
 
 	void HXGLCamera::Update()
 	{
-		UpdateViewMatrix(transform->mPostion, UpdateAt(), UpdateUp());
+		UpdateViewMatrix(transform->mLocalPostion, UpdateAt(), UpdateUp());
 	}
 
 	HXVector3D HXGLCamera::UpdateAt()
 	{
 		HXQuaternion q;
-		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
+		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
 		HXVector3D vec = HXVector3D(0, 0, -1);
 		vec = q.Transform(vec);
-		return transform->mPostion + vec;
+		return transform->mLocalPostion + vec;
 	}
 
 	HXVector3D HXGLCamera::UpdateUp()
 	{
 		HXQuaternion q;
-		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
+		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
 		HXVector3D vec = HXVector3D(0, 1, 0);
 		return q.Transform(vec);
 	}
@@ -133,22 +133,22 @@ namespace HX3D
 	void HXGLCamera::move(const HXVector3D& mov)
 	{
 		HXQuaternion q;
-		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
+		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
 		HXVector3D v = mov;
 		v = q.Transform(v);
-		transform->mPostion += v;
+		transform->mLocalPostion += v;
 	}
 
 	void HXGLCamera::yaw(float fDegree)
 	{
 		// 四元数形式
-		transform->mEulerDegree.y += fDegree;
+		transform->mLocalEulerDegree.y += fDegree;
 	}
 
 	void HXGLCamera::pitch(float fDegree)
 	{
 		// 四元数形式
-		transform->mEulerDegree.x += fDegree;
+		transform->mLocalEulerDegree.x += fDegree;
 	}
 
 	void HXGLCamera::UpdateViewMatrix(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up)

@@ -24,8 +24,8 @@ namespace HX3D
 	void HXGDICamera::Initialize(const HXVector3D& position, const HXVector3D& rotate,
 		float nearZ, float farZ)
 	{
-		transform->mPostion = position;
-		transform->mEulerDegree = rotate;
+		transform->mLocalPostion = position;
+		transform->mLocalEulerDegree = rotate;
 		mFrustum = new HXFrustum(transform
 			, 90, nearZ, farZ, SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
@@ -46,19 +46,19 @@ namespace HX3D
 	void HXGDICamera::move(const HXVector3D& mov)
 	{
 		HXQuaternion q;
-		q.FromEulerDegree(transform->mEulerDegree.x, transform->mEulerDegree.y, transform->mEulerDegree.z);
+		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
 		HXVector3D v = mov;
 		v = q.Transform(v);
-		transform->mPostion += v;
+		transform->mLocalPostion += v;
 	}
 
 	void HXGDICamera::yaw(float fDegree)
 	{
-		transform->mEulerDegree.y += fDegree;
+		transform->mLocalEulerDegree.y += fDegree;
 	}
 
 	void HXGDICamera::pitch(float fDegree)
 	{
-		transform->mEulerDegree.x += fDegree;
+		transform->mLocalEulerDegree.x += fDegree;
 	}
 }

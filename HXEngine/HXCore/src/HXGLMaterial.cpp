@@ -271,7 +271,7 @@ namespace HX3D
 
 		//HXGLCamera* pCamera = (HXGLCamera*)HXSceneManager::GetInstance()->mainCamera;
 		HXGLCamera* pCamera = (HXGLCamera*)curCamera;
-		HXVector3D eyePos = pCamera->transform->mPostion;
+		HXVector3D eyePos = pCamera->transform->mLocalPostion;
 		glUniform3f(render_scene_uniforms.render_eye_pos_loc, eyePos.x, eyePos.y, eyePos.z);
 		glUniformMatrix4fv(render_scene_uniforms.render_view_matrix_loc, 1, GL_FALSE, pCamera->mMatrixView);
 		glUniformMatrix4fv(render_scene_uniforms.render_projection_matrix_loc, 1, GL_FALSE, pCamera->mMatrixProjection);

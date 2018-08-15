@@ -3,6 +3,7 @@
 #include <map>
 #include "HXLight.h"
 #include "HXFog.h"
+#include "HXITransform.h"
 
 namespace HX3D
 {
@@ -36,7 +37,7 @@ namespace HX3D
 		HXGameObject* CreateGameObjectFromPrefab(HXGameObject* father, std::string strPrefabPath);
 		HXGameObject* CreateGameObject(HXGameObject* pFather, HXGameObjectInfo* gameobjectinfo);
 		bool DeleteGameObject(HXGameObject* gameobject);
-		bool DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject);
+		bool DeleteGameObjectRecurve(std::vector<HXITransform*>& list, HXGameObject* gameobject);
 		void InsertGameObjectToOrderQueueRecurve(HXGameObject* gameobject);
 
 		// 平行光、点光源、聚光灯

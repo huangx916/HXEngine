@@ -901,17 +901,17 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 
 		HXITransform* pTransform = pGameObject->GetTransform();
 
-		spinboxPositionX->setValue(pTransform->GetPosition().x);
-		spinboxPositionY->setValue(pTransform->GetPosition().y);
-		spinboxPositionZ->setValue(pTransform->GetPosition().z);
+		spinboxPositionX->setValue(pTransform->GetLocalPosition().x);
+		spinboxPositionY->setValue(pTransform->GetLocalPosition().y);
+		spinboxPositionZ->setValue(pTransform->GetLocalPosition().z);
 
-		spinboxRotationX->setValue(pTransform->GetRotation().x);
-		spinboxRotationY->setValue(pTransform->GetRotation().y);
-		spinboxRotationZ->setValue(pTransform->GetRotation().z);
+		spinboxRotationX->setValue(pTransform->GetLocalRotation().x);
+		spinboxRotationY->setValue(pTransform->GetLocalRotation().y);
+		spinboxRotationZ->setValue(pTransform->GetLocalRotation().z);
 
-		spinboxScaleX->setValue(pTransform->GetScale().x);
-		spinboxScaleY->setValue(pTransform->GetScale().y);
-		spinboxScaleZ->setValue(pTransform->GetScale().z);
+		spinboxScaleX->setValue(pTransform->GetLocalScale().x);
+		spinboxScaleY->setValue(pTransform->GetLocalScale().y);
+		spinboxScaleZ->setValue(pTransform->GetLocalScale().z);
 	}
 	else
 	{
@@ -1065,13 +1065,13 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 
 		spinboxDepth->setValue(selectedCamera->depth);
 
-		spinboxCameraPositionX->setValue(selectedCamera->transform->mPostion.x);
-		spinboxCameraPositionY->setValue(selectedCamera->transform->mPostion.y);
-		spinboxCameraPositionZ->setValue(selectedCamera->transform->mPostion.z);
+		spinboxCameraPositionX->setValue(selectedCamera->transform->mLocalPostion.x);
+		spinboxCameraPositionY->setValue(selectedCamera->transform->mLocalPostion.y);
+		spinboxCameraPositionZ->setValue(selectedCamera->transform->mLocalPostion.z);
 
-		spinboxCameraRotationX->setValue(selectedCamera->transform->mEulerDegree.x);
-		spinboxCameraRotationY->setValue(selectedCamera->transform->mEulerDegree.y);
-		spinboxCameraRotationZ->setValue(selectedCamera->transform->mEulerDegree.z);
+		spinboxCameraRotationX->setValue(selectedCamera->transform->mLocalEulerDegree.x);
+		spinboxCameraRotationY->setValue(selectedCamera->transform->mLocalEulerDegree.y);
+		spinboxCameraRotationZ->setValue(selectedCamera->transform->mLocalEulerDegree.z);
 	}
 	else
 	{
@@ -1091,7 +1091,7 @@ void HXInspectorWidget::StaticToggled(bool bStatic)
 {
 	if (selectedGameObject)
 	{
-		if (selectedGameObject->GetChildren().size() > 0)
+		if (selectedGameObject->GetTransform()->GetChildren().size() > 0)
 		{
 			if (QMessageBox::Yes == QMessageBox::question(this,
 				tr("Change Static Flags"),
@@ -1133,7 +1133,7 @@ void HXInspectorWidget::CastShadowToggled(bool castShadow)
 {
 	if (selectedGameObject)
 	{
-		if (selectedGameObject->GetChildren().size() > 0)
+		if (selectedGameObject->GetTransform()->GetChildren().size() > 0)
 		{
 			if (QMessageBox::Yes == QMessageBox::question(this,
 				tr("Change CastShadow Flags"),
@@ -1159,7 +1159,7 @@ void HXInspectorWidget::LayerActivated(int index)
 {
 	if (selectedGameObject)
 	{
-		if (selectedGameObject->GetChildren().size() > 0)
+		if (selectedGameObject->GetTransform()->GetChildren().size() > 0)
 		{
 			if (QMessageBox::Yes == QMessageBox::question(this,
 				tr("Change Layer Flags"),
@@ -1187,14 +1187,14 @@ void HXInspectorWidget::PositionXValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
-			selectedGameObject->GetTransform()->SetPosition(HXVector3D(value, pos.y, pos.z));
+			HXVector3D pos = selectedGameObject->GetTransform()->GetLocalPosition();
+			selectedGameObject->GetTransform()->SetLocalPosition(HXVector3D(value, pos.y, pos.z));
 
 			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
-			spinboxPositionX->setValue(selectedGameObject->GetTransform()->GetPosition().x);
+			spinboxPositionX->setValue(selectedGameObject->GetTransform()->GetLocalPosition().x);
 		}
 	}
 }
@@ -1204,14 +1204,14 @@ void HXInspectorWidget::PositionYValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
-			selectedGameObject->GetTransform()->SetPosition(HXVector3D(pos.x, value, pos.z));
+			HXVector3D pos = selectedGameObject->GetTransform()->GetLocalPosition();
+			selectedGameObject->GetTransform()->SetLocalPosition(HXVector3D(pos.x, value, pos.z));
 
 			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
-			spinboxPositionY->setValue(selectedGameObject->GetTransform()->GetPosition().y);
+			spinboxPositionY->setValue(selectedGameObject->GetTransform()->GetLocalPosition().y);
 		}
 	}
 }
@@ -1221,14 +1221,14 @@ void HXInspectorWidget::PositionZValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D pos = selectedGameObject->GetTransform()->GetPosition();
-			selectedGameObject->GetTransform()->SetPosition(HXVector3D(pos.x, pos.y, value));
+			HXVector3D pos = selectedGameObject->GetTransform()->GetLocalPosition();
+			selectedGameObject->GetTransform()->SetLocalPosition(HXVector3D(pos.x, pos.y, value));
 
 			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
-			spinboxPositionZ->setValue(selectedGameObject->GetTransform()->GetPosition().z);
+			spinboxPositionZ->setValue(selectedGameObject->GetTransform()->GetLocalPosition().z);
 		}
 	}
 }
@@ -1239,14 +1239,14 @@ void HXInspectorWidget::RotationXValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
-			selectedGameObject->GetTransform()->SetRotation(HXVector3D(value, rotate.y, rotate.z));
+			HXVector3D rotate = selectedGameObject->GetTransform()->GetLocalRotation();
+			selectedGameObject->GetTransform()->SetLocalRotation(HXVector3D(value, rotate.y, rotate.z));
 
 			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
-			spinboxRotationX->setValue(selectedGameObject->GetTransform()->GetRotation().x);
+			spinboxRotationX->setValue(selectedGameObject->GetTransform()->GetLocalRotation().x);
 		}
 	}
 }
@@ -1256,14 +1256,14 @@ void HXInspectorWidget::RotationYValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
-			selectedGameObject->GetTransform()->SetRotation(HXVector3D(rotate.x, value, rotate.z));
+			HXVector3D rotate = selectedGameObject->GetTransform()->GetLocalRotation();
+			selectedGameObject->GetTransform()->SetLocalRotation(HXVector3D(rotate.x, value, rotate.z));
 
 			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
-			spinboxRotationY->setValue(selectedGameObject->GetTransform()->GetRotation().y);
+			spinboxRotationY->setValue(selectedGameObject->GetTransform()->GetLocalRotation().y);
 		}
 	}
 }
@@ -1273,14 +1273,14 @@ void HXInspectorWidget::RotationZValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D rotate = selectedGameObject->GetTransform()->GetRotation();
-			selectedGameObject->GetTransform()->SetRotation(HXVector3D(rotate.x, rotate.y, value));
+			HXVector3D rotate = selectedGameObject->GetTransform()->GetLocalRotation();
+			selectedGameObject->GetTransform()->SetLocalRotation(HXVector3D(rotate.x, rotate.y, value));
 
 			HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedGameObject->GetTransform());
 		}
 		else
 		{
-			spinboxRotationZ->setValue(selectedGameObject->GetTransform()->GetRotation().z);
+			spinboxRotationZ->setValue(selectedGameObject->GetTransform()->GetLocalRotation().z);
 		}
 	}
 }
@@ -1291,12 +1291,12 @@ void HXInspectorWidget::ScaleXValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D scale = selectedGameObject->GetTransform()->GetScale();
-			selectedGameObject->GetTransform()->SetScale(HXVector3D(value, scale.y, scale.z));
+			HXVector3D scale = selectedGameObject->GetTransform()->GetLocalScale();
+			selectedGameObject->GetTransform()->SetLocalScale(HXVector3D(value, scale.y, scale.z));
 		}
 		else
 		{
-			spinboxScaleX->setValue(selectedGameObject->GetTransform()->GetScale().x);
+			spinboxScaleX->setValue(selectedGameObject->GetTransform()->GetLocalScale().x);
 		}
 	}
 }
@@ -1306,12 +1306,12 @@ void HXInspectorWidget::ScaleYValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D scale = selectedGameObject->GetTransform()->GetScale();
-			selectedGameObject->GetTransform()->SetScale(HXVector3D(scale.x, value, scale.z));
+			HXVector3D scale = selectedGameObject->GetTransform()->GetLocalScale();
+			selectedGameObject->GetTransform()->SetLocalScale(HXVector3D(scale.x, value, scale.z));
 		}
 		else
 		{
-			spinboxScaleY->setValue(selectedGameObject->GetTransform()->GetScale().y);
+			spinboxScaleY->setValue(selectedGameObject->GetTransform()->GetLocalScale().y);
 		}
 	}
 }
@@ -1321,12 +1321,12 @@ void HXInspectorWidget::ScaleZValueChanged(double value)
 	{
 		if (!selectedGameObject->GetStatic())
 		{
-			HXVector3D scale = selectedGameObject->GetTransform()->GetScale();
-			selectedGameObject->GetTransform()->SetScale(HXVector3D(scale.x, scale.y, value));
+			HXVector3D scale = selectedGameObject->GetTransform()->GetLocalScale();
+			selectedGameObject->GetTransform()->SetLocalScale(HXVector3D(scale.x, scale.y, value));
 		}
 		else
 		{
-			spinboxScaleZ->setValue(selectedGameObject->GetTransform()->GetScale().z);
+			spinboxScaleZ->setValue(selectedGameObject->GetTransform()->GetLocalScale().z);
 		}
 	}
 }
@@ -1588,24 +1588,24 @@ void HXInspectorWidget::CameraPositionXValueChanged(double value)
 {
 	if (selectedCamera)
 	{
-		HXVector3D pos = selectedCamera->transform->GetPosition();
-		selectedCamera->transform->SetPosition(HXVector3D(value, pos.y, pos.z));
+		HXVector3D pos = selectedCamera->transform->GetLocalPosition();
+		selectedCamera->transform->SetLocalPosition(HXVector3D(value, pos.y, pos.z));
 	}
 }
 void HXInspectorWidget::CameraPositionYValueChanged(double value)
 {
 	if (selectedCamera)
 	{
-		HXVector3D pos = selectedCamera->transform->GetPosition();
-		selectedCamera->transform->SetPosition(HXVector3D(pos.x, value, pos.z));
+		HXVector3D pos = selectedCamera->transform->GetLocalPosition();
+		selectedCamera->transform->SetLocalPosition(HXVector3D(pos.x, value, pos.z));
 	}
 }
 void HXInspectorWidget::CameraPositionZValueChanged(double value)
 {
 	if (selectedCamera)
 	{
-		HXVector3D pos = selectedCamera->transform->GetPosition();
-		selectedCamera->transform->SetPosition(HXVector3D(pos.x, pos.y, value));
+		HXVector3D pos = selectedCamera->transform->GetLocalPosition();
+		selectedCamera->transform->SetLocalPosition(HXVector3D(pos.x, pos.y, value));
 	}
 }
 
@@ -1613,24 +1613,24 @@ void HXInspectorWidget::CameraRotationXValueChanged(double value)
 {
 	if (selectedCamera)
 	{
-		HXVector3D rotate = selectedCamera->transform->GetRotation();
-		selectedCamera->transform->SetRotation(HXVector3D(value, rotate.y, rotate.z));
+		HXVector3D rotate = selectedCamera->transform->GetLocalRotation();
+		selectedCamera->transform->SetLocalRotation(HXVector3D(value, rotate.y, rotate.z));
 	}
 }
 void HXInspectorWidget::CameraRotationYValueChanged(double value)
 {
 	if (selectedCamera)
 	{
-		HXVector3D rotate = selectedCamera->transform->GetRotation();
-		selectedCamera->transform->SetRotation(HXVector3D(rotate.x, value, rotate.z));
+		HXVector3D rotate = selectedCamera->transform->GetLocalRotation();
+		selectedCamera->transform->SetLocalRotation(HXVector3D(rotate.x, value, rotate.z));
 	}
 }
 void HXInspectorWidget::CameraRotationZValueChanged(double value)
 {
 	if (selectedCamera)
 	{
-		HXVector3D rotate = selectedCamera->transform->GetRotation();
-		selectedCamera->transform->SetRotation(HXVector3D(rotate.x, rotate.y, value));
+		HXVector3D rotate = selectedCamera->transform->GetLocalRotation();
+		selectedCamera->transform->SetLocalRotation(HXVector3D(rotate.x, rotate.y, value));
 	}
 }
 

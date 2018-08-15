@@ -1,64 +1,81 @@
 #include "..\include\HXITransform.h"
+#include "HXGameObject.h"
 
 namespace HX3D
 {
 	HXITransform::HXITransform()
 	{
-		mPostion = HXVector3D(0,0,0);
-		mEulerDegree = HXVector3D(0,0,0);
-		mScale = HXVector3D(1,1,1);
+		mLocalPostion = HXVector3D(0,0,0);
+		mLocalEulerDegree = HXVector3D(0,0,0);
+		mLocalScale = HXVector3D(1,1,1);
 	}
 
 	HXITransform::~HXITransform()
 	{
 	}
 
-	void HXITransform::SetPosition(const HXVector3D& pos)
+	void HXITransform::SetLocalPosition(const HXVector3D& pos)
 	{
-		mPostion = pos;
+		mLocalPostion = pos;
 	}
 
-	HXVector3D HXITransform::GetPosition()
+	const HXVector3D& HXITransform::GetLocalPosition()
 	{
-		return mPostion;
+		return mLocalPostion;
 	}
+
+	/*const HXVector3D& HXITransform::GetGlobalPosition()
+	{
+
+	}*/
 
 	void HXITransform::Move(const HXVector3D& mov)
 	{
-		mPostion += mov;
+		mLocalPostion += mov;
 	}
 
-	void HXITransform::SetRotation(const HXVector3D& rotation)
+	void HXITransform::SetLocalRotation(const HXVector3D& rotation)
 	{
-		mEulerDegree = rotation;
+		mLocalEulerDegree = rotation;
 	}
 
-	HXVector3D HXITransform::GetRotation()
+	const HXVector3D& HXITransform::GetLocalRotation()
 	{
-		return mEulerDegree;
+		return mLocalEulerDegree;
 	}
 
 	void HXITransform::Pitch(float fDegree)
 	{
-		mEulerDegree.x = fDegree;
+		mLocalEulerDegree.x = fDegree;
 	}
 
 	void HXITransform::Yaw(float fDegree)
 	{
-		mEulerDegree.y = fDegree;
+		mLocalEulerDegree.y = fDegree;
 	}
 
 	void HXITransform::Roll(float fDegree)
 	{
-		mEulerDegree.z = fDegree;
+		mLocalEulerDegree.z = fDegree;
 	}
 
-	void HXITransform::SetScale(const HXVector3D& scale)
+	void HXITransform::SetLocalScale(const HXVector3D& scale)
 	{
-		mScale = scale;
+		mLocalScale = scale;
 	}
-	HXVector3D HXITransform::GetScale()
+
+	const HXVector3D& HXITransform::GetLocalScale()
 	{
-		return mScale;
+		return mLocalScale;
+	}
+
+	void HXITransform::AddChild(HXITransform* child)
+	{
+		vctChildren.push_back(child);
+	}
+
+	std::vector<HXITransform*>& HXITransform::GetChildren()
+	{
+		return vctChildren;
 	}
 }

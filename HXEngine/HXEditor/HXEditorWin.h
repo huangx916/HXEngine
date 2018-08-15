@@ -37,7 +37,7 @@ private:
 	void createCamera();
 	void deleteCamera();
 
-	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXGameObject*>& list, int level);
+	void serializeGameObjectRecursive(QTextStream& out, std::vector<HX3D::HXITransform*>& list, int level);
 	void serializeScene(QTextStream& out);
 	void serializePrefab(QTextStream& out);
 

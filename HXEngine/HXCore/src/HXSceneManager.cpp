@@ -26,7 +26,7 @@ namespace HX3D
 	{
 		ambient = HXCOLOR(0,0,0,255);
 		gameObjectTreeRoot = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
-		gameObjectTreeRoot->SetName("GameObjectTreeRoot");
+		gameObjectTreeRoot->SetName("_GameObjectTreeRoot");
 		gameObjectTreeRoot->GetTransform()->CaculateModelMatrix();
 	}
 
@@ -121,11 +121,17 @@ namespace HX3D
 		}
 		lightVct.clear();
 		// 在HXGameObject析构函数中进行了递归卸载
-		for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
+		/*for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
 		{
 			delete *itr;
 		}
-		gameObjectTreeRoot->GetChildren().clear();
+		gameObjectTreeRoot->GetChildren().clear();*/
+		// 在HXGameObject析构函数中进行了递归卸载
+		for (std::vector<HXITransform*>::iterator itr = gameObjectTreeRoot->GetTransform()->GetChildren().begin(); itr != gameObjectTreeRoot->GetTransform()->GetChildren().end(); ++itr)
+		{
+			delete (*itr)->gameObject;
+		}
+		gameObjectTreeRoot->GetTransform()->GetChildren().clear();
 
 		opaqueMap.clear();
 		transparentMap.clear();
@@ -218,66 +224,11 @@ namespace HX3D
 					subMesh->renderable->m_pTransform = gameobject->GetTransform();
 				}
 			}
-
-			//int renderQueue = gameobject->GetRenderQueue();
-			//if (renderQueue < ERenderQueue::RQ_TRANSPARENT)
-			//{
-			//	// opaque
-			//	for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
-			//	{
-			//		HXSubMesh* subMesh = (*itr);
-			//		std::string materialName = subMesh->materialName;
-			//		std::map<int, mapStringVector>::iterator itr1 = opaqueMap.find(renderQueue);
-			//		if (itr1 != opaqueMap.end())
-			//		{
-			//			mapStringVector::iterator itr2 = itr1->second.find(materialName);
-			//			if (itr2 != itr1->second.end())
-			//			{
-			//				itr2->second.push_back(subMesh->renderable);
-			//			}
-			//			else
-			//			{
-			//				vectorRenderable vct;
-			//				vct.push_back(subMesh->renderable);
-			//				itr1->second.insert(std::make_pair(materialName, vct));
-			//			}
-			//		}
-			//		else
-			//		{
-			//			mapStringVector sv;
-			//			vectorRenderable vct;
-			//			vct.push_back(subMesh->renderable);
-			//			sv.insert(std::make_pair(materialName, vct));
-			//			opaqueMap.insert(std::make_pair(renderQueue, sv));
-			//		}
-			//		subMesh->renderable->m_pTransform = gameobject->GetTransform();
-			//	}
-			//}
-			//else
-			//{
-			//	// transparent
-			//	for (std::vector<HXSubMesh*>::iterator itr = pMesh->subMeshList.begin(); itr != pMesh->subMeshList.end(); itr++)
-			//	{
-			//		HXSubMesh* subMesh = (*itr);
-			//		std::map<int, vectorRenderable>::iterator itr1 = transparentMap.find(renderQueue);
-			//		if (itr1 != transparentMap.end())
-			//		{
-			//			itr1->second.push_back(subMesh->renderable);
-			//		}
-			//		else
-			//		{
-			//			vectorRenderable vct;
-			//			vct.push_back(subMesh->renderable);
-			//			transparentMap.insert(std::make_pair(renderQueue, vct));
-			//		}
-			//		subMesh->renderable->m_pTransform = gameobject->GetTransform();
-			//	}
-			//}
 		}
 		
-		for (std::vector<HXGameObject*>::iterator itr = gameobject->GetChildren().begin(); itr != gameobject->GetChildren().end(); ++itr)
+		for (std::vector<HXITransform*>::iterator itr = gameobject->GetTransform()->GetChildren().begin(); itr != gameobject->GetTransform()->GetChildren().end(); ++itr)
 		{
-			InsertGameObjectToOrderQueueRecurve(*itr);
+			InsertGameObjectToOrderQueueRecurve((*itr)->gameObject);
 		}
 	}
 
@@ -442,9 +393,9 @@ namespace HX3D
 	void HXSceneManager::PushSortListRecurve(HXGameObject* src, std::vector<HXGameObject*>& dest)
 	{
 		dest.push_back(src);
-		for (std::vector<HXGameObject*>::iterator itr = src->GetChildren().begin(); itr != src->GetChildren().end(); itr++)
+		for (std::vector<HXITransform*>::iterator itr = src->GetTransform()->GetChildren().begin(); itr != src->GetTransform()->GetChildren().end(); itr++)
 		{
-			PushSortListRecurve(*itr, dest);
+			PushSortListRecurve((*itr)->gameObject, dest);
 		}
 	}
 
@@ -505,7 +456,7 @@ namespace HX3D
 							}
 							HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
 							HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
-							renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+							renderable->SetModelMatrix(renderable->m_pTransform->mGlobalModelMatrix);
 							//renderable->SetViewMatrix(curCamera);
 							//renderable->SetProjectionMatrix(curCamera);
 							
@@ -548,7 +499,7 @@ namespace HX3D
 							}
 							HXStatus::GetInstance()->nVertexCount += renderable->m_pSubMesh->vertexList.size();
 							HXStatus::GetInstance()->nTriangleCount += renderable->m_pSubMesh->triangleCount;
-							renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+							renderable->SetModelMatrix(renderable->m_pTransform->mGlobalModelMatrix);
 							renderable->SetViewMatrix(curCamera);
 							renderable->SetProjectionMatrix(curCamera);
 							
@@ -566,7 +517,7 @@ namespace HX3D
 					for (vectorRenderable::iterator itr1 = itr->second.begin(); itr1 != itr->second.end(); ++itr1)
 					{
 						HXRenderable* renderable = *itr1;
-						renderable->SetModelMatrix(renderable->m_pTransform->mCurModelMatrix);
+						renderable->SetModelMatrix(renderable->m_pTransform->mGlobalModelMatrix);
 						renderable->SetViewMatrix(curCamera);
 						renderable->SetProjectionMatrix(curCamera);
 					}
@@ -641,7 +592,7 @@ namespace HX3D
 
 	bool HXSceneManager::DeleteGameObject(HXGameObject* gameobject)
 	{
-		if (DeleteGameObjectRecurve(gameObjectTreeRoot->GetChildren(), gameobject))
+		if (DeleteGameObjectRecurve(gameObjectTreeRoot->GetTransform()->GetChildren(), gameobject))
 		{
 			UpdateRenderableQueue();
 			return true;
@@ -652,11 +603,11 @@ namespace HX3D
 		}
 	}
 
-	bool HXSceneManager::DeleteGameObjectRecurve(std::vector<HXGameObject*>& list, HXGameObject* gameobject)
+	bool HXSceneManager::DeleteGameObjectRecurve(std::vector<HXITransform*>& list, HXGameObject* gameobject)
 	{
-		for (std::vector<HXGameObject*>::iterator itr = list.begin(); itr != list.end(); ++itr)
+		for (std::vector<HXITransform*>::iterator itr = list.begin(); itr != list.end(); ++itr)
 		{
-			if ((*itr) == gameobject)
+			if ((*itr)->gameObject == gameobject)
 			{
 				list.erase(itr);
 				delete gameobject;
@@ -675,9 +626,9 @@ namespace HX3D
 	{
 		opaqueMap.clear();
 		transparentMap.clear();
-		for (std::vector<HXGameObject*>::iterator itr = gameObjectTreeRoot->GetChildren().begin(); itr != gameObjectTreeRoot->GetChildren().end(); ++itr)
+		for (std::vector<HXITransform*>::iterator itr = gameObjectTreeRoot->GetTransform()->GetChildren().begin(); itr != gameObjectTreeRoot->GetTransform()->GetChildren().end(); ++itr)
 		{
-			InsertGameObjectToOrderQueueRecurve(*itr);
+			InsertGameObjectToOrderQueueRecurve((*itr)->gameObject);
 		}
 	}
 }
