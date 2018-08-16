@@ -20,15 +20,13 @@ namespace HX3D
 
 		void Update();
 
-		//void Insert_To_RenderList(HXRenderList* pRenderList);
-
 		std::string GetName() { return m_strName; }
 		void SetName(std::string strName) { m_strName = strName; }
 		HXMesh* GetMesh();
-		HXGameObject* GetFather();
-		void SetFather(HXGameObject* father);
-		void AddChild(HXGameObject* child);
-		//std::vector<HXGameObject*>& GetChildren();
+		//HXGameObject* GetFather();
+		//void SetFather(HXGameObject* father);
+		//void AddChild(HXGameObject* child);
+		
 		HXITransform* GetTransform();
 		bool GetActivity() const;
 		void SetActivity(bool activity);

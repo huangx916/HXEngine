@@ -24,11 +24,6 @@ namespace HX3D
 		return mLocalPostion;
 	}
 
-	/*const HXVector3D& HXITransform::GetGlobalPosition()
-	{
-
-	}*/
-
 	void HXITransform::Move(const HXVector3D& mov)
 	{
 		mLocalPostion += mov;

@@ -11,6 +11,21 @@ namespace HX3D
 	{
 	}
 
+	HXVector3D HXGDITransform::GetGlobalPosition()
+	{
+		return GetVector3DMulMatrix44(mLocalPostion, mGlobalModelMatrix);
+	}
+
+	HXVector3D HXGDITransform::GetGlobalRotation()
+	{
+		return GetVector3DMulMatrix44(mLocalEulerDegree, mGlobalModelMatrix);
+	}
+
+	HXVector3D HXGDITransform::GetGlobalScale()
+	{
+		return GetVector3DMulMatrix44(mLocalScale, mGlobalModelMatrix);
+	}
+
 	void HXGDITransform::CaculateModelMatrix(HXMatrix44& fatherModelMatrix)
 	{
 		// 缩放处理S
@@ -23,7 +38,6 @@ namespace HX3D
 		HXMatrix44 matT = GetTranslateMatrix44(mLocalPostion.x, mLocalPostion.y, mLocalPostion.z);
 
 		// 模型空间到世界空间转换 SQT
-		// HXMatrix44 mat = matS*matX*matY*matZ*matT;
 		HXMatrix44 mat = matS*matY*matZ*matX*matT;
 
 		mGlobalModelMatrix = mat * fatherModelMatrix;
@@ -41,7 +55,6 @@ namespace HX3D
 		HXMatrix44 matT = GetTranslateMatrix44(mLocalPostion.x, mLocalPostion.y, mLocalPostion.z);
 
 		// 模型空间到世界空间转换 SQT
-		// HXMatrix44 mat = matS*matX*matY*matZ*matT;
 		HXMatrix44 mat = matS*matY*matZ*matX*matT;
 
 		mGlobalModelMatrix = mat;

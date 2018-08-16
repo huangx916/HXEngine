@@ -232,12 +232,14 @@ void HXHierarchyWidget::UpdateCoordArrow(HX3D::HXITransform* trans)
 	_CoordArrow->SetActivity(true);
 
 	_EditorCamera->transform->SetLocalRotation(mainCamera->transform->GetLocalRotation());
-	_CoordArrow->GetTransform()->SetLocalRotation(trans->GetLocalRotation());
 
 	mainCamera->Update();
 	_EditorCamera->Update();
+	HXSceneManager::GetInstance()->GetGameObjectTreeRoot()->Update();
+	
+	_CoordArrow->GetTransform()->SetLocalRotation(trans->GetGlobalRotation());
 
-	HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetLocalPosition());
+	HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetGlobalPosition());
 	pos = _EditorCamera->NDCToWorldPoint(pos);
 	_CoordArrow->GetTransform()->SetLocalPosition(pos);
 }

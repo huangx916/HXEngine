@@ -149,36 +149,25 @@ namespace HX3D
 		}
 	}
 
-	/*void HXGameObject::Insert_To_RenderList(HXRenderList* pRenderList)
-	{
-		m_pMesh->Insert_To_RenderList(mPostion, mEulerDegree, mScale, pRenderList);
-	}*/
-
 	HXMesh* HXGameObject::GetMesh()
 	{
 		return m_pMesh;
 	}
 
-	HXGameObject* HXGameObject::GetFather()
-	{
-		return transform->parent->gameObject;
-	}
+	//HXGameObject* HXGameObject::GetFather()
+	//{
+	//	return transform->parent->gameObject;
+	//}
 
-	void HXGameObject::SetFather(HXGameObject* father)
-	{
-		transform->parent = father->transform;
-	}
+	//void HXGameObject::SetFather(HXGameObject* father)
+	//{
+	//	transform->parent = father->transform;
+	//}
 
-	void HXGameObject::AddChild(HXGameObject* child)
-	{
-		//vctChildren.push_back(child);
-		transform->AddChild(child->transform);
-	}
-
-	/*std::vector<HXGameObject*>& HXGameObject::GetChildren()
-	{
-		return vctChildren;
-	}*/
+	//void HXGameObject::AddChild(HXGameObject* child)
+	//{
+	//	transform->AddChild(child->transform);
+	//}
 
 	HXITransform* HXGameObject::GetTransform()
 	{

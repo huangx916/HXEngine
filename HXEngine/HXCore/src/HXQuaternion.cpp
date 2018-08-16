@@ -52,6 +52,134 @@ namespace HX3D
 		w = fCos;
 	}
 
+	int Sign(double param)
+	{
+		if (param > 0)
+		{
+			return 1;
+		}
+		else if (param == 0)
+		{
+			return 0;
+		}
+		else// if (param < 0)
+		{
+			return -1;
+		}
+	}
+
+	HXVector3D HXQuaternion::ToEulerDegree()
+	{
+		HXVector3D euler;
+		const double Epsilon = 0.0009765625f;
+		const double Threshold = 0.5f - Epsilon;
+
+		double TEST = w*y - x*z;
+
+		if (TEST < -Threshold || TEST > Threshold) // ÆæÒì×ËÌ¬,¸©Ñö½ÇÎª¡À90¡ã
+		{
+			int sign = Sign(TEST);
+
+			euler.z = -2 * sign * (double)atan2(x, w); // yaw
+
+			euler.y = sign * (PI / 2.0); // pitch
+
+			euler.x = 0; // roll
+
+		}
+		else
+		{
+			euler.x = atan2(2 * (y*z + w*x), w*w - x*x - y*y + z*z);
+			euler.y = asin(-2 * (x*z - w*y));
+			euler.z = atan2(2 * (x*y + w*z), w*w + x*x - y*y - z*z);
+		}
+		euler.x = Radian_TO_Degree(euler.x);
+		euler.y = Radian_TO_Degree(euler.y);
+		euler.z = Radian_TO_Degree(euler.z);
+		return euler;
+	}
+
+	HXVector3D HXQuaternion::ToEulerDegree1()
+	{
+		double heading;
+		double attitude;
+		double bank;
+
+		double sqw = w*w;
+		double sqx = x*x;
+		double sqy = y*y;
+		double sqz = z*z;
+		double unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+		double test = x*y + z*w;
+		if (test > 0.499*unit) { // singularity at north pole
+			heading = 2 * atan2(x, w);
+			attitude = PI / 2;
+			bank = 0;
+			HXVector3D euler;
+			euler.x = Radian_TO_Degree(heading);
+			euler.y = Radian_TO_Degree(attitude);
+			euler.z = Radian_TO_Degree(bank);
+			return euler;
+		}
+		if (test < -0.499*unit) { // singularity at south pole
+			heading = -2 * atan2(x, w);
+			attitude = -PI / 2;
+			bank = 0;
+			HXVector3D euler;
+			euler.x = Radian_TO_Degree(heading);
+			euler.y = Radian_TO_Degree(attitude);
+			euler.z = Radian_TO_Degree(bank);
+			return euler;
+		}
+		heading = atan2(2 * y*w - 2 * x*z, sqx - sqy - sqz + sqw);
+		attitude = asin(2 * test / unit);
+		bank = atan2(2 * x*w - 2 * y*z, -sqx + sqy - sqz + sqw);
+		
+		HXVector3D euler;
+		euler.x = Radian_TO_Degree(heading);
+		euler.y = Radian_TO_Degree(attitude);
+		euler.z = Radian_TO_Degree(bank);
+		return euler;
+	}
+
+
+
+	void threeaxisrot(double r11, double r12, double r21, double r31, double r32, double res[]) {
+		res[0] = atan2(r31, r32);
+		res[1] = asin(r21);
+		res[2] = atan2(r11, r12);
+	}
+
+	void HXQuaternion::quaternion2Euler(double res[])
+	{
+		//yzx
+		threeaxisrot(-2 * (x*z - w*y),
+			w*w + x*x - y*y - z*z,
+			2 * (x*y + w*z),
+			-2 * (y*z - w*x),
+			w*w - x*x + y*y - z*z,
+			res);
+
+		//xzy
+		//threeaxisrot(2 * (y*z + w*x),
+		//	w*w - x*x + y*y - z*z,
+		//	-2 * (x*y - w*z),
+		//	2 * (x*z + w*y),
+		//	w*w + x*x - y*y - z*z,
+		//	res);
+
+		threeaxisrot(2 * (x*z + w*y),
+			w*w - x*x - y*y + z*z,
+			-2 * (y*z - w*x),
+			2 * (x*y + w*z),
+			w*w - x*x + y*y - z*z,
+			res);
+	}
+
+
+
+
+
 	HXQuaternion HXQuaternion::operator*(const HXQuaternion& rhs) const
 	{
 		HXQuaternion q;
