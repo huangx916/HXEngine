@@ -61,11 +61,13 @@
     <ClInclude Include="include\HXMaterial.h" />
     <ClInclude Include="include\HXMath.h" />
     <ClInclude Include="include\HXMatrix.h" />
+    <ClInclude Include="include\HXMatrix4x4.h" />
     <ClInclude Include="include\HXMesh.h" />
     <ClInclude Include="include\HXFBXLoader.h" />
     <ClInclude Include="include\HXFBXMesh.h" />
     <ClInclude Include="include\HXPlane.h" />
     <ClInclude Include="include\HXQuaternion.h" />
+    <ClInclude Include="include\HXQuaternionOld.h" />
     <ClInclude Include="include\HXRenderable.h" />
     <ClInclude Include="include\HXRenderState.h" />
     <ClInclude Include="include\HXRenderSystem.h" />
@@ -77,6 +79,8 @@
     <ClInclude Include="include\hxtest.h" />
     <ClInclude Include="include\HXUtil.h" />
     <ClInclude Include="include\HXVector.h" />
+    <ClInclude Include="include\HXVector3.h" />
+    <ClInclude Include="include\MathUtils3D.h" />
     <ClInclude Include="include\Matrices.h" />
     <ClInclude Include="include\tinystr.h" />
     <ClInclude Include="include\tinyxml.h" />
@@ -120,11 +124,13 @@
     <ClCompile Include="src\HXMaterial.cpp" />
     <ClCompile Include="src\HXMath.cpp" />
     <ClCompile Include="src\HXMatrix.cpp" />
+    <ClCompile Include="src\HXMatrix4x4.cpp" />
     <ClCompile Include="src\HXMesh.cpp" />
     <ClCompile Include="src\HXFBXLoader.cpp" />
     <ClCompile Include="src\HXFBXMesh.cpp" />
     <ClCompile Include="src\HXPlane.cpp" />
     <ClCompile Include="src\HXQuaternion.cpp" />
+    <ClCompile Include="src\HXQuaternionOld.cpp" />
     <ClCompile Include="src\HXRenderable.cpp" />
     <ClCompile Include="src\HXRenderState.cpp" />
     <ClCompile Include="src\HXRenderSystem.cpp" />
@@ -136,6 +142,8 @@
     <ClCompile Include="src\hxtest.cpp" />
     <ClCompile Include="src\HXVector.cpp" />
     <ClCompile Include="src\HXGLLoadPNG.cpp" />
+    <ClCompile Include="src\HXVector3.cpp" />
+    <ClCompile Include="src\MathUtils3D.cpp" />
     <ClCompile Include="src\Matrices.cpp" />
     <ClCompile Include="src\tinystr.cpp" />
     <ClCompile Include="src\tinyxml.cpp" />

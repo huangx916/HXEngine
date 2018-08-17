@@ -1,7 +1,7 @@
 #include "..\include\HXGDICamera.h"
 #include "HXFrustum.h"
 #include "HXMath.h"
-#include "HXQuaternion.h"
+#include "HXQuaternionOld.h"
 #include "HXGDITransform.h"
 
 namespace HX3D
@@ -25,7 +25,7 @@ namespace HX3D
 		float nearZ, float farZ)
 	{
 		transform->mLocalPostion = position;
-		transform->mLocalEulerDegree = rotate;
+		transform->mLocalEuler = rotate;
 		mFrustum = new HXFrustum(transform
 			, 90, nearZ, farZ, SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
@@ -45,8 +45,8 @@ namespace HX3D
 
 	void HXGDICamera::move(const HXVector3D& mov)
 	{
-		HXQuaternion q;
-		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
+		HXQuaternionOld q;
+		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D v = mov;
 		v = q.Transform(v);
 		transform->mLocalPostion += v;
@@ -54,11 +54,11 @@ namespace HX3D
 
 	void HXGDICamera::yaw(float fDegree)
 	{
-		transform->mLocalEulerDegree.y += fDegree;
+		transform->mLocalEuler.y += fDegree;
 	}
 
 	void HXGDICamera::pitch(float fDegree)
 	{
-		transform->mLocalEulerDegree.x += fDegree;
+		transform->mLocalEuler.x += fDegree;
 	}
 }

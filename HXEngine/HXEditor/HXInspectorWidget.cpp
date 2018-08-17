@@ -1069,9 +1069,9 @@ void HXInspectorWidget::SetCameraInfo(HXICamera* pCamera)
 		spinboxCameraPositionY->setValue(selectedCamera->transform->mLocalPostion.y);
 		spinboxCameraPositionZ->setValue(selectedCamera->transform->mLocalPostion.z);
 
-		spinboxCameraRotationX->setValue(selectedCamera->transform->mLocalEulerDegree.x);
-		spinboxCameraRotationY->setValue(selectedCamera->transform->mLocalEulerDegree.y);
-		spinboxCameraRotationZ->setValue(selectedCamera->transform->mLocalEulerDegree.z);
+		spinboxCameraRotationX->setValue(selectedCamera->transform->mLocalEuler.x);
+		spinboxCameraRotationY->setValue(selectedCamera->transform->mLocalEuler.y);
+		spinboxCameraRotationZ->setValue(selectedCamera->transform->mLocalEuler.z);
 	}
 	else
 	{

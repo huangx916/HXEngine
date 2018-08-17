@@ -1,201 +1,93 @@
 #include "..\include\HXQuaternion.h"
+#include "HXMatrix4x4.h"
 
 namespace HX3D
 {
-	const HXQuaternion HXQuaternion::IDENTITY(0,0,0,1); //Ðý×ª0¶È
-
-	HXQuaternion::HXQuaternion() :x(0),y(0),z(0),w(1)
+	HXQuaternion::HXQuaternion()
 	{
-	}
 
-	HXQuaternion::HXQuaternion(float fX, float fY, float fZ, float fW)
-	{
-		x = fX;
-		y = fY;
-		z = fZ;
-		w = fW;
 	}
 
 	HXQuaternion::~HXQuaternion()
 	{
+
 	}
 
-	HXQuaternion HXQuaternion::Inverse() const
+	void HXQuaternion::createFromYawPitchRoll(float yaw, float pitch, float roll, HXQuaternion& out)
 	{
-		float fNorm = x*x + y*y + z*z + w*w;
-		float fInvNorm = 1.0f / fNorm;
-		return HXQuaternion(-x*fInvNorm,-y*fInvNorm,-z*fInvNorm,w*fInvNorm);
+		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
+		float halfRoll = roll * 0.5;
+		float halfPitch = pitch * 0.5;
+		float halfYaw = yaw * 0.5;
+
+		float sinRoll = sin(halfRoll);
+		float cosRoll = cos(halfRoll);
+		float sinPitch = sin(halfPitch);
+		float cosPitch = cos(halfPitch);
+		float sinYaw = sin(halfYaw);
+		float cosYaw = cos(halfYaw);
+
+		float* oe = out.elements;
+		oe[0] = (cosYaw * sinPitch * cosRoll) + (sinYaw * cosPitch * sinRoll);
+		oe[1] = (sinYaw * cosPitch * cosRoll) - (cosYaw * sinPitch * sinRoll);
+		oe[2] = (cosYaw * cosPitch * sinRoll) - (sinYaw * sinPitch * cosRoll);
+		oe[3] = (cosYaw * cosPitch * cosRoll) + (sinYaw * sinPitch * sinRoll);
 	}
 
-	void HXQuaternion::FromEulerDegree(float fX, float fY, float fZ)
+	void HXQuaternion::identity()
 	{
-		float X = Degree_TO_Radian(fX);
-		float Y = Degree_TO_Radian(fY);
-		float Z = Degree_TO_Radian(fZ);
-
-		x = sin(Y / 2)*sin(Z / 2)*cos(X / 2) + cos(Y / 2)*cos(Z / 2)*sin(X / 2);
-		y = sin(Y / 2)*cos(Z / 2)*cos(X / 2) + cos(Y / 2)*sin(Z / 2)*sin(X / 2);
-		z = cos(Y / 2)*sin(Z / 2)*cos(X / 2) - sin(Y / 2)*cos(Z / 2)*sin(X / 2);
-		w = cos(Y / 2)*cos(Z / 2)*cos(X / 2) - sin(Y / 2)*sin(Z / 2)*sin(X / 2);
+		float* e = this->elements;
+		e[0] = 0;
+		e[1] = 0;
+		e[2] = 0;
+		e[3] = 1;
 	}
 
-	void HXQuaternion::FromAngleAxis(float fDegree, HXVector3D axis)
+	void HXQuaternion::createFromMatrix4x4(const HXMatrix4x4& mat, HXQuaternion& out)
 	{
-		// assert:  axis is unit length
-		float fHalfDegree = fDegree * 0.5f;
-		float fHalfRadian = Degree_TO_Radian(fHalfDegree);
-		float fSin = sin(fHalfRadian);
-		float fCos = cos(fHalfRadian);
-		x = fSin * axis.x;
-		y = fSin * axis.y;
-		z = fSin * axis.z;
-		w = fCos;
-	}
+		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
+		const float* me = mat.elements;
+		float* oe = out.elements;
 
-	int Sign(double param)
-	{
-		if (param > 0)
-		{
-			return 1;
+		float _sqrt;
+		float half;
+		float scale = me[0] + me[5] + me[10];
+
+		if (scale > 0.0) {
+			_sqrt = sqrt(scale + 1.0);
+			oe[3] = _sqrt * 0.5;
+			_sqrt = 0.5 / _sqrt;
+
+			oe[0] = (me[6] - me[9]) * _sqrt;
+			oe[1] = (me[8] - me[2]) * _sqrt;
+			oe[2] = (me[1] - me[4]) * _sqrt;
 		}
-		else if (param == 0)
-		{
-			return 0;
+		else if ((me[0] >= me[5]) && (me[0] >= me[10])) {
+			_sqrt = sqrt(1.0 + me[0] - me[5] - me[10]);
+			half = 0.5 / _sqrt;
+
+			oe[0] = 0.5 * _sqrt;
+			oe[1] = (me[1] + me[4]) * half;
+			oe[2] = (me[2] + me[8]) * half;
+			oe[3] = (me[6] - me[9]) * half;
 		}
-		else// if (param < 0)
-		{
-			return -1;
+		else if (me[5] > me[10]) {
+			_sqrt = sqrt(1.0 + me[5] - me[0] - me[10]);
+			half = 0.5 / _sqrt;
+
+			oe[0] = (me[4] + me[1]) * half;
+			oe[1] = 0.5 * _sqrt;
+			oe[2] = (me[9] + me[6]) * half;
+			oe[3] = (me[8] - me[2]) * half;
 		}
-	}
+		else {
+			_sqrt = sqrt(1.0 + me[10] - me[0] - me[5]);
+			half = 0.5 / _sqrt;
 
-	HXVector3D HXQuaternion::ToEulerDegree()
-	{
-		HXVector3D euler;
-		const double Epsilon = 0.0009765625f;
-		const double Threshold = 0.5f - Epsilon;
-
-		double TEST = w*y - x*z;
-
-		if (TEST < -Threshold || TEST > Threshold) // ÆæÒì×ËÌ¬,¸©Ñö½ÇÎª¡À90¡ã
-		{
-			int sign = Sign(TEST);
-
-			euler.z = -2 * sign * (double)atan2(x, w); // yaw
-
-			euler.y = sign * (PI / 2.0); // pitch
-
-			euler.x = 0; // roll
-
+			oe[0] = (me[8] + me[2]) * half;
+			oe[1] = (me[9] + me[6]) * half;
+			oe[2] = 0.5 * _sqrt;
+			oe[3] = (me[1] - me[4]) * half;
 		}
-		else
-		{
-			euler.x = atan2(2 * (y*z + w*x), w*w - x*x - y*y + z*z);
-			euler.y = asin(-2 * (x*z - w*y));
-			euler.z = atan2(2 * (x*y + w*z), w*w + x*x - y*y - z*z);
-		}
-		euler.x = Radian_TO_Degree(euler.x);
-		euler.y = Radian_TO_Degree(euler.y);
-		euler.z = Radian_TO_Degree(euler.z);
-		return euler;
-	}
-
-	HXVector3D HXQuaternion::ToEulerDegree1()
-	{
-		double heading;
-		double attitude;
-		double bank;
-
-		double sqw = w*w;
-		double sqx = x*x;
-		double sqy = y*y;
-		double sqz = z*z;
-		double unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
-		double test = x*y + z*w;
-		if (test > 0.499*unit) { // singularity at north pole
-			heading = 2 * atan2(x, w);
-			attitude = PI / 2;
-			bank = 0;
-			HXVector3D euler;
-			euler.x = Radian_TO_Degree(heading);
-			euler.y = Radian_TO_Degree(attitude);
-			euler.z = Radian_TO_Degree(bank);
-			return euler;
-		}
-		if (test < -0.499*unit) { // singularity at south pole
-			heading = -2 * atan2(x, w);
-			attitude = -PI / 2;
-			bank = 0;
-			HXVector3D euler;
-			euler.x = Radian_TO_Degree(heading);
-			euler.y = Radian_TO_Degree(attitude);
-			euler.z = Radian_TO_Degree(bank);
-			return euler;
-		}
-		heading = atan2(2 * y*w - 2 * x*z, sqx - sqy - sqz + sqw);
-		attitude = asin(2 * test / unit);
-		bank = atan2(2 * x*w - 2 * y*z, -sqx + sqy - sqz + sqw);
-		
-		HXVector3D euler;
-		euler.x = Radian_TO_Degree(heading);
-		euler.y = Radian_TO_Degree(attitude);
-		euler.z = Radian_TO_Degree(bank);
-		return euler;
-	}
-
-
-
-	void threeaxisrot(double r11, double r12, double r21, double r31, double r32, double res[]) {
-		res[0] = atan2(r31, r32);
-		res[1] = asin(r21);
-		res[2] = atan2(r11, r12);
-	}
-
-	void HXQuaternion::quaternion2Euler(double res[])
-	{
-		//yzx
-		threeaxisrot(-2 * (x*z - w*y),
-			w*w + x*x - y*y - z*z,
-			2 * (x*y + w*z),
-			-2 * (y*z - w*x),
-			w*w - x*x + y*y - z*z,
-			res);
-
-		//xzy
-		//threeaxisrot(2 * (y*z + w*x),
-		//	w*w - x*x + y*y - z*z,
-		//	-2 * (x*y - w*z),
-		//	2 * (x*z + w*y),
-		//	w*w + x*x - y*y - z*z,
-		//	res);
-
-		threeaxisrot(2 * (x*z + w*y),
-			w*w - x*x - y*y + z*z,
-			-2 * (y*z - w*x),
-			2 * (x*y + w*z),
-			w*w - x*x + y*y - z*z,
-			res);
-	}
-
-
-
-
-
-	HXQuaternion HXQuaternion::operator*(const HXQuaternion& rhs) const
-	{
-		HXQuaternion q;
-		q.x = w * rhs.x + x * rhs.w + y * rhs.z - z * rhs.y;
-		q.y = w * rhs.y + y * rhs.w + z * rhs.x - x * rhs.z;
-		q.z = w * rhs.z + z * rhs.w + x * rhs.y - y * rhs.x;
-		q.w = w * rhs.w - x * rhs.x - y * rhs.y - z * rhs.z;
-		return q;
-	}
-
-	HXVector3D HXQuaternion::Transform(const HXVector3D& vSrc)
-	{
-		HXQuaternion p(vSrc.x, vSrc.y, vSrc.z, 0);
-		HXQuaternion q(x, y, z, w);
-		HXQuaternion invq = q.Inverse();
-		HXQuaternion destP = q*p*invq;
-		return HXVector3D(destP.x, destP.y, destP.z);
 	}
 }

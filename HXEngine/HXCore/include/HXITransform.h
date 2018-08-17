@@ -2,7 +2,7 @@
 #include "HXCommon.h"
 #include "HXVector.h"
 #include "HXMatrix.h"
-#include "HXQuaternion.h"
+#include "HXQuaternionOld.h"
 
 namespace HX3D
 {
@@ -20,7 +20,7 @@ namespace HX3D
 
 		void SetLocalRotation(const HXVector3D& rotation);
 		const HXVector3D& GetLocalRotation();
-		virtual HXVector3D GetGlobalRotation() = 0;
+		//virtual HXQuaternionOld GetGlobalRotation() = 0;
 		void Pitch(float fDegree);	// ÈÆXÖáÐý×ª
 		void Yaw(float fDegree);	// ÈÆYÖáÐý×ª
 		void Roll(float fDegree);	// ÈÆZÖáÐý×ª
@@ -35,20 +35,47 @@ namespace HX3D
 		void AddChild(HXITransform* child);
 		std::vector<HXITransform*>& GetChildren();
 
-		HXITransform* parent;
+
+
+
+
+		const HXMatrix44& GetLocalMatrix();
+		void SetLocalMatrix(const HXMatrix44& mat);
+
+
+		void UpdateLocalMatrix();
+
+
+
+
+
+
+
+
+
 		HXGameObject* gameObject;
+		HXITransform* parent;
 		std::vector<HXITransform*> vctChildren;
 
 		HXVector3D mLocalPostion;
-		HXQuaternion mLocalRotation;
+		HXQuaternionOld mLocalRotation;
 		HXVector3D mLocalScale;
-		HXVector3D mLocalEulerDegree;
+		HXVector3D mLocalEuler;
+		HXMatrix44 mLocalMatrix;
 
-		HXVector3D mGlobalPostion;
-		HXVector3D mGlobalEulerDegree;
-		HXMatrix44 mGlobalRotationMatrix;
-		HXQuaternion mGlobalQuaternion;
-		HXVector3D mGlobalScale;
+		HXVector3D mPostion;
+		HXQuaternionOld mRotation;
+		HXVector3D mScale;
+		HXMatrix44 mWorldMatrix;
+
+		bool _localQuaternionUpdate;
+		bool _locaEulerlUpdate;
+		bool _localUpdate;
+		bool _worldUpdate;
+		bool _positionUpdate;
+		bool _rotationUpdate;
+		bool _scaleUpdate;
+
 
 		HXMatrix44 mGlobalModelMatrix;
 	};

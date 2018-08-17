@@ -300,11 +300,11 @@ void HXEditorWin::serializeScene(QTextStream& out)
 		out << (*itr)->transform->mLocalPostion.z;
 		out << "\"/>\n";
 		out << "			<Rotation Rx=\"";
-		out << (*itr)->transform->mLocalEulerDegree.x;
+		out << (*itr)->transform->mLocalEuler.x;
 		out << "\" Ry=\"";
-		out << (*itr)->transform->mLocalEulerDegree.y;
+		out << (*itr)->transform->mLocalEuler.y;
 		out << "\" Rz=\"";
-		out << (*itr)->transform->mLocalEulerDegree.z;
+		out << (*itr)->transform->mLocalEuler.z;
 		out << "\"/>\n";
 		out << "		</Camera>\n";
 	}

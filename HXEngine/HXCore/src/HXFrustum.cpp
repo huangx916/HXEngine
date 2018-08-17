@@ -1,6 +1,6 @@
 #include "..\include\HXFrustum.h"
 #include "HXMath.h"
-#include "HXQuaternion.h"
+#include "HXQuaternionOld.h"
 #include "HXGDITransform.h"
 
 namespace HX3D
@@ -69,8 +69,8 @@ namespace HX3D
 
 	HXVector4D HXFrustum::updateTarget()
 	{
-		HXQuaternion q;
-		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
+		HXQuaternionOld q;
+		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D vec = HXVector3D(0, 0, -1);
 		vec = q.Transform(vec);
 		return HXVector4D(transform->mLocalPostion + vec, 1);

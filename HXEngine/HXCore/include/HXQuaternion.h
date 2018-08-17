@@ -1,33 +1,39 @@
 #pragma once
 #include "HXCommon.h"
-#include "HXVector.h"
+#include "HXVector3.h"
 
 namespace HX3D
 {
+	class HXMatrix4x4;
 	class HXQuaternion
 	{
 	public:
-		static const HXQuaternion IDENTITY;
-
 		HXQuaternion();
-		HXQuaternion(float fX, float fY, float fZ, float fW);
 		~HXQuaternion();
 
-		HXQuaternion Inverse() const;
-		void FromEulerDegree(float fX, float fY, float fZ);
-		void FromAngleAxis(float fDegree, HXVector3D axis);
+		/**
+		*  从欧拉角生成四元数（顺序为Yaw、Pitch、Roll）
+		* @param	yaw yaw值
+		* @param	pitch pitch值
+		* @param	roll roll值
+		* @param	out 输出四元数
+		*/
+		static void createFromYawPitchRoll(float yaw, float pitch, float roll, HXQuaternion& out);
 
-		// Z-Y-X Euler angles
-		HXVector3D ToEulerDegree();
-		HXVector3D ToEulerDegree1();
-		void quaternion2Euler(double res[]);
+		/**
+		*设置四元数为单位算数
+		* @param out  输出四元数
+		*/
+		void identity();
 
-		HXQuaternion operator*( const HXQuaternion& rhs) const;
-		HXVector3D Transform(const HXVector3D& vSrc);
+		/**
+		*  从旋转矩阵计算四元数
+		* @param	mat 旋转矩阵
+		* @param	out  输出四元数
+		*/
+		static void createFromMatrix4x4(const HXMatrix4x4& mat, HXQuaternion& out);
 
-		float x;
-		float y;
-		float z;
-		float w;
+		/**四元数元素数组*/
+		float elements[4];
 	};
 }

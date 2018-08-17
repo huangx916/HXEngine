@@ -130,9 +130,6 @@
     <ClCompile Include="src\HXMatrix.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="src\HXQuaternion.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXVector.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -171,6 +168,21 @@
     </ClCompile>
     <ClCompile Include="src\HXFog.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXMatrix4x4.cpp">
+      <Filter>Math\New</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXVector3.cpp">
+      <Filter>Math\New</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXQuaternionOld.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXQuaternion.cpp">
+      <Filter>Math\New</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MathUtils3D.cpp">
+      <Filter>Math\New</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,9 +339,6 @@
     <ClInclude Include="include\HXMatrix.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXQuaternion.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXVector.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -362,6 +371,21 @@
     </ClInclude>
     <ClInclude Include="include\HXFog.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXMatrix4x4.h">
+      <Filter>Math\New</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXVector3.h">
+      <Filter>Math\New</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXQuaternionOld.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXQuaternion.h">
+      <Filter>Math\New</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MathUtils3D.h">
+      <Filter>Math\New</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +421,9 @@
     </Filter>
     <Filter Include="FBX">
       <UniqueIdentifier>{f6d5d896-01e2-4968-aea5-eb9ff658d3a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\New">
+      <UniqueIdentifier>{bad6778a-7f7b-4145-a31e-a02eda05c4cb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

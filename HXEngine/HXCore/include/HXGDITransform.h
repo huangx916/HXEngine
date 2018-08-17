@@ -11,7 +11,7 @@ namespace HX3D
 		~HXGDITransform();
 
 		virtual HXVector3D GetGlobalPosition();
-		virtual HXVector3D GetGlobalRotation();
+		//virtual HXQuaternionOld GetGlobalRotation();
 		virtual HXVector3D GetGlobalScale();
 
 		virtual void CaculateModelMatrix(HXMatrix44& fatherModelMatrix);

@@ -9,7 +9,7 @@ namespace HX3D
 	class HXMesh;
 	struct HXRenderList;
 	class HXRenderSystem;
-	class HXGameObjectInfo;
+	struct HXGameObjectInfo;
 	class HXGameObject
 	{
 	public:

@@ -25,7 +25,7 @@ namespace HX3D
 		mFar = farZ;
 
 		transform->mLocalPostion = position;
-		transform->mLocalEulerDegree = rotate;
+		transform->mLocalEuler = rotate;
 
 		UpdateProjectionMatrix(mField, mSize, mNear, mFar);
 	}
@@ -87,8 +87,8 @@ namespace HX3D
 
 	HXVector3D HXGLCamera::UpdateAt()
 	{
-		HXQuaternion q;
-		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
+		HXQuaternionOld q;
+		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D vec = HXVector3D(0, 0, -1);
 		vec = q.Transform(vec);
 		return transform->mLocalPostion + vec;
@@ -96,8 +96,8 @@ namespace HX3D
 
 	HXVector3D HXGLCamera::UpdateUp()
 	{
-		HXQuaternion q;
-		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
+		HXQuaternionOld q;
+		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D vec = HXVector3D(0, 1, 0);
 		return q.Transform(vec);
 	}
@@ -132,8 +132,8 @@ namespace HX3D
 
 	void HXGLCamera::move(const HXVector3D& mov)
 	{
-		HXQuaternion q;
-		q.FromEulerDegree(transform->mLocalEulerDegree.x, transform->mLocalEulerDegree.y, transform->mLocalEulerDegree.z);
+		HXQuaternionOld q;
+		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D v = mov;
 		v = q.Transform(v);
 		transform->mLocalPostion += v;
@@ -142,13 +142,13 @@ namespace HX3D
 	void HXGLCamera::yaw(float fDegree)
 	{
 		// 四元数形式
-		transform->mLocalEulerDegree.y += fDegree;
+		transform->mLocalEuler.y += fDegree;
 	}
 
 	void HXGLCamera::pitch(float fDegree)
 	{
 		// 四元数形式
-		transform->mLocalEulerDegree.x += fDegree;
+		transform->mLocalEuler.x += fDegree;
 	}
 
 	void HXGLCamera::UpdateViewMatrix(const HXVector3D& eye, const HXVector3D& at, const HXVector3D& up)

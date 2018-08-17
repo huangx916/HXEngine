@@ -41,11 +41,11 @@ namespace HX3D
 
 	HXVector3D HXGLTransform::GetGlobalPosition()
 	{
-		mGlobalPostion = GetVector3DMulMatrix44(HXVector3D(0,0,0), mGlobalModelMatrix);
-		return mGlobalPostion;
+		mPostion = GetVector3DMulMatrix44(HXVector3D(0,0,0), mGlobalModelMatrix);
+		return mPostion;
 	}
 
-	HXVector3D HXGLTransform::GetGlobalRotation()
+	HXQuaternionOld HXGLTransform::GetGlobalRotation()
 	{
 		//float x = Radian_TO_Degree(atan2(mGlobalModelMatrix.m[2][1], mGlobalModelMatrix.m[2][2]/mGlobalScale.z));
 		//float y = Radian_TO_Degree(atan2(-mGlobalModelMatrix.m[2][0], sqrt(mGlobalModelMatrix.m[2][1] * mGlobalModelMatrix.m[2][1] + mGlobalModelMatrix.m[2][2] / mGlobalScale.z * mGlobalModelMatrix.m[2][2] / mGlobalScale.z)));
@@ -64,15 +64,17 @@ namespace HX3D
 		/*mGlobalEulerDegree = mGlobalQuaternion.ToEulerDegree1();
 		return mGlobalEulerDegree;*/
 
-		double euler[3];
-		mGlobalQuaternion.quaternion2Euler(euler);
+		/*double euler[3];
+		mGlobalRotation.quaternion2Euler(euler);
 		mGlobalEulerDegree = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
-		return mGlobalEulerDegree;
+		return mGlobalEulerDegree;*/
+
+		return mRotation;
 	}
 
 	HXVector3D HXGLTransform::GetGlobalScale()
 	{
-		return mGlobalScale;
+		return mScale;
 	}
 
 	void HXGLTransform::CaculateModelMatrix(HXMatrix44& fatherModelMatrix)
@@ -101,27 +103,28 @@ namespace HX3D
 		// 缩放处理S
 		HXMatrix44 matS = GetScaleMatrix44(mLocalScale.x, mLocalScale.y, mLocalScale.z);
 		// 旋转处理Q
-		HXMatrix44 matX = GetRotateMatrix44X(mLocalEulerDegree.x);
-		HXMatrix44 matY = GetRotateMatrix44Y(mLocalEulerDegree.y);
-		HXMatrix44 matZ = GetRotateMatrix44Z(mLocalEulerDegree.z);
+		HXMatrix44 matX = GetRotateMatrix44X(mLocalEuler.x);
+		HXMatrix44 matY = GetRotateMatrix44Y(mLocalEuler.y);
+		HXMatrix44 matZ = GetRotateMatrix44Z(mLocalEuler.z);
 		// 平移一定要最后处理T
 		HXMatrix44 matT = GetTranslateMatrix44(mLocalPostion.x, mLocalPostion.y, mLocalPostion.z);
 
 		// 模型空间到世界空间转换 SQT
-		mGlobalModelMatrix = matS*matY*matZ*matX*matT * fatherModelMatrix;
+		//mGlobalModelMatrix = matS*matY*matZ*matX*matT * fatherModelMatrix;
+		mGlobalModelMatrix = matS*matY*matX*matZ*matT * fatherModelMatrix;
 
-		//mGlobalEulerDegree = mLocalEulerDegree + parent->mGlobalEulerDegree;
-		mGlobalScale = mLocalScale * parent->mGlobalScale;
-		mGlobalRotationMatrix = matY*matZ*matX * parent->mGlobalRotationMatrix;
+		////mGlobalEulerDegree = mLocalEulerDegree + parent->mGlobalEulerDegree;
+		//mScale = mLocalScale * parent->mScale;
+		//mGlobalRotationMatrix = matY*matZ*matX * parent->mGlobalRotationMatrix;
 
-		HXQuaternion q;
-		q.FromEulerDegree(mLocalEulerDegree.x, mLocalEulerDegree.y, mLocalEulerDegree.z);
-		mGlobalQuaternion = q * parent->mGlobalQuaternion;
+		//HXQuaternionOld q;
+		//q.FromEulerDegree(mLocalEuler.x, mLocalEuler.y, mLocalEuler.z);
+		//mRotation = q * parent->mRotation;
 
-		//HXVector3D test = q.ToEulerDegree1();
-		double euler[3];
-		q.quaternion2Euler(euler);
-		HXVector3D test = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
+		////HXVector3D test = q.ToEulerDegree1();
+		//double euler[3];
+		//q.quaternion2Euler(euler);
+		//HXVector3D test = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
 	}
 
 	void HXGLTransform::CaculateModelMatrix()
@@ -147,26 +150,27 @@ namespace HX3D
 		// 缩放处理S
 		HXMatrix44 matS = GetScaleMatrix44(mLocalScale.x, mLocalScale.y, mLocalScale.z);
 		// 旋转处理Q
-		HXMatrix44 matX = GetRotateMatrix44X(mLocalEulerDegree.x);
-		HXMatrix44 matY = GetRotateMatrix44Y(mLocalEulerDegree.y);
-		HXMatrix44 matZ = GetRotateMatrix44Z(mLocalEulerDegree.z);
+		HXMatrix44 matX = GetRotateMatrix44X(mLocalEuler.x);
+		HXMatrix44 matY = GetRotateMatrix44Y(mLocalEuler.y);
+		HXMatrix44 matZ = GetRotateMatrix44Z(mLocalEuler.z);
 		// 平移一定要最后处理T
 		HXMatrix44 matT = GetTranslateMatrix44(mLocalPostion.x, mLocalPostion.y, mLocalPostion.z);
 
 		// 模型空间到世界空间转换 SQT
-		mGlobalModelMatrix = matS*matY*matZ*matX*matT;
+		//mGlobalModelMatrix = matS*matY*matZ*matX*matT;
+		mGlobalModelMatrix = matS*matY*matX*matZ*matT;
 
-		//mGlobalEulerDegree = mLocalEulerDegree;
-		mGlobalScale = mLocalScale;
-		mGlobalRotationMatrix = matY*matZ*matX;
+		////mGlobalEulerDegree = mLocalEulerDegree;
+		//mScale = mLocalScale;
+		//mGlobalRotationMatrix = matY*matZ*matX;
 
-		HXQuaternion q;
-		q.FromEulerDegree(mLocalEulerDegree.x, mLocalEulerDegree.y, mLocalEulerDegree.z);
-		mGlobalQuaternion = q;
+		//HXQuaternionOld q;
+		//q.FromEulerDegree(mLocalEuler.x, mLocalEuler.y, mLocalEuler.z);
+		//mRotation = q;
 
-		//HXVector3D test = q.ToEulerDegree1();
-		double euler[3];
-		q.quaternion2Euler(euler);
-		HXVector3D test = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
+		////HXVector3D test = q.ToEulerDegree1();
+		//double euler[3];
+		//q.quaternion2Euler(euler);
+		//HXVector3D test = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
 	}
 }

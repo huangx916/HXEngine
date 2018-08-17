@@ -1,5 +1,6 @@
 #pragma once
 #include "HXCommon.h"
+#include "HXQuaternionOld.h"
 
 namespace HX3D
 {
@@ -8,6 +9,23 @@ namespace HX3D
 	{
 		static HXMatrix44 IDENTITY;
 		float m[4][4];
+
+		//mat.m[0][0]	0
+		//mat.m[0][1]	1
+		//mat.m[0][2]	2
+		//mat.m[0][3]	3
+		//mat.m[1][0]	4
+		//mat.m[1][1]	5
+		//mat.m[1][2]	6
+		//mat.m[1][3]	7
+		//mat.m[2][0]	8
+		//mat.m[2][1]	9
+		//mat.m[2][2]	10
+		//mat.m[2][3]	11
+		//mat.m[3][0]	12
+		//mat.m[3][1]	13
+		//mat.m[3][2]	14
+		//mat.m[3][3]	15
 
 		HXMatrix44()
 		{
@@ -46,65 +64,6 @@ namespace HX3D
 			}
 			return temp;
 		}
-
-		// Äæ¾ØÕó
-		/*inline HXMatrix44 Inverse() const
-		{
-			float Coef00 = m[2][2] * m[3][3] - m[3][2] * m[2][3];
-			float Coef02 = m[1][2] * m[3][3] - m[3][2] * m[1][3];
-			float Coef03 = m[1][2] * m[2][3] - m[2][2] * m[1][3];
-
-			float Coef04 = m[2][1] * m[3][3] - m[3][1] * m[2][3];
-			float Coef06 = m[1][1] * m[3][3] - m[3][1] * m[1][3];
-			float Coef07 = m[1][1] * m[2][3] - m[2][1] * m[1][3];
-
-			float Coef08 = m[2][1] * m[3][2] - m[3][1] * m[2][2];
-			float Coef10 = m[1][1] * m[3][2] - m[3][1] * m[1][2];
-			float Coef11 = m[1][1] * m[2][2] - m[2][1] * m[1][2];
-
-			float Coef12 = m[2][0] * m[3][3] - m[3][0] * m[2][3];
-			float Coef14 = m[1][0] * m[3][3] - m[3][0] * m[1][3];
-			float Coef15 = m[1][0] * m[2][3] - m[2][0] * m[1][3];
-
-			float Coef16 = m[2][0] * m[3][2] - m[3][0] * m[2][2];
-			float Coef18 = m[1][0] * m[3][2] - m[3][0] * m[1][2];
-			float Coef19 = m[1][0] * m[2][2] - m[2][0] * m[1][2];
-
-			float Coef20 = m[2][0] * m[3][1] - m[3][0] * m[2][1];
-			float Coef22 = m[1][0] * m[3][1] - m[3][0] * m[1][1];
-			float Coef23 = m[1][0] * m[2][1] - m[2][0] * m[1][1];
-
-			const HXVector4D SignA = HXVector4D(1.0, -1.0, 1.0, -1.0);
-			const HXVector4D SignB = HXVector4D(-1.0, 1.0, -1.0, 1.0);
-
-			HXVector4D Fac0 = HXVector4D(Coef00, Coef00, Coef02, Coef03);
-			HXVector4D Fac1 = HXVector4D(Coef04, Coef04, Coef06, Coef07);
-			HXVector4D Fac2 = HXVector4D(Coef08, Coef08, Coef10, Coef11);
-			HXVector4D Fac3 = HXVector4D(Coef12, Coef12, Coef14, Coef15);
-			HXVector4D Fac4 = HXVector4D(Coef16, Coef16, Coef18, Coef19);
-			HXVector4D Fac5 = HXVector4D(Coef20, Coef20, Coef22, Coef23);
-
-			HXVector4D Vec0 = HXVector4D(m[1][0], m[0][0], m[0][0], m[0][0]);
-			HXVector4D Vec1 = HXVector4D(m[1][1], m[0][1], m[0][1], m[0][1]);
-			HXVector4D Vec2 = HXVector4D(m[1][2], m[0][2], m[0][2], m[0][2]);
-			HXVector4D Vec3 = HXVector4D(m[1][3], m[0][3], m[0][3], m[0][3]);
-
-			HXVector4D Inv0 = SignA * (Vec1 * Fac0 - Vec2 * Fac1 + Vec3 * Fac2);
-			HXVector4D Inv1 = SignB * (Vec0 * Fac0 - Vec2 * Fac3 + Vec3 * Fac4);
-			HXVector4D Inv2 = SignA * (Vec0 * Fac1 - Vec1 * Fac3 + Vec3 * Fac5);
-			HXVector4D Inv3 = SignB * (Vec0 * Fac2 - Vec1 * Fac4 + Vec2 * Fac5);
-
-			HXMatrix44 temp = HXMatrix44(Inv0, Inv1, Inv2, Inv3);
-
-			HXVector4D Row0 = HXVector4D(temp.m[0][0], temp.m[1][0], temp.m[2][0], temp.m[3][0]);
-			HXVector4D Column0 = HXVector4D(temp.m[0][0], temp.m[0][1], temp.m[0][2], temp.m[0][3]);
-
-			float Determinant = Column0.dotProduct(Row0);
-
-			temp = temp / Determinant;
-
-			return temp;
-		}*/
 
 		inline HXMatrix44 operator+(const HXMatrix44& right) const
 		{
@@ -174,7 +133,14 @@ namespace HX3D
 				return false;
 			}
 			return true;
-		}		
+		}
+
+		/*static HXMatrix44 CreateAffineTransformation(const HXVector3D& trans, const HXQuaternionOld& rot, const HXVector3D& scale);
+			
+		bool DecomposeTransRotScale(HXVector3D& translation, HXQuaternionOld& rotation, HXVector3D& scale);
+	
+		bool DecomposeTransRotMatScale(HXVector3D& translation, HXMatrix44& rotationMatrix, HXVector3D& scale);*/
+
 	};
 
 	struct HXMatrix33

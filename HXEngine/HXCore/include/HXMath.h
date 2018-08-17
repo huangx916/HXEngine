@@ -23,7 +23,6 @@ namespace HX3D
 		return Max(Min(val, maxv), minv);
 	}
 
-
 	HXMatrix44 GetTranslateMatrix44(float tx, float ty, float tz);
 
 	HXMatrix44 GetScaleMatrix44(float sx, float sy, float sz);

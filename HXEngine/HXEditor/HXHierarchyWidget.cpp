@@ -194,8 +194,8 @@ void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetIt
 void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int column)
 {
 	HXITransform* trans = HXSceneManager::GetInstance()->GetMainCamera()->transform;
-	HXQuaternion q;
-	q.FromEulerDegree(trans->mLocalEulerDegree.x, trans->mLocalEulerDegree.y, trans->mLocalEulerDegree.z);
+	HXQuaternionOld q;
+	q.FromEulerDegree(trans->mLocalEuler.x, trans->mLocalEuler.y, trans->mLocalEuler.z);
 	HXVector3D vec = HXVector3D(0, 0, 5);
 	vec = q.Transform(vec);
 
@@ -237,7 +237,7 @@ void HXHierarchyWidget::UpdateCoordArrow(HX3D::HXITransform* trans)
 	_EditorCamera->Update();
 	HXSceneManager::GetInstance()->GetGameObjectTreeRoot()->Update();
 	
-	_CoordArrow->GetTransform()->SetLocalRotation(trans->GetGlobalRotation());
+	//_CoordArrow->GetTransform()->SetLocalRotation(trans->GetGlobalRotation());
 
 	HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetGlobalPosition());
 	pos = _EditorCamera->NDCToWorldPoint(pos);
