@@ -75,13 +75,7 @@ namespace HX3D
 	}
 
 
-
-
-
-
-
-
-
+	// New
 	const HXMatrix44& HXITransform::GetLocalMatrix()
 	{
 		if (_localUpdate)
@@ -94,11 +88,26 @@ namespace HX3D
 
 	void HXITransform::SetLocalMatrix(const HXMatrix44& mat)
 	{
-
+		mLocalMatrix = mat;
+		mLocalMatrix.DecomposeTransRotScale(mLocalPostion, mLocalRotation, mLocalScale);
+		_localUpdate = false;
+		OnWorldTransform();
 	}
 
 	void HXITransform::UpdateLocalMatrix()
 	{
-		//mLocalMatrix = HXMatrix44::CreateAffineTransformation(mLocalPostion, mLocalRotation, mLocalScale);
+		mLocalMatrix = HXMatrix44::CreateAffineTransformation(mLocalPostion, mLocalRotation, mLocalScale);
+	}
+
+	void HXITransform::OnWorldTransform()
+	{
+		if (!_worldUpdate || !_positionUpdate || !_rotationUpdate || !_scaleUpdate) {
+			_worldUpdate = _positionUpdate = _rotationUpdate = _scaleUpdate = true;
+			// event(Event.WORLDMATRIX_NEEDCHANGE);
+			for (std::vector<HXITransform*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+			{
+				(*itr)->OnWorldTransform();
+			}
+		}
 	}
 }

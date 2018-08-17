@@ -13,16 +13,19 @@ namespace HX3D
 
 	HXVector3D HXGDITransform::GetGlobalPosition()
 	{
+		// TODO: 错误的,参考HXGLTransform
 		return GetVector3DMulMatrix44(mLocalPostion, mGlobalModelMatrix);
 	}
 
-	/*HXQuaternionOld HXGDITransform::GetGlobalRotation()
+	HXVector3D HXGDITransform::GetGlobalRotation()
 	{
+		// TODO: 错误的,参考HXGLTransform
 		return GetVector3DMulMatrix44(mLocalEuler, mGlobalModelMatrix);
-	}*/
+	}
 
 	HXVector3D HXGDITransform::GetGlobalScale()
 	{
+		// TODO: 错误的,参考HXGLTransform
 		return GetVector3DMulMatrix44(mLocalScale, mGlobalModelMatrix);
 	}
 

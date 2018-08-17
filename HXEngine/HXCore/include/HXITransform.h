@@ -20,7 +20,7 @@ namespace HX3D
 
 		void SetLocalRotation(const HXVector3D& rotation);
 		const HXVector3D& GetLocalRotation();
-		//virtual HXQuaternionOld GetGlobalRotation() = 0;
+		virtual HXVector3D GetGlobalRotation() = 0;
 		void Pitch(float fDegree);	// ÈÆXÖáÐý×ª
 		void Yaw(float fDegree);	// ÈÆYÖáÐý×ª
 		void Roll(float fDegree);	// ÈÆZÖáÐý×ª
@@ -36,21 +36,11 @@ namespace HX3D
 		std::vector<HXITransform*>& GetChildren();
 
 
-
-
-
+		// New
 		const HXMatrix44& GetLocalMatrix();
 		void SetLocalMatrix(const HXMatrix44& mat);
-
-
 		void UpdateLocalMatrix();
-
-
-
-
-
-
-
+		void OnWorldTransform();
 
 
 		HXGameObject* gameObject;
@@ -67,6 +57,8 @@ namespace HX3D
 		HXQuaternionOld mRotation;
 		HXVector3D mScale;
 		HXMatrix44 mWorldMatrix;
+
+		HXVector3D mEuler;
 
 		bool _localQuaternionUpdate;
 		bool _locaEulerlUpdate;

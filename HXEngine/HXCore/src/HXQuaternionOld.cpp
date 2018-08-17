@@ -1,4 +1,5 @@
 #include "..\include\HXQuaternionOld.h"
+#include "HXMatrix.h"
 
 namespace HX3D
 {
@@ -197,5 +198,57 @@ namespace HX3D
 		HXQuaternionOld invq = q.Inverse();
 		HXQuaternionOld destP = q*p*invq;
 		return HXVector3D(destP.x, destP.y, destP.z);
+	}
+
+	void HXQuaternionOld::CreateFromMatrix4x4(const HXMatrix44& mat, HXQuaternionOld& out)
+	{
+		float _sqrt;
+		float half;
+		float scale = mat.m[0][0] + mat.m[1][1] + mat.m[2][2];
+
+		if (scale > 0.0) {
+			_sqrt = sqrt(scale + 1.0);
+			out.w = _sqrt * 0.5;
+			_sqrt = 0.5 / _sqrt;
+
+			out.x = (mat.m[1][2] - mat.m[2][1]) * _sqrt;
+			out.y = (mat.m[2][0] - mat.m[0][2]) * _sqrt;
+			out.z = (mat.m[0][1] - mat.m[1][0]) * _sqrt;
+		}
+		else if ((mat.m[0][0] >= mat.m[1][1]) && (mat.m[0][0] >= mat.m[2][2])) {
+			_sqrt = sqrt(1.0 + mat.m[0][0] - mat.m[1][1] - mat.m[2][2]);
+			half = 0.5 / _sqrt;
+
+			out.x = 0.5 * _sqrt;
+			out.y = (mat.m[0][1] + mat.m[1][0]) * half;
+			out.z = (mat.m[0][2] + mat.m[2][0]) * half;
+			out.w = (mat.m[1][2] - mat.m[2][1]) * half;
+		}
+		else if (mat.m[1][1] > mat.m[2][2]) {
+			_sqrt = sqrt(1.0 + mat.m[1][1] - mat.m[0][0] - mat.m[2][2]);
+			half = 0.5 / _sqrt;
+
+			out.x = (mat.m[1][0] + mat.m[0][1]) * half;
+			out.y = 0.5 * _sqrt;
+			out.z = (mat.m[2][1] + mat.m[1][2]) * half;
+			out.w = (mat.m[2][0] - mat.m[0][2]) * half;
+		}
+		else {
+			_sqrt = sqrt(1.0 + mat.m[2][2] - mat.m[0][0] - mat.m[1][1]);
+			half = 0.5 / _sqrt;
+
+			out.x = (mat.m[2][0] + mat.m[0][2]) * half;
+			out.y = (mat.m[2][1] + mat.m[1][2]) * half;
+			out.z = 0.5 * _sqrt;
+			out.w = (mat.m[0][1] - mat.m[1][0]) * half;
+		}
+	}
+
+	void HXQuaternionOld::Identity()
+	{
+		x = 0;
+		y = 0;
+		z = 0;
+		w = 1;
 	}
 }

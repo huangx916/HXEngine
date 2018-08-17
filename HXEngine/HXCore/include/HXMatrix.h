@@ -1,5 +1,6 @@
 #pragma once
 #include "HXCommon.h"
+#include "HXVector.h"
 #include "HXQuaternionOld.h"
 
 namespace HX3D
@@ -10,22 +11,27 @@ namespace HX3D
 		static HXMatrix44 IDENTITY;
 		float m[4][4];
 
-		//mat.m[0][0]	0
-		//mat.m[0][1]	1
-		//mat.m[0][2]	2
-		//mat.m[0][3]	3
-		//mat.m[1][0]	4
-		//mat.m[1][1]	5
-		//mat.m[1][2]	6
-		//mat.m[1][3]	7
-		//mat.m[2][0]	8
-		//mat.m[2][1]	9
-		//mat.m[2][2]	10
-		//mat.m[2][3]	11
-		//mat.m[3][0]	12
-		//mat.m[3][1]	13
-		//mat.m[3][2]	14
-		//mat.m[3][3]	15
+		//static HXVector3D tempVector0;
+		//static HXVector3D tempVector1;
+		//static HXVector3D tempVector2;
+		//static HXMatrix44 tempMatrix44;
+
+		//mat.m[0][0] 	0
+		//mat.m[0][1] 	1
+		//mat.m[0][2] 	2
+		//mat.m[0][3] 	3
+		//mat.m[1][0] 	4
+		//mat.m[1][1] 	5
+		//mat.m[1][2] 	6
+		//mat.m[1][3] 	7
+		//mat.m[2][0] 	8
+		//mat.m[2][1] 	9
+		//mat.m[2][2] 	10
+		//mat.m[2][3] 	11
+		//mat.m[3][0] 	12
+		//mat.m[3][1] 	13
+		//mat.m[3][2] 	14
+		//mat.m[3][3] 	15
 
 		HXMatrix44()
 		{
@@ -135,11 +141,11 @@ namespace HX3D
 			return true;
 		}
 
-		/*static HXMatrix44 CreateAffineTransformation(const HXVector3D& trans, const HXQuaternionOld& rot, const HXVector3D& scale);
+		static HXMatrix44 CreateAffineTransformation(const HXVector3D& trans, const HXQuaternionOld& rot, const HXVector3D& scale);
 			
 		bool DecomposeTransRotScale(HXVector3D& translation, HXQuaternionOld& rotation, HXVector3D& scale);
 	
-		bool DecomposeTransRotMatScale(HXVector3D& translation, HXMatrix44& rotationMatrix, HXVector3D& scale);*/
+		bool DecomposeTransRotMatScale(HXVector3D& translation, HXMatrix44& rotationMatrix, HXVector3D& scale);
 
 	};
 

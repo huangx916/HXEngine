@@ -25,6 +25,9 @@ namespace HX3D
 		HXQuaternionOld operator*( const HXQuaternionOld& rhs) const;
 		HXVector3D Transform(const HXVector3D& vSrc);
 
+		static void CreateFromMatrix4x4(const HXMatrix44& mat, HXQuaternionOld& out);
+		void Identity();
+
 		float x;
 		float y;
 		float z;
