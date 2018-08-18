@@ -147,6 +147,9 @@ namespace HX3D
 	
 		bool DecomposeTransRotMatScale(HXVector3D& translation, HXMatrix44& rotationMatrix, HXVector3D& scale);
 
+		static void createRotationX(float rad, HXMatrix44& out);
+		static void createRotationY(float rad, HXMatrix44& out);
+
 	};
 
 	struct HXMatrix33

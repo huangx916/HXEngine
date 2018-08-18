@@ -47,26 +47,7 @@ namespace HX3D
 
 	HXVector3D HXGLTransform::GetGlobalRotation()
 	{
-		//float x = Radian_TO_Degree(atan2(mGlobalModelMatrix.m[2][1], mGlobalModelMatrix.m[2][2]/mGlobalScale.z));
-		//float y = Radian_TO_Degree(atan2(-mGlobalModelMatrix.m[2][0], sqrt(mGlobalModelMatrix.m[2][1] * mGlobalModelMatrix.m[2][1] + mGlobalModelMatrix.m[2][2] / mGlobalScale.z * mGlobalModelMatrix.m[2][2] / mGlobalScale.z)));
-		//float z = Radian_TO_Degree(atan2(mGlobalModelMatrix.m[1][0], mGlobalModelMatrix.m[0][0]/mGlobalScale.x));
-		////float z = Radian_TO_Degree(atan2(mGlobalModelMatrix.m[0][1], -mGlobalModelMatrix.m[1][1]/mGlobalScale.y));
-		//return HXVector3D(x, y, z);
-
-		//float x = Radian_TO_Degree(atan2(mGlobalRotationMatrix.m[2][1], mGlobalRotationMatrix.m[2][2]));
-		//float y = Radian_TO_Degree(atan2(-mGlobalRotationMatrix.m[2][0], sqrt(mGlobalRotationMatrix.m[2][1] * mGlobalRotationMatrix.m[2][1] + mGlobalRotationMatrix.m[2][2] * mGlobalRotationMatrix.m[2][2])));
-		//float z = Radian_TO_Degree(atan2(mGlobalRotationMatrix.m[1][0], mGlobalRotationMatrix.m[0][0]));
-		////float z = Radian_TO_Degree(atan2(mGlobalRotationMatrix.m[0][1], -mGlobalRotationMatrix.m[1][1]));
-		//return HXVector3D(x, y, z);
-
-		////return mGlobalEulerDegree;
-
-		/*mGlobalEulerDegree = mGlobalQuaternion.ToEulerDegree1();
-		return mGlobalEulerDegree;*/
-
-		double euler[3];
-		mRotation.quaternion2Euler(euler);
-		mEuler = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
+		mEuler = mRotation.ToEulerDegree();
 		return mEuler;
 
 		//return mRotation;
@@ -119,11 +100,6 @@ namespace HX3D
 		HXQuaternionOld q;
 		q.FromEulerDegree(mLocalEuler.x, mLocalEuler.y, mLocalEuler.z);
 		mRotation = q * parent->mRotation;
-
-		//HXVector3D test = q.ToEulerDegree1();
-		double euler[3];
-		q.quaternion2Euler(euler);
-		HXVector3D test = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
 	}
 
 	void HXGLTransform::CaculateModelMatrix()
@@ -165,10 +141,5 @@ namespace HX3D
 		HXQuaternionOld q;
 		q.FromEulerDegree(mLocalEuler.x, mLocalEuler.y, mLocalEuler.z);
 		mRotation = q;
-
-		//HXVector3D test = q.ToEulerDegree1();
-		double euler[3];
-		q.quaternion2Euler(euler);
-		HXVector3D test = HXVector3D(Radian_TO_Degree(euler[0]), Radian_TO_Degree(euler[1]), Radian_TO_Degree(euler[2]));
 	}
 }

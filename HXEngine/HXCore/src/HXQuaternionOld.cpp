@@ -1,5 +1,6 @@
 #include "..\include\HXQuaternionOld.h"
 #include "HXMatrix.h"
+#include "HXMath.h"
 
 namespace HX3D
 {
@@ -28,6 +29,15 @@ namespace HX3D
 		return HXQuaternionOld(-x*fInvNorm,-y*fInvNorm,-z*fInvNorm,w*fInvNorm);
 	}
 
+	void HXQuaternionOld::Normalize()
+	{
+		float norm = std::sqrt(x*x + y*y + z*z + w*w);
+		x /= norm;
+		y /= norm;
+		z /= norm;
+		w /= norm;
+	}
+
 	void HXQuaternionOld::FromEulerDegree(float fX, float fY, float fZ)
 	{
 		float X = Degree_TO_Radian(fX);
@@ -53,133 +63,104 @@ namespace HX3D
 		w = fCos;
 	}
 
-	int Sign(double param)
-	{
-		if (param > 0)
-		{
-			return 1;
-		}
-		else if (param == 0)
-		{
-			return 0;
-		}
-		else// if (param < 0)
-		{
-			return -1;
-		}
-	}
-
 	HXVector3D HXQuaternionOld::ToEulerDegree()
 	{
-		HXVector3D euler;
-		const double Epsilon = 0.0009765625f;
-		const double Threshold = 0.5f - Epsilon;
+		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
+		//Vector3.transformQuat(Vector3.ForwardRH, this, TEMPVector31/*forwarldRH*/);
+		HXVector3D TEMPVector31 = Transform(HXVector3D(0,0,-1));
 
-		double TEST = w*y - x*z;
+		//Vector3.transformQuat(Vector3.Up, this, TEMPVector32/*up*/);
+		HXVector3D TEMPVector32 = Transform(HXVector3D(0,1,0));
+		HXVector3D upe = TEMPVector32;
 
-		if (TEST < -Threshold || TEST > Threshold) // ÆæÒì×ËÌ¬,¸©Ñö½ÇÎª¡À90¡ã
-		{
-			int sign = Sign(TEST);
+		//angleTo(Vector3.ZERO, TEMPVector31, TEMPVector33/*angle*/);
 
-			euler.z = -2 * sign * (double)atan2(x, w); // yaw
+		HXVector3D from = HXVector3D(0,0,0);
+		HXVector3D location = TEMPVector31;
 
-			euler.y = sign * (PI / 2.0); // pitch
+		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
+		//Vector3.subtract(location, from, TEMPVector30);
+		HXVector3D TEMPVector30 = location - from;
+		//Vector3.normalize(TEMPVector30, TEMPVector30);
+		TEMPVector30.normalize();
+		//angle.elements[0] = asin(TEMPVector30.y);
+		//angle.elements[1] = arcTanAngle(-TEMPVector30.z, -TEMPVector30.x);
+		HXVector3D angle;
+		angle.x = asin(TEMPVector30.y);
+		angle.y = arcTanAngle(-TEMPVector30.z, -TEMPVector30.x);
+		//angle.y = atan2(-TEMPVector30.x, -TEMPVector30.z);
+		HXVector3D TEMPVector33 = angle;
 
-			euler.x = 0; // roll
 
+		HXVector3D anglee = TEMPVector33;
+
+		if (anglee.x == PI / 2) {
+			anglee.y = arcTanAngle(upe.z, upe.x);
+			//anglee.y = atan2(upe.x, upe.z);
+			anglee.z = 0;
 		}
-		else
-		{
-			euler.x = atan2(2 * (y*z + w*x), w*w - x*x - y*y + z*z);
-			euler.y = asin(-2 * (x*z - w*y));
-			euler.z = atan2(2 * (x*y + w*z), w*w + x*x - y*y - z*z);
+		else if (anglee.x == -PI / 2) {
+			anglee.y = arcTanAngle(-upe.z, -upe.x);
+			//anglee.y = atan2(-upe.x, -upe.z);
+			anglee.z = 0;
 		}
-		euler.x = Radian_TO_Degree(euler.x);
-		euler.y = Radian_TO_Degree(euler.y);
-		euler.z = Radian_TO_Degree(euler.z);
-		return euler;
+		else {
+			HXMatrix44 TEMPMatrix0;
+			HXMatrix44 TEMPMatrix1;
+			HXMatrix44::createRotationY(-anglee.y, TEMPMatrix0);
+			HXMatrix44::createRotationX(-anglee.x, TEMPMatrix1);
+
+			//Vector3.transformCoordinate(TEMPVector32, TEMPMatrix0, TEMPVector32);
+			TEMPVector32 = GetVector3DMulMatrix44(TEMPVector32, TEMPMatrix0);
+			//Vector3.transformCoordinate(TEMPVector32, TEMPMatrix1, TEMPVector32);
+			TEMPVector32 = GetVector3DMulMatrix44(TEMPVector32, TEMPMatrix1);
+			upe = TEMPVector32;
+			anglee.z = arcTanAngle(upe.y, -upe.x);
+			//anglee.z = atan2(-upe.x, upe.y);
+		}
+
+		// Special cases.
+		if (anglee.y <= -PI)
+			anglee.y = PI;
+		if (anglee.z <= -PI)
+			anglee.z = PI;
+
+		if (anglee.y >= PI && anglee.z >= PI) {
+			anglee.y = 0;
+			anglee.z = 0;
+			anglee.x = PI - anglee.x;
+		}
+
+		/*HXVector3D out;
+		out.x = anglee.y;
+		out.y = anglee.x;
+		out.z = anglee.z;
+		return out;*/
+
+		anglee.x = Radian_TO_Degree(anglee.x);
+		anglee.y = Radian_TO_Degree(anglee.y);
+		anglee.z = Radian_TO_Degree(anglee.z);
+
+		return anglee;
 	}
 
-	HXVector3D HXQuaternionOld::ToEulerDegree1()
+	float HXQuaternionOld::arcTanAngle(float x, float y)
 	{
-		double heading;
-		double attitude;
-		double bank;
-
-		double sqw = w*w;
-		double sqx = x*x;
-		double sqy = y*y;
-		double sqz = z*z;
-		double unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
-		double test = x*y + z*w;
-		if (test > 0.499*unit) { // singularity at north pole
-			heading = 2 * atan2(x, w);
-			attitude = PI / 2;
-			bank = 0;
-			HXVector3D euler;
-			euler.x = Radian_TO_Degree(heading);
-			euler.y = Radian_TO_Degree(attitude);
-			euler.z = Radian_TO_Degree(bank);
-			return euler;
+		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
+		if (x == 0) {
+			if (y == 1)
+				return PI / 2;
+			return -PI / 2;
 		}
-		if (test < -0.499*unit) { // singularity at south pole
-			heading = -2 * atan2(x, w);
-			attitude = -PI / 2;
-			bank = 0;
-			HXVector3D euler;
-			euler.x = Radian_TO_Degree(heading);
-			euler.y = Radian_TO_Degree(attitude);
-			euler.z = Radian_TO_Degree(bank);
-			return euler;
+		if (x > 0)
+			return atan(y / x);
+		if (x < 0) {
+			if (y > 0)
+				return atan(y / x) + PI;
+			return atan(y / x) - PI;
 		}
-		heading = atan2(2 * y*w - 2 * x*z, sqx - sqy - sqz + sqw);
-		attitude = asin(2 * test / unit);
-		bank = atan2(2 * x*w - 2 * y*z, -sqx + sqy - sqz + sqw);
-		
-		HXVector3D euler;
-		euler.x = Radian_TO_Degree(heading);
-		euler.y = Radian_TO_Degree(attitude);
-		euler.z = Radian_TO_Degree(bank);
-		return euler;
+		return 0;
 	}
-
-
-
-	void threeaxisrot(double r11, double r12, double r21, double r31, double r32, double res[]) {
-		res[0] = atan2(r31, r32);
-		res[1] = asin(r21);
-		res[2] = atan2(r11, r12);
-	}
-
-	void HXQuaternionOld::quaternion2Euler(double res[])
-	{
-		//yzx
-		threeaxisrot(-2 * (x*z - w*y),
-			w*w + x*x - y*y - z*z,
-			2 * (x*y + w*z),
-			-2 * (y*z - w*x),
-			w*w - x*x + y*y - z*z,
-			res);
-
-		//xzy
-		//threeaxisrot(2 * (y*z + w*x),
-		//	w*w - x*x + y*y - z*z,
-		//	-2 * (x*y - w*z),
-		//	2 * (x*z + w*y),
-		//	w*w + x*x - y*y - z*z,
-		//	res);
-
-		threeaxisrot(2 * (x*z + w*y),
-			w*w - x*x - y*y + z*z,
-			-2 * (y*z - w*x),
-			2 * (x*y + w*z),
-			w*w - x*x + y*y - z*z,
-			res);
-	}
-
-
-
-
 
 	HXQuaternionOld HXQuaternionOld::operator*(const HXQuaternionOld& rhs) const
 	{

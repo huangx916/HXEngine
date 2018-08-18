@@ -115,4 +115,30 @@ namespace HX3D
 
 		return true;
 	}
+
+	void HXMatrix44::createRotationX(float rad, HXMatrix44& out)
+	{
+		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
+		//var oe : Float32Array = out.elements;
+		float s = sin(rad), c = cos(rad);
+
+		out.m[0][1] = out.m[0][2] = out.m[0][3] = out.m[1][0] = out.m[1][3] = out.m[2][0] = out.m[2][3] = out.m[3][0] = out.m[3][1] = out.m[3][2] = 0;
+		out.m[0][0] = out.m[3][3] = 1;
+		out.m[1][1] = out.m[2][2] = c;
+		out.m[1][2] = s;
+		out.m[2][1] = -s;
+	}
+
+	void HXMatrix44::createRotationY(float rad, HXMatrix44& out)
+	{
+		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
+		//var oe : Float32Array = out.elements;
+		float s = sin(rad), c = cos(rad);
+
+		out.m[0][1] = out.m[0][3] = out.m[1][0] = out.m[1][2] = out.m[1][3] = out.m[2][1] = out.m[2][3] = out.m[3][0] = out.m[3][1] = out.m[3][2] = 0;
+		out.m[1][1] = out.m[3][3] = 1;
+		out.m[0][0] = out.m[2][2] = c;
+		out.m[0][2] = -s;
+		out.m[2][0] = s;
+	}
 }
