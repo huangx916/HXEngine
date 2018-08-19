@@ -6,18 +6,32 @@
 
 namespace HX3D
 {
-	HXGLTexture::HXGLTexture(std::string strTextureFile)
+	HXGLTexture::HXGLTexture(EMatPropertyType matType, std::string strTextureFile)
 	{
 		size_t size = strTextureFile.length();
 		std::string type = strTextureFile.substr(size - 3);
 		transform(type.begin(), type.end(), type.begin(), ::tolower);
 		if (type == "dds")
 		{
-			texId = LoadDDSTexture(strTextureFile.c_str());
+			if (matType == MPT_TEXTURE)
+			{
+				texId = LoadDDSTexture(strTextureFile.c_str());
+			}
+			else if (matType == MPT_CUBEMAP)
+			{
+				texId = LoadDDSTextureCubeMap(strTextureFile.c_str());
+			}
 		}
 		else if (type == "png")
 		{
-			texId = LoadPNGTexture(strTextureFile.c_str());
+			if (matType == MPT_TEXTURE)
+			{
+				texId = LoadPNGTexture(strTextureFile.c_str());
+			}
+			else if (matType == MPT_CUBEMAP)
+			{
+				texId = LoadPNGTextureCubeMap(strTextureFile.c_str());
+			}
 		}
 	}
 
@@ -34,8 +48,18 @@ namespace HX3D
 		return HXGLLoadPNG::vglLoadPNGTexture(filename);
 	}
 
+	GLuint HXGLTexture::LoadPNGTextureCubeMap(const char *filename)
+	{
+		return HXGLLoadPNG::vglLoadPNGTextureCubeMap(filename);
+	}
+
 	GLuint HXGLTexture::LoadDDSTexture(const char *filename)
 	{
 		return vglLoadTexture(filename, 0, NULL);
+	}
+
+	GLuint HXGLTexture::LoadDDSTextureCubeMap(const char *filename)
+	{
+		return 0;
 	}
 }

@@ -9,7 +9,8 @@ namespace HX3D
 		MPT_FLOAT,
 		MPT_FLOAT2,
 		MPT_FLOAT3,
-		MPT_FLOAT4
+		MPT_FLOAT4,
+		MPT_CUBEMAP
 	};
 	struct HXMaterialProperty
 	{

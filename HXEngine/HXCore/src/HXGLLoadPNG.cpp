@@ -38,6 +38,87 @@ namespace HX3D
 		return tex_id;
 	}
 
+	GLuint HXGLLoadPNG::vglLoadPNGTextureCubeMap(const char *filename)
+	{
+		gl_texture_t *png_tex = NULL;
+		GLuint tex_id = 0;
+
+		glGenTextures(1, &tex_id);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_id);
+		glEnable(GL_TEXTURE_CUBE_MAP);
+		glActiveTexture(GL_TEXTURE0);
+
+		GLint alignment;
+		std::string subfilename = filename;
+		int pos = subfilename.length();
+		for (int i = 0; i < 6; ++i)
+		{
+			switch(i)
+			{
+			case 0:
+				subfilename = filename;
+				subfilename.insert(pos - 4, "_left");
+				break;
+			case 1:
+				subfilename = filename;
+				subfilename.insert(pos - 4, "_right");
+				break;
+			case 2:
+				subfilename = filename;
+				subfilename.insert(pos - 4, "_bottom");
+				break;
+			case 3:
+				subfilename = filename;
+				subfilename.insert(pos - 4, "_top");
+				break;
+			case 4:
+				subfilename = filename;
+				subfilename.insert(pos - 4, "_front");
+				break;
+			case 5:
+				subfilename = filename;
+				subfilename.insert(pos - 4, "_back");
+				break;
+			default:
+				break;
+			}
+			png_tex = ReadPNGFromFile(subfilename.c_str());
+			if (png_tex && png_tex->texels)
+			{
+				///* Generate texture */
+				//glGenTextures(1, &png_tex->id);
+				//glBindTexture(GL_TEXTURE_2D, png_tex->id);
+				///* Setup some parameters for texture filters and mipmapping */
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+				//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+				//glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
+				//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+				//glTexImage2D(GL_TEXTURE_2D, 0, png_tex->internalFormat, png_tex->width, png_tex->height, 0, png_tex->format, GL_UNSIGNED_BYTE, png_tex->texels);
+				//glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
+
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+				//glGenerateMipmap(GL_TEXTURE_2D);
+
+				//tex_id = png_tex->id;
+				///* OpenGL has its own copy of texture data */
+				//free(png_tex->texels);
+				//free(png_tex);
+
+
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, png_tex->internalFormat, png_tex->width, png_tex->height, 0, png_tex->format, GL_UNSIGNED_BYTE, png_tex->texels);
+				
+				free(png_tex->texels);
+				free(png_tex);
+				png_tex = NULL;
+			}
+		}
+		return tex_id;
+	}
+
 	gl_texture_t * HXGLLoadPNG::ReadPNGFromFile(const char *filename)
 	{
 		gl_texture_t *texinfo;

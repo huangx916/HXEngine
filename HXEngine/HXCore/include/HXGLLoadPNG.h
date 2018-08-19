@@ -19,6 +19,7 @@ namespace HX3D
 	{
 	public:
 		static GLuint vglLoadPNGTexture(const char *filename);
+		static GLuint vglLoadPNGTextureCubeMap(const char *filename);
 	private:
 		static gl_texture_t * ReadPNGFromFile(const char *filename);
 		static void GetPNGtextureInfo(int color_type, gl_texture_t *texinfo);

@@ -26,7 +26,7 @@ namespace HX3D
 		};
 		_programId = LoadShaders(shaders);
 		
-		HXGLTexture* tex = new HXGLTexture("prefab/_Material/FontBG/status.png");
+		HXGLTexture* tex = new HXGLTexture(MPT_TEXTURE, "prefab/_Material/FontBG/status.png");
 		_texId = tex->texId;
 	}
 

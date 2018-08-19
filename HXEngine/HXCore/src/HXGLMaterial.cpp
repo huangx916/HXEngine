@@ -56,7 +56,7 @@ namespace HX3D
 				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				if (NULL == tex)
 				{
-					tex = new HXGLTexture(itr->value);
+					tex = new HXGLTexture(MPT_TEXTURE, itr->value);
 					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
 				}
 				// 采样器
@@ -110,6 +110,39 @@ namespace HX3D
 				{
 					glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
 				}
+			}
+			break;
+			case MPT_CUBEMAP:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				if (NULL == tex)
+				{
+					tex = new HXGLTexture(MPT_CUBEMAP,itr->value);
+					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+				}
+
+				// 采样器
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+				// 暂时不用其他类型的Texture,这里只使用GL_TEXTURE_2D
+				/*glBindTexture(tex->mImageData.target, tex->texId);
+				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+				vglUnloadImage(&tex->mImageData);*/
+				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texId);
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+				++nTexIndex;
 			}
 			break;
 			default:
@@ -332,6 +365,39 @@ namespace HX3D
 			{
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+			}
+			break;
+			case MPT_CUBEMAP:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				if (NULL == tex)
+				{
+					tex = new HXGLTexture(MPT_CUBEMAP, itr->value);
+					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+				}
+
+				// 采样器
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+				// 暂时不用其他类型的Texture,这里只使用GL_TEXTURE_2D
+				/*glBindTexture(tex->mImageData.target, tex->texId);
+				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+				vglUnloadImage(&tex->mImageData);*/
+				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texId);
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+				++nTexIndex;
 			}
 			break;
 			}
