@@ -1,7 +1,7 @@
 #pragma once
 #include "HXCommon.h"
 #include "HXVector.h"
-#include "HXQuaternionOld.h"
+#include "HXQuaternionS.h"
 
 namespace HX3D
 {
@@ -141,9 +141,9 @@ namespace HX3D
 			return true;
 		}
 
-		static HXMatrix44 CreateAffineTransformation(const HXVector3D& trans, const HXQuaternionOld& rot, const HXVector3D& scale);
+		static HXMatrix44 CreateAffineTransformation(const HXVector3D& trans, const HXQuaternionS& rot, const HXVector3D& scale);
 			
-		bool DecomposeTransRotScale(HXVector3D& translation, HXQuaternionOld& rotation, HXVector3D& scale);
+		bool DecomposeTransRotScale(HXVector3D& translation, HXQuaternionS& rotation, HXVector3D& scale);
 	
 		bool DecomposeTransRotMatScale(HXVector3D& translation, HXMatrix44& rotationMatrix, HXVector3D& scale);
 

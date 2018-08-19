@@ -30,10 +30,20 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
 		</GameObj>
-		<GameObj Name="_CoordArrow" Activity="1" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="2">
+		<GameObj Name="GameObject" Activity="1" Static="1" Model="" CastShadow="0" Layer="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+			<GameObj Name="PlayerPBS" Activity="1" Static="1" Model="prefab/PlayerPBS/PlayerPBS.model" CastShadow="0" Layer="0">
+				<Position Px="0" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="1" Sy="1" Sz="1"/>
+			</GameObj>
+		</GameObj>
+		<GameObj Name="_CoordArrow" Activity="1" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.106667" Sy="0.106667" Sz="0.106667"/>
 		</GameObj>
 	</GameObjects>
 </Scene>

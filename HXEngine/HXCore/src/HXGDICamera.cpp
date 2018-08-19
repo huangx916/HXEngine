@@ -1,7 +1,7 @@
 #include "..\include\HXGDICamera.h"
 #include "HXFrustum.h"
 #include "HXMath.h"
-#include "HXQuaternionOld.h"
+#include "HXQuaternionS.h"
 #include "HXGDITransform.h"
 
 namespace HX3D
@@ -45,7 +45,7 @@ namespace HX3D
 
 	void HXGDICamera::move(const HXVector3D& mov)
 	{
-		HXQuaternionOld q;
+		HXQuaternionS q;
 		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D v = mov;
 		v = q.Transform(v);

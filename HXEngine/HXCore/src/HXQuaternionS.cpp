@@ -1,16 +1,16 @@
-#include "..\include\HXQuaternionOld.h"
+#include "..\include\HXQuaternionS.h"
 #include "HXMatrix.h"
 #include "HXMath.h"
 
 namespace HX3D
 {
-	const HXQuaternionOld HXQuaternionOld::IDENTITY(0,0,0,1); //旋转0度
+	const HXQuaternionS HXQuaternionS::IDENTITY(0,0,0,1); //旋转0度
 
-	HXQuaternionOld::HXQuaternionOld() :x(0),y(0),z(0),w(1)
+	HXQuaternionS::HXQuaternionS() :x(0),y(0),z(0),w(1)
 	{
 	}
 
-	HXQuaternionOld::HXQuaternionOld(float fX, float fY, float fZ, float fW)
+	HXQuaternionS::HXQuaternionS(float fX, float fY, float fZ, float fW)
 	{
 		x = fX;
 		y = fY;
@@ -18,18 +18,18 @@ namespace HX3D
 		w = fW;
 	}
 
-	HXQuaternionOld::~HXQuaternionOld()
+	HXQuaternionS::~HXQuaternionS()
 	{
 	}
 
-	HXQuaternionOld HXQuaternionOld::Inverse() const
+	HXQuaternionS HXQuaternionS::Inverse() const
 	{
 		float fNorm = x*x + y*y + z*z + w*w;
 		float fInvNorm = 1.0f / fNorm;
-		return HXQuaternionOld(-x*fInvNorm,-y*fInvNorm,-z*fInvNorm,w*fInvNorm);
+		return HXQuaternionS(-x*fInvNorm,-y*fInvNorm,-z*fInvNorm,w*fInvNorm);
 	}
 
-	void HXQuaternionOld::Normalize()
+	void HXQuaternionS::Normalize()
 	{
 		float norm = std::sqrt(x*x + y*y + z*z + w*w);
 		x /= norm;
@@ -38,7 +38,7 @@ namespace HX3D
 		w /= norm;
 	}
 
-	void HXQuaternionOld::FromEulerDegree(float fX, float fY, float fZ)
+	void HXQuaternionS::FromEulerDegree(float fX, float fY, float fZ)
 	{
 		float X = Degree_TO_Radian(fX);
 		float Y = Degree_TO_Radian(fY);
@@ -50,7 +50,7 @@ namespace HX3D
 		w = cos(Y / 2)*cos(Z / 2)*cos(X / 2) - sin(Y / 2)*sin(Z / 2)*sin(X / 2);
 	}
 
-	void HXQuaternionOld::FromAngleAxis(float fDegree, HXVector3D axis)
+	void HXQuaternionS::FromAngleAxis(float fDegree, HXVector3D axis)
 	{
 		// assert:  axis is unit length
 		float fHalfDegree = fDegree * 0.5f;
@@ -63,7 +63,7 @@ namespace HX3D
 		w = fCos;
 	}
 
-	HXVector3D HXQuaternionOld::ToEulerDegree()
+	HXVector3D HXQuaternionS::ToEulerDegree()
 	{
 		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
 		//Vector3.transformQuat(Vector3.ForwardRH, this, TEMPVector31/*forwarldRH*/);
@@ -144,7 +144,7 @@ namespace HX3D
 		return anglee;
 	}
 
-	float HXQuaternionOld::arcTanAngle(float x, float y)
+	float HXQuaternionS::arcTanAngle(float x, float y)
 	{
 		/*[DISABLE-ADD-VARIABLE-DEFAULT-VALUE]*/
 		if (x == 0) {
@@ -162,9 +162,9 @@ namespace HX3D
 		return 0;
 	}
 
-	HXQuaternionOld HXQuaternionOld::operator*(const HXQuaternionOld& rhs) const
+	HXQuaternionS HXQuaternionS::operator*(const HXQuaternionS& rhs) const
 	{
-		HXQuaternionOld q;
+		HXQuaternionS q;
 		q.x = w * rhs.x + x * rhs.w + y * rhs.z - z * rhs.y;
 		q.y = w * rhs.y + y * rhs.w + z * rhs.x - x * rhs.z;
 		q.z = w * rhs.z + z * rhs.w + x * rhs.y - y * rhs.x;
@@ -172,16 +172,16 @@ namespace HX3D
 		return q;
 	}
 
-	HXVector3D HXQuaternionOld::Transform(const HXVector3D& vSrc)
+	HXVector3D HXQuaternionS::Transform(const HXVector3D& vSrc)
 	{
-		HXQuaternionOld p(vSrc.x, vSrc.y, vSrc.z, 0);
-		HXQuaternionOld q(x, y, z, w);
-		HXQuaternionOld invq = q.Inverse();
-		HXQuaternionOld destP = q*p*invq;
+		HXQuaternionS p(vSrc.x, vSrc.y, vSrc.z, 0);
+		HXQuaternionS q(x, y, z, w);
+		HXQuaternionS invq = q.Inverse();
+		HXQuaternionS destP = q*p*invq;
 		return HXVector3D(destP.x, destP.y, destP.z);
 	}
 
-	void HXQuaternionOld::CreateFromMatrix4x4(const HXMatrix44& mat, HXQuaternionOld& out)
+	void HXQuaternionS::CreateFromMatrix4x4(const HXMatrix44& mat, HXQuaternionS& out)
 	{
 		float _sqrt;
 		float half;
@@ -225,7 +225,7 @@ namespace HX3D
 		}
 	}
 
-	void HXQuaternionOld::Identity()
+	void HXQuaternionS::Identity()
 	{
 		x = 0;
 		y = 0;

@@ -159,7 +159,7 @@ void HXHierarchyWidget::AddCameraLeaf(QTreeWidgetItem* parent)
 		if (name == "_EditorCamera")
 		{
 			_EditorCamera = (*itr);
-			return;
+			//return;
 		}
 
 		QTreeWidgetItem* tw = new QTreeWidgetItem(parent, QStringList(QString(name.c_str())));
@@ -194,7 +194,7 @@ void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetIt
 void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int column)
 {
 	HXITransform* trans = HXSceneManager::GetInstance()->GetMainCamera()->transform;
-	HXQuaternionOld q;
+	HXQuaternionS q;
 	q.FromEulerDegree(trans->mLocalEuler.x, trans->mLocalEuler.y, trans->mLocalEuler.z);
 	HXVector3D vec = HXVector3D(0, 0, 5);
 	vec = q.Transform(vec);
@@ -202,8 +202,9 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 	HXGameObject* gameObject = item->data(0, Qt::UserRole).value<HXGameObject*>();
 	if (gameObject)
 	{
-		HXVector3D pos = gameObject->GetTransform()->GetLocalPosition() + vec;
+		HXVector3D pos = gameObject->GetTransform()->GetGlobalPosition() + vec;
 		trans->SetLocalPosition(pos);
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(gameObject->GetTransform());
 	}
 	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
 	if (light)
@@ -223,7 +224,12 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 
 void HXHierarchyWidget::UpdateCoordArrow(HX3D::HXITransform* trans)
 {
-	if (_CoordArrow == NULL || _EditorCamera == NULL)
+	if (trans->gameObject == _CoordArrow)
+	{
+		return;
+	}
+
+	if (_CoordArrow == NULL/* || _EditorCamera == NULL*/)
 	{
 		return;
 	}
@@ -231,22 +237,42 @@ void HXHierarchyWidget::UpdateCoordArrow(HX3D::HXITransform* trans)
 
 	_CoordArrow->SetActivity(true);
 
-	_EditorCamera->transform->SetLocalRotation(mainCamera->transform->GetLocalRotation());
+	//_EditorCamera->transform->SetLocalRotation(mainCamera->transform->GetLocalRotation());
 
-	mainCamera->Update();
-	_EditorCamera->Update();
-	HXSceneManager::GetInstance()->GetGameObjectTreeRoot()->Update();
+	//mainCamera->Update();
+	//_EditorCamera->Update();
+	//HXSceneManager::GetInstance()->GetGameObjectTreeRoot()->Update();
 	
-	_CoordArrow->GetTransform()->SetLocalRotation(trans->GetGlobalRotation());
+	//_CoordArrow->GetTransform()->SetLocalRotation(trans->GetGlobalRotation());
+	
+	//HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetGlobalPosition());
+	//pos = _EditorCamera->NDCToWorldPoint(pos);
+	//_CoordArrow->GetTransform()->SetLocalPosition(pos);
+	//_CoordArrow->GetTransform()->SetLocalPosition(trans->GetGlobalPosition());
 
-	HXVector3D pos = mainCamera->WorldToNDCPoint(trans->GetGlobalPosition());
-	pos = _EditorCamera->NDCToWorldPoint(pos);
-	_CoordArrow->GetTransform()->SetLocalPosition(pos);
+	const HXVector3D& posCam = mainCamera->transform->GetLocalPosition();
+	const HXVector3D& posGameObject = trans->GetGlobalPosition();
+	float x = posCam.x - posGameObject.x;
+	float y = posCam.y - posGameObject.y;
+	float z = posCam.z - posGameObject.z;
+	float distance = sqrt(x * x + y * y + z * z) / 300;
+	//_CoordArrow->GetTransform()->SetLocalScale(HXVector3D(distance, distance, distance));
+
+
+	//_CoordArrow->GetTransform()->parent = trans->parent;
+	_CoordArrow->GetTransform()->parent->RemoveChild(_CoordArrow->GetTransform());
+	trans->parent->AddChild(_CoordArrow->GetTransform());
+
+	_CoordArrow->GetTransform()->SetLocalPosition(trans->GetLocalPosition());
+	_CoordArrow->GetTransform()->SetLocalRotation(trans->GetLocalRotation());
+	HXVector3D scale = HXVector3D(distance, distance, distance) / _CoordArrow->GetTransform()->parent->GetGlobalScale();
+	_CoordArrow->GetTransform()->SetLocalScale(scale);
+	
 }
 
 void HXHierarchyWidget::HideCoordArrow()
 {
-	if (_CoordArrow == NULL || _EditorCamera == NULL)
+	if (_CoordArrow == NULL/* || _EditorCamera == NULL*/)
 	{
 		return;
 	}

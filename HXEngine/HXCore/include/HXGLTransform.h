@@ -17,7 +17,7 @@ namespace HX3D
 		static vmath::mat4 ConvertMatrix(HXMatrix44& mat);
 		static HXMatrix44 UnConvertMatrix(vmath::mat4& mat);
 
-		virtual HXVector3D GetGlobalPosition();
+		virtual const HXVector3D& GetGlobalPosition();
 		virtual HXVector3D GetGlobalRotation();
 		virtual HXVector3D GetGlobalScale();
 

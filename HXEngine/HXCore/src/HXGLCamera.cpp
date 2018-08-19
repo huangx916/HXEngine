@@ -87,7 +87,7 @@ namespace HX3D
 
 	HXVector3D HXGLCamera::UpdateAt()
 	{
-		HXQuaternionOld q;
+		HXQuaternionS q;
 		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D vec = HXVector3D(0, 0, -1);
 		vec = q.Transform(vec);
@@ -96,7 +96,7 @@ namespace HX3D
 
 	HXVector3D HXGLCamera::UpdateUp()
 	{
-		HXQuaternionOld q;
+		HXQuaternionS q;
 		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D vec = HXVector3D(0, 1, 0);
 		return q.Transform(vec);
@@ -132,7 +132,7 @@ namespace HX3D
 
 	void HXGLCamera::move(const HXVector3D& mov)
 	{
-		HXQuaternionOld q;
+		HXQuaternionS q;
 		q.FromEulerDegree(transform->mLocalEuler.x, transform->mLocalEuler.y, transform->mLocalEuler.z);
 		HXVector3D v = mov;
 		v = q.Transform(v);

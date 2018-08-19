@@ -2,7 +2,7 @@
 #include "HXCommon.h"
 #include "HXVector.h"
 #include "HXMatrix.h"
-#include "HXQuaternionOld.h"
+#include "HXQuaternionS.h"
 
 namespace HX3D
 {
@@ -15,7 +15,7 @@ namespace HX3D
 
 		void SetLocalPosition(const HXVector3D& pos);
 		const HXVector3D& GetLocalPosition();
-		virtual HXVector3D GetGlobalPosition() = 0;
+		virtual const HXVector3D& GetGlobalPosition() = 0;
 		void Move(const HXVector3D& mov);
 
 		void SetLocalRotation(const HXVector3D& rotation);
@@ -33,10 +33,11 @@ namespace HX3D
 		virtual void CaculateModelMatrix() = 0;
 
 		void AddChild(HXITransform* child);
+		void RemoveChild(HXITransform* child);
 		std::vector<HXITransform*>& GetChildren();
 
 
-		// New
+		// TODO: New
 		const HXMatrix44& GetLocalMatrix();
 		void SetLocalMatrix(const HXMatrix44& mat);
 		void UpdateLocalMatrix();
@@ -48,13 +49,13 @@ namespace HX3D
 		std::vector<HXITransform*> vctChildren;
 
 		HXVector3D mLocalPostion;
-		HXQuaternionOld mLocalRotation;
+		HXQuaternionS mLocalRotation;
 		HXVector3D mLocalScale;
 		HXVector3D mLocalEuler;
 		HXMatrix44 mLocalMatrix;
 
 		HXVector3D mPostion;
-		HXQuaternionOld mRotation;
+		HXQuaternionS mRotation;
 		HXVector3D mScale;
 		HXMatrix44 mWorldMatrix;
 

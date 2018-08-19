@@ -10,7 +10,7 @@ namespace HX3D
 		HXGDITransform();
 		~HXGDITransform();
 
-		virtual HXVector3D GetGlobalPosition();
+		virtual const HXVector3D& GetGlobalPosition();
 		virtual HXVector3D GetGlobalRotation();
 		virtual HXVector3D GetGlobalScale();
 

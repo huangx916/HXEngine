@@ -4,7 +4,7 @@
 #include "vgl.h"
 #include "vmath.h"
 #include "HXVector.h"
-#include "HXQuaternionOld.h"
+#include "HXQuaternionS.h"
 
 namespace HX3D
 {

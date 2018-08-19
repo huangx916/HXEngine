@@ -4,16 +4,16 @@
 
 namespace HX3D
 {
-	class HXQuaternionOld
+	class HXQuaternionS
 	{
 	public:
-		static const HXQuaternionOld IDENTITY;
+		static const HXQuaternionS IDENTITY;
 
-		HXQuaternionOld();
-		HXQuaternionOld(float fX, float fY, float fZ, float fW);
-		~HXQuaternionOld();
+		HXQuaternionS();
+		HXQuaternionS(float fX, float fY, float fZ, float fW);
+		~HXQuaternionS();
 
-		HXQuaternionOld Inverse() const;
+		HXQuaternionS Inverse() const;
 		void Normalize();
 		void FromEulerDegree(float fX, float fY, float fZ);
 		void FromAngleAxis(float fDegree, HXVector3D axis);
@@ -21,10 +21,10 @@ namespace HX3D
 		HXVector3D ToEulerDegree();
 		static float arcTanAngle(float x, float y);
 
-		HXQuaternionOld operator*( const HXQuaternionOld& rhs) const;
+		HXQuaternionS operator*( const HXQuaternionS& rhs) const;
 		HXVector3D Transform(const HXVector3D& vSrc);
 
-		static void CreateFromMatrix4x4(const HXMatrix44& mat, HXQuaternionOld& out);
+		static void CreateFromMatrix4x4(const HXMatrix44& mat, HXQuaternionS& out);
 		void Identity();
 
 		float x;

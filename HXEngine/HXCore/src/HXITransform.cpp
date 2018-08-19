@@ -67,6 +67,20 @@ namespace HX3D
 	void HXITransform::AddChild(HXITransform* child)
 	{
 		vctChildren.push_back(child);
+		child->parent = this;
+	}
+
+	void HXITransform::RemoveChild(HXITransform* child)
+	{
+		for (std::vector<HXITransform*>::iterator itr = vctChildren.begin(); itr != vctChildren.end(); ++itr)
+		{
+			if ((*itr) == child)
+			{
+				vctChildren.erase(itr);
+				child->parent = NULL;
+				return;
+			}
+		}
 	}
 
 	std::vector<HXITransform*>& HXITransform::GetChildren()

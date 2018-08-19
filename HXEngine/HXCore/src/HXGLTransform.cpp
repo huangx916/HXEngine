@@ -39,7 +39,7 @@ namespace HX3D
 		return destMat;
 	}
 
-	HXVector3D HXGLTransform::GetGlobalPosition()
+	const HXVector3D& HXGLTransform::GetGlobalPosition()
 	{
 		mPostion = GetVector3DMulMatrix44(HXVector3D(0,0,0), mGlobalModelMatrix);
 		return mPostion;
@@ -93,11 +93,11 @@ namespace HX3D
 		// 模型空间到世界空间转换 SQT
 		//mGlobalModelMatrix = matS*matY*matZ*matX*matT * fatherModelMatrix;
 		mGlobalModelMatrix = matS*matY*matX*matZ*matT * fatherModelMatrix;
-
+		//mGlobalModelMatrix = matY*matX*matZ*matS*matT * fatherModelMatrix;
 
 		mScale = mLocalScale * parent->mScale;
 
-		HXQuaternionOld q;
+		HXQuaternionS q;
 		q.FromEulerDegree(mLocalEuler.x, mLocalEuler.y, mLocalEuler.z);
 		mRotation = q * parent->mRotation;
 	}
@@ -134,11 +134,11 @@ namespace HX3D
 		// 模型空间到世界空间转换 SQT
 		//mGlobalModelMatrix = matS*matY*matZ*matX*matT;
 		mGlobalModelMatrix = matS*matY*matX*matZ*matT;
-
+		//mGlobalModelMatrix = matY*matX*matZ*matS*matT;
 
 		mScale = mLocalScale;
 
-		HXQuaternionOld q;
+		HXQuaternionS q;
 		q.FromEulerDegree(mLocalEuler.x, mLocalEuler.y, mLocalEuler.z);
 		mRotation = q;
 	}

@@ -11,10 +11,9 @@ namespace HX3D
 	{
 	}
 
-	HXVector3D HXGDITransform::GetGlobalPosition()
+	const HXVector3D& HXGDITransform::GetGlobalPosition()
 	{
-		// TODO: ´íÎóµÄ,²Î¿¼HXGLTransform
-		return GetVector3DMulMatrix44(mLocalPostion, mGlobalModelMatrix);
+		return GetVector3DMulMatrix44(HXVector3D(0,0,0), mGlobalModelMatrix);
 	}
 
 	HXVector3D HXGDITransform::GetGlobalRotation()

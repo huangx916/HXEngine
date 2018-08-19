@@ -9,7 +9,7 @@ namespace HX3D
 									0, 0, 1, 0,
 									0, 0, 0, 1);
 
-	HXMatrix44 HXMatrix44::CreateAffineTransformation(const HXVector3D& trans, const HXQuaternionOld& rot, const HXVector3D& scale)
+	HXMatrix44 HXMatrix44::CreateAffineTransformation(const HXVector3D& trans, const HXQuaternionS& rot, const HXVector3D& scale)
 	{
 		float x = rot.x, y = rot.y, z = rot.z, w = rot.w, x2 = x + x, y2 = y + y, z2 = z + z;
 		float xx = x * x2, xy = x * y2, xz = x * z2, yy = y * y2, yz = y * z2, zz = z * z2;
@@ -36,12 +36,12 @@ namespace HX3D
 		return tempMatrix44;
 	}
 
-	bool HXMatrix44::DecomposeTransRotScale(HXVector3D& translation, HXQuaternionOld& rotation, HXVector3D& scale)
+	bool HXMatrix44::DecomposeTransRotScale(HXVector3D& translation, HXQuaternionS& rotation, HXVector3D& scale)
 	{
 		//HXMatrix44& rotationMatrix = tempMatrix44;
 		HXMatrix44 rotationMatrix;
 		if (DecomposeTransRotMatScale(translation, rotationMatrix, scale)) {
-			HXQuaternionOld::CreateFromMatrix4x4(rotationMatrix, rotation);
+			HXQuaternionS::CreateFromMatrix4x4(rotationMatrix, rotation);
 			return true;
 		}
 		else {
