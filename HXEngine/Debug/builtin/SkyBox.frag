@@ -41,12 +41,12 @@ void main()
 		//fColor = vec4(0.0, 0.5, 0.0, 1.0);
 		fColor = texture(Texture6, vs_fs_texcoord);
 	}
-	if(vs_fs_normal.x > 0.5)
+	if(vs_fs_normal.x < -0.5)
 	{
 		//fColor = vec4(1.0, 0.0, 0.0, 1.0);
 		fColor = texture(Texture3, vs_fs_texcoord);
 	}
-	if(vs_fs_normal.x < -0.5)
+	if(vs_fs_normal.x > 0.5)
 	{
 		//fColor = vec4(0.5, 0.0, 0.0, 1.0);
 		fColor = texture(Texture4, vs_fs_texcoord);

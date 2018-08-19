@@ -57,11 +57,11 @@ namespace HX3D
 			{
 			case 0:
 				subfilename = filename;
-				subfilename.insert(pos - 4, "_left");
+				subfilename.insert(pos - 4, "_right");
 				break;
 			case 1:
 				subfilename = filename;
-				subfilename.insert(pos - 4, "_right");
+				subfilename.insert(pos - 4, "_left");
 				break;
 			case 2:
 				subfilename = filename;
