@@ -251,10 +251,4 @@ void main()
         fColor = mix(fColor, _fogColor, factor);
     }
     //////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//	float diffuse = max(0.0, dot(normal, vs_fs_light_dir));
-//	vec3 rgb = min(fColor.rgb * diffuse, vec3(1.0));
-//	fColor = vec4(rgb, fColor.a);
 }
