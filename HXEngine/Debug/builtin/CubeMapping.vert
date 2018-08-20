@@ -23,5 +23,5 @@ void main(void)
     vec4 worldPos = model_matrix * vec4(position, 1);
     vec3 eyeWorldDir = normalize(eyePos - worldPos.xyz);
     vec3 worldNormal = normalize((model_matrix * vec4(normal, 0)).xyz);
-    reflectvec = reflect(-eyeWorldDir, worldNormal);
+    reflectvec = reflect(eyeWorldDir, worldNormal);
 }
