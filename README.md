@@ -4,6 +4,7 @@
 <img class="shadow" src="./HXEngine UML.png" width="1024">  
 Editor视图：  
 <img class="shadow" src="./2.png" width="600">  
+<img class="shadow" src="./3.png" width="600">  
 Game视图：  
 <img class="shadow" src="./1.png" width="600">  
 
