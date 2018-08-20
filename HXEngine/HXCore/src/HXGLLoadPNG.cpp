@@ -45,8 +45,9 @@ namespace HX3D
 
 		glGenTextures(1, &tex_id);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_id);
+		
 		glEnable(GL_TEXTURE_CUBE_MAP);
-		glActiveTexture(GL_TEXTURE0);
+		//glActiveTexture(GL_TEXTURE0);//编辑器模式下调用则无法生成cubemap
 
 		GLint alignment;
 		std::string subfilename = filename;
@@ -108,9 +109,15 @@ namespace HX3D
 				//free(png_tex->texels);
 				//free(png_tex);
 
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+				// 对齐，否则可能产生多余的texture
+				glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
+				glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, png_tex->internalFormat, png_tex->width, png_tex->height, 0, png_tex->format, GL_UNSIGNED_BYTE, png_tex->texels);
-				
+				glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
+
 				free(png_tex->texels);
 				free(png_tex);
 				png_tex = NULL;
