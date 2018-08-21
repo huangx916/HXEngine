@@ -157,9 +157,6 @@
     <ClCompile Include="src\HXLoadConfigGameIni.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="src\HXGLTexture.cpp">
-      <Filter>RenderSystem\OpenGL\Util</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXGLFontBG.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
@@ -183,6 +180,9 @@
     </ClCompile>
     <ClCompile Include="src\HXQuaternionS.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLTexture.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

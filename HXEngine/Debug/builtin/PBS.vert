@@ -10,6 +10,8 @@ out vec2 vs_fs_texcoord;
 
 void main(void)
 {
+    //mat4 inverseMVP = inverse(mvp_matrix);
+    //mat4 transposeMVP = transpose(mvp_matrix);
     gl_Position = mvp_matrix * position;
 	vs_fs_texcoord = texcoord * MainTexture_ST.xy + MainTexture_ST.zw;
 }
