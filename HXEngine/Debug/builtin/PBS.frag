@@ -12,8 +12,8 @@ out vec4 color;
 
 void main(void)
 {
-	vec4 fColor = texture(MainTexture, vs_fs_texcoord);
+	//vec4 fColor = texture(MainTexture, vs_fs_texcoord);
 	//vec4 fColor = DiffuseColor;
-	//vec4 fColor = texture(MainTexture, vs_fs_texcoord) * DiffuseColor;
+	vec4 fColor = texture(MainTexture, vs_fs_texcoord) * DiffuseColor;
     color = fColor;
 }
