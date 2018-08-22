@@ -8,6 +8,7 @@ namespace HX3D
 {
 	HXGLTexture::HXGLTexture(EMatPropertyType matType, std::string strTextureFile)
 	{
+		texId = 0;
 		size_t size = strTextureFile.length();
 		std::string type = strTextureFile.substr(size - 3);
 		transform(type.begin(), type.end(), type.begin(), ::tolower);

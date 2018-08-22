@@ -56,7 +56,14 @@ namespace HX3D
 				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
 				if (NULL == tex)
 				{
-					tex = new HXGLTexture(MPT_TEXTURE, itr->value);
+					if (itr->value.find('.') == std::string::npos)
+					{
+						tex = new HXGLTexture(MPT_TEXTURE, "prefab/_Material/builtinPic/" + itr->value +".png");
+					}
+					else
+					{
+						tex = new HXGLTexture(MPT_TEXTURE, itr->value);
+					}					
 					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
 				}
 				// ²ÉÑùÆ÷
