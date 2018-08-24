@@ -76,19 +76,13 @@ vec3 calc_lighting_direct(vec3 n, vec3 v, vec3 l, vec3 h, vec3 albedo, float rou
 
 void main(void)
 {
-	//vec4 fColor = texture(MainTexture, vs_fs_texcoord);
-	//vec4 fColor = DiffuseColor;
-	//vec4 fColor = texture(MainTexture, vs_fs_texcoord) * DiffuseColor;
-    //color = fColor;
-
-
     vec3 view = eyePos - vs_fs_position;
     view = normalize(view);
     vec3 lightPos = vec3(0.0, 0.0, 200.0);
     vec3 light = lightPos - vs_fs_position;
     light = normalize(light);
     vec3 h = normalize(view + light);
-    vec3 color = calc_lighting_direct(vs_fs_normal, view, light, h, Albedo, Roughness, Metalic, vec3(2.5, 2.5, 2.5));
+    vec3 color = calc_lighting_direct(normalize(vs_fs_normal), view, light, h, Albedo, Roughness, Metalic, vec3(2.5, 2.5, 2.5));
     // base tone mapping
     color = color / (color + vec3(1.0, 1.0, 1.0));
     // gamma correction
