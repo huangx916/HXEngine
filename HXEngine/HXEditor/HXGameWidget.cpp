@@ -216,6 +216,11 @@ void HXGameWidget::OnMouseMove(int nButton, int deltaX, int deltaY)
 	{
 		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(curGameobject->GetTransform());
 	}
+	HXLight* curLight = HXEditorWin::GetInstance()->m_pInspectorWidget->selectedLight;
+	if (curLight)
+	{
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(curLight);
+	}
 }
 
 void HXGameWidget::OnMouseWheel(float fDistance)
@@ -240,5 +245,10 @@ void HXGameWidget::OnMouseWheel(float fDistance)
 	if (curGameobject)
 	{
 		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(curGameobject->GetTransform());
+	}
+	HXLight* curLight = HXEditorWin::GetInstance()->m_pInspectorWidget->selectedLight;
+	if (curLight)
+	{
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(curLight);
 	}
 }

@@ -387,6 +387,9 @@
     <ClInclude Include="include\HXQuaternionS.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="include\stb_image.h">
+      <Filter>RenderSystem\OpenGL\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">

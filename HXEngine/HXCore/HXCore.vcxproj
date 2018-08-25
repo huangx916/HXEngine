@@ -82,6 +82,7 @@
     <ClInclude Include="include\HXVector3.h" />
     <ClInclude Include="include\MathUtils3D.h" />
     <ClInclude Include="include\Matrices.h" />
+    <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\tinystr.h" />
     <ClInclude Include="include\tinyxml.h" />
     <ClInclude Include="include\Vectors.h" />

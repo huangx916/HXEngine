@@ -927,6 +927,8 @@ void HXInspectorWidget::SetLightInfo(HXLight* pLight)
 	selectedLight = pLight;
 	if (selectedLight)
 	{
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
+
 		light->setHidden(false);
 		editLightName->setText(selectedLight->name.c_str());
 		if (selectedLight->enable)
@@ -961,6 +963,7 @@ void HXInspectorWidget::SetLightInfo(HXLight* pLight)
 	else
 	{
 		light->setHidden(true);
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
 	}
 }
 
@@ -1664,6 +1667,7 @@ void HXInspectorWidget::LightTypeActivated(int index)
 	if (selectedLight)
 	{
 		selectedLight->lightType = (LIGHT_TYPE)index;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 
@@ -1750,6 +1754,7 @@ void HXInspectorWidget::LightPositionXValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->position.x = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 void HXInspectorWidget::LightPositionYValueChanged(double value)
@@ -1757,6 +1762,7 @@ void HXInspectorWidget::LightPositionYValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->position.y = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 void HXInspectorWidget::LightPositionZValueChanged(double value)
@@ -1764,6 +1770,7 @@ void HXInspectorWidget::LightPositionZValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->position.z = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 
@@ -1772,6 +1779,7 @@ void HXInspectorWidget::LightDirectionXValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->direct.x = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 void HXInspectorWidget::LightDirectionYValueChanged(double value)
@@ -1779,6 +1787,7 @@ void HXInspectorWidget::LightDirectionYValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->direct.y = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 void HXInspectorWidget::LightDirectionZValueChanged(double value)
@@ -1786,6 +1795,7 @@ void HXInspectorWidget::LightDirectionZValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->direct.z = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 
@@ -1794,6 +1804,7 @@ void HXInspectorWidget::ConeDirXValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->ConeDirection.x = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 void HXInspectorWidget::ConeDirYValueChanged(double value)
@@ -1801,6 +1812,7 @@ void HXInspectorWidget::ConeDirYValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->ConeDirection.y = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 void HXInspectorWidget::ConeDirZValueChanged(double value)
@@ -1808,6 +1820,7 @@ void HXInspectorWidget::ConeDirZValueChanged(double value)
 	if (selectedLight)
 	{
 		selectedLight->ConeDirection.z = value;
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(selectedLight);
 	}
 }
 
@@ -1822,6 +1835,7 @@ void HXInspectorWidget::OnDeleteLight()
 {
 	selectedLight = NULL;
 	light->setHidden(true);
+	HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
 }
 
 void HXInspectorWidget::OnDeleteCamera()

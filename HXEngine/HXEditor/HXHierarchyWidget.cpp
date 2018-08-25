@@ -209,7 +209,7 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 	HXLight* light = item->data(1, Qt::UserRole).value<HXLight*>();
 	if (light)
 	{
-		HXVector3D pos = light->position;
+		HXVector3D pos = light->position + vec;
 		trans->SetLocalPosition(pos);
 		if (light->lightType == LIGHT_DIRECTION)
 		{
@@ -219,6 +219,7 @@ void HXHierarchyWidget::TreeWidgetItemOnDoubleClick(QTreeWidgetItem *item, int c
 		{
 			trans->SetLocalRotation(light->ConeDirection);
 		}
+		HXEditorWin::GetInstance()->m_pHierarchyWidget->UpdateCoordArrow(light);
 	}
 }
 
@@ -268,6 +269,48 @@ void HXHierarchyWidget::UpdateCoordArrow(HX3D::HXITransform* trans)
 	HXVector3D scale = HXVector3D(distance, distance, distance) / _CoordArrow->GetTransform()->parent->GetGlobalScale();
 	_CoordArrow->GetTransform()->SetLocalScale(scale);
 	
+}
+
+void HXHierarchyWidget::UpdateCoordArrow(const HX3D::HXLight* light)
+{
+	if (_CoordArrow == NULL/* || _EditorCamera == NULL*/)
+	{
+		return;
+	}
+	HXICamera* mainCamera = HXSceneManager::GetInstance()->GetMainCamera();
+
+	_CoordArrow->SetActivity(true);
+
+	const HXVector3D& posCam = mainCamera->transform->GetLocalPosition();
+	const HXVector3D& posLight = light->position;
+	float x = posCam.x - posLight.x;
+	float y = posCam.y - posLight.y;
+	float z = posCam.z - posLight.z;
+	float distance = sqrt(x * x + y * y + z * z) / 300;
+	//_CoordArrow->GetTransform()->SetLocalScale(HXVector3D(distance, distance, distance));
+
+
+	//_CoordArrow->GetTransform()->parent = trans->parent;
+	_CoordArrow->GetTransform()->parent->RemoveChild(_CoordArrow->GetTransform());
+	HXSceneManager::GetInstance()->GetGameObjectTreeRoot()->GetTransform()->AddChild(_CoordArrow->GetTransform());
+
+	_CoordArrow->GetTransform()->SetLocalPosition(light->position);
+	
+	/*if (light->lightType == LIGHT_DIRECTION)
+	{
+		_CoordArrow->GetTransform()->SetLocalRotation(light->direct);
+	}
+	else if (light->lightType == LIGHT_SPOT)
+	{
+		_CoordArrow->GetTransform()->SetLocalRotation(light->ConeDirection);
+	}
+	else*/
+	{
+		_CoordArrow->GetTransform()->SetLocalRotation(HXVector3D(0, 0, 0));
+	}
+
+	HXVector3D scale = HXVector3D(distance, distance, distance) / _CoordArrow->GetTransform()->parent->GetGlobalScale();
+	_CoordArrow->GetTransform()->SetLocalScale(scale);
 }
 
 void HXHierarchyWidget::HideCoordArrow()

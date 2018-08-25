@@ -27,6 +27,7 @@ public:
 	void OnDeleteCamera();
 
 	void UpdateCoordArrow(HX3D::HXITransform* trans);
+	void UpdateCoordArrow(const HX3D::HXLight* light);
 	void HideCoordArrow();
 
 private:
