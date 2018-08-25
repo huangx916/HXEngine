@@ -6,7 +6,7 @@
 		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
 			<ClearColor Cr="63" Cg="63" Cb="63"/>
 			<ViewportRect X="0" Y="0" W="1" H="1"/>
-			<Position Px="1.29631" Py="1.65317" Pz="12.9282"/>
+			<Position Px="1.28626" Py="2.21785" Pz="14.8468"/>
 			<Rotation Rx="-16.4" Ry="-360.3" Rz="0"/>
 		</Camera>
 	</Cameras>
@@ -49,7 +49,7 @@
 			<Scale Sx="400" Sy="400" Sz="400"/>
 		</GameObj>
 		<GameObj Name="TerrainGO" Activity="1" Static="1" Model="prefab/Terrain/Terrain.model" CastShadow="0" Layer="0">
-			<Position Px="-5" Py="0" Pz="-39"/>
+			<Position Px="-5" Py="0" Pz="-7"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 		</GameObj>
@@ -369,9 +369,9 @@
 			</GameObj>
 		</GameObj>
 		<GameObj Name="_CoordArrow" Activity="0" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
-			<Position Px="0" Py="0" Pz="0"/>
+			<Position Px="-5" Py="0" Pz="-7"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.106667" Sy="0.106667" Sz="0.106667"/>
+			<Scale Sx="0.0761372" Sy="0.0761372" Sz="0.0761372"/>
 		</GameObj>
 	</GameObjects>
 </Scene>

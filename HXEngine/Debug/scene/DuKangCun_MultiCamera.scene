@@ -43,7 +43,7 @@
 			<Scale Sx="400" Sy="400" Sz="400"/>
 		</GameObj>
 		<GameObj Name="TerrainGO" Activity="1" Static="1" Model="prefab/Terrain/Terrain.model" CastShadow="0" Layer="0">
-			<Position Px="-5" Py="0" Pz="-39"/>
+			<Position Px="-5" Py="0" Pz="-7"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 		</GameObj>
