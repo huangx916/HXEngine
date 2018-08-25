@@ -916,7 +916,7 @@ void HXInspectorWidget::SetGameObjectInfo(HXGameObject* pGameObject)
 	else
 	{
 		gameobject->setHidden(true);
-		HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
+		//HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
 	}
 
 	selectedGameObject = pGameObject;
@@ -963,7 +963,7 @@ void HXInspectorWidget::SetLightInfo(HXLight* pLight)
 	else
 	{
 		light->setHidden(true);
-		HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
+		//HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
 	}
 }
 

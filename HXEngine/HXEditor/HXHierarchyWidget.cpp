@@ -188,6 +188,10 @@ void HXHierarchyWidget::GameObjectChange(QTreeWidgetItem *current, QTreeWidgetIt
 		{
 			clickCameraCallback(camera);
 		}
+		if (gameObject == NULL && light == NULL)
+		{
+			HXEditorWin::GetInstance()->m_pHierarchyWidget->HideCoordArrow();
+		}
 	}
 }
 
