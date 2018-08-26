@@ -11,6 +11,7 @@ namespace HX3D
 	class HXMaterial;
 	struct HXMaterialInfo;
 	struct HXCameraInfo;
+	class HXRenderTarget;
 	class HXRenderSystem
 	{
 	public:
@@ -29,6 +30,10 @@ namespace HX3D
 		virtual HXITransform* CreateTransform() = 0;
 
 		virtual HXMaterial* CreateMaterial(HXMaterialInfo* info) = 0;
+
+		virtual void InitDefaultRenderTarget() {};
+		virtual HXRenderTarget* GetDefaultRenderTarget() { return NULL; };
+		virtual HXRenderTarget* CreateRenderTarget() { return NULL; };
 
 		ERenderSystem GetRenderSystemType();
 		void SetRenderSystemType(ERenderSystem rs);

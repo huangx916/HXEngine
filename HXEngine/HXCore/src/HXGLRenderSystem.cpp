@@ -9,11 +9,13 @@
 #include "HXGLMaterial.h"
 #include "HXLoadConfigScene.h"
 #include "HXSceneManager.h"
+#include "HXGLRenderTarget.h"
+#include "HXRoot.h"
 
 namespace HX3D
 {
 	HXGLShadowMap* HXGLRenderSystem::mShadowMap = NULL;
-	HXGLRenderSystem::HXGLRenderSystem():mFont(NULL)
+	HXGLRenderSystem::HXGLRenderSystem():mFont(NULL), mDefaultRenderTarget(NULL)
 	{
 		
 	}
@@ -170,6 +172,24 @@ namespace HX3D
 		return new HXGLMaterial(info);
 	}
 
+	HXRenderTarget* HXGLRenderSystem::CreateRenderTarget(int width, int height)
+	{
+		return new HXGLRenderTarget(width, height);
+	}
+
+	void HXGLRenderSystem::InitDefaultRenderTarget()
+	{
+		if (NULL == mDefaultRenderTarget)
+		{
+			mDefaultRenderTarget = new HXGLRenderTarget();
+		}
+	}
+
+	HXRenderTarget* HXGLRenderSystem::GetDefaultRenderTarget()
+	{
+		return mDefaultRenderTarget;
+	}
+
 	void HXGLRenderSystem::Initialize()
 	{
 		glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
@@ -188,6 +208,8 @@ namespace HX3D
 
 	void HXGLRenderSystem::RenderScene()
 	{
+		HXRoot::GetInstance()->GetRenderSystem()->InitDefaultRenderTarget();
+
 		if (m_pDisplayListener)
 		{
 			m_pDisplayListener->Update();

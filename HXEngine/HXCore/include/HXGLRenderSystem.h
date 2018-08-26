@@ -29,6 +29,9 @@ namespace HX3D
 
 		virtual HXITransform* CreateTransform();
 		virtual HXMaterial* CreateMaterial(HXMaterialInfo* info);
+		virtual void InitDefaultRenderTarget();
+		virtual HXRenderTarget* GetDefaultRenderTarget();
+		virtual HXRenderTarget* CreateRenderTarget(int width, int height);
 
 		static void RenderScene();
 		void Initialize();
@@ -36,5 +39,6 @@ namespace HX3D
 
 		HXIFreeTypeFont* mFont;
 		static HXGLShadowMap* mShadowMap;
+		HXRenderTarget* mDefaultRenderTarget;
 	};
 }

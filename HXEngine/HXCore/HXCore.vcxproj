@@ -28,6 +28,7 @@
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
     <ClInclude Include="include\HXGLLoadPNG.h" />
     <ClInclude Include="include\HXGLMaterial.h" />
+    <ClInclude Include="include\HXGLRenderTarget.h" />
     <ClInclude Include="include\HXGLShadowMap.h" />
     <ClInclude Include="include\HXGLTexture.h" />
     <ClInclude Include="include\HXGLTransform.h" />
@@ -71,6 +72,7 @@
     <ClInclude Include="include\HXRenderable.h" />
     <ClInclude Include="include\HXRenderState.h" />
     <ClInclude Include="include\HXRenderSystem.h" />
+    <ClInclude Include="include\HXRenderTarget.h" />
     <ClInclude Include="include\HXResourceManager.h" />
     <ClInclude Include="include\HXFBXSkeleton.h" />
     <ClInclude Include="include\HXRoot.h" />
@@ -108,6 +110,7 @@
     <ClCompile Include="src\HXGLMaterial.cpp" />
     <ClCompile Include="src\HXGLRenderable.cpp" />
     <ClCompile Include="src\HXGLRenderSystem.cpp" />
+    <ClCompile Include="src\HXGLRenderTarget.cpp" />
     <ClCompile Include="src\HXGLShadowMap.cpp" />
     <ClCompile Include="src\HXGLTest.cpp" />
     <ClCompile Include="src\HXGLTexture.cpp" />
@@ -135,6 +138,7 @@
     <ClCompile Include="src\HXRenderable.cpp" />
     <ClCompile Include="src\HXRenderState.cpp" />
     <ClCompile Include="src\HXRenderSystem.cpp" />
+    <ClCompile Include="src\HXRenderTarget.cpp" />
     <ClCompile Include="src\HXResourceManager.cpp" />
     <ClCompile Include="src\HXFBXSkeleton.cpp" />
     <ClCompile Include="src\HXRoot.cpp" />
