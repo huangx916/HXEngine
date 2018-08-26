@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene>
-	<Fog Use="1" Type="0" R="180" G="200" B="220" Start="10" End="50" Density="0.02" Gradiant="2"/>
-	<Ambient R="50" G="50" B="50"/>
+	<Fog Use="1" Type="0" R="0" G="0" B="30" Start="10" End="50" Density="0.02" Gradiant="2"/>
+	<Ambient R="0" G="0" B="50"/>
 	<Cameras>
 		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
 			<ClearColor Cr="63" Cg="63" Cb="63"/>
 			<ViewportRect X="0" Y="0" W="1" H="1"/>
-			<Position Px="1.28626" Py="2.21785" Pz="14.8468"/>
-			<Rotation Rx="-16.4" Ry="-360.3" Rz="0"/>
+			<Position Px="0.803631" Py="1.9689" Pz="13.2359"/>
+			<Rotation Rx="-15.2" Ry="-360.901" Rz="0"/>
 		</Camera>
 	</Cameras>
 	<Lights>
 		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
-			<Color Cr="255" Cg="255" Cb="255"/>
+			<Color Cr="50" Cg="50" Cb="80"/>
 			<Position Px="0" Py="0" Pz="0"/>
 			<Direct Dx="1" Dy="1" Dz="1"/>
 			<ConeDirection Cx="0" Cy="0" Cz="0"/>
 		</Light>
-		<Light Name="PointLight1" Enable="1" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="0.01" SpotCosCutoff="0" SpotExponent="0">
+		<Light Name="PointLight1" Enable="1" LightType="2" Shininess="10" Strength="0.01" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="3.5" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="255" Cg="0" Cb="0"/>
-			<Position Px="1" Py="4" Pz="0"/>
+			<Position Px="0.06" Py="-2" Pz="8"/>
 			<Direct Dx="0" Dy="0" Dz="0"/>
 			<ConeDirection Cx="0" Cy="0" Cz="0"/>
 		</Light>
-		<Light Name="PointLight2" Enable="1" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="0.01" SpotCosCutoff="0" SpotExponent="0">
-			<Color Cr="0" Cg="0" Cb="255"/>
-			<Position Px="7" Py="0" Pz="2"/>
+		<Light Name="PointLight2" Enable="1" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="3.5" SpotCosCutoff="0" SpotExponent="0">
+			<Color Cr="255" Cg="0" Cb="0"/>
+			<Position Px="1.1" Py="-2" Pz="8"/>
 			<Direct Dx="0" Dy="0" Dz="0"/>
 			<ConeDirection Cx="0" Cy="0" Cz="0"/>
 		</Light>
-		<Light Name="PointLight3" Enable="1" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="0.05" SpotCosCutoff="0" SpotExponent="0">
+		<Light Name="PointLight3" Enable="1" LightType="2" Shininess="10" Strength="0.1" constantAttenuation="0.05" LinearAttenuation="0.05" QuadraticAttenuation="0.5" SpotCosCutoff="0" SpotExponent="0">
 			<Color Cr="0" Cg="255" Cb="0"/>
-			<Position Px="-5" Py="0" Pz="5"/>
+			<Position Px="-3.6" Py="0.3" Pz="5"/>
 			<Direct Dx="0" Dy="0" Dz="0"/>
 			<ConeDirection Cx="0" Cy="0" Cz="0"/>
 		</Light>
-		<Light Name="SpotLight" Enable="1" LightType="3" Shininess="10" Strength="0.01" constantAttenuation="0.1" LinearAttenuation="0.05" QuadraticAttenuation="0.01" SpotCosCutoff="0" SpotExponent="10">
-			<Color Cr="255" Cg="0" Cb="255"/>
-			<Position Px="1" Py="2" Pz="9"/>
+		<Light Name="SpotLight" Enable="1" LightType="3" Shininess="10" Strength="0.01" constantAttenuation="0.1" LinearAttenuation="0.05" QuadraticAttenuation="0.1" SpotCosCutoff="0" SpotExponent="10">
+			<Color Cr="255" Cg="255" Cb="255"/>
+			<Position Px="3.7" Py="-1.7" Pz="6"/>
 			<Direct Dx="0" Dy="0" Dz="0"/>
 			<ConeDirection Cx="0" Cy="-1" Cz="0"/>
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="SkyBoxGO" Activity="1" Static="1" Model="prefab/SkyBox/SkyBox.model" CastShadow="0" Layer="0">
+		<GameObj Name="SkyBoxGO" Activity="1" Static="1" Model="prefab/SkyBox/SkyBox1.model" CastShadow="0" Layer="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="400" Sy="400" Sz="400"/>
@@ -53,7 +53,7 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 		</GameObj>
-		<GameObj Name="DogGo" Activity="1" Static="0" Model="prefab/Dog/Dog.model" CastShadow="1" Layer="0">
+		<GameObj Name="DogGo" Activity="0" Static="0" Model="prefab/Dog/Dog.model" CastShadow="1" Layer="0">
 			<Position Px="2" Py="-2.5" Pz="6.5"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="0.5" Sy="0.5" Sz="0.5"/>
@@ -369,9 +369,9 @@
 			</GameObj>
 		</GameObj>
 		<GameObj Name="_CoordArrow" Activity="0" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
-			<Position Px="-5" Py="0" Pz="-7"/>
+			<Position Px="1.1" Py="-2" Pz="8"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.0761372" Sy="0.0761372" Sz="0.0761372"/>
+			<Scale Sx="0.0214933" Sy="0.0214933" Sz="0.0214933"/>
 		</GameObj>
 	</GameObjects>
 </Scene>
