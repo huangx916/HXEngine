@@ -1,15 +1,16 @@
-"# HXEngine note" 
-
-引擎框架UML图：  
+引擎框架UML图:
+================================================================================
 <img class="shadow" src="./HXEngine UML.png" width="1024">  
-Editor视图：  
+Editor视图:
+================================================================================
 <img class="shadow" src="./2.png" width="600">  
 <img class="shadow" src="./3.png" width="600">  
 <img class="shadow" src="./4.png" width="600">  
-Game视图：  
+Game视图:
+================================================================================
 <img class="shadow" src="./1.png" width="600">  
 
-configuration
+Configuration
 ================================================================================
 visual studio 2015  x86 debug 环境下运行  
 libfbxsdk-md.lib[自行下载](https://pan.baidu.com/s/1oCiEz5Ol3jDkzU6Ut0FoQg)放入HXCore\fbx\lib\vs2015\x86\debug目录下（超过100M Github不让上传）
