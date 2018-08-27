@@ -172,11 +172,6 @@ namespace HX3D
 		return new HXGLMaterial(info);
 	}
 
-	HXRenderTarget* HXGLRenderSystem::CreateRenderTarget(int width, int height)
-	{
-		return new HXGLRenderTarget(width, height);
-	}
-
 	void HXGLRenderSystem::InitDefaultRenderTarget()
 	{
 		if (NULL == mDefaultRenderTarget)
@@ -188,6 +183,11 @@ namespace HX3D
 	HXRenderTarget* HXGLRenderSystem::GetDefaultRenderTarget()
 	{
 		return mDefaultRenderTarget;
+	}
+
+	HXRenderTarget* HXGLRenderSystem::CreateRenderTarget(int width, int height)
+	{
+		return new HXGLRenderTarget(width, height);
 	}
 
 	void HXGLRenderSystem::Initialize()

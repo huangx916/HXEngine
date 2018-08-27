@@ -33,7 +33,7 @@ namespace HX3D
 
 		virtual void InitDefaultRenderTarget() {};
 		virtual HXRenderTarget* GetDefaultRenderTarget() { return NULL; };
-		virtual HXRenderTarget* CreateRenderTarget() { return NULL; };
+		virtual HXRenderTarget* CreateRenderTarget(int width, int height) { return NULL; };
 
 		ERenderSystem GetRenderSystemType();
 		void SetRenderSystemType(ERenderSystem rs);
