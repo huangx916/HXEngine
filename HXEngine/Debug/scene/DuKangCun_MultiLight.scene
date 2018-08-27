@@ -6,8 +6,8 @@
 		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
 			<ClearColor Cr="63" Cg="63" Cb="63"/>
 			<ViewportRect X="0" Y="0" W="1" H="1"/>
-			<Position Px="0.803631" Py="1.9689" Pz="13.2359"/>
-			<Rotation Rx="-15.2" Ry="-360.901" Rz="0"/>
+			<Position Px="1.05531" Py="1.19952" Pz="13.037"/>
+			<Rotation Rx="-12.3" Ry="-357.702" Rz="0"/>
 		</Camera>
 	</Cameras>
 	<Lights>
@@ -368,10 +368,20 @@
 				<Scale Sx="1" Sy="1" Sz="1"/>
 			</GameObj>
 		</GameObj>
-		<GameObj Name="_CoordArrow" Activity="0" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
-			<Position Px="1.1" Py="-2" Pz="8"/>
+		<GameObj Name="Lantern" Activity="1" Static="0" Model="prefab/Lantern/Lantern.model" CastShadow="1" Layer="0">
+			<Position Px="0.02" Py="-1.8" Pz="7.7"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.0214933" Sy="0.0214933" Sz="0.0214933"/>
+			<Scale Sx="0.005" Sy="0.005" Sz="0.005"/>
+		</GameObj>
+		<GameObj Name="Lantern" Activity="1" Static="0" Model="prefab/Lantern/Lantern.model" CastShadow="1" Layer="0">
+			<Position Px="1.2" Py="-1.8" Pz="7.7"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.005" Sy="0.005" Sz="0.005"/>
+		</GameObj>
+		<GameObj Name="_CoordArrow" Activity="0" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.0437818" Sy="0.0437818" Sz="0.0437818"/>
 		</GameObj>
 	</GameObjects>
 </Scene>
