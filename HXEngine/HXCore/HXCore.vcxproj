@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\HX3DHeader.h" />
     <ClInclude Include="include\HXBitmap.h" />
+    <ClInclude Include="include\HXDDSFormat.h" />
     <ClInclude Include="include\HXFog.h" />
     <ClInclude Include="include\HXGDIMaterial.h" />
     <ClInclude Include="include\HXGDITextureBMP.h" />
@@ -79,6 +80,8 @@
     <ClInclude Include="include\HXSceneManager.h" />
     <ClInclude Include="include\HXStatus.h" />
     <ClInclude Include="include\hxtest.h" />
+    <ClInclude Include="include\HXTextureInfo.h" />
+    <ClInclude Include="include\HXTextureReader.h" />
     <ClInclude Include="include\HXUtil.h" />
     <ClInclude Include="include\HXVector.h" />
     <ClInclude Include="include\HXVector3.h" />
@@ -145,6 +148,7 @@
     <ClCompile Include="src\HXSceneManager.cpp" />
     <ClCompile Include="src\HXStatus.cpp" />
     <ClCompile Include="src\hxtest.cpp" />
+    <ClCompile Include="src\HXTextureReader.cpp" />
     <ClCompile Include="src\HXVector.cpp" />
     <ClCompile Include="src\HXGLLoadPNG.cpp" />
     <ClCompile Include="src\HXVector3.cpp" />

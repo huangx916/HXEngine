@@ -20,6 +20,9 @@ namespace HX3D
 		GLuint LoadDDSTexture(const char *filename);
 		GLuint LoadDDSTextureCubeMap(const char *filename);
 
+		// 
+		GLuint CreateFloat32Texture(int32_t width, int32_t height, bool enableMipmapping = true);
+
 		// 具体纹理数据保存在显存上了，系统内存不需要再保存一份
 		GLuint texId;
 	};

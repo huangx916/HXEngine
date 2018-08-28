@@ -35,6 +35,8 @@ namespace HX3D
 	#define ORTHO_HALF_SIZE		10
 	#define ORTHO_DISTANCE		10
 
+	#define HX_ARRAY_SIZE(_array_) (sizeof(_array_) / sizeof(_array_[0]))
+
 	//#define HXCOLOR_TO_24BIT(r,g,b)		(((r) & 0xff) << 16 | ((g) & 0xff) << 8 | ((b) & 0xff))
 
 	struct HXCOLOR

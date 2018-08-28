@@ -190,6 +190,9 @@
     <ClCompile Include="src\HXGLRenderTarget.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXTextureReader.cpp">
+      <Filter>RenderSystem\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -401,6 +404,15 @@
     </ClInclude>
     <ClInclude Include="include\HXGLRenderTarget.h">
       <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXTextureInfo.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXTextureReader.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXDDSFormat.h">
+      <Filter>RenderSystem\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
