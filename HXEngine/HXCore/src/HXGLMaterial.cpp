@@ -53,7 +53,7 @@ namespace HX3D
 					continue;
 				}
 
-				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
 				if (NULL == tex)
 				{
 					if (itr->value.find('.') == std::string::npos)
@@ -64,7 +64,7 @@ namespace HX3D
 					{
 						tex = new HXGLTexture(MPT_TEXTURE, itr->value);
 					}					
-					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 				// 采样器
 				glUniform1i(tex_uniform_loc, nTexIndex);
@@ -128,11 +128,11 @@ namespace HX3D
 					continue;
 				}
 
-				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
 				if (NULL == tex)
 				{
 					tex = new HXGLTexture(MPT_CUBEMAP,itr->value);
-					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 
 				// 采样器
@@ -333,7 +333,7 @@ namespace HX3D
 					continue;
 				}
 
-				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
 
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
@@ -383,11 +383,11 @@ namespace HX3D
 					continue;
 				}
 
-				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
 				if (NULL == tex)
 				{
 					tex = new HXGLTexture(MPT_CUBEMAP, itr->value);
-					HXResourceManager::GetInstance()->AddTexture("GL_" + itr->value, tex);
+					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 
 				// 采样器
@@ -586,7 +586,7 @@ namespace HX3D
 					continue;
 				}
 
-				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("GL_" + itr->value);
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
 
 				glUniform1i(tex_uniform_loc, 0);
 				glActiveTexture(GL_TEXTURE0);

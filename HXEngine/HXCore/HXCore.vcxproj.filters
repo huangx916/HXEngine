@@ -396,9 +396,6 @@
     <ClInclude Include="include\HXQuaternionS.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="include\stb_image.h">
-      <Filter>RenderSystem\OpenGL\Util</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXRenderTarget.h">
       <Filter>RenderSystem\Common</Filter>
     </ClInclude>
@@ -412,6 +409,9 @@
       <Filter>RenderSystem\Common</Filter>
     </ClInclude>
     <ClInclude Include="include\HXDDSFormat.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stb_image.h">
       <Filter>RenderSystem\Common</Filter>
     </ClInclude>
   </ItemGroup>

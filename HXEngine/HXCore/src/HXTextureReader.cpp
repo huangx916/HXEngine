@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "HXTextureInfo.h"
 #include "HXDDSFormat.h"
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 namespace HX3D
@@ -63,6 +64,7 @@ namespace HX3D
 		TEXTURE_TYPE GetTextureType(DDSSurfaceDesc desc);
 
 		void ReadTexture2D(FILE* file, TEXTURE_PIXEL_FORMAT_TYPE pixel_type, DDSFile& dds, int8_t** texture_data, int32_t& tex_width, int32_t& tex_height, int32_t& pixel_format);
+		// TODO:
 		void ReadTexture3D();
 		void ReadTextureCube(FILE* file, TEXTURE_PIXEL_FORMAT_TYPE pixel_type, DDSFile& dds, int8_t** texture_data, int32_t& tex_width, int32_t& tex_height, int32_t& pixel_format);
 

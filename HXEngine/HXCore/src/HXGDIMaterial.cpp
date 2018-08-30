@@ -16,11 +16,11 @@ namespace HX3D
 	HXGDITextureBMP* HXGDIMaterial::GetTexture()
 	{
 		// GDI默认只使用第一张贴图
-		HXGDITextureBMP* tex = (HXGDITextureBMP*)HXResourceManager::GetInstance()->GetTexture("GDI_" + mMatInfo->vctMatProperty[0].value);
+		HXGDITextureBMP* tex = (HXGDITextureBMP*)HXResourceManager::GetInstance()->GetTexture(mMatInfo->vctMatProperty[0].value);
 		if (NULL == tex)
 		{
 			tex = new HXGDITextureBMP(mMatInfo->vctMatProperty[0].value);
-			HXResourceManager::GetInstance()->AddTexture("GDI_" + mMatInfo->vctMatProperty[0].value, tex);
+			HXResourceManager::GetInstance()->AddTexture(mMatInfo->vctMatProperty[0].value, tex);
 		}
 		return tex;
 	}
