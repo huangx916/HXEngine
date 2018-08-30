@@ -37,8 +37,15 @@ namespace HX3D
 		static void SetTexturePixelFormat(HXGLTexture* texture, int32_t texture_pixel_format);
 
 	public:
-		// 具体纹理数据保存在显存上了，系统内存不需要再保存一份
-		GLuint texId;
+		// int texID;
+		std::string texName;
+		GLuint texObj;	// 具体纹理数据保存在显存上了，系统内存不需要再保存一份
+		TextureType texType;
+		TextureFormat texFormat;
+		int texWidth;
+		int texHeight;
+		int texDepth;
+		int texBPP;		// The Bytes per pixel of the texture
 	};
 }
 

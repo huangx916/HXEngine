@@ -78,8 +78,8 @@ namespace HX3D
 
 			HXGLTexture* tex = (HXGLTexture*)depth_tex;
 			glBindFramebuffer(GL_FRAMEBUFFER, m_FBO);
-			glBindTexture(GL_TEXTURE_2D, tex->texId);
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, tex->texId, 0);
+			glBindTexture(GL_TEXTURE_2D, tex->texObj);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, tex->texObj, 0);
 
 			glBindFramebuffer(GL_FRAMEBUFFER, preFBO);
 		}
@@ -95,8 +95,8 @@ namespace HX3D
 
 			HXGLTexture* tex = (HXGLTexture*)color_tex;
 			glBindFramebuffer(GL_FRAMEBUFFER, m_FBO);
-			glBindTexture(GL_TEXTURE_2D, tex->texId);
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index - COLORBUF_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex->texId, level);
+			glBindTexture(GL_TEXTURE_2D, tex->texObj);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index - COLORBUF_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex->texObj, level);
 			
 			glBindFramebuffer(GL_FRAMEBUFFER, preFBO);
 		}
@@ -111,7 +111,7 @@ namespace HX3D
 
 			HXGLTexture* tex = (HXGLTexture*)cube_tex;
 			glBindFramebuffer(GL_FRAMEBUFFER, m_FBO);
-			glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texId);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
 			GLint face[6] = {
 				GL_TEXTURE_CUBE_MAP_POSITIVE_X,
 				GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
@@ -125,7 +125,7 @@ namespace HX3D
 				if (COLORBUF_COLOR_ATTACHMENT0 <= index[i] && index[i] <= COLORBUF_COLOR_ATTACHMENT7) 
 				{
 					glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index[i] - COLORBUF_COLOR_ATTACHMENT0
-						, face[i], tex->texId, level);
+						, face[i], tex->texObj, level);
 				}
 			}
 
@@ -143,8 +143,8 @@ namespace HX3D
 
 			HXGLTexture* tex = (HXGLTexture*)color_tex_3d;
 			glBindFramebuffer(GL_FRAMEBUFFER, m_FBO);
-			glBindTexture(GL_TEXTURE_3D, tex->texId);
-			glFramebufferTexture3D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index - COLORBUF_COLOR_ATTACHMENT0, GL_TEXTURE_3D, tex->texId, level, layer);
+			glBindTexture(GL_TEXTURE_3D, tex->texObj);
+			glFramebufferTexture3D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index - COLORBUF_COLOR_ATTACHMENT0, GL_TEXTURE_3D, tex->texObj, level, layer);
 		
 			glBindFramebuffer(GL_FRAMEBUFFER, preFBO);
 		}

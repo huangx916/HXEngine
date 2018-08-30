@@ -74,7 +74,7 @@ namespace HX3D
 				/*glBindTexture(tex->mImageData.target, tex->texId);
 				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				vglUnloadImage(&tex->mImageData);*/
-				glBindTexture(GL_TEXTURE_2D, tex->texId);
+				glBindTexture(GL_TEXTURE_2D, tex->texObj);
 				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
@@ -143,7 +143,7 @@ namespace HX3D
 				/*glBindTexture(tex->mImageData.target, tex->texId);
 				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				vglUnloadImage(&tex->mImageData);*/
-				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texId);
+				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
 				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
@@ -337,7 +337,7 @@ namespace HX3D
 
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				glBindTexture(GL_TEXTURE_2D, tex->texId);
+				glBindTexture(GL_TEXTURE_2D, tex->texObj);
 				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 				if (HXRoot::GetInstance()->IsEditorMode())
@@ -398,7 +398,7 @@ namespace HX3D
 				/*glBindTexture(tex->mImageData.target, tex->texId);
 				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				vglUnloadImage(&tex->mImageData);*/
-				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texId);
+				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
 				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
@@ -590,7 +590,7 @@ namespace HX3D
 
 				glUniform1i(tex_uniform_loc, 0);
 				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, tex->texId);
+				glBindTexture(GL_TEXTURE_2D, tex->texObj);
 
 				GLint property_loc = glGetUniformLocation(sm->render_light_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);

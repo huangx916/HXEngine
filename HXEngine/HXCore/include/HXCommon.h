@@ -238,6 +238,25 @@ namespace HX3D
 		COLORBUF_COLOR_ATTACHMENT7,
 	};
 
+	enum TextureType
+	{
+		TEX_NONE = 0,
+		TEX_2D,
+		TEX_3D,
+		TEX_CUBE,
+	};
+
+	enum TextureFormat
+	{
+		FMT_R8G8B8 = 0,
+		FMT_R8G8B8A8,
+		FMT_R16G16,
+		FMT_R16G16B16A16F,
+		FMT_R32G32B32A32F,
+		FMT_R16G16B16F,
+		FMT_DEPTH32F,
+	};
+
 	// TODO: 如何根据当前子网格顶点数动态生成顶点数组大小
 	const int MAX_TRIANGLE_COUNT = 100000;	// 最大子网格面数
 }

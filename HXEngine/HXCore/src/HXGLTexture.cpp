@@ -8,7 +8,7 @@ namespace HX3D
 {
 	HXGLTexture::HXGLTexture(EMatPropertyType matType, std::string strTextureFile)
 	{
-		texId = 0;
+		texObj = 0;
 		size_t size = strTextureFile.length();
 		std::string type = strTextureFile.substr(size - 3);
 		transform(type.begin(), type.end(), type.begin(), ::tolower);
@@ -16,31 +16,31 @@ namespace HX3D
 		{
 			if (matType == MPT_TEXTURE)
 			{
-				texId = LoadDDSTexture(strTextureFile.c_str());
+				texObj = LoadDDSTexture(strTextureFile.c_str());
 			}
 			else if (matType == MPT_CUBEMAP)
 			{
-				texId = LoadDDSTextureCubeMap(strTextureFile.c_str());
+				texObj = LoadDDSTextureCubeMap(strTextureFile.c_str());
 			}
 		}
 		else if (type == "png")
 		{
 			if (matType == MPT_TEXTURE)
 			{
-				texId = LoadPNGTexture(strTextureFile.c_str());
+				texObj = LoadPNGTexture(strTextureFile.c_str());
 			}
 			else if (matType == MPT_CUBEMAP)
 			{
-				texId = LoadPNGTextureCubeMap(strTextureFile.c_str());
+				texObj = LoadPNGTextureCubeMap(strTextureFile.c_str());
 			}
 		}
 	}
 
 	HXGLTexture::~HXGLTexture()
 	{
-		if (texId)
+		if (texObj)
 		{
-			glDeleteTextures(1, &texId);
+			glDeleteTextures(1, &texObj);
 		}
 	}
 
