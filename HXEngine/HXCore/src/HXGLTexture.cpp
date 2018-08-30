@@ -9,6 +9,27 @@
 
 namespace HX3D
 {
+	//-----------------------------------------------------------------------------------
+	// CONSTANT VALUE
+	//-----------------------------------------------------------------------------------
+	struct {
+		int32_t pixel_format;
+		int32_t internel_format;
+		int32_t data_format;
+		int32_t data_type;
+		int32_t bpp;
+	} kGLPixelFormatTbl[] = {
+		{ TPFT_R8G8B8, GL_RGB8, GL_RGB, GL_UNSIGNED_BYTE, 3 },
+		{ TPFT_A8R8G8B8, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE, 4 },
+		{ TPFT_R8G8B8A8, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE, 4 },
+		{ TPFT_R16G16, GL_RG16, GL_RG, GL_UNSIGNED_SHORT, 4 },
+		{ TPFT_G16R16, GL_RG16, GL_RG, GL_UNSIGNED_SHORT, 4 },
+		{ TPFT_R16G16B16F, GL_RGB16F, GL_RGB, GL_FLOAT, 3 },
+		{ TPFT_R16G16B16A16F, GL_RGBA16, GL_RGBA, GL_UNSIGNED_SHORT, 8 },
+		{ TPFT_R32G32B32A32F, GL_RGBA32F, GL_RGBA, GL_FLOAT, 16 },
+	};
+	static_assert(HX_ARRAY_SIZE(kGLPixelFormatTbl) == TPFT_UNKOWN, "");
+
 	HXGLTexture::HXGLTexture(EMatPropertyType matType, std::string strTextureFile)
 	{
 		texObj = 0;
@@ -136,16 +157,114 @@ namespace HX3D
 
 	void HXGLTexture::CreateGLTexture2D(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping)
 	{
+		for (int32_t i = 0; i < HX_ARRAY_SIZE(kGLPixelFormatTbl); i++) 
+		{
+			if (kGLPixelFormatTbl[i].pixel_format == texture_pixel_format) 
+			{
+				glBindTexture(GL_TEXTURE_2D, tex_obj);
+				if (kGLPixelFormatTbl[i].data_type == GL_FLOAT) 
+				{
+					float* data = reinterpret_cast<float*>(texture_data);
+					glTexImage2D(GL_TEXTURE_2D, 0, kGLPixelFormatTbl[i].internel_format, width, height, 0, kGLPixelFormatTbl[i].data_format, kGLPixelFormatTbl[i].data_type, data);
+				}
+				else 
+				{
+					glTexImage2D(GL_TEXTURE_2D, 0, kGLPixelFormatTbl[i].internel_format, width, height, 0, kGLPixelFormatTbl[i].data_format, kGLPixelFormatTbl[i].data_type, texture_data);
+				}
 
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				if (enableMipmapping) 
+				{
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+					glGenerateMipmap(GL_TEXTURE_2D);
+				}
+				else 
+				{
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				}
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+				glBindTexture(GL_TEXTURE_2D, 0);
+				break;
+			}
+		}
 	}
 
 	void HXGLTexture::CreateGLTextureCube(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping)
 	{
+		// Warning: The cube map's 6 texture must be square and have the same size
+		if (width > 0 && height > 0 && width == height) {
+			glBindTexture(GL_TEXTURE_CUBE_MAP, tex_obj);
 
+			for (int32_t i = 0; i < HX_ARRAY_SIZE(kGLPixelFormatTbl); i++) {
+				if (kGLPixelFormatTbl[i].pixel_format == texture_pixel_format) {
+					int32_t gl_faces[] = {
+						GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+						GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+						GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,  // TODO: Just flip y, i do not know why
+						GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+						GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+						GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
+					};
+					for (int32_t j = 0; j < 6; j++) {
+						glTexImage2D(gl_faces[j], 0, kGLPixelFormatTbl[i].internel_format, width, height, 0, kGLPixelFormatTbl[i].data_format, kGLPixelFormatTbl[i].data_type, texture_data + j * height * width * kGLPixelFormatTbl[i].bpp);
+					}
+					break;
+				}
+			}
+
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			if (enableMipmapping) {
+				glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			}
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void HXGLTexture::CreateGLTexture3D()
+	{
+		// TODO:
 	}
 
 	void HXGLTexture::SetTexturePixelFormat(HXGLTexture* texture, int32_t texture_pixel_format)
 	{
+		if (texture != NULL) {
+			struct {
+				TEXTURE_PIXEL_FORMAT_TYPE pixel_format_from_file;
+				TextureFormat pixel_format_from_lib;
+				int32_t bytes_per_pixel;
+			} pixel_format[] = {
+				{ TPFT_R8G8B8, FMT_R8G8B8, 3 },
+				{ TPFT_A8R8G8B8, FMT_R8G8B8A8, 4 },
+				{ TPFT_R8G8B8A8, FMT_R8G8B8A8, 4 },
+				{ TPFT_R16G16, FMT_R16G16, 4 },
+				{ TPFT_G16R16, FMT_R16G16, 4 },
+				{ TPFT_R16G16B16F, FMT_R16G16B16F, 3 },
+				{ TPFT_R16G16B16A16F, FMT_R16G16B16A16F, 8 },
+				{ TPFT_R32G32B32A32F, FMT_R32G32B32A32F, 16 },
+			};
+			static_assert(HX_ARRAY_SIZE(pixel_format) == TPFT_UNKOWN, "");
 
+			for (int32_t i = 0; i < HX_ARRAY_SIZE(pixel_format); i++) {
+				if (pixel_format[i].pixel_format_from_file == texture_pixel_format) {
+					texture->texFormat = pixel_format[i].pixel_format_from_lib;
+					texture->texBPP = pixel_format[i].bytes_per_pixel;
+					break;
+				}
+			}
+		}
+		else {
+			assert(false);
+		}
 	}
 }
