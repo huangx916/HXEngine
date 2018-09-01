@@ -68,6 +68,7 @@
     <ClInclude Include="include\HXFBXLoader.h" />
     <ClInclude Include="include\HXFBXMesh.h" />
     <ClInclude Include="include\HXPlane.h" />
+    <ClInclude Include="include\HXPNGFormat.h" />
     <ClInclude Include="include\HXQuaternion.h" />
     <ClInclude Include="include\HXQuaternionS.h" />
     <ClInclude Include="include\HXRenderable.h" />

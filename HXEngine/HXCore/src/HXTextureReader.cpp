@@ -6,6 +6,8 @@
 #include <assert.h>
 #include "HXTextureInfo.h"
 #include "HXDDSFormat.h"
+#include "png.h"
+#include "HXPNGFormat.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -70,6 +72,20 @@ namespace HX3D
 
 		void ReorganizeRGBAData(int8_t* data, TEXTURE_PIXEL_FORMAT_TYPE type);
 		TEXTURE_PIXEL_FORMAT_TYPE ReorganizeRGBAFormat(TEXTURE_PIXEL_FORMAT_TYPE type);
+	};
+
+	//--------------------------------------------------------------------------
+
+	struct PNGTextureInfo;
+	class PNGTextureReader : public TextureReaderBase
+	{
+	public:
+		PNGTextureReader();
+		virtual ~PNGTextureReader();
+
+	public:
+		virtual int32_t ReadTexture(const char* fileName, int8_t** textureData, int32_t& texWidth, int32_t& texHeight, int32_t& textureType, int32_t& pixelFormat);
+		TEXTURE_PIXEL_FORMAT_TYPE GetPNGtextureInfo(int color_type, PNGTextureInfo* texinfo);
 	};
 
 	//--------------------------------------------------------------------------
@@ -472,6 +488,163 @@ namespace HX3D
 		}
 
 		return result;
+	}
+
+	//--------------------------------------------------------------------------------
+
+	PNGTextureReader::PNGTextureReader()
+	{
+
+	}
+
+	PNGTextureReader::~PNGTextureReader()
+	{
+
+	}
+
+	int32_t PNGTextureReader::ReadTexture(const char* file_name, int8_t** texture_data, int32_t& tex_width, int32_t& tex_height, int32_t& texture_type, int32_t& pixel_format)
+	{
+		int32_t result = 0;
+
+		PNGTextureInfo *texinfo;
+		png_byte magic[8];
+		png_structp png_ptr;
+		png_infop info_ptr;
+		int bit_depth, color_type;
+		FILE *fp = NULL;
+		png_bytep *row_pointers = NULL;
+		png_uint_32 w, h;
+		int i;
+		/* Open image file */
+		fopen_s(&fp, file_name, "rb");
+		if (!fp)
+		{
+			fprintf(stderr, "error: couldn't open \"%s\"!\n", file_name);
+			return NULL;
+		}
+		/* Read magic number */
+		fread(magic, 1, sizeof(magic), fp);
+		/* Check for valid magic number */
+		if (!png_check_sig(magic, sizeof(magic)))
+		{
+			fprintf(stderr, "error: \"%s\" is not a valid PNG image!\n", file_name);
+			fclose(fp);
+			return NULL;
+		}
+		/* Create a png read struct */
+		png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+		if (!png_ptr)
+		{
+			fclose(fp);
+			return NULL;
+		}
+		/* Create a png info struct */
+		info_ptr = png_create_info_struct(png_ptr);
+		if (!info_ptr)
+		{
+			fclose(fp);
+			png_destroy_read_struct(&png_ptr, NULL, NULL);
+			return NULL;
+		}
+		/* Create our OpenGL texture object */
+		texinfo = (PNGTextureInfo *)malloc(sizeof(PNGTextureInfo));
+		/* Initialize the setjmp for returning properly after a libpng error occured */
+		if (setjmp(png_jmpbuf(png_ptr)))
+		{
+			fclose(fp);
+			png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+			if (row_pointers) free(row_pointers);
+			if (texinfo) {
+				if (texinfo->texels)
+					free(texinfo->texels);
+				free(texinfo);
+			}
+			return NULL;
+		}
+		/* Setup libpng for using standard C fread() function with our FILE pointer */
+		png_init_io(png_ptr, fp);
+		/* Tell libpng that we have already read the magic number */
+		png_set_sig_bytes(png_ptr, sizeof(magic));
+		/* Read png info */
+		png_read_info(png_ptr, info_ptr);
+		/* Get some usefull information from header */
+		bit_depth = png_get_bit_depth(png_ptr, info_ptr);
+		color_type = png_get_color_type(png_ptr, info_ptr);
+		/* Convert index color images to RGB images */
+		if (color_type == PNG_COLOR_TYPE_PALETTE)
+			png_set_palette_to_rgb(png_ptr);
+		/* Convert 1-2-4 bits grayscale images to 8 bits grayscale. */
+		if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+			png_set_expand_gray_1_2_4_to_8(png_ptr);
+
+		if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
+			png_set_tRNS_to_alpha(png_ptr);
+		if (bit_depth == 16) png_set_strip_16(png_ptr);
+		else if (bit_depth < 8) png_set_packing(png_ptr);
+		/* Update info structure to apply transformations */
+		png_read_update_info(png_ptr, info_ptr);
+		/* Retrieve updated information */
+		png_get_IHDR(png_ptr, info_ptr, &w, &h, &bit_depth, &color_type, NULL, NULL, NULL);
+		texinfo->width = w;
+		texinfo->height = h;
+		/* Get image format and components per pixel */
+		TEXTURE_PIXEL_FORMAT_TYPE tpft = GetPNGtextureInfo(color_type, texinfo);
+		/* We can now allocate memory for storing pixel data */
+		texinfo->texels = (unsigned char *)malloc(sizeof(unsigned char) * texinfo->width * texinfo->height * texinfo->internalFormat);
+		/* Setup a pointer array. Each one points at the begening of a row. */
+		row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * texinfo->height);
+		for (i = 0; i < texinfo->height; ++i)
+		{
+			row_pointers[i] = (png_bytep)(texinfo->texels + ((texinfo->height - (i + 1)) * texinfo->width * texinfo->internalFormat));
+		}
+		/* Read pixel data using row pointers */
+		png_read_image(png_ptr, row_pointers);
+		/* Finish decompression and release memory */
+		png_read_end(png_ptr, NULL);
+		png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+		/* We don't need row pointers anymore */
+		free(row_pointers);
+		fclose(fp);
+		//return texinfo;
+
+		*texture_data = reinterpret_cast<int8_t*>(texinfo->texels);
+		tex_width = texinfo->width;
+		tex_height = texinfo->height;
+		texture_type = TT_2D;
+		pixel_format = tpft;
+
+		result = 1;
+		return result;
+	}
+
+	TEXTURE_PIXEL_FORMAT_TYPE PNGTextureReader::GetPNGtextureInfo(int color_type, PNGTextureInfo* texinfo)
+	{
+		TEXTURE_PIXEL_FORMAT_TYPE tpft = TPFT_UNKOWN;
+		switch (color_type)
+		{
+		case PNG_COLOR_TYPE_GRAY:
+			//texinfo->format = GL_LUMINANCE;
+			texinfo->internalFormat = 1;
+			break;
+		case PNG_COLOR_TYPE_GRAY_ALPHA:
+			//texinfo->format = GL_LUMINANCE_ALPHA;
+			texinfo->internalFormat = 2;
+			break;
+		case PNG_COLOR_TYPE_RGB:
+			//texinfo->format = GL_RGB;
+			texinfo->internalFormat = 3;
+			tpft = TPFT_R8G8B8;
+			break;
+		case PNG_COLOR_TYPE_RGB_ALPHA:
+			//texinfo->format = GL_RGBA;
+			texinfo->internalFormat = 4;
+			tpft = TPFT_R8G8B8A8;
+			break;
+		default:
+			/* Badness */
+			break;
+		}
+		return tpft;
 	}
 
 	//--------------------------------------------------------------------------------

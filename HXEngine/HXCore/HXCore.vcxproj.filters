@@ -414,6 +414,9 @@
     <ClInclude Include="include\stb_image.h">
       <Filter>RenderSystem\Common</Filter>
     </ClInclude>
+    <ClInclude Include="include\HXPNGFormat.h">
+      <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">

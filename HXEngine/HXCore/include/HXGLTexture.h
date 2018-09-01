@@ -9,6 +9,7 @@ namespace HX3D
 	class HXGLTexture : public HXITexture
 	{
 	public:
+		HXGLTexture();
 		HXGLTexture(EMatPropertyType matType, std::string strTextureFile);
 		~HXGLTexture();
 

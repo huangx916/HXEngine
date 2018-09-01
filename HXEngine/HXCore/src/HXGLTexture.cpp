@@ -30,6 +30,21 @@ namespace HX3D
 	};
 	static_assert(HX_ARRAY_SIZE(kGLPixelFormatTbl) == TPFT_UNKOWN, "");
 
+	HXGLTexture::HXGLTexture() 
+		: texName("")
+		, texObj(-1)
+		//, texTexID(-1)
+		, texType(TEX_NONE)
+		, texFormat(FMT_R8G8B8A8)
+		, texWidth(0)
+		, texHeight(0)
+		, texDepth(0)
+		, texBPP(0)
+		
+	{
+
+	}
+
 	HXGLTexture::HXGLTexture(EMatPropertyType matType, std::string strTextureFile)
 	{
 		texObj = 0;

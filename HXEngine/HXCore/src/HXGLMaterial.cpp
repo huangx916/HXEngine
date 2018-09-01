@@ -11,6 +11,7 @@
 #include "HXGLShadowMap.h"
 #include "HXGLRenderable.h"
 #include "HXStatus.h"
+#include <algorithm>
 
 namespace HX3D
 {
@@ -62,7 +63,20 @@ namespace HX3D
 					}
 					else
 					{
-						tex = new HXGLTexture(MPT_TEXTURE, itr->value);
+						// for test
+						std::string strTextureFile = itr->value;
+						size_t size = strTextureFile.length();
+						std::string type = strTextureFile.substr(size - 3);
+						transform(type.begin(), type.end(), type.begin(), ::tolower);
+						if (type == "dds")
+						{
+							tex = new HXGLTexture();
+							tex->Create(itr->value.c_str());
+						}
+						else
+						{
+							tex = new HXGLTexture(MPT_TEXTURE, itr->value);
+						}
 					}					
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
