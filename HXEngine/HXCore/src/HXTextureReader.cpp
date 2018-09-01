@@ -761,24 +761,30 @@ namespace HX3D
 			memcpy(postfix, fileName + index, file_name_len - index);
 			postfix[file_name_len - index] = 0;
 
+			char* lowerPF = _strlwr(postfix);
+
 			// Check format
-			if (!strcmp(postfix, ".bmp")) {
+			if (!strcmp(lowerPF, ".bmp")) {
 				BmpTextureReader bmp_reader;
 				result = bmp_reader.ReadTexture(fileName, data, texWidth, texHeight, textureType, pixelFormat);
 			}
-			else if (!strcmp(postfix, ".dds")) {
+			else if (!strcmp(lowerPF, ".dds")) {
 				DDSTextureReader dds_reader;
 				result = dds_reader.ReadTexture(fileName, data, texWidth, texHeight, textureType, pixelFormat);
 			}
-			else if (!strcmp(postfix, ".hdr")) {
+			else if (!strcmp(lowerPF, ".png")) {
+				PNGTextureReader png_reader;
+				result = png_reader.ReadTexture(fileName, data, texWidth, texHeight, textureType, pixelFormat);
+			}
+			else if (!strcmp(lowerPF, ".hdr")) {
 				HDRTextureReader hdr_reader;
 				result = hdr_reader.ReadTexture(fileName, data, texWidth, texHeight, textureType, pixelFormat);
 			}
-			else if (!strcmp(postfix, ".pfc")) {
+			else if (!strcmp(lowerPF, ".pfc")) {
 				PFCTextureReader pfcReader;
 				result = pfcReader.ReadTexture(fileName, data, texWidth, texHeight, textureType, pixelFormat);
 			}
-			else if (!strcmp(postfix, ".pft")) {
+			else if (!strcmp(lowerPF, ".pft")) {
 				PFTTextureReader pftReader;
 				result = pftReader.ReadTexture(fileName, data, texWidth, texHeight, textureType, pixelFormat);
 			} else {

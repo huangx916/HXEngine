@@ -64,7 +64,7 @@ namespace HX3D
 					else
 					{
 						// for test
-						std::string strTextureFile = itr->value;
+						/*std::string strTextureFile = itr->value;
 						size_t size = strTextureFile.length();
 						std::string type = strTextureFile.substr(size - 3);
 						transform(type.begin(), type.end(), type.begin(), ::tolower);
@@ -76,7 +76,10 @@ namespace HX3D
 						else
 						{
 							tex = new HXGLTexture(MPT_TEXTURE, itr->value);
-						}
+						}*/
+
+						tex = new HXGLTexture();
+						tex->Create(itr->value.c_str());
 					}					
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
