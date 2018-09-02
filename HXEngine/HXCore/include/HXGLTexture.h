@@ -23,6 +23,7 @@ namespace HX3D
 
 		//----------------------------------------------------
 		void Create(const char* texture_name, bool enableMipmapping = true);
+		void CreateCubeBy6Texture2D(const char* texture_name, bool enableMipmapping = true);
 		void CreatePrefilterCubeMap(const char* textureName);
 		void CreatePrefilterTableMap(const char* textureName);
 		void Create(int32_t width, int32_t height, bool enableMipmapping = true);

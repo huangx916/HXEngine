@@ -169,6 +169,60 @@ namespace HX3D
 		}
 	}
 
+	void HXGLTexture::CreateCubeBy6Texture2D(const char* texture_name, bool enableMipmapping)
+	{
+		GLuint tex_obj = 0;
+		glGenTextures(1, &tex_obj);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_obj);
+
+		std::string suffix[6] = { "_right","_left","_bottom","_top","_front","_back" };
+		int8_t* texture_data = NULL;
+		int32_t texture_width = 0;
+		int32_t texture_height = 0;
+		int32_t texture_type = TT_UNKOWN;
+		int32_t texture_pixel_format = TPFT_UNKOWN;
+		for (int i = 0; i < 6; ++i)
+		{
+			std::string tex_name = texture_name;
+			tex_name.insert(tex_name.length() - 4, suffix[i]);
+			if (HXTextureReader::ReadTexture(tex_name.c_str(), &texture_data, texture_width, texture_height, texture_type, texture_pixel_format))
+			{
+				for (int32_t j = 0; j < HX_ARRAY_SIZE(kGLPixelFormatTbl); j++) 
+				{
+					if (kGLPixelFormatTbl[j].pixel_format == texture_pixel_format) 
+					{
+						GLint alignment;
+						glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
+						glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+						glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, kGLPixelFormatTbl[i].internel_format, texture_width, texture_height, 0, kGLPixelFormatTbl[i].data_format, kGLPixelFormatTbl[i].data_type, texture_data);
+						glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
+						break;
+					}
+				}
+				HXTextureReader::ReleaseData(&texture_data);
+			}
+		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		if (enableMipmapping) {
+			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		}
+		else {
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+		texObj = tex_obj;
+		texName = texture_name;
+		texType = TEX_CUBE;
+		texWidth = texture_width;
+		texHeight = texture_height;
+		texDepth = 0;
+		SetTexturePixelFormat(this, texture_pixel_format);
+	}
 
 	void HXGLTexture::CreateGLTexture2D(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping)
 	{

@@ -61,3 +61,5 @@ mutiCamera	layer
 编辑器选中物体坐标轴模型 描边 相机移动
 
 mesh filter mesh render
+
+skybox use cube texture
