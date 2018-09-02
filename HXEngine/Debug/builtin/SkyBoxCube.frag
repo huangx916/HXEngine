@@ -7,6 +7,6 @@ out vec4 fColor;
 
 void main()
 {
-    vec4 fColor = vec4(1,1,1,1);
-	//vec4 fColor = textureCube(CubeMap, vec3(1,1,1));
+    //fColor = vec4(1,1,1,1);
+	fColor = textureCube(CubeMap, vs_fs_texcoord);
 }
