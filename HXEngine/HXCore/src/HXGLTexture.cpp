@@ -282,4 +282,209 @@ namespace HX3D
 			assert(false);
 		}
 	}
+
+	void HXGLTexture::Create(int32_t width, int32_t height, bool enableMipmapping)
+	{
+		if (width > 0 && height > 0) {
+			int32_t tex_id = 0;
+			glGenTextures(1, reinterpret_cast<GLuint*>(&tex_id));
+			glBindTexture(GL_TEXTURE_2D, tex_id);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			if (enableMipmapping) {
+				glGenerateMipmap(GL_TEXTURE_2D);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			}
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+			texName = "DefaultEmpty";
+			texObj = tex_id;
+			texType = TEX_2D;
+			texFormat = FMT_R8G8B8A8;
+			texWidth = width;
+			texHeight = height;
+			texBPP = 4;
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void HXGLTexture::CreateFloat32Texture(int32_t width, int32_t height, bool enableMipmapping)
+	{
+		if (width > 0 && height > 0) {
+			int32_t tex_id = 0;
+			glGenTextures(1, reinterpret_cast<GLuint*>(&tex_id));
+			glBindTexture(GL_TEXTURE_2D, tex_id);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			if (enableMipmapping) {
+				glGenerateMipmap(GL_TEXTURE_2D);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			}
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+			texName = "DefaultEmpty";
+			texObj = tex_id;
+			texType = TEX_2D;
+			texFormat = FMT_R32G32B32A32F;
+			texWidth = width;
+			texHeight = height;
+			texBPP = 16;
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void HXGLTexture::CreateFloat32DepthTexture(int32_t width, int32_t height, bool enableMipmapping)
+	{
+		if (width > 0 && height > 0) {
+			int32_t tex_id = 0;
+			glGenTextures(1, reinterpret_cast<GLuint*>(&tex_id));
+			glBindTexture(GL_TEXTURE_2D, tex_id);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			if (enableMipmapping) {
+				glGenerateMipmap(GL_TEXTURE_2D);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			}
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+			texName = "DefaultEmpty";
+			texObj = tex_id;
+			texType = TEX_2D;
+			texFormat = FMT_DEPTH32F;
+			texWidth = width;
+			texHeight = height;
+			texDepth = 0;
+			texBPP = 4;
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void HXGLTexture::CreateFloat32CubeTexture(int32_t width, int32_t height, bool enableMipmapping)
+	{
+		// Warning: The cube map's 6 texture must be square and have the same size
+		if (width > 0 && height > 0 && width == height) {
+			int32_t tex_id = 0;
+			glGenTextures(1, reinterpret_cast<GLuint*>(&tex_id));
+			glBindTexture(GL_TEXTURE_CUBE_MAP, tex_id);
+
+			for (int32_t i = 0; i < 6; i++) {
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
+			}
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			if (enableMipmapping) {
+				glGenerateMipmap(GL_TEXTURE_2D);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			}
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
+
+			texName = "DefaultEmpty";
+			texObj = tex_id;
+			texType = TEX_CUBE;
+			texFormat = FMT_R32G32B32A32F;
+			texWidth = width;
+			texHeight = height;
+			texDepth = 0;
+			texBPP = 16;
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void HXGLTexture::CreateFloat16CubeTexture(int32_t width, int32_t height, bool enableMipmapping)
+	{
+		// Warning: The cube map's 6 texture must be square and have the same size
+		if (width > 0 && height > 0 && width == height) {
+			int32_t tex_id = 0;
+			glGenTextures(1, reinterpret_cast<GLuint*>(&tex_id));
+			glBindTexture(GL_TEXTURE_CUBE_MAP, tex_id);
+
+			for (int32_t i = 0; i < 6; i++) {
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA16, width, height, 0, GL_RGBA, GL_UNSIGNED_SHORT, NULL);
+			}
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			if (enableMipmapping) {
+				glGenerateMipmap(GL_TEXTURE_2D);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			}
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
+
+			texName = "DefaultEmpty";
+			texObj = tex_id;
+			texType = TEX_CUBE;
+			texFormat = FMT_R16G16B16A16F;
+			texWidth = width;
+			texHeight = height;
+			texDepth = 0;
+			texBPP = 8;
+		}
+		else {
+			assert(false);
+		}
+	}
+
+	void HXGLTexture::CreateFloat323DTexture(int32_t width, int32_t height, int32_t depth, bool enableMipmapping)
+	{
+		if (width > 0 && height > 0 && depth > 0) {
+			int32_t tex_id = 0;
+			glGenTextures(1, reinterpret_cast<GLuint*>(&tex_id));
+			glBindTexture(GL_TEXTURE_3D, tex_id);
+
+			glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA32F, width, height, depth, 0, GL_RGBA, GL_FLOAT, NULL);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			if (enableMipmapping) {
+				glGenerateMipmap(GL_TEXTURE_2D);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			}
+			else {
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			}
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
+
+			texName = "DefaultEmpty";
+			texObj = tex_id;
+			texType = TEX_3D;
+			texFormat = FMT_R32G32B32A32F;
+			texWidth = width;
+			texHeight = height;
+			texDepth = depth;
+			texBPP = 16;
+		}
+		else {
+			assert(false);
+		}
+	}
 }

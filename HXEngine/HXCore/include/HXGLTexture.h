@@ -35,8 +35,7 @@ namespace HX3D
 	protected:
 		static void CreateGLTexture2D(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping);
 		static void CreateGLTextureCube(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping);
-		// TODO:
-		static void CreateGLTexture3D();
+		static void CreateGLTexture3D();// TODO:
 		static void SetTexturePixelFormat(HXGLTexture* texture, int32_t texture_pixel_format);
 
 	public:
