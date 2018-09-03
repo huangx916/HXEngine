@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--0:Texture TYPE 1:Float 2:Float2 3:Float3 4:Float4-->
+<!--TYPE 
+0:Texture  
+1:Float 
+2:Float2 
+3:Float3 
+4:Float4
+-->
 <!--CullFace
 0:glDisable(GL_CULL_FACE);
 1:glFrontFace(GL_CW);
@@ -24,9 +30,9 @@ ect...
 ect...
 -->
 <Material>
-	<State RenderQueue="1000" CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
-    <Shader File="builtin/SkyBoxCube">
-		<Property Type="5" Name="CubeMap" Value="prefab/_Material/Skybox1/Night.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
+	<State RenderQueue="2000" CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
+    <Shader File="builtin/IBL">
+		<Property Type="0" Name="MainTexture" Value="white" Value1="1" Value2="1" Value3="0" Value4="0"/>
 		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="1" Value3="1" Value4="1"/>
 	</Shader>
 </Material>

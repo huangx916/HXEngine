@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene>
+	<Fog Use="1" Type="0" R="180" G="200" B="220" Start="10" End="50" Density="0.02" Gradiant="2"/>
+	<Ambient R="100" G="100" B="100"/>
+	<Cameras>
+		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
+			<ClearColor Cr="63" Cg="63" Cb="63"/>
+			<ViewportRect X="0" Y="0" W="1" H="1"/>
+			<Position Px="0" Py="0" Pz="10"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+		</Camera>
+	</Cameras>
+	<Lights>
+		<Light Name="MainLight" Enable="1" LightType="1" Shininess="10" Strength="0.01" constantAttenuation="0" LinearAttenuation="0" QuadraticAttenuation="0" SpotCosCutoff="0" SpotExponent="0">
+			<Color Cr="255" Cg="255" Cb="255"/>
+			<Position Px="0" Py="0" Pz="0"/>
+			<Direct Dx="1" Dy="1" Dz="1"/>
+			<ConeDirection Cx="0" Cy="0" Cz="0"/>
+		</Light>
+	</Lights>
+	<GameObjects>
+		<GameObj Name="_CoordArrow" Activity="0" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
+		</GameObj>
+		<GameObj Name="SphereIBL" Activity="1" Static="1" Model="prefab/SphereIBL/SphereIBL.model" CastShadow="0" Layer="0">
+			<Position Px="0" Py="0" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
+		</GameObj>
+	</GameObjects>
+</Scene>
