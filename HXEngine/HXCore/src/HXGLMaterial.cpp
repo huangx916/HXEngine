@@ -134,7 +134,10 @@ namespace HX3D
 				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
 				if (NULL == tex)
 				{
-					tex = new HXGLTexture(MPT_CUBEMAP,itr->value);
+					//tex = new HXGLTexture(MPT_CUBEMAP,itr->value);
+					tex = new HXGLTexture();
+					tex->CreateCubeBy6Texture2D(itr->value.c_str());
+					
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 

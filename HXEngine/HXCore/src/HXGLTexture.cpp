@@ -194,7 +194,7 @@ namespace HX3D
 						GLint alignment;
 						glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
 						glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-						glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, kGLPixelFormatTbl[i].internel_format, texture_width, texture_height, 0, kGLPixelFormatTbl[i].data_format, kGLPixelFormatTbl[i].data_type, texture_data);
+						glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, kGLPixelFormatTbl[j].internel_format, texture_width, texture_height, 0, kGLPixelFormatTbl[j].data_format, kGLPixelFormatTbl[j].data_type, texture_data);
 						glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 						break;
 					}
