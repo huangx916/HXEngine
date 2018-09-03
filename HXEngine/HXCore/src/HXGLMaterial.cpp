@@ -73,12 +73,8 @@ namespace HX3D
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				// 纹理单元
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				// 暂时不用其他类型的Texture,这里只使用GL_TEXTURE_2D
-				/*glBindTexture(tex->mImageData.target, tex->texId);
-				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-				vglUnloadImage(&tex->mImageData);*/
+				
 				glBindTexture(GL_TEXTURE_2D, tex->texObj);
-				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 				
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -145,12 +141,8 @@ namespace HX3D
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				// 纹理单元
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				// 暂时不用其他类型的Texture,这里只使用GL_TEXTURE_2D
-				/*glBindTexture(tex->mImageData.target, tex->texId);
-				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-				vglUnloadImage(&tex->mImageData);*/
+				
 				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
-				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -344,7 +336,6 @@ namespace HX3D
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				glBindTexture(GL_TEXTURE_2D, tex->texObj);
-				//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 				if (HXRoot::GetInstance()->IsEditorMode())
 				{
@@ -400,10 +391,7 @@ namespace HX3D
 				glUniform1i(tex_uniform_loc, nTexIndex);
 				// 纹理单元
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
-				// 暂时不用其他类型的Texture,这里只使用GL_TEXTURE_2D
-				/*glBindTexture(tex->mImageData.target, tex->texId);
-				glTexParameteri(tex->mImageData.target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-				vglUnloadImage(&tex->mImageData);*/
+				
 				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
 				glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 

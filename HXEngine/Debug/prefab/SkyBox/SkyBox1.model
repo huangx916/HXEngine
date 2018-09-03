@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/SkyBox/SkyBox.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/_Material/Skybox1/Night.material"/>
+	<Material File="prefab/_Material/Skybox1/NightCube.material"/>
 </Model>
