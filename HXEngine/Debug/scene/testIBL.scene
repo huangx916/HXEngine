@@ -27,7 +27,7 @@
 		<GameObj Name="SphereIBL" Activity="1" Static="1" Model="prefab/SphereIBL/SphereIBL.model" CastShadow="0" Layer="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
+			<Scale Sx="10" Sy="10" Sz="10"/>
 		</GameObj>
 	</GameObjects>
 </Scene>

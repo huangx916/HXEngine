@@ -1,13 +1,24 @@
 #version 330
 
-uniform sampler2D MainTexture;
-uniform vec4 DiffuseColor;
+uniform sampler2D EquirectangularMap;
 
-in vec2 vs_fs_texcoord;
-out vec4 color;
+in vec3 vs_fs_normal;
+out vec3 color;
+
+const float PI = 3.1415926536898;
+
+vec2 sampling_equirectangular_map(vec3 n) {
+    float u = atan(n.z, n.x);
+    u = (u + PI) / (2.0 * PI);
+
+    float v = asin(n.y);
+    v = (v * 2.0 + PI) / (2.0 * PI);
+
+    return vec2(u, v);
+}
 
 void main(void)
 {
-	vec4 fColor = texture(MainTexture, vs_fs_texcoord) * DiffuseColor;
-    color = fColor;
+	vec2 uv = sampling_equirectangular_map(normalize(vs_fs_normal));
+    color = texture2D(EquirectangularMap, uv).xyz;
 }

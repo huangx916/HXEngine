@@ -1,15 +1,14 @@
 #version 330
 
 uniform mat4 mvp_matrix;
-uniform vec4 MainTexture_ST;
 
-layout (location = 0) in vec4 position;
-layout (location = 2) in vec2 texcoord;
+layout (location = 0) in vec3 position;
+layout (location = 3) in vec3 normal;
 
-out vec2 vs_fs_texcoord;
+out vec3 vs_fs_normal;
 
 void main(void)
 {
-    gl_Position = mvp_matrix * position;
-	vs_fs_texcoord = texcoord * MainTexture_ST.xy + MainTexture_ST.zw;
+    gl_Position = mvp_matrix * vec4(position, 1);
+	vs_fs_normal = normal;
 }
