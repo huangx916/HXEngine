@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model>
+	<Mesh File="prefab/SpherePBS/Sphere.FBX"/>
+	<Anim File=""/>
+	<Material File="prefab/_Material/SpherePBS/Sphere15PBS.material"/>
+</Model>

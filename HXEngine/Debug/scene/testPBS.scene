@@ -63,32 +63,32 @@
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="1" Sy="1" Sz="1"/>
-			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/SpherePBS.model" CastShadow="0" Layer="0">
+			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/Sphere11PBS.model" CastShadow="0" Layer="0">
 				<Position Px="0" Py="0" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 			</GameObj>
-			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/SpherePBS.model" CastShadow="0" Layer="0">
+			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/Sphere12PBS.model" CastShadow="0" Layer="0">
 				<Position Px="2" Py="0" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 			</GameObj>
-			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/SpherePBS.model" CastShadow="0" Layer="0">
+			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/Sphere13PBS.model" CastShadow="0" Layer="0">
 				<Position Px="4" Py="0" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 			</GameObj>
-			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/SpherePBS.model" CastShadow="0" Layer="0">
+			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/Sphere14PBS.model" CastShadow="0" Layer="0">
 				<Position Px="6" Py="0" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 			</GameObj>
-			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/SpherePBS.model" CastShadow="0" Layer="0">
+			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/Sphere15PBS.model" CastShadow="0" Layer="0">
 				<Position Px="8" Py="0" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
 			</GameObj>
-			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/SpherePBS.model" CastShadow="0" Layer="0">
+			<GameObj Name="SpherePBS" Activity="1" Static="0" Model="prefab/SpherePBS/Sphere16PBS.model" CastShadow="0" Layer="0">
 				<Position Px="10" Py="0" Pz="0"/>
 				<Rotation Rx="0" Ry="0" Rz="0"/>
 				<Scale Sx="0.1" Sy="0.1" Sz="0.1"/>
