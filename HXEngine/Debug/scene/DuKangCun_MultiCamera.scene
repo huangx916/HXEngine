@@ -47,7 +47,7 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
 		</GameObj>
-		<GameObj Name="DogGo" Activity="1" Static="0" Model="prefab/Dog/Dog.model" CastShadow="1" Layer="0">
+		<GameObj Name="DogGo" Activity="0" Static="0" Model="prefab/Dog/Dog.model" CastShadow="1" Layer="0">
 			<Position Px="2" Py="-2.5" Pz="6.5"/>
 			<Rotation Rx="0" Ry="-90" Rz="0"/>
 			<Scale Sx="0.5" Sy="0.5" Sz="0.5"/>

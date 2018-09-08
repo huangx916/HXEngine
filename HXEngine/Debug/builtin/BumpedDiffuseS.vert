@@ -8,7 +8,7 @@ uniform mat4 mvp_matrix;
 uniform vec4 MainTexture_ST;
 uniform vec4 NormalMap_ST;
 
-layout (location = 0) in vec4 position;
+layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec2 texcoord;
 layout (location = 3) in vec3 normal;
@@ -26,7 +26,7 @@ out vec3 vs_fs_light_dir;
 
 void main()
 {
-	gl_Position = mvp_matrix * position;
+	gl_Position = mvp_matrix * vec4(position, 1);
 	vs_fs_texcoord.xy = texcoord * MainTexture_ST.xy + MainTexture_ST.zw;
 	vs_fs_texcoord.zw = texcoord * NormalMap_ST.xy + NormalMap_ST.zw;
 	

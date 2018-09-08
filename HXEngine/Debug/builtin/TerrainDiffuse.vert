@@ -12,7 +12,7 @@ uniform vec4 Layer2_ST;
 uniform vec4 Layer3_ST;
 uniform vec4 Layer4_ST;
 
-layout (location = 0) in vec4 position;
+layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec2 texcoord;
 layout (location = 3) in vec3 normal;
@@ -44,7 +44,7 @@ out vec4 shadow_coord;
 
 void main()
 {
-	gl_Position = mvp_matrix * position;
+	gl_Position = mvp_matrix * vec4(position, 1);
 	
 	vs_fs_diffuse_color = DiffuseColor;
 	vs_fs_vertex_color = color;
@@ -58,21 +58,21 @@ void main()
 	//////////////////////////////////////////////////////////////////
 	// lighting world space TODO: 逆转置矩阵
 	vs_fs_normal = model_matrix * vec4(normal,0);
-	vs_fs_position = model_matrix * position;
+	vs_fs_position = model_matrix * vec4(position, 1);
 	/////////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////////////
 	// fog
 	if(useFog == 1)
 	{
-		vec4 mvPosition = view_matrix * model_matrix * position;
+		vec4 mvPosition = view_matrix * model_matrix * vec4(position, 1);
 		vs_fs_distance = sqrt(mvPosition.x * mvPosition.x + mvPosition.y * mvPosition.y + mvPosition.z * mvPosition.z);
 	}
 	/////////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////////////////////////////////////
 	// shadow
-	vec4 world_pos = model_matrix * position;
+	vec4 world_pos = model_matrix * vec4(position, 1);
 	shadow_coord = shadow_matrix * world_pos;
 	/////////////////////////////////////////////////////////////////
 }

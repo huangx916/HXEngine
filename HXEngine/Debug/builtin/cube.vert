@@ -5,7 +5,7 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 uniform mat4 mvp_matrix;
 
-layout (location = 0) in vec4 position;
+layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec2 texcoord;
 
@@ -15,7 +15,7 @@ out vec2 vs_fs_texcoord;
 void main()
 {
 	// gl_Position = projection_matrix * view_matrix * model_matrix * position;
-	gl_Position = mvp_matrix * position;
+	gl_Position = mvp_matrix * vec4(position, 1);
 	// gl_Position = position * model_matrix * view_matrix * projection_matrix;
 	
 	// vs_fs_color = color;
