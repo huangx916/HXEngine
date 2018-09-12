@@ -275,6 +275,7 @@ namespace HX3D
 		{
 			glEnable(GL_CULL_FACE);
 			glFrontFace(mMatInfo->nCullFace - 1 + GL_CW);
+			//glCullFace(GL_FRONT);
 		}
 		else
 		{

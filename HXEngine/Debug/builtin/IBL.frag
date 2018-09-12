@@ -22,4 +22,5 @@ void main(void)
 	vec2 uv = sampling_equirectangular_map(normalize(vs_fs_normal));
     color = texture2D(EquirectangularMap, uv).xyz;
     color = color / (color + vec3(1));
+    color = pow(color, vec3(1.0 / 2.2, 1.0 / 2.2, 1.0 / 2.2));
 }
