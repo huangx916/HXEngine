@@ -7,6 +7,7 @@ Editor视图:
 <img class="shadow" src="./2.png" width="600">  
 <img class="shadow" src="./3.png" width="600">  
 <img class="shadow" src="./4.png" width="600">  
+<img class="shadow" src="./5.png" width="600">  
 
 Game视图:
 ================================================================================
