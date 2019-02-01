@@ -1,1 +1,2 @@
 *.h linguist-language=C++
+libfbxsdk-md.lib filter=lfs diff=lfs merge=lfs -text
