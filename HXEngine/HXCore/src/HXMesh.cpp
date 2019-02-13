@@ -322,7 +322,7 @@ namespace HX3D
 		// --------------------上--012--023--------------------------
 		HXVertex vertex0up;
 		vertex0up.pos = HXVector3D(-1, 1, 1);
-		vertex0up.color = HXCOLOR(255, 255, 255, 255);
+		vertex0up.color = HXColor(255, 255, 255, 255);
 		vertex0up.u = 0;
 		vertex0up.v = 1;
 		vertex0up.normal = HXVector3D(0, 1, 0);
@@ -330,7 +330,7 @@ namespace HX3D
 
 		HXVertex vertex1up;
 		vertex1up.pos = HXVector3D(1, 1, 1);
-		vertex1up.color = HXCOLOR(255, 0, 0, 255);
+		vertex1up.color = HXColor(255, 0, 0, 255);
 		vertex1up.u = 1;
 		vertex1up.v = 1;
 		vertex1up.normal = HXVector3D(0, 1, 0);
@@ -338,7 +338,7 @@ namespace HX3D
 
 		HXVertex vertex2up;
 		vertex2up.pos = HXVector3D(1, 1, -1);
-		vertex2up.color = HXCOLOR(0, 255, 0, 255);
+		vertex2up.color = HXColor(0, 255, 0, 255);
 		vertex2up.u = 1;
 		vertex2up.v = 0;
 		vertex2up.normal = HXVector3D(0, 1, 0);
@@ -349,7 +349,7 @@ namespace HX3D
 
 		HXVertex vertex3up;
 		vertex3up.pos = HXVector3D(-1, 1, -1);
-		vertex3up.color = HXCOLOR(0, 0, 255, 255);
+		vertex3up.color = HXColor(0, 0, 255, 255);
 		vertex3up.u = 0;
 		vertex3up.v = 0;
 		vertex3up.normal = HXVector3D(0, 1, 0);
@@ -358,7 +358,7 @@ namespace HX3D
 		//---------------------下--765--754----------------------
 		HXVertex vertex7bottom;
 		vertex7bottom.pos = HXVector3D(-1, -1, -1);
-		vertex7bottom.color = HXCOLOR(255, 255, 255, 255);
+		vertex7bottom.color = HXColor(255, 255, 255, 255);
 		vertex7bottom.u = 0;
 		vertex7bottom.v = 1;
 		vertex7bottom.normal = HXVector3D(0, -1, 0);
@@ -366,7 +366,7 @@ namespace HX3D
 
 		HXVertex vertex6bottom;
 		vertex6bottom.pos = HXVector3D(1, -1, -1);
-		vertex6bottom.color = HXCOLOR(255, 0, 0, 255);
+		vertex6bottom.color = HXColor(255, 0, 0, 255);
 		vertex6bottom.u = 1;
 		vertex6bottom.v = 1;
 		vertex6bottom.normal = HXVector3D(0, -1, 0);
@@ -374,7 +374,7 @@ namespace HX3D
 
 		HXVertex vertex5bottom;
 		vertex5bottom.pos = HXVector3D(1, -1, 1);
-		vertex5bottom.color = HXCOLOR(0, 255, 0, 255);
+		vertex5bottom.color = HXColor(0, 255, 0, 255);
 		vertex5bottom.u = 1;
 		vertex5bottom.v = 0;
 		vertex5bottom.normal = HXVector3D(0, -1, 0);
@@ -385,7 +385,7 @@ namespace HX3D
 
 		HXVertex vertex4bottom;
 		vertex4bottom.pos = HXVector3D(-1, -1, 1);
-		vertex4bottom.color = HXCOLOR(0, 0, 255, 255);
+		vertex4bottom.color = HXColor(0, 0, 255, 255);
 		vertex4bottom.u = 0;
 		vertex4bottom.v = 0;
 		vertex4bottom.normal = HXVector3D(0, -1, 0);
@@ -394,7 +394,7 @@ namespace HX3D
 		//---------------------左--037--074----------------------------
 		HXVertex vertex0left;
 		vertex0left.pos = HXVector3D(-1, 1, 1);
-		vertex0left.color = HXCOLOR(255, 255, 255, 255);
+		vertex0left.color = HXColor(255, 255, 255, 255);
 		vertex0left.u = 0;
 		vertex0left.v = 1;
 		vertex0left.normal = HXVector3D(-1, 0, 0);
@@ -402,7 +402,7 @@ namespace HX3D
 
 		HXVertex vertex3left;
 		vertex3left.pos = HXVector3D(-1, 1, -1);
-		vertex3left.color = HXCOLOR(0, 0, 255, 255);
+		vertex3left.color = HXColor(0, 0, 255, 255);
 		vertex3left.u = 1;
 		vertex3left.v = 1;
 		vertex3left.normal = HXVector3D(-1, 0, 0);
@@ -410,7 +410,7 @@ namespace HX3D
 
 		HXVertex vertex7left;
 		vertex7left.pos = HXVector3D(-1, -1, -1);
-		vertex7left.color = HXCOLOR(255, 255, 255, 255);
+		vertex7left.color = HXColor(255, 255, 255, 255);
 		vertex7left.u = 1;
 		vertex7left.v = 0;
 		vertex7left.normal = HXVector3D(-1, 0, 0);
@@ -421,7 +421,7 @@ namespace HX3D
 
 		HXVertex vertex4left;
 		vertex4left.pos = HXVector3D(-1, -1, 1);
-		vertex4left.color = HXCOLOR(0, 0, 255, 255);
+		vertex4left.color = HXColor(0, 0, 255, 255);
 		vertex4left.u = 0;
 		vertex4left.v = 0;
 		vertex4left.normal = HXVector3D(-1, 0, 0);
@@ -430,7 +430,7 @@ namespace HX3D
 		//-----------------------右--215--256------------------------------------
 		HXVertex vertex2right;
 		vertex2right.pos = HXVector3D(1, 1, -1);
-		vertex2right.color = HXCOLOR(0, 255, 0, 255);
+		vertex2right.color = HXColor(0, 255, 0, 255);
 		vertex2right.u = 0;
 		vertex2right.v = 1;
 		vertex2right.normal = HXVector3D(1, 0, 0);
@@ -438,7 +438,7 @@ namespace HX3D
 
 		HXVertex vertex1right;
 		vertex1right.pos = HXVector3D(1, 1, 1);
-		vertex1right.color = HXCOLOR(255, 0, 0, 255);
+		vertex1right.color = HXColor(255, 0, 0, 255);
 		vertex1right.u = 1;
 		vertex1right.v = 1;
 		vertex1right.normal = HXVector3D(1, 0, 0);
@@ -446,7 +446,7 @@ namespace HX3D
 
 		HXVertex vertex5right;
 		vertex5right.pos = HXVector3D(1, -1, 1);
-		vertex5right.color = HXCOLOR(0, 255, 0, 255);
+		vertex5right.color = HXColor(0, 255, 0, 255);
 		vertex5right.u = 1;
 		vertex5right.v = 0;
 		vertex5right.normal = HXVector3D(1, 0, 0);
@@ -457,7 +457,7 @@ namespace HX3D
 
 		HXVertex vertex6right;
 		vertex6right.pos = HXVector3D(1, -1, -1);
-		vertex6right.color = HXCOLOR(255, 0, 0, 255);
+		vertex6right.color = HXColor(255, 0, 0, 255);
 		vertex6right.u = 0;
 		vertex6right.v = 0;
 		vertex6right.normal = HXVector3D(1, 0, 0);
@@ -466,7 +466,7 @@ namespace HX3D
 		//--------------------------前--326--367----------------------------
 		HXVertex vertex3front;
 		vertex3front.pos = HXVector3D(-1, 1, -1);
-		vertex3front.color = HXCOLOR(0, 0, 255, 255);
+		vertex3front.color = HXColor(0, 0, 255, 255);
 		vertex3front.u = 0;
 		vertex3front.v = 1;
 		vertex3front.normal = HXVector3D(0, 0, -1);
@@ -474,7 +474,7 @@ namespace HX3D
 
 		HXVertex vertex2front;
 		vertex2front.pos = HXVector3D(1, 1, -1);
-		vertex2front.color = HXCOLOR(0, 255, 0, 255);
+		vertex2front.color = HXColor(0, 255, 0, 255);
 		vertex2front.u = 1;
 		vertex2front.v = 1;
 		vertex2front.normal = HXVector3D(0, 0, -1);
@@ -482,7 +482,7 @@ namespace HX3D
 
 		HXVertex vertex6front;
 		vertex6front.pos = HXVector3D(1, -1, -1);
-		vertex6front.color = HXCOLOR(255, 0, 0, 255);
+		vertex6front.color = HXColor(255, 0, 0, 255);
 		vertex6front.u = 1;
 		vertex6front.v = 0;
 		vertex6front.normal = HXVector3D(0, 0, -1);
@@ -493,7 +493,7 @@ namespace HX3D
 
 		HXVertex vertex7front;
 		vertex7front.pos = HXVector3D(-1, -1, -1);
-		vertex7front.color = HXCOLOR(255, 255, 255, 255);
+		vertex7front.color = HXColor(255, 255, 255, 255);
 		vertex7front.u = 0;
 		vertex7front.v = 0;
 		vertex7front.normal = HXVector3D(0, 0, -1);
@@ -502,7 +502,7 @@ namespace HX3D
 		//----------------------------后--104--145-----------------------------------------
 		HXVertex vertex1back;
 		vertex1back.pos = HXVector3D(1, 1, 1);
-		vertex1back.color = HXCOLOR(255, 0, 0, 255);
+		vertex1back.color = HXColor(255, 0, 0, 255);
 		vertex1back.u = 0;
 		vertex1back.v = 1;
 		vertex1back.normal = HXVector3D(0, 0, 1);
@@ -510,7 +510,7 @@ namespace HX3D
 
 		HXVertex vertex0back;
 		vertex0back.pos = HXVector3D(-1, 1, 1);
-		vertex0back.color = HXCOLOR(255, 255, 255, 255);
+		vertex0back.color = HXColor(255, 255, 255, 255);
 		vertex0back.u = 1;
 		vertex0back.v = 1;
 		vertex0back.normal = HXVector3D(0, 0, 1);
@@ -518,7 +518,7 @@ namespace HX3D
 
 		HXVertex vertex4back;
 		vertex4back.pos = HXVector3D(-1, -1, 1);
-		vertex4back.color = HXCOLOR(0, 0, 255, 255);
+		vertex4back.color = HXColor(0, 0, 255, 255);
 		vertex4back.u = 1;
 		vertex4back.v = 0;
 		vertex4back.normal = HXVector3D(0, 0, 1);
@@ -529,7 +529,7 @@ namespace HX3D
 
 		HXVertex vertex5back;
 		vertex5back.pos = HXVector3D(1, -1, 1);
-		vertex5back.color = HXCOLOR(0, 255, 0, 255);
+		vertex5back.color = HXColor(0, 255, 0, 255);
 		vertex5back.u = 0;
 		vertex5back.v = 0;
 		vertex5back.normal = HXVector3D(0, 0, 1);
@@ -543,42 +543,42 @@ namespace HX3D
 
 		//HXVertex vertex0;
 		//vertex0.pos = HXVector3D(-1, 1, 1);
-		//vertex0.color = HXCOLOR(255, 0, 0, 255);
+		//vertex0.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex0);
 
 		//HXVertex vertex1;
 		//vertex1.pos = HXVector3D(1, 1, 1);
-		//vertex1.color = HXCOLOR(255, 0, 0, 255);
+		//vertex1.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex1);
 
 		//HXVertex vertex2;
 		//vertex2.pos = HXVector3D(-1, 1, -1);
-		//vertex2.color = HXCOLOR(255, 0, 0, 255);
+		//vertex2.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex2);
 
 		//HXVertex vertex3;
 		//vertex3.pos = HXVector3D(1, 1, -1);
-		//vertex3.color = HXCOLOR(255, 0, 0, 255);
+		//vertex3.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex3);
 
 		//HXVertex vertex4;
 		//vertex4.pos = HXVector3D(-1, -1, 1);
-		//vertex4.color = HXCOLOR(255, 0, 0, 255);
+		//vertex4.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex4);
 
 		//HXVertex vertex5;
 		//vertex5.pos = HXVector3D(1, -1, 1);
-		//vertex5.color = HXCOLOR(255, 0, 0, 255);
+		//vertex5.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex5);
 
 		//HXVertex vertex6;
 		//vertex6.pos = HXVector3D(-1, -1, -1);
-		//vertex6.color = HXCOLOR(255, 0, 0, 255);
+		//vertex6.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex6);
 
 		//HXVertex vertex7;
 		//vertex7.pos = HXVector3D(1, -1, -1);
-		//vertex7.color = HXCOLOR(255, 0, 0, 255);
+		//vertex7.color = HXColor(255, 0, 0, 255);
 		//subMesh->vertexList.push_back(vertex7);
 
 		//// 上0,1,3	0,3,2	前2,3,7	2,7,6	右3,1,5	3,5,7	左0,2,6	0,6,4	后1,0,4	1,4,5	下6,7,5	6,5,4
@@ -645,7 +645,7 @@ namespace HX3D
 
 		HXVertex vertex0;
 		vertex0.pos = HXVector3D(0, 1, 0);
-		vertex0.color = HXCOLOR(255, 0, 0, 255);
+		vertex0.color = HXColor(255, 0, 0, 255);
 		vertex0.u = 0.5f;
 		vertex0.v = 1;
 		vertex0.normal = HXVector3D(0, 0, -1);
@@ -653,7 +653,7 @@ namespace HX3D
 
 		HXVertex vertex1;
 		vertex1.pos = HXVector3D(1, 0, 0);
-		vertex1.color = HXCOLOR(0, 255, 0, 255);
+		vertex1.color = HXColor(0, 255, 0, 255);
 		vertex1.u = 1;
 		vertex1.v = 0;
 		vertex1.normal = HXVector3D(0, 0, -1);
@@ -661,7 +661,7 @@ namespace HX3D
 
 		HXVertex vertex2;
 		vertex2.pos = HXVector3D(-1, 0, 0);
-		vertex2.color = HXCOLOR(0, 0, 255, 255);
+		vertex2.color = HXColor(0, 0, 255, 255);
 		vertex2.u = 0;
 		vertex2.v = 0;
 		vertex2.normal = HXVector3D(0, 0, -1);
@@ -693,7 +693,7 @@ namespace HX3D
 
 		HXVertex vertex0;
 		vertex0.pos = HXVector3D(-1, 1, 0);
-		vertex0.color = HXCOLOR(255, 0, 0, 255);
+		vertex0.color = HXColor(255, 0, 0, 255);
 		vertex0.u = 0;
 		vertex0.v = 1;
 		vertex0.normal = HXVector3D(0, 0, -1);
@@ -701,7 +701,7 @@ namespace HX3D
 
 		HXVertex vertex1;
 		vertex1.pos = HXVector3D(1, 1, 0);
-		vertex1.color = HXCOLOR(0, 255, 0, 255);
+		vertex1.color = HXColor(0, 255, 0, 255);
 		vertex1.u = 1;
 		vertex1.v = 1;
 		vertex1.normal = HXVector3D(0, 0, -1);
@@ -709,7 +709,7 @@ namespace HX3D
 
 		HXVertex vertex2;
 		vertex2.pos = HXVector3D(1, -1, 0);
-		vertex2.color = HXCOLOR(255, 0, 0, 255);
+		vertex2.color = HXColor(255, 0, 0, 255);
 		vertex2.u = 1;
 		vertex2.v = 0;
 		vertex2.normal = HXVector3D(0, 0, -1);
@@ -720,7 +720,7 @@ namespace HX3D
 
 		HXVertex vertex3;
 		vertex3.pos = HXVector3D(-1, -1, 0);
-		vertex3.color = HXCOLOR(0, 0, 255, 255);
+		vertex3.color = HXColor(0, 0, 255, 255);
 		vertex3.u = 0;
 		vertex3.v = 0;
 		vertex3.normal = HXVector3D(0, 0, -1);
@@ -760,7 +760,7 @@ namespace HX3D
 	//	// --------------------上--012--023--------------------------
 	//	HXVertex vertex0up;
 	//	vertex0up.pos = HXVector3D(-1, 1, 1);
-	//	vertex0up.color = HXCOLOR(255, 255, 255, 255);
+	//	vertex0up.color = HXColor(255, 255, 255, 255);
 	//	vertex0up.u = 1;
 	//	vertex0up.v = 0;
 	//	vertex0up.normal = HXVector3D(0, -1, 0);
@@ -768,7 +768,7 @@ namespace HX3D
 
 	//	HXVertex vertex2up;
 	//	vertex2up.pos = HXVector3D(1, 1, -1);
-	//	vertex2up.color = HXCOLOR(0, 255, 0, 255);
+	//	vertex2up.color = HXColor(0, 255, 0, 255);
 	//	vertex2up.u = 0;
 	//	vertex2up.v = 1;
 	//	vertex2up.normal = HXVector3D(0, -1, 0);
@@ -776,7 +776,7 @@ namespace HX3D
 
 	//	HXVertex vertex1up;
 	//	vertex1up.pos = HXVector3D(1, 1, 1);
-	//	vertex1up.color = HXCOLOR(255, 0, 0, 255);
+	//	vertex1up.color = HXColor(255, 0, 0, 255);
 	//	vertex1up.u = 0;
 	//	vertex1up.v = 0;
 	//	vertex1up.normal = HXVector3D(0, -1, 0);
@@ -786,7 +786,7 @@ namespace HX3D
 
 	//	HXVertex vertex3up;
 	//	vertex3up.pos = HXVector3D(-1, 1, -1);
-	//	vertex3up.color = HXCOLOR(0, 0, 255, 255);
+	//	vertex3up.color = HXColor(0, 0, 255, 255);
 	//	vertex3up.u = 1;
 	//	vertex3up.v = 1;
 	//	vertex3up.normal = HXVector3D(0, -1, 0);
@@ -797,7 +797,7 @@ namespace HX3D
 	//	//---------------------下--765--754----------------------
 	//	HXVertex vertex7bottom;
 	//	vertex7bottom.pos = HXVector3D(-1, -1, -1);
-	//	vertex7bottom.color = HXCOLOR(255, 255, 255, 255);
+	//	vertex7bottom.color = HXColor(255, 255, 255, 255);
 	//	vertex7bottom.u = 1;
 	//	vertex7bottom.v = 0;
 	//	vertex7bottom.normal = HXVector3D(0, 1, 0);
@@ -805,7 +805,7 @@ namespace HX3D
 
 	//	HXVertex vertex5bottom;
 	//	vertex5bottom.pos = HXVector3D(1, -1, 1);
-	//	vertex5bottom.color = HXCOLOR(0, 255, 0, 255);
+	//	vertex5bottom.color = HXColor(0, 255, 0, 255);
 	//	vertex5bottom.u = 0;
 	//	vertex5bottom.v = 1;
 	//	vertex5bottom.normal = HXVector3D(0, 1, 0);
@@ -813,7 +813,7 @@ namespace HX3D
 
 	//	HXVertex vertex6bottom;
 	//	vertex6bottom.pos = HXVector3D(1, -1, -1);
-	//	vertex6bottom.color = HXCOLOR(255, 0, 0, 255);
+	//	vertex6bottom.color = HXColor(255, 0, 0, 255);
 	//	vertex6bottom.u = 0;
 	//	vertex6bottom.v = 0;
 	//	vertex6bottom.normal = HXVector3D(0, 1, 0);
@@ -823,7 +823,7 @@ namespace HX3D
 
 	//	HXVertex vertex4bottom;
 	//	vertex4bottom.pos = HXVector3D(-1, -1, 1);
-	//	vertex4bottom.color = HXCOLOR(0, 0, 255, 255);
+	//	vertex4bottom.color = HXColor(0, 0, 255, 255);
 	//	vertex4bottom.u = 1;
 	//	vertex4bottom.v = 1;
 	//	vertex4bottom.normal = HXVector3D(0, 1, 0);
@@ -834,7 +834,7 @@ namespace HX3D
 	//	//---------------------左--037--074----------------------------
 	//	HXVertex vertex0left;
 	//	vertex0left.pos = HXVector3D(-1, 1, 1);
-	//	vertex0left.color = HXCOLOR(255, 255, 255, 255);
+	//	vertex0left.color = HXColor(255, 255, 255, 255);
 	//	vertex0left.u = 0;
 	//	vertex0left.v = 1;
 	//	vertex0left.normal = HXVector3D(1, 0, 0);
@@ -842,7 +842,7 @@ namespace HX3D
 
 	//	HXVertex vertex7left;
 	//	vertex7left.pos = HXVector3D(-1, -1, -1);
-	//	vertex7left.color = HXCOLOR(255, 255, 255, 255);
+	//	vertex7left.color = HXColor(255, 255, 255, 255);
 	//	vertex7left.u = 1;
 	//	vertex7left.v = 0;
 	//	vertex7left.normal = HXVector3D(1, 0, 0);
@@ -850,7 +850,7 @@ namespace HX3D
 
 	//	HXVertex vertex3left;
 	//	vertex3left.pos = HXVector3D(-1, 1, -1);
-	//	vertex3left.color = HXCOLOR(0, 0, 255, 255);
+	//	vertex3left.color = HXColor(0, 0, 255, 255);
 	//	vertex3left.u = 1;
 	//	vertex3left.v = 1;
 	//	vertex3left.normal = HXVector3D(1, 0, 0);
@@ -860,7 +860,7 @@ namespace HX3D
 
 	//	HXVertex vertex4left;
 	//	vertex4left.pos = HXVector3D(-1, -1, 1);
-	//	vertex4left.color = HXCOLOR(0, 0, 255, 255);
+	//	vertex4left.color = HXColor(0, 0, 255, 255);
 	//	vertex4left.u = 0;
 	//	vertex4left.v = 0;
 	//	vertex4left.normal = HXVector3D(1, 0, 0);
@@ -871,7 +871,7 @@ namespace HX3D
 	//	//-----------------------右--215--256------------------------------------
 	//	HXVertex vertex2right;
 	//	vertex2right.pos = HXVector3D(1, 1, -1);
-	//	vertex2right.color = HXCOLOR(0, 255, 0, 255);
+	//	vertex2right.color = HXColor(0, 255, 0, 255);
 	//	vertex2right.u = 0;
 	//	vertex2right.v = 1;
 	//	vertex2right.normal = HXVector3D(-1, 0, 0);
@@ -879,7 +879,7 @@ namespace HX3D
 
 	//	HXVertex vertex5right;
 	//	vertex5right.pos = HXVector3D(1, -1, 1);
-	//	vertex5right.color = HXCOLOR(0, 255, 0, 255);
+	//	vertex5right.color = HXColor(0, 255, 0, 255);
 	//	vertex5right.u = 1;
 	//	vertex5right.v = 0;
 	//	vertex5right.normal = HXVector3D(-1, 0, 0);
@@ -887,7 +887,7 @@ namespace HX3D
 
 	//	HXVertex vertex1right;
 	//	vertex1right.pos = HXVector3D(1, 1, 1);
-	//	vertex1right.color = HXCOLOR(255, 0, 0, 255);
+	//	vertex1right.color = HXColor(255, 0, 0, 255);
 	//	vertex1right.u = 1;
 	//	vertex1right.v = 1;
 	//	vertex1right.normal = HXVector3D(-1, 0, 0);
@@ -897,7 +897,7 @@ namespace HX3D
 
 	//	HXVertex vertex6right;
 	//	vertex6right.pos = HXVector3D(1, -1, -1);
-	//	vertex6right.color = HXCOLOR(255, 0, 0, 255);
+	//	vertex6right.color = HXColor(255, 0, 0, 255);
 	//	vertex6right.u = 0;
 	//	vertex6right.v = 0;
 	//	vertex6right.normal = HXVector3D(-1, 0, 0);
@@ -908,7 +908,7 @@ namespace HX3D
 	//	//--------------------------前--326--367----------------------------
 	//	HXVertex vertex3front;
 	//	vertex3front.pos = HXVector3D(-1, 1, -1);
-	//	vertex3front.color = HXCOLOR(0, 0, 255, 255);
+	//	vertex3front.color = HXColor(0, 0, 255, 255);
 	//	vertex3front.u = 0;
 	//	vertex3front.v = 1;
 	//	vertex3front.normal = HXVector3D(0, 0, 1);
@@ -916,7 +916,7 @@ namespace HX3D
 
 	//	HXVertex vertex6front;
 	//	vertex6front.pos = HXVector3D(1, -1, -1);
-	//	vertex6front.color = HXCOLOR(255, 0, 0, 255);
+	//	vertex6front.color = HXColor(255, 0, 0, 255);
 	//	vertex6front.u = 1;
 	//	vertex6front.v = 0;
 	//	vertex6front.normal = HXVector3D(0, 0, 1);
@@ -924,7 +924,7 @@ namespace HX3D
 
 	//	HXVertex vertex2front;
 	//	vertex2front.pos = HXVector3D(1, 1, -1);
-	//	vertex2front.color = HXCOLOR(0, 255, 0, 255);
+	//	vertex2front.color = HXColor(0, 255, 0, 255);
 	//	vertex2front.u = 1;
 	//	vertex2front.v = 1;
 	//	vertex2front.normal = HXVector3D(0, 0, 1);
@@ -934,7 +934,7 @@ namespace HX3D
 	//	
 	//	HXVertex vertex7front;
 	//	vertex7front.pos = HXVector3D(-1, -1, -1);
-	//	vertex7front.color = HXCOLOR(255, 255, 255, 255);
+	//	vertex7front.color = HXColor(255, 255, 255, 255);
 	//	vertex7front.u = 0;
 	//	vertex7front.v = 0;
 	//	vertex7front.normal = HXVector3D(0, 0, 1);
@@ -945,7 +945,7 @@ namespace HX3D
 	//	//----------------------------后--104--145-----------------------------------------
 	//	HXVertex vertex1back;
 	//	vertex1back.pos = HXVector3D(1, 1, 1);
-	//	vertex1back.color = HXCOLOR(255, 0, 0, 255);
+	//	vertex1back.color = HXColor(255, 0, 0, 255);
 	//	vertex1back.u = 0;
 	//	vertex1back.v = 1;
 	//	vertex1back.normal = HXVector3D(0, 0, -1);
@@ -953,7 +953,7 @@ namespace HX3D
 
 	//	HXVertex vertex4back;
 	//	vertex4back.pos = HXVector3D(-1, -1, 1);
-	//	vertex4back.color = HXCOLOR(0, 0, 255, 255);
+	//	vertex4back.color = HXColor(0, 0, 255, 255);
 	//	vertex4back.u = 1;
 	//	vertex4back.v = 0;
 	//	vertex4back.normal = HXVector3D(0, 0, -1);
@@ -961,7 +961,7 @@ namespace HX3D
 
 	//	HXVertex vertex0back;
 	//	vertex0back.pos = HXVector3D(-1, 1, 1);
-	//	vertex0back.color = HXCOLOR(255, 255, 255, 255);
+	//	vertex0back.color = HXColor(255, 255, 255, 255);
 	//	vertex0back.u = 1;
 	//	vertex0back.v = 1;
 	//	vertex0back.normal = HXVector3D(0, 0, -1);
@@ -971,7 +971,7 @@ namespace HX3D
 	//	
 	//	HXVertex vertex5back;
 	//	vertex5back.pos = HXVector3D(1, -1, 1);
-	//	vertex5back.color = HXCOLOR(0, 255, 0, 255);
+	//	vertex5back.color = HXColor(0, 255, 0, 255);
 	//	vertex5back.u = 0;
 	//	vertex5back.v = 0;
 	//	vertex5back.normal = HXVector3D(0, 0, -1);

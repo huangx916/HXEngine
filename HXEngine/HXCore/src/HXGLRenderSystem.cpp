@@ -145,7 +145,7 @@ namespace HX3D
 		}
 	}
 
-	void HXGLRenderSystem::_DrawText(float x, float y, std::string text, const HXCOLOR& color)
+	void HXGLRenderSystem::_DrawText(float x, float y, std::string text, const HXColor& color)
 	{
 		if (mFont)
 		{

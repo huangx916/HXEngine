@@ -24,7 +24,7 @@ namespace HX3D
 
 	HXSceneManager::HXSceneManager():/*mainCamera(NULL), */fog(NULL)
 	{
-		ambient = HXCOLOR(0,0,0,255);
+		ambient = HXColor(0,0,0,255);
 		gameObjectTreeRoot = new HXGameObject(NULL, HXRoot::GetInstance()->GetRenderSystem());
 		gameObjectTreeRoot->SetName("_GameObjectTreeRoot");
 		gameObjectTreeRoot->GetTransform()->CaculateModelMatrix();
@@ -244,7 +244,7 @@ namespace HX3D
 		pLight->QuadraticAttenuation = 0.01;
 		pLight->SpotCosCutoff = 0;
 		pLight->SpotExponent = 10;
-		pLight->color = HXCOLOR(255, 255, 255, 255);
+		pLight->color = HXColor(255, 255, 255, 255);
 		pLight->position = HXVector3D(0,0,0);
 		pLight->direct = HXVector3D(1, 1, 1);
 		pLight->ConeDirection = HXVector3D(1,1,1);

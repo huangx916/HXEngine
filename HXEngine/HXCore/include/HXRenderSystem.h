@@ -55,7 +55,7 @@ namespace HX3D
 		virtual void InitForEditor() {};
 
 		virtual void BeginText() {};
-		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255, 255, 255, 255)) = 0;
+		virtual void _DrawText(float x, float y, std::string text, const HXColor& color = HXColor(255, 255, 255, 255)) = 0;
 		virtual void EndText() {};
 
 		static void Reshape(int nWidth, int nHeight);

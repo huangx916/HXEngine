@@ -30,9 +30,9 @@ namespace HX3D
 	{
 	}
 
-	/*HXCOLOR HXLight::VertexLighting(HXVertex* pVertex)
+	/*HXColor HXLight::VertexLighting(HXVertex* pVertex)
 	{
-		HXCOLOR col;
+		HXColor col;
 		if (lightType == LIGHT_DIRECTION)
 		{
 			pVertex->normal.normalize();
@@ -45,7 +45,7 @@ namespace HX3D
 			}
 			else
 			{
-				col = HXCOLOR(0, 0, 0);
+				col = HXColor(0, 0, 0);
 			}
 		}
 		else if (lightType == LIGHT_AMBIENT)

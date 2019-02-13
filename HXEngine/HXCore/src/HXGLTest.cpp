@@ -97,10 +97,10 @@ namespace HX3D
 		if (font)
 		{
 			font->BeginText();
-			font->_DrawText(10, 10, L"大傻逼测试斯蒂芬斯蒂芬胜多负少防守打法", HXCOLOR(255,0,0,255));
-			font->_DrawText(10, 30, L"dfsdf是两地分居砥砺奋进", HXCOLOR(0, 255, 0, 255));
-			font->_DrawText(10, 50, L"123是范德萨发sdfd4235", HXCOLOR(0, 0, 255, 255));
-			font->_DrawText(10, 70, L"2017-11-21 @bianfeng", HXCOLOR(255, 255, 0, 255));
+			font->_DrawText(10, 10, L"大傻逼测试斯蒂芬斯蒂芬胜多负少防守打法", HXColor(255,0,0,255));
+			font->_DrawText(10, 30, L"dfsdf是两地分居砥砺奋进", HXColor(0, 255, 0, 255));
+			font->_DrawText(10, 50, L"123是范德萨发sdfd4235", HXColor(0, 0, 255, 255));
+			font->_DrawText(10, 70, L"2017-11-21 @bianfeng", HXColor(255, 255, 0, 255));
 			font->EndText();
 		}
 	}

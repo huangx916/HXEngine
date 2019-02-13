@@ -169,7 +169,7 @@ namespace HX3D
 				glUniform1i(property_loc, nfogType);
 
 				property_loc = glGetUniformLocation(render_scene_prog, "fogColor");
-				HXCOLOR color = fog->fogColor;
+				HXColor color = fog->fogColor;
 				glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
 				property_loc = glGetUniformLocation(render_scene_prog, "fogStart");
@@ -191,7 +191,7 @@ namespace HX3D
 		}
 		
 		property_loc = glGetUniformLocation(render_scene_prog, "ambient");
-		HXCOLOR color = HXSceneManager::GetInstance()->ambient;
+		HXColor color = HXSceneManager::GetInstance()->ambient;
 		glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
 		// light
@@ -214,7 +214,7 @@ namespace HX3D
 				glUniform1i(property_loc, lightType);
 
 				property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightColor").c_str());
-				HXCOLOR lightColor = light->color;
+				HXColor lightColor = light->color;
 				glUniform3f(property_loc, lightColor.r / 255.0f, lightColor.g / 255.0f, lightColor.b / 255.0f);
 
 				property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightDir").c_str());
@@ -446,7 +446,7 @@ namespace HX3D
 					glUniform1i(property_loc, nfogType);
 
 					property_loc = glGetUniformLocation(render_scene_prog, "fogColor");
-					HXCOLOR color = fog->fogColor;
+					HXColor color = fog->fogColor;
 					glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 
 					property_loc = glGetUniformLocation(render_scene_prog, "fogStart");
@@ -500,7 +500,7 @@ namespace HX3D
 						glUniform1i(property_loc, lightType);
 
 						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightColor").c_str());
-						HXCOLOR lightColor = light->color;
+						HXColor lightColor = light->color;
 						glUniform3f(property_loc, lightColor.r / 255.0f, lightColor.g / 255.0f, lightColor.b / 255.0f);
 
 						property_loc = glGetUniformLocation(render_scene_prog, (strLight + ".lightDir").c_str());
@@ -547,7 +547,7 @@ namespace HX3D
 			}
 
 			property_loc = glGetUniformLocation(render_scene_prog, "ambient");
-			HXCOLOR color = HXSceneManager::GetInstance()->ambient;
+			HXColor color = HXSceneManager::GetInstance()->ambient;
 			glUniform3f(property_loc, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f);
 		}
 

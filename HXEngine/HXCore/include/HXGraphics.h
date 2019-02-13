@@ -30,10 +30,10 @@ namespace HX3D
 		void ClearBuffer();
 		void SwapBuffer(HDC hdc);
 
-		void SetBufferPixel(int nX, int nY, float fZ, const HXCOLOR& col);
+		void SetBufferPixel(int nX, int nY, float fZ, const HXColor& col);
 		// UI
-		void DrawLine(int nFromX, int nFromY, int nToX, int nToY, const HXCOLOR& col = HXCOLOR(255,255,255));
-		void DrawString(std::string str, int nFromX, int nFromY, const HXCOLOR& frontCol = HXCOLOR(255,255,255), const HXCOLOR& backCol = HXCOLOR(0,0,0));
+		void DrawLine(int nFromX, int nFromY, int nToX, int nToY, const HXColor& col = HXColor(255,255,255));
+		void DrawString(std::string str, int nFromX, int nFromY, const HXColor& frontCol = HXColor(255,255,255), const HXColor& backCol = HXColor(0,0,0));
 
 		bool CheckZ(int nX, int nY, float fZ);
 	private:

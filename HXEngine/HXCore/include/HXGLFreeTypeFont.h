@@ -13,7 +13,7 @@ namespace HX3D
 
 		virtual void Initialize(const char* fontFile, int fontSize);
 		virtual void BeginText();
-		virtual void _DrawText(float x, float y, const wchar_t* text, const HXCOLOR& color);
+		virtual void _DrawText(float x, float y, const wchar_t* text, const HXColor& color);
 		virtual void EndText();
 
 	private:

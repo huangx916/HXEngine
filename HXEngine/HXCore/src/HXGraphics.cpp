@@ -74,7 +74,7 @@ namespace HX3D
 		::BitBlt(hdc, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, mBufferHDC, 0, 0, SRCCOPY);
 	}
 
-	void HXGraphics::SetBufferPixel(int nX, int nY, float fZ, const HXCOLOR& col)
+	void HXGraphics::SetBufferPixel(int nX, int nY, float fZ, const HXColor& col)
 	{
 		if (nX < 0 || nX > SCREEN_WIDTH-1 || nY < 0 || nY > SCREEN_HEIGHT-1)
 		{
@@ -97,7 +97,7 @@ namespace HX3D
 		pPixel[3] = 0;
 	}
 
-	void HXGraphics::DrawLine(int nFromX, int nFromY, int nToX, int nToY, const HXCOLOR& col)
+	void HXGraphics::DrawLine(int nFromX, int nFromY, int nToX, int nToY, const HXColor& col)
 	{
 		HPEN hPen;
 		HPEN hPenOld;
@@ -109,7 +109,7 @@ namespace HX3D
 		DeleteObject(hPen);
 	}
 
-	void HXGraphics::DrawString(std::string str, int nFromX, int nFromY, const HXCOLOR& frontCol, const HXCOLOR& backCol)
+	void HXGraphics::DrawString(std::string str, int nFromX, int nFromY, const HXColor& frontCol, const HXColor& backCol)
 	{
 		SetTextColor(mBufferHDC, RGB(frontCol.r, frontCol.g, frontCol.b));
 		SetBkColor(mBufferHDC, RGB(backCol.r, backCol.g, backCol.b));

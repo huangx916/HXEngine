@@ -25,7 +25,7 @@ namespace HX3D
 		virtual HXICamera* CreateCamera(const HXCameraInfo* cameraInfo);
 
 		//virtual void BeginText();
-		virtual void _DrawText(float x, float y, std::string text, const HXCOLOR& color = HXCOLOR(255,255,255,255));
+		virtual void _DrawText(float x, float y, std::string text, const HXColor& color = HXColor(255,255,255,255));
 		//virtual void EndText();
 
 		virtual HXITransform* CreateTransform();

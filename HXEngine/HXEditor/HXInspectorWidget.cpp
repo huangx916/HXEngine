@@ -1000,7 +1000,7 @@ void HXInspectorWidget::SetFogInfo(HXFog* pFog)
 	}
 }
 
-void HXInspectorWidget::SetAmbientInfo(HXCOLOR* pAmbient)
+void HXInspectorWidget::SetAmbientInfo(HXColor* pAmbient)
 {
 	ambientData = pAmbient;
 	if (ambientData)

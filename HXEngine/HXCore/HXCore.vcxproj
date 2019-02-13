@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\HX3DHeader.h" />
     <ClInclude Include="include\HXBitmap.h" />
+    <ClInclude Include="include\HXColor.h" />
     <ClInclude Include="include\HXDDSFormat.h" />
     <ClInclude Include="include\HXFog.h" />
     <ClInclude Include="include\HXGDIMaterial.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="opengl\lib\loadtexture.cpp" />
     <ClCompile Include="opengl\lib\vdds.cpp" />
     <ClCompile Include="src\HXBitmap.cpp" />
+    <ClCompile Include="src\HXColor.cpp" />
     <ClCompile Include="src\HXCore.cpp" />
     <ClCompile Include="src\HXFog.cpp" />
     <ClCompile Include="src\HXFrustum.cpp" />

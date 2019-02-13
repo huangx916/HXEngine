@@ -30,7 +30,7 @@ public:
 	void SetGameObjectInfo(HXGameObject* pGameObject);
 	void SetLightInfo(HXLight* pLight);
 	void SetFogInfo(HXFog* pFog);
-	void SetAmbientInfo(HXCOLOR* pAmbient);
+	void SetAmbientInfo(HXColor* pAmbient);
 	void SetCameraInfo(HXICamera* pCamera);
 
 	void OnDeleteGameObject();
@@ -42,7 +42,7 @@ public:
 	HXLight* selectedLight;
 	HXGLCamera* selectedCamera;
 	HXFog* fogData;
-	HXCOLOR* ambientData;
+	HXColor* ambientData;
 
 private:
 

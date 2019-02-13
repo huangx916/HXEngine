@@ -21,13 +21,13 @@ namespace HX3D
 		HXLight(HXLightInfo* lightInfo);
 		~HXLight();
 		
-		//HXCOLOR VertexLighting(HXVertex* pVertex);
+		//HXColor VertexLighting(HXVertex* pVertex);
 
 		std::string name;
 
 		bool enable;
 		LIGHT_TYPE lightType;
-		HXCOLOR color;
+		HXColor color;
 		HXVector3D direct;
 		float shininess;
 		float strength;

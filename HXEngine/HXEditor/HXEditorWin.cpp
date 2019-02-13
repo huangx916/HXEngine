@@ -240,7 +240,7 @@ void HXEditorWin::serializeScene(QTextStream& out)
 	out << "\"/>\n";
 
 	// Ambient
-	HXCOLOR* Ambient = &(HXSceneManager::GetInstance()->ambient);
+	HXColor* Ambient = &(HXSceneManager::GetInstance()->ambient);
 	out << "	<Ambient R=\"";
 	out << Ambient->r;
 	out << "\" G=\"";

@@ -20,7 +20,7 @@ namespace HX3D
 
 		bool useFog;
 		HXFogType fogType;
-		HXCOLOR fogColor;
+		HXColor fogColor;
 
 		float fogStart;
 		float fogEnd;

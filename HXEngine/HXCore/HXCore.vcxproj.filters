@@ -193,6 +193,9 @@
     <ClCompile Include="src\HXTextureReader.cpp">
       <Filter>RenderSystem\Common</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -416,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="include\HXPNGFormat.h">
       <Filter>RenderSystem\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXColor.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
