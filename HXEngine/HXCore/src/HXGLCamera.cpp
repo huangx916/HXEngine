@@ -157,23 +157,6 @@ namespace HX3D
 		mMatrixView = vmath::lookat(vmath::vec3(eye.x, eye.y, eye.z), vmath::vec3(at.x, at.y, at.z), vmath::vec3(up.x, up.y, up.z));
 	}
 
-	//void HXGLCamera::UpdateProjectionMatrix(float left, float right, float bottom, float top, float n, float f)
-	//{
-	//	// 默认使用90度视野 left = -n	right = n;
-	//	left *= n;
-	//	right *= n;
-	//	bottom *= n;
-	//	top *= n;
-	//	if (projection == CP_ORTHOGRAPHIC)
-	//	{
-	//		mMatrixProjection = vmath::Ortho(-5, 5, -5, 5, n, f);
-	//	}
-	//	else
-	//	{
-	//		mMatrixProjection = vmath::frustum(left, right, bottom, top, n, f);
-	//	}
-	//}
-
 	void HXGLCamera::UpdateProjectionMatrix(float field, float size, float n, float f)
 	{
 		if (projection == CP_ORTHOGRAPHIC)
