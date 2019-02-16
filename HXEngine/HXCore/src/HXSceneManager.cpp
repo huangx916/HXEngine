@@ -427,7 +427,6 @@ namespace HX3D
 				continue;
 			}
 
-			bool shadow = true;
 			/************************************ render shadowmap ****************************************/
 			if (curCamera->PreRenderShadowMap())
 			{
