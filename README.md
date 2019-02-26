@@ -16,7 +16,6 @@ Game视图:
 Configuration
 ================================================================================
 visual studio 2015  x86 debug 环境下运行  
-libfbxsdk-md.lib[自行下载](https://pan.baidu.com/s/1oCiEz5Ol3jDkzU6Ut0FoQg)放入HXCore\fbx\lib\vs2015\x86\debug目录下（超过100M Github不让上传）
 
 所使用的库包括: freeglut、glew、freetype、libpng、zlib、tinyxml、fbx、qt
 

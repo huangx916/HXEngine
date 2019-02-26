@@ -41,7 +41,7 @@ namespace HX3D
 			std::string strVertexCount = "VertexCount: " + FloatToString(nVertexCount);
 			HXGraphics::GetInstance()->DrawString(strVertexCount, SCREEN_WIDTH / 2, 36);*/
 
-			HXCOLOR color = HXCOLOR(255, 255, 255, 255);
+			HXColor color = HXColor(255, 255, 255, 255);
 
 			HXRenderSystem* rs = HXRoot::GetInstance()->GetRenderSystem();
 			if (NULL == rs)

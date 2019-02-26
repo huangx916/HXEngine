@@ -13,10 +13,10 @@ namespace HX3D
 		~HXBitmap();
 
 		bool LoadBitmapFile(std::string strFileName);
-		HXCOLOR GetPixel(int nX, int nY);
+		HXColor GetPixel(int nX, int nY);
 		int GetWidth() { return nWidth; }
 		int GetHeight() { return nHeight; }
-		HXCOLOR GetPixelRatio(float fX, float fY);
+		HXColor GetPixelRatio(float fX, float fY);
 
 	private:
 		int nWidth;
@@ -25,6 +25,6 @@ namespace HX3D
 	
 		HBITMAP		hBitmap;
 		HDC			hBitmapDC;
-		HXCOLOR*	 mPixels;
+		HXColor*	 mPixels;
 	};	
 }

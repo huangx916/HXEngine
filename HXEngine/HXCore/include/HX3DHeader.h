@@ -3,7 +3,7 @@
 namespace HX3D
 {
 	// ÉêÃ÷
-	struct HXCOLOR;
+	struct HXColor;
 	struct HXVector2D;
 	struct HXVector3D;
 	struct HXVector4D;

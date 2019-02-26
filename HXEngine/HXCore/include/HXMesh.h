@@ -11,12 +11,12 @@ namespace HX3D
 	struct HXVertex
 	{
 		//HXVertex() {}
-		//HXVertex(const HXVector3D& pos_, const HXCOLOR& color_): pos(pos_),color(color_) {}
+		//HXVertex(const HXVector3D& pos_, const HXColor& color_): pos(pos_),color(color_) {}
 		HXVector3D pos;
 		int ctrlPointIndex;	// 骨骼动画更新时控制点映射到顶点用
 		HXVector3D normal;
 		HXVector3D tangent;
-		HXCOLOR	color;
+		HXColor	color;
 		float u;
 		float v;
 

@@ -32,14 +32,14 @@ namespace HX3D
 			nHeight = bitmap.bmHeight;
 			nPitch = bitmap.bmHeight;
 
-			mPixels = new HXCOLOR[nWidth*nHeight];
+			mPixels = new HXColor[nWidth*nHeight];
 			// int nSize = sizeof(mPixels);
 			for (int i = 0; i < nHeight; i++)
 			{
 				for (int j = 0; j < nWidth; j++)
 				{
 					COLORREF color = ::GetPixel(hBitmapDC, j, i);
-					mPixels[i*nPitch + j] = HXCOLOR(GetRValue(color), GetGValue(color), GetBValue(color));
+					mPixels[i*nPitch + j] = HXColor(GetRValue(color), GetGValue(color), GetBValue(color));
 					
 					// alpha被自动设置为0，无法正确读取
 					/*float a = LOBYTE((color) >> 24);
@@ -61,14 +61,14 @@ namespace HX3D
 		}
 	}
 
-	HXCOLOR HXBitmap::GetPixel(int nX, int nY)
+	HXColor HXBitmap::GetPixel(int nX, int nY)
 	{
 		nX = Clamp(nX, nWidth - 1, 0);
 		nY = Clamp(nY, nHeight - 1, 0);
 		return mPixels[nY*nPitch + nX];
 	}
 
-	HXCOLOR HXBitmap::GetPixelRatio(float fX, float fY)
+	HXColor HXBitmap::GetPixelRatio(float fX, float fY)
 	{
 		int nX = fX * (float)(nWidth - 1.0f) + 0.5f;
 		int nY = fY * (float)(nHeight -1.0f) + 0.5f;

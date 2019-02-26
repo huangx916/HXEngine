@@ -50,7 +50,7 @@ namespace HX3D
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				HXCOLOR col(0,0,0);
+				HXColor col(0,0,0);
 				for (std::vector<HXLight*>::iterator itr1 = pLightVct->begin(); itr1 != pLightVct->end(); ++itr1)
 				{
 					col += (*itr1)->VertexLighting(&(*itr).vertexList[i]);
@@ -145,8 +145,8 @@ namespace HX3D
 		{
 			for (int i = 0; i <= length; i++)
 			{
-				//HXCOLOR color = pMat->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
-				HXCOLOR color = HXRenderState::m_pTex->mBitmap->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
+				//HXColor color = pMat->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
+				HXColor color = HXRenderState::m_pTex->mBitmap->GetPixelRatio(scanline.v.u, 1.0f - scanline.v.v);
 
 				HXGraphics::GetInstance()->SetBufferPixel(scanline.x + i, scanline.y, scanline.v.pos.z, color*scanline.v.color);
 				scanline.v += scanline.step;
@@ -156,7 +156,7 @@ namespace HX3D
 		{
 			if (HXRenderState::m_pMat->mMatInfo->strShaderFile == "builtin/Error")
 			{
-				scanline.v.color = HXCOLOR(255, 0, 255, 255);
+				scanline.v.color = HXColor(255, 0, 255, 255);
 			}
 			for (int i = 0; i <= length; i++)
 			{

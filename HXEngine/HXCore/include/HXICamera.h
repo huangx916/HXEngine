@@ -53,7 +53,7 @@ namespace HX3D
 		std::string name;
 		bool enable;
 		EClearFlag clearFlag;
-		HXCOLOR background;
+		HXColor background;
 		ECullingMask cullingMask;
 		ECameraProjection projection;
 		float mField;	// 竖直方向角度

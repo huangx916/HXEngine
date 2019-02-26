@@ -87,7 +87,7 @@ namespace HX3D
 		glFrontFace(GL_CW);
 	}
 
-	void HXGLFreeTypeFont::_DrawText(float x, float y, const wchar_t* text, const HXCOLOR& color)
+	void HXGLFreeTypeFont::_DrawText(float x, float y, const wchar_t* text, const HXColor& color)
 	{
 		float       texWidth = 1024;
 		float       texHeight = 1024;

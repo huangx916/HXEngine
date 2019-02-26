@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--0:Texture TYPE 1:Float 2:Float2 3:Float3 4:Float4-->
+<!--TYPE
+0:Texture
+1:Float
+2:Float2
+3:Float3
+4:Float4
+-->
 <!--CullFace
 0:glDisable(GL_CULL_FACE);
 1:glFrontFace(GL_CW);

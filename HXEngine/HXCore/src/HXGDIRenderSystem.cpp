@@ -260,9 +260,9 @@ namespace HX3D
 
 	}*/
 
-	void HXGDIRenderSystem::_DrawText(float x, float y, std::string text, const HXCOLOR& color)
+	void HXGDIRenderSystem::_DrawText(float x, float y, std::string text, const HXColor& color)
 	{
-		HXGraphics::GetInstance()->DrawString(text, x, y, color, HXCOLOR(128,128,128,255));
+		HXGraphics::GetInstance()->DrawString(text, x, y, color, HXColor(128,128,128,255));
 	}
 
 	HXITransform* HXGDIRenderSystem::CreateTransform()

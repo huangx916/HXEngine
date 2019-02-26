@@ -13,7 +13,7 @@ namespace HX3D
 		std::string name;
 		bool enable;
 		EClearFlag clearFlag;
-		HXCOLOR background;
+		HXColor background;
 		ECullingMask cullingMask;
 		ECameraProjection projection;
 		float feild;
@@ -32,7 +32,7 @@ namespace HX3D
 	{
 		bool bUse;
 		HXFogType type;
-		HXCOLOR color;
+		HXColor color;
 		float start;
 		float end;
 		float density;
@@ -44,7 +44,7 @@ namespace HX3D
 
 		bool isEnable;
 		LIGHT_TYPE lightType;
-		HXCOLOR lightColor;
+		HXColor lightColor;
 		HXVector3D lightDir;
 		float shininess;	// 高光尖锐程度指数
 		float strength;		// 用于调整光泽度的数据
@@ -73,7 +73,7 @@ namespace HX3D
 		std::vector<HXGameObjectInfo*> vctGameObjInfo;
 		HXCameraInfo cameraInfo;
 		HXFogInfo fogInfo;
-		HXCOLOR ambient;
+		HXColor ambient;
 		std::vector<HXLightInfo> vctLight;
 		std::vector<HXCameraInfo> vctCamera;
 	};
