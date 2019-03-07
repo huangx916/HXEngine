@@ -50,7 +50,7 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// 未参被实际调用的变量编译后会被自动删除
+					// 未参与实际调用的变量编译后会被自动删除
 					continue;
 				}
 
