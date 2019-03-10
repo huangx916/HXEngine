@@ -196,6 +196,7 @@
     <ClCompile Include="src\HXColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXGLERMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -423,6 +424,7 @@
     <ClInclude Include="include\HXColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\HXGLERMap.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">

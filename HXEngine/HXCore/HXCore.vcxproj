@@ -27,6 +27,7 @@
     <ClInclude Include="include\HXGDIMaterial.h" />
     <ClInclude Include="include\HXGDITextureBMP.h" />
     <ClInclude Include="include\HXGDITransform.h" />
+    <ClInclude Include="include\HXGLERMap.h" />
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
     <ClInclude Include="include\HXGLLoadPNG.h" />
     <ClInclude Include="include\HXGLMaterial.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="src\HXGDITextureBMP.cpp" />
     <ClCompile Include="src\HXGDITransform.cpp" />
     <ClCompile Include="src\HXGLCamera.cpp" />
+    <ClCompile Include="src\HXGLERMap.cpp" />
     <ClCompile Include="src\HXGLFreeTypeFont.cpp" />
     <ClCompile Include="src\HXGLMaterial.cpp" />
     <ClCompile Include="src\HXGLRenderable.cpp" />
