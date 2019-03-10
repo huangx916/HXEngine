@@ -61,7 +61,8 @@ namespace HX3D
 		L_DEFAULT,
 		L_UI,
 		L_EDITOR,
-		L_WATER
+		L_WATER,
+		L_ERMAP
 	};
 
 	enum ECullingMask
@@ -71,7 +72,8 @@ namespace HX3D
 		CM_DEFAULT,
 		CM_UI,
 		CM_EDITOR,
-		CM_WATER
+		CM_WATER,
+		CM_ERMAP
 	};
 
 	inline bool IsCulled(ELayer layer, ECullingMask mask)

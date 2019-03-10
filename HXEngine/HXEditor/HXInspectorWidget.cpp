@@ -86,6 +86,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	comboboxCullingMask->addItem("UI");
 	comboboxCullingMask->addItem("Editor");
 	comboboxCullingMask->addItem("Water");
+	comboboxCullingMask->addItem("ERMap");
 
 	comboboxProjection = new QComboBox();
 	comboboxProjection->addItem("Orthographic");
@@ -150,6 +151,7 @@ HXInspectorWidget::HXInspectorWidget(QWidget* parent) : QTreeWidget(parent)
 	comboboxLayer->addItem("UI");
 	comboboxLayer->addItem("Editor");
 	comboboxLayer->addItem("Water");
+	comboboxLayer->addItem("ERMap");
 
 	spinboxPositionX = new QDoubleSpinBox();
 	spinboxPositionX->setRange(MIN, MAX);
