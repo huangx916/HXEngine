@@ -196,7 +196,9 @@
     <ClCompile Include="src\HXColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HXGLERMap.cpp" />
+    <ClCompile Include="src\HXGLERMap.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -424,7 +426,18 @@
     <ClInclude Include="include\HXColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXGLERMap.h" />
+    <ClInclude Include="include\glbmatrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glbvector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLERMap.h">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glbmatrix.cpp.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
@@ -463,5 +476,10 @@
     <Filter Include="Math\New">
       <UniqueIdentifier>{bad6778a-7f7b-4145-a31e-a02eda05c4cb}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\glbvector.cpp">
+      <Filter>Math</Filter>
+    </None>
   </ItemGroup>
 </Project>

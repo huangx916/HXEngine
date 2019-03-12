@@ -3,6 +3,9 @@
 #include "HXRenderable.h"
 #include "HXGLTexture.h"
 #include "HXResourceManager.h"
+#include "glbmatrix.h"
+
+using namespace glb;
 
 namespace HX3D
 {
@@ -95,12 +98,28 @@ namespace HX3D
 
 		glBindTexture(GL_TEXTURE_2D, tex->texObj);
 
+
+		// New perspective matrix
+		math::Matrix proj;
+		proj.MakeProjectionMatrix(1.0f, 90.0f, 0.1f, 1000.0f);
+
+		// 6 View matrix(+X,-X,+Y,-Y,+Z,-Z)
+		math::Matrix views[6];
+		views[0].MakeViewMatrix(math::Vector(0.0f, 0.0f, 0.0f), math::Vector(0.0f, 0.0f, 0.0f) + math::Vector(1.0f, 0.0f, 0.0f));
+		views[1].MakeViewMatrix(math::Vector(0.0f, 0.0f, 0.0f), math::Vector(0.0f, 0.0f, 0.0f) + math::Vector(-1.0f, 0.0f, 0.0f));
+		views[2].MakeViewMatrix(math::Vector(0.0f, 0.0f, 0.0f), math::Vector(1.0f, 0.0f, 0.0f), math::Vector(0.0f, 0.0f, 1.0f), math::Vector(0.0f, -1.0f, 0.0f));
+		views[3].MakeViewMatrix(math::Vector(0.0f, 0.0f, 0.0f), math::Vector(1.0f, 0.0f, 0.0f), math::Vector(0.0f, 0.0f, -1.0f), math::Vector(0.0f, 1.0f, 0.0f));
+		views[4].MakeViewMatrix(math::Vector(0.0f, 0.0f, 0.0f), math::Vector(0.0f, 0.0f, 0.0f) + math::Vector(0.0f, 0.0f, 1.0f));
+		views[5].MakeViewMatrix(math::Vector(0.0f, 0.0f, 0.0f), math::Vector(0.0f, 0.0f, 0.0f) + math::Vector(0.0f, 0.0f, -1.0f));
+
 		for (int i = 0; i < 6; ++i)
 		{
 			glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 			glClearDepth(1.0f);
 			glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
+			//glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, glrenderable->mMatrixProjection * glrenderable->mMatrixView * glrenderable->mMatrixModel);
+			
 			renderable->Render();
 		}
 	}
