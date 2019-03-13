@@ -18,6 +18,7 @@
 #include "HXLoadConfigPrefab.h"
 #include "HXMaterial.h"
 #include "HXGLERMap.h"
+#include "HXGLCubeMap.h"
 
 namespace HX3D
 {
@@ -421,6 +422,7 @@ namespace HX3D
 		gameObjectTreeRoot->Update();
 
 		static HXGLERMap* ermap = NULL;
+		static HXGLCubeMap* cubemap = NULL;
 		if (!ermap)
 		{
 			ermap = new HXGLERMap();
@@ -428,7 +430,12 @@ namespace HX3D
 			ermap->PreRender();
 			ermap->Render();
 			ermap->PostRender();
+			ermap->GenerateMipmap();
+
+			cubemap = new HXGLCubeMap();
+			cubemap->Initialize();
 		}
+		cubemap->Render(ermap->GetCubeMapTexture());
 		return;
 
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)

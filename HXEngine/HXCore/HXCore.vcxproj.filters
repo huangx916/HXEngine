@@ -199,6 +199,9 @@
     <ClCompile Include="src\HXGLERMap.cpp">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXGLCubeMap.cpp">
+      <Filter>RenderSystem\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -437,6 +440,9 @@
     </ClInclude>
     <ClInclude Include="include\glbvector.h">
       <Filter>Math\Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLCubeMap.h">
+      <Filter>RenderSystem\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

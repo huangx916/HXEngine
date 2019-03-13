@@ -16,6 +16,9 @@ namespace HX3D
 		void PreRender();
 		void Render();
 		void PostRender();
+		void GenerateMipmap();
+
+		GLuint GetCubeMapTexture();
 
 	private:
 		GLint original_fbo;
@@ -26,7 +29,7 @@ namespace HX3D
 		GLint render_mvp_matrix_loc;
 		GLint tex_uniform_loc;
 
-		HXMesh* mesh;
+		HXMesh* sphereMesh;
 	};
 }
 
