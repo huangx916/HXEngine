@@ -17,6 +17,7 @@
 #include "HXLoadConfigScene.h"
 #include "HXLoadConfigPrefab.h"
 #include "HXMaterial.h"
+#include "HXGLERMap.h"
 
 namespace HX3D
 {
@@ -418,6 +419,17 @@ namespace HX3D
 			(*itr)->Update();
 		}
 		gameObjectTreeRoot->Update();
+
+		static HXGLERMap* ermap = NULL;
+		if (!ermap)
+		{
+			ermap = new HXGLERMap();
+			ermap->Initialize();
+		}
+		ermap->PreRender();
+		ermap->Render();
+		ermap->PostRender();
+		return;
 
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
 		{

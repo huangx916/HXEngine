@@ -426,17 +426,17 @@
     <ClInclude Include="include\HXColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\glbmatrix.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="include\glbvector.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXGLERMap.h">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="include\glbmatrix.cpp.h">
-      <Filter>Math</Filter>
+      <Filter>Math\Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glbmatrix.h">
+      <Filter>Math\Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glbvector.h">
+      <Filter>Math\Temp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -476,10 +476,13 @@
     <Filter Include="Math\New">
       <UniqueIdentifier>{bad6778a-7f7b-4145-a31e-a02eda05c4cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math\Temp">
+      <UniqueIdentifier>{8d415dfe-ce30-4139-8d09-7efad6c24091}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\glbvector.inl">
-      <Filter>Math</Filter>
+      <Filter>Math\Temp</Filter>
     </None>
   </ItemGroup>
 </Project>

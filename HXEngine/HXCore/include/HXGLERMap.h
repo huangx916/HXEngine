@@ -5,6 +5,7 @@
 namespace HX3D
 {
 	class HXRenderable;
+	class HXMesh;
 	class HXGLERMap
 	{
 	public:
@@ -13,9 +14,10 @@ namespace HX3D
 
 		void Initialize();
 		void PreRender();
-		void Render(HXRenderable* renderable);
+		void Render();
 		void PostRender();
 
+	private:
 		GLint original_fbo;
 		GLuint equirectangular_map_prog;
 		GLuint cube_map_fbo;
@@ -23,6 +25,8 @@ namespace HX3D
 
 		GLint render_mvp_matrix_loc;
 		GLint tex_uniform_loc;
+
+		HXMesh* mesh;
 	};
 }
 
