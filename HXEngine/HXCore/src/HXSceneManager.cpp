@@ -425,10 +425,10 @@ namespace HX3D
 		{
 			ermap = new HXGLERMap();
 			ermap->Initialize();
+			ermap->PreRender();
+			ermap->Render();
+			ermap->PostRender();
 		}
-		ermap->PreRender();
-		ermap->Render();
-		ermap->PostRender();
 		return;
 
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
