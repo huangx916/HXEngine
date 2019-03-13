@@ -478,7 +478,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\glbvector.cpp">
+    <None Include="include\glbvector.inl">
       <Filter>Math</Filter>
     </None>
   </ItemGroup>

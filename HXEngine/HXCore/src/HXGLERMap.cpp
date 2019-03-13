@@ -1,4 +1,4 @@
-#include "..\include\HXGLERMap.h"
+ï»¿#include "..\include\HXGLERMap.h"
 #include "LoadShaders.h"
 #include "HXRenderable.h"
 #include "HXGLTexture.h"
@@ -91,9 +91,9 @@ namespace HX3D
 			HXResourceManager::GetInstance()->AddTexture("prefab/_Material/SphereIBL/ermap.hdr", tex);
 		}
 		int nTexIndex = 0;
-		// ²ÉÑùÆ÷
+		// é‡‡æ ·å™¨
 		glUniform1i(tex_uniform_loc, nTexIndex);
-		// ÎÆÀíµ¥Ôª
+		// çº¹ç†å•å…ƒ
 		glActiveTexture(GL_TEXTURE0 + nTexIndex);
 
 		glBindTexture(GL_TEXTURE_2D, tex->texObj);

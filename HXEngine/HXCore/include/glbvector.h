@@ -39,7 +39,7 @@ static const Vector Cross(const Vector& v1, const Vector& v2);
 static float Dot(const Vector& v1, const Vector& v2);
 static Vector CalcRotateByLookVecZXY(const Vector& v);
 
-//#include "glbvector.inl"
+#include "glbvector.inl"
 
 };  // namespace math
 

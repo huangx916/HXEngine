@@ -168,7 +168,7 @@
     <ClCompile Include="src\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\glbvector.cpp" />
+    <None Include="include\glbvector.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7772C6AF-71B0-44F8-9F31-E44A139C0F23}</ProjectGuid>

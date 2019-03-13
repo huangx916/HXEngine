@@ -1,8 +1,3 @@
-#include "glbvector.h"
-
-namespace glb {
-
-namespace math {
 
 Vector::Vector()
 : x(0.0f)
@@ -154,7 +149,3 @@ Vector CalcRotateByLookVecZXY(const Vector& v) {
 
     return Vector(rx, ry, rz);
 }
-
-};  // namespace math
-
-};  // namespace glb
