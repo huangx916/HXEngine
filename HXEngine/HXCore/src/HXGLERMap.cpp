@@ -3,13 +3,10 @@
 #include "HXRenderable.h"
 #include "HXGLTexture.h"
 #include "HXResourceManager.h"
-#include "glbmatrix.h"
 #include "HXRoot.h"
 #include "HXMesh.h"
 #include "HXGLRenderable.h"
 #include "HXGLCamera.h"
-
-using namespace glb;
 
 namespace HX3D
 {
@@ -103,15 +100,19 @@ namespace HX3D
 		glBindTexture(GL_TEXTURE_2D, tex->texObj);
 
 		vmath::mat4 mMatrixModel = vmath::mat4::identity();
-		vmath::mat4 mMatrixProjection = vmath::perspective(90, 1, 0.01f, 1000);
+		vmath::mat4 mMatrixProjection = vmath::perspectiveExt(90.0f, 1.0f, 0.1f, 1000.0f);
 		//vmath::mat4 mMatrixView = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 0, -1), vmath::vec3(0, 1, 0));
 		vmath::mat4 mMatrixViewList[6];
-		mMatrixViewList[0] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(-1, 0, 0), vmath::vec3(0, 1, 0));
-		mMatrixViewList[1] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(1, 0, 0), vmath::vec3(0, 1, 0));
-		mMatrixViewList[2] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, -1, 0), vmath::vec3(0, 0, -1));
-		mMatrixViewList[3] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 1, 0), vmath::vec3(0, 0, 1));
+		mMatrixViewList[0] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(1, 0, 0), vmath::vec3(0, 1, 0));
+		mMatrixViewList[1] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(-1, 0, 0), vmath::vec3(0, 1, 0));
+		mMatrixViewList[2] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 1, 0), vmath::vec3(0, 0, 1));
+		mMatrixViewList[3] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, -1, 0), vmath::vec3(0, 0, -1));
 		mMatrixViewList[4] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 0, 1), vmath::vec3(0, 1, 0));
 		mMatrixViewList[5] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 0, -1), vmath::vec3(0, 1, 0));
+		
+		glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_FRONT);
 
 		for (int i = 0; i < 6; ++i)
 		{

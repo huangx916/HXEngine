@@ -650,6 +650,26 @@ static inline mat4 perspective(float fovy /* in degrees */, float aspect, float 
 	return frustum(-right, right, -top, top, n, f);
 }
 
+// add by huangxin
+static inline mat4 perspectiveExt(float fov /* in degrees */, float aspect, float znear, float zfar)
+{
+	fov = fov * 0.5f / 180.0f  * 3.14159f;
+	float sina = sin(fov);
+	float cosa = cos(fov);
+	float cota = cosa / sina;
+
+	mat4 result(mat4::identity());
+
+	result[0][0] = cota / aspect;
+	result[1][1] = cota;
+	result[2][2] = -(zfar + znear) / (zfar - znear);
+	result[3][2] = -2.0f * zfar * znear / (zfar - znear);
+	result[2][3] = -1.0f;
+	result[3][3] = 0.0f;
+
+	return result;
+}
+
 template <typename T>
 static inline Tmat4<T> lookat(vecN<T,3> eye, vecN<T,3> center, vecN<T,3> up)
 {
