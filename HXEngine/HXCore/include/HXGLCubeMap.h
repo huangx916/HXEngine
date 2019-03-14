@@ -1,4 +1,7 @@
-﻿#pragma once
+﻿/*
+CubeMap采样，渲染天空盒
+*/
+#pragma once
 #include "HXCommon.h"
 #include "vgl.h"
 

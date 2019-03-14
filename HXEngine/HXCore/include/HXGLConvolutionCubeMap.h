@@ -1,5 +1,5 @@
-ï»¿/*
-çƒå½¢è´´å›¾é‡‡æ ·ï¼Œæ¸²æŸ“åˆ°CubeMapä¸­
+/*
+¶ÔCubeMap½øĞĞ°ëÇò¿Õ¼ä¾í»ı£¬äÖÈ¾µ½µÍ·Ö±æÂÊµÄCubeMapÖĞ
 */
 #pragma once
 #include "HXCommon.h"
@@ -7,17 +7,16 @@
 
 namespace HX3D
 {
-	class HXRenderable;
 	class HXMesh;
-	class HXGLERMap
+	class HXGLConvolutionCubeMap
 	{
 	public:
-		HXGLERMap();
-		~HXGLERMap();
+		HXGLConvolutionCubeMap();
+		~HXGLConvolutionCubeMap();
 
 		void Initialize();
 		void PreRender();
-		void Render();
+		void Render(GLuint tex_obj);
 		void PostRender();
 		void GenerateMipmap();
 
@@ -25,14 +24,14 @@ namespace HX3D
 
 	private:
 		GLint original_fbo;
-		GLuint equirectangular_map_prog;
+		GLuint convolution_prog;
 		GLuint cube_map_fbo;
 		GLuint cube_map_texture;
 
-		GLint render_mvp_matrix_loc;
 		GLint tex_uniform_loc;
+		GLint face_uniform_loc;
 
-		HXMesh* sphereMesh;
+		HXMesh* quadMesh;
+
 	};
 }
-

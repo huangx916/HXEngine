@@ -19,6 +19,7 @@
 #include "HXMaterial.h"
 #include "HXGLERMap.h"
 #include "HXGLCubeMap.h"
+#include "HXGLConvolutionCubeMap.h"
 
 namespace HX3D
 {
@@ -423,6 +424,7 @@ namespace HX3D
 
 		static HXGLERMap* ermap = NULL;
 		static HXGLCubeMap* cubemap = NULL;
+		static HXGLConvolutionCubeMap* convolutionCubeMap = NULL;
 		if (!ermap)
 		{
 			ermap = new HXGLERMap();
@@ -431,6 +433,13 @@ namespace HX3D
 			ermap->Render();
 			ermap->PostRender();
 			ermap->GenerateMipmap();
+
+			convolutionCubeMap = new HXGLConvolutionCubeMap();
+			convolutionCubeMap->Initialize();
+			convolutionCubeMap->PreRender();
+			convolutionCubeMap->Render(ermap->GetCubeMapTexture());
+			convolutionCubeMap->PostRender();
+			convolutionCubeMap->GenerateMipmap();
 
 			cubemap = new HXGLCubeMap();
 			cubemap->Initialize();
