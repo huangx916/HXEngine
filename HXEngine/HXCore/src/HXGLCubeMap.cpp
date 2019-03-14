@@ -47,7 +47,7 @@ namespace HX3D
 		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_obj);
 
 		vmath::mat4 mMatrixModel = vmath::mat4::identity();
-		vmath::mat4 mMatrixProjection = vmath::perspectiveExt(90, 1, 0.1f, 1000);
+		vmath::mat4 mMatrixProjection = vmath::perspectiveExt(60, 1.0f * HXGLRenderSystem::gCurScreenWidth / HXGLRenderSystem::gCurScreenHeight, 0.01f, 1000);
 		vmath::mat4 mMatrixView = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 0, -1), vmath::vec3(0, 1, 0));
 
 		//glEnable(GL_CULL_FACE);

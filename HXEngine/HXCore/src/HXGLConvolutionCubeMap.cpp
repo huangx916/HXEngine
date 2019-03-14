@@ -92,17 +92,6 @@ namespace HX3D
 		glActiveTexture(GL_TEXTURE0 + nTexIndex);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_obj);
 
-		vmath::mat4 mMatrixModel = vmath::mat4::identity();
-		vmath::mat4 mMatrixProjection = vmath::perspectiveExt(90.0f, 1.0f, 0.1f, 1000.0f);
-		//vmath::mat4 mMatrixView = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 0, -1), vmath::vec3(0, 1, 0));
-		vmath::mat4 mMatrixViewList[6];
-		mMatrixViewList[0] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(1, 0, 0), vmath::vec3(0, 1, 0));
-		mMatrixViewList[1] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(-1, 0, 0), vmath::vec3(0, 1, 0));
-		mMatrixViewList[2] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 1, 0), vmath::vec3(0, 0, 1));
-		mMatrixViewList[3] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, -1, 0), vmath::vec3(0, 0, -1));
-		mMatrixViewList[4] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 0, 1), vmath::vec3(0, 1, 0));
-		mMatrixViewList[5] = vmath::lookat(vmath::vec3(0, 0, 0), vmath::vec3(0, 0, -1), vmath::vec3(0, 1, 0));
-
 		glEnable(GL_DEPTH_TEST);
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_FRONT);
@@ -113,7 +102,7 @@ namespace HX3D
 			glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 			glClearDepth(1.0f);
 			glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-			vmath::mat4 mvp = mMatrixProjection * mMatrixViewList[i] * mMatrixModel;
+			
 			glUniform1i(face_uniform_loc, i);
 			quadMesh->subMeshList[0]->renderable->Render();
 		}

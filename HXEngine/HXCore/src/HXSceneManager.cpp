@@ -423,11 +423,12 @@ namespace HX3D
 		}
 		gameObjectTreeRoot->Update();
 
+		static bool init = true;
 		static HXGLERMap* ermap = NULL;
 		static HXGLCubeMap* cubemap = NULL;
 		static HXGLConvolutionCubeMap* convolutionCubeMap = NULL;
 		static HXGLTestSphere* testSphere = NULL;
-		if (!ermap)
+		if (init)
 		{
 			ermap = new HXGLERMap();
 			ermap->Initialize();
@@ -448,9 +449,12 @@ namespace HX3D
 
 			testSphere = new HXGLTestSphere();
 			testSphere->Initialize();
+
+			init = false;
 		}
-		//cubemap->Render(ermap->GetCubeMapTexture());
+		cubemap->Render(ermap->GetCubeMapTexture());
 		testSphere->Render(convolutionCubeMap->GetCubeMapTexture());
+		//testSphere->Render(0);
 		return;
 
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
