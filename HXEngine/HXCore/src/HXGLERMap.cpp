@@ -25,8 +25,8 @@ namespace HX3D
 
 		ShaderInfo er_map_shaders[] =
 		{
-			{ GL_VERTEX_SHADER, "builtin/IBL.vert" },
-			{ GL_FRAGMENT_SHADER, "builtin/IBL.frag" },
+			{ GL_VERTEX_SHADER, "builtin/filtering_ermap.vert" },
+			{ GL_FRAGMENT_SHADER, "builtin/filtering_ermap.frag" },
 			{ GL_NONE }
 		};
 		equirectangular_map_prog = LoadShaders(er_map_shaders);
@@ -84,12 +84,13 @@ namespace HX3D
 
 	void HXGLERMap::Render()
 	{
-		HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture("prefab/_Material/SphereIBL/ermap.hdr");
+		std::string file = "prefab/_Material/SphereIBL/ermap.hdr";
+		HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(file);
 		if (NULL == tex)
 		{
 			tex = new HXGLTexture();
-			tex->Create("prefab/_Material/SphereIBL/ermap.hdr");
-			HXResourceManager::GetInstance()->AddTexture("prefab/_Material/SphereIBL/ermap.hdr", tex);
+			tex->Create(file.c_str());
+			HXResourceManager::GetInstance()->AddTexture(file, tex);
 		}
 		int nTexIndex = 0;
 		// 采样器
