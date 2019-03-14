@@ -205,6 +205,9 @@
     <ClCompile Include="src\HXGLConvolutionCubeMap.cpp">
       <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXGLTestSphere.cpp">
+      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -448,6 +451,9 @@
       <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLConvolutionCubeMap.h">
+      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLTestSphere.h">
       <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClInclude>
   </ItemGroup>

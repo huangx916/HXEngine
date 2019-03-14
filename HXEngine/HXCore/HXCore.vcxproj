@@ -38,6 +38,7 @@
     <ClInclude Include="include\HXGLMaterial.h" />
     <ClInclude Include="include\HXGLRenderTarget.h" />
     <ClInclude Include="include\HXGLShadowMap.h" />
+    <ClInclude Include="include\HXGLTestSphere.h" />
     <ClInclude Include="include\HXGLTexture.h" />
     <ClInclude Include="include\HXGLTransform.h" />
     <ClInclude Include="include\HXGLFontBG.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="src\HXGLRenderTarget.cpp" />
     <ClCompile Include="src\HXGLShadowMap.cpp" />
     <ClCompile Include="src\HXGLTest.cpp" />
+    <ClCompile Include="src\HXGLTestSphere.cpp" />
     <ClCompile Include="src\HXGLTexture.cpp" />
     <ClCompile Include="src\HXGLTransform.cpp" />
     <ClCompile Include="src\HXGLFontBG.cpp" />

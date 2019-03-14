@@ -20,6 +20,7 @@
 #include "HXGLERMap.h"
 #include "HXGLCubeMap.h"
 #include "HXGLConvolutionCubeMap.h"
+#include "HXGLTestSphere.h"
 
 namespace HX3D
 {
@@ -425,6 +426,7 @@ namespace HX3D
 		static HXGLERMap* ermap = NULL;
 		static HXGLCubeMap* cubemap = NULL;
 		static HXGLConvolutionCubeMap* convolutionCubeMap = NULL;
+		static HXGLTestSphere* testSphere = NULL;
 		if (!ermap)
 		{
 			ermap = new HXGLERMap();
@@ -443,8 +445,12 @@ namespace HX3D
 
 			cubemap = new HXGLCubeMap();
 			cubemap->Initialize();
+
+			testSphere = new HXGLTestSphere();
+			testSphere->Initialize();
 		}
-		cubemap->Render(ermap->GetCubeMapTexture());
+		//cubemap->Render(ermap->GetCubeMapTexture());
+		testSphere->Render(convolutionCubeMap->GetCubeMapTexture());
 		return;
 
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
