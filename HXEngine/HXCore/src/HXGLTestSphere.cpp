@@ -1,4 +1,4 @@
-#include "..\include\HXGLTestSphere.h"
+ï»¿#include "..\include\HXGLTestSphere.h"
 #include "HXResourceManager.h"
 #include "HXMesh.h"
 #include "HXGLRenderable.h"
@@ -47,9 +47,9 @@ namespace HX3D
 		glUseProgram(ibl_diff_prog);
 
 		int nTexIndex = 0;
-		// ²ÉÑùÆ÷
+		// é‡‡æ ·å™¨
 		glUniform1i(tex_uniform_loc, nTexIndex);
-		// ÎÆÀíµ¥Ôª
+		// çº¹ç†å•å…ƒ
 		glActiveTexture(GL_TEXTURE0 + nTexIndex);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_obj);
 

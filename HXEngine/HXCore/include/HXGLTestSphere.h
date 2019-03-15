@@ -1,3 +1,6 @@
+﻿/*
+CubeMap采样，渲染测试球，测试用
+*/
 #pragma once
 #include "HXCommon.h"
 #include "vgl.h"

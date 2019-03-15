@@ -1,5 +1,5 @@
 ﻿/*
-CubeMap采样，渲染天空盒
+CubeMap采样，渲染天空盒，测试用
 */
 #pragma once
 #include "HXCommon.h"
