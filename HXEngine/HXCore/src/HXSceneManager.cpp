@@ -425,22 +425,23 @@ namespace HX3D
 
 
 		HXResourceManager::GetInstance()->Preprocess();
-		static bool init = true;
-		static HXGLCubeMap* cubemap = NULL;
-		static HXGLTestSphere* testSphere = NULL;
-		if (init)
-		{
-			cubemap = new HXGLCubeMap();
-			cubemap->Initialize();
 
-			testSphere = new HXGLTestSphere();
-			testSphere->Initialize();
+		//static bool init = true;
+		//static HXGLCubeMap* cubemap = NULL;
+		//static HXGLTestSphere* testSphere = NULL;
+		//if (init)
+		//{
+		//	cubemap = new HXGLCubeMap();
+		//	cubemap->Initialize();
 
-			init = false;
-		}
-		cubemap->Render(HXResourceManager::GetInstance()->GetErmap()->GetCubeMapTexture());
-		testSphere->Render(HXResourceManager::GetInstance()->GetConvolutionCubeMap()->GetCubeMapTexture());
-		return;
+		//	testSphere = new HXGLTestSphere();
+		//	testSphere->Initialize();
+
+		//	init = false;
+		//}
+		////cubemap->Render(HXResourceManager::GetInstance()->GetErmap()->GetCubeMapTexture());
+		//testSphere->Render(HXResourceManager::GetInstance()->GetConvolutionCubeMap()->GetCubeMapTexture());
+		//return;
 
 
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)

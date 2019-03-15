@@ -88,7 +88,7 @@ namespace HX3D
 
 	void HXGLConvolutionCubeMap::Release()
 	{
-
+		HX_SAFE_DELETE(quadMesh);
 	}
 
 	void HXGLConvolutionCubeMap::PreRender()

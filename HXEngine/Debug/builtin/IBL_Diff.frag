@@ -7,7 +7,7 @@ in vec3 vs_Normal;
 uniform vec3 hx_Albedo;
 uniform float hx_Roughness;
 uniform float hx_Metalic;
-uniform vec3 hx_EyePos;
+uniform vec3 eyePos;
 uniform samplerCube hx_IrradianceMap;
 
 out vec3 oColor;
@@ -90,7 +90,7 @@ vec3 calc_ibl(vec3 n, vec3 v, vec3 albedo, float roughness, float metalic) {
 }
 
 void main() {
-    vec3 view = hx_EyePos - vs_Vertex;
+    vec3 view = eyePos - vs_Vertex;
     view = normalize(view);
 
     vec3 lightPos = vec3(0.0, 0.0, 200.0);

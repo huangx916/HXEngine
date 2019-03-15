@@ -88,7 +88,7 @@ namespace HX3D
 
 	void HXGLERMap::Release()
 	{
-
+		HX_SAFE_DELETE(sphereMesh);
 	}
 
 	void HXGLERMap::PreRender()

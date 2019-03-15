@@ -33,11 +33,11 @@ namespace HX3D
 		ibl_diff_prog = LoadShaders(ibl_diff_shaders);
 		glUseProgram(ibl_diff_prog);
 		render_mvp_matrix_loc = glGetUniformLocation(ibl_diff_prog, "mvp_matrix");
-		world_matrix_loc = glGetUniformLocation(ibl_diff_prog, "hx_World");
+		world_matrix_loc = glGetUniformLocation(ibl_diff_prog, "model_matrix");
 		albedo_loc = glGetUniformLocation(ibl_diff_prog, "hx_Albedo");
 		roughness_loc = glGetUniformLocation(ibl_diff_prog, "hx_Roughness");
 		metalic_loc = glGetUniformLocation(ibl_diff_prog, "hx_Metalic");
-		eye_pos_loc = glGetUniformLocation(ibl_diff_prog, "hx_EyePos");
+		eye_pos_loc = glGetUniformLocation(ibl_diff_prog, "eyePos");
 		tex_uniform_loc = glGetUniformLocation(ibl_diff_prog, "hx_IrradianceMap");
 	}
 
@@ -67,8 +67,8 @@ namespace HX3D
 
 		glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 		glClearDepth(1.0f);
-		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-		glClear(GL_DEPTH_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+		//glClear(GL_DEPTH_BUFFER_BIT);
 		vmath::mat4 mvp = mMatrixProjection * mMatrixView * mMatrixModel;
 		glUniformMatrix4fv(render_mvp_matrix_loc, 1, GL_FALSE, mvp);
 		glUniformMatrix4fv(world_matrix_loc, 1, GL_FALSE, mMatrixModel);
