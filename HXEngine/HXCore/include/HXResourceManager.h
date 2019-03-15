@@ -34,7 +34,7 @@ namespace HX3D
 
 		void UnLoadAll();
 
-		void Preprocess();
+		void Preprocess(std::string strERMapFile);
 		HXGLERMap* GetErmap();
 		HXGLConvolutionCubeMap* GetConvolutionCubeMap();
 	private:

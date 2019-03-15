@@ -154,6 +154,7 @@ namespace HX3D
 			break;
 			case MPT_IBL_SRC_CUBEMAP:
 			{
+				HXResourceManager::GetInstance()->Preprocess(itr->value);
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
@@ -450,6 +451,7 @@ namespace HX3D
 			break;
 			case MPT_IBL_SRC_CUBEMAP:
 			{
+				HXResourceManager::GetInstance()->Preprocess(itr->value);
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{

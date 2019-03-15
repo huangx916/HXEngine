@@ -424,7 +424,7 @@ namespace HX3D
 		gameObjectTreeRoot->Update();
 
 
-		HXResourceManager::GetInstance()->Preprocess();
+		//HXResourceManager::GetInstance()->Preprocess();
 
 		//static bool init = true;
 		//static HXGLCubeMap* cubemap = NULL;
@@ -433,10 +433,8 @@ namespace HX3D
 		//{
 		//	cubemap = new HXGLCubeMap();
 		//	cubemap->Initialize();
-
 		//	testSphere = new HXGLTestSphere();
 		//	testSphere->Initialize();
-
 		//	init = false;
 		//}
 		////cubemap->Render(HXResourceManager::GetInstance()->GetErmap()->GetCubeMapTexture());

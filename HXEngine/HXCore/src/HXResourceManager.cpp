@@ -142,11 +142,11 @@ namespace HX3D
 		textureMap.clear();
 	}
 
-	void HXResourceManager::Preprocess()
+	void HXResourceManager::Preprocess(std::string strERMapFile)
 	{
 		if (m_bPreprocess && m_pErmap && m_ConvolutionCubeMap)
 		{
-			m_pErmap->Preprocess();
+			m_pErmap->Preprocess(strERMapFile);
 			m_ConvolutionCubeMap->Preprocess(m_pErmap->GetCubeMapTexture());
 			m_bPreprocess = false;
 		}

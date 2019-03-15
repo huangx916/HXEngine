@@ -21,11 +21,11 @@ namespace HX3D
 		Release();
 	}
 
-	void HXGLERMap::Preprocess()
+	void HXGLERMap::Preprocess(std::string strERMapFile)
 	{
 		Initialize();
 		PreRender();
-		Render();
+		Render(strERMapFile);
 		GenerateMipmap();
 		PostRender();
 	}
@@ -99,9 +99,10 @@ namespace HX3D
 		glViewport(0, 0, 1024, 1024);
 	}
 
-	void HXGLERMap::Render()
+	void HXGLERMap::Render(std::string strERMapFile)
 	{
-		std::string file = "prefab/_Material/SphereIBL/ermap2.hdr";
+		//std::string file = "prefab/_Material/SphereIBL/ermap2.hdr";
+		std::string file = strERMapFile;
 		HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(file);
 		if (NULL == tex)
 		{

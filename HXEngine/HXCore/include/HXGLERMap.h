@@ -15,14 +15,14 @@ namespace HX3D
 		HXGLERMap();
 		~HXGLERMap();
 		
-		void Preprocess();
+		void Preprocess(std::string strERMapFile);
 		GLuint GetCubeMapTexture();
 
 	private:
 		void Initialize();
 		void Release();
 		void PreRender();
-		void Render();
+		void Render(std::string strERMapFile);
 		void PostRender();
 		void GenerateMipmap();
 
