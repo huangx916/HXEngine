@@ -14,13 +14,16 @@ namespace HX3D
 		HXGLConvolutionCubeMap();
 		~HXGLConvolutionCubeMap();
 
+		void Preprocess(GLuint tex_obj);
+		GLuint GetCubeMapTexture();
+
+	private:
 		void Initialize();
+		void Release();
 		void PreRender();
 		void Render(GLuint tex_obj);
 		void PostRender();
 		void GenerateMipmap();
-
-		GLuint GetCubeMapTexture();
 
 	private:
 		GLint original_fbo;

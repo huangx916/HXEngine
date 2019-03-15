@@ -423,27 +423,13 @@ namespace HX3D
 		}
 		gameObjectTreeRoot->Update();
 
+
+		HXResourceManager::GetInstance()->Preprocess();
 		static bool init = true;
-		static HXGLERMap* ermap = NULL;
 		static HXGLCubeMap* cubemap = NULL;
-		static HXGLConvolutionCubeMap* convolutionCubeMap = NULL;
 		static HXGLTestSphere* testSphere = NULL;
 		if (init)
 		{
-			ermap = new HXGLERMap();
-			ermap->Initialize();
-			ermap->PreRender();
-			ermap->Render();
-			ermap->PostRender();
-			ermap->GenerateMipmap();
-
-			convolutionCubeMap = new HXGLConvolutionCubeMap();
-			convolutionCubeMap->Initialize();
-			convolutionCubeMap->PreRender();
-			convolutionCubeMap->Render(ermap->GetCubeMapTexture());
-			convolutionCubeMap->PostRender();
-			convolutionCubeMap->GenerateMipmap();
-
 			cubemap = new HXGLCubeMap();
 			cubemap->Initialize();
 
@@ -452,10 +438,10 @@ namespace HX3D
 
 			init = false;
 		}
-		cubemap->Render(ermap->GetCubeMapTexture());
-		testSphere->Render(convolutionCubeMap->GetCubeMapTexture());
-		//testSphere->Render(0);
+		cubemap->Render(HXResourceManager::GetInstance()->GetErmap()->GetCubeMapTexture());
+		testSphere->Render(HXResourceManager::GetInstance()->GetConvolutionCubeMap()->GetCubeMapTexture());
 		return;
+
 
 		for (std::vector<HXICamera*>::iterator itr = cameraVct.begin(); itr != cameraVct.end(); ++itr)
 		{

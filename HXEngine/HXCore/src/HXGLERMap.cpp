@@ -13,10 +13,21 @@ namespace HX3D
 {
 	HXGLERMap::HXGLERMap()
 	{
+		
 	}
 
 	HXGLERMap::~HXGLERMap()
 	{
+		Release();
+	}
+
+	void HXGLERMap::Preprocess()
+	{
+		Initialize();
+		PreRender();
+		Render();
+		GenerateMipmap();
+		PostRender();
 	}
 
 	void HXGLERMap::Initialize()
@@ -73,6 +84,11 @@ namespace HX3D
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
+	}
+
+	void HXGLERMap::Release()
+	{
+
 	}
 
 	void HXGLERMap::PreRender()

@@ -8,6 +8,9 @@
 #include "HXLoadConfigMat.h"
 #include "HXRoot.h"
 #include "HXRenderSystem.h"
+#include "HXGLERMap.h"
+#include "HXGLCubeMap.h"
+#include "HXGLConvolutionCubeMap.h"
 
 namespace HX3D
 {
@@ -16,8 +19,11 @@ namespace HX3D
 	HXResourceManager::HXResourceManager()
 	{
 		m_pMeshLoader = new HXFBXLoader();
-	}
 
+		m_bPreprocess = true;
+		m_pErmap = new HXGLERMap();
+		m_ConvolutionCubeMap = new HXGLConvolutionCubeMap();
+	}
 
 	HXResourceManager::~HXResourceManager()
 	{
@@ -27,11 +33,9 @@ namespace HX3D
 		}
 		meshMap.clear();
 
-		if (m_pMeshLoader)
-		{
-			delete m_pMeshLoader;
-			m_pMeshLoader = NULL;
-		}
+		HX_SAFE_DELETE(m_pMeshLoader);
+		HX_SAFE_DELETE(m_pErmap);
+		HX_SAFE_DELETE(m_ConvolutionCubeMap);
 	}
 
 	HXMesh* HXResourceManager::GetMesh(std::string strMeshName, std::string strAnimName)
@@ -136,5 +140,25 @@ namespace HX3D
 			delete itr->second;
 		}
 		textureMap.clear();
+	}
+
+	void HXResourceManager::Preprocess()
+	{
+		if (m_bPreprocess && m_pErmap && m_ConvolutionCubeMap)
+		{
+			m_pErmap->Preprocess();
+			m_ConvolutionCubeMap->Preprocess(m_pErmap->GetCubeMapTexture());
+			m_bPreprocess = false;
+		}
+	}
+
+	HXGLERMap* HXResourceManager::GetErmap()
+	{
+		return m_pErmap;
+	}
+
+	HXGLConvolutionCubeMap* HXResourceManager::GetConvolutionCubeMap()
+	{
+		return m_ConvolutionCubeMap;
 	}
 }

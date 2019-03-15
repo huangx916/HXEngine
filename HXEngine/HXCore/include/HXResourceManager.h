@@ -10,6 +10,8 @@ namespace HX3D
 	class HXModelInfo;
 	class HXMaterial;
 	class HXITexture;
+	class HXGLERMap;
+	class HXGLConvolutionCubeMap;
 	class HXResourceManager
 	{
 	public:
@@ -31,6 +33,10 @@ namespace HX3D
 		void AddTexture(std::string strTextureFile, HXITexture* pTexture);
 
 		void UnLoadAll();
+
+		void Preprocess();
+		HXGLERMap* GetErmap();
+		HXGLConvolutionCubeMap* GetConvolutionCubeMap();
 	private:
 		HXResourceManager();
 		static HXResourceManager* m_pInstance;
@@ -41,6 +47,10 @@ namespace HX3D
 		std::map<std::string, HXMesh*>	meshMap;
 		std::map<std::string, HXMaterial*> matMap;
 		std::map<std::string, HXITexture*> textureMap;
+
+		bool m_bPreprocess;
+		HXGLERMap* m_pErmap;
+		HXGLConvolutionCubeMap* m_ConvolutionCubeMap;
 	};
 }
 

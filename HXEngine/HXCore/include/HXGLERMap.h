@@ -14,14 +14,17 @@ namespace HX3D
 	public:
 		HXGLERMap();
 		~HXGLERMap();
+		
+		void Preprocess();
+		GLuint GetCubeMapTexture();
 
+	private:
 		void Initialize();
+		void Release();
 		void PreRender();
 		void Render();
 		void PostRender();
 		void GenerateMipmap();
-
-		GLuint GetCubeMapTexture();
 
 	private:
 		GLint original_fbo;

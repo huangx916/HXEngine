@@ -40,6 +40,24 @@ namespace HX3D
 
 	//#define HXColor_TO_24BIT(r,g,b)		(((r) & 0xff) << 16 | ((g) & 0xff) << 8 | ((b) & 0xff))
 
+#define HX_SAFE_DELETE(_pointer_) \
+    if (_pointer_ != nullptr) {\
+        delete _pointer_; \
+        _pointer_ = nullptr; \
+    }
+
+#define HX_SAFE_DELETE_ARRAY(_pointer_) \
+    if (_pointer_ != nullptr) { \
+        delete[] _pointer_; \
+        _pointer_ = nullptr; \
+    }
+
+#define HX_SAFE_RELEASE(_pointer_) \
+    if (_pointer_ != nullptr) { \
+        _pointer_->Release(); \
+        _pointer_ = nullptr; \
+    }
+
 	enum ERenderSystem
 	{
 		RenderSystem_GDI,

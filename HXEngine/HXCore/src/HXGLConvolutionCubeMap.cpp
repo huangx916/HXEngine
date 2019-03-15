@@ -13,10 +13,21 @@ namespace HX3D
 {
 	HXGLConvolutionCubeMap::HXGLConvolutionCubeMap()
 	{
+
 	}
 
 	HXGLConvolutionCubeMap::~HXGLConvolutionCubeMap()
 	{
+		Release();
+	}
+
+	void HXGLConvolutionCubeMap::Preprocess(GLuint tex_obj)
+	{
+		Initialize();
+		PreRender();
+		Render(tex_obj);
+		GenerateMipmap();
+		PostRender();
 	}
 
 	void HXGLConvolutionCubeMap::Initialize()
@@ -73,6 +84,11 @@ namespace HX3D
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
+	}
+
+	void HXGLConvolutionCubeMap::Release()
+	{
+
 	}
 
 	void HXGLConvolutionCubeMap::PreRender()

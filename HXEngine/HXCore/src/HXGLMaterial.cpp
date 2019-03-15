@@ -150,6 +150,38 @@ namespace HX3D
 				++nTexIndex;
 			}
 			break;
+			case MPT_IBL_SRC_CUBEMAP:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
+				if (NULL == tex)
+				{
+					//tex = new HXGLTexture(MPT_CUBEMAP,itr->value);
+					tex = new HXGLTexture();
+					tex->CreateCubeBy6Texture2D(itr->value.c_str());
+
+					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
+				}
+
+				// 采样器
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+
+				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
+
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+				++nTexIndex;
+			}
+			break;
 			default:
 				break;
 			}
