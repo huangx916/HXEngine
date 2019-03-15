@@ -32,7 +32,7 @@ namespace HX3D
 
 	void HXGLERMap::Initialize()
 	{
-		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("prefab/SphereIBL/Sphere.FBX", "");
+		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("prefab/SkySphere/Sphere.FBX", "");
 		sphereMesh = pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem());
 
 		ShaderInfo er_map_shaders[] =

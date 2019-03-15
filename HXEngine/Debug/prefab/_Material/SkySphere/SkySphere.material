@@ -35,6 +35,6 @@ ect...
 <Material>
 	<State RenderQueue="1000" CullFace="1" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
     <Shader File="builtin/test_cubemap">
-		<Property Type="6" Name="CubeMap" Value="prefab/_Material/SkySphere/ermap.hdr" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="6" Name="CubeMap" Value="prefab/_Material/SkySphere/ermap2.hdr" Value1="1" Value2="1" Value3="0" Value4="0"/>
 	</Shader>
 </Material>
