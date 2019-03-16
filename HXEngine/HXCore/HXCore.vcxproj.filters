@@ -196,9 +196,6 @@
     <ClCompile Include="src\HXColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HXGLCubeMap.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXGLERMap.cpp">
       <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClCompile>
@@ -206,7 +203,10 @@
       <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLTestSphere.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLCubeMap.cpp">
+      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,9 +444,6 @@
     <ClInclude Include="include\glbvector.h">
       <Filter>Math\Temp</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXGLCubeMap.h">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXGLERMap.h">
       <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClInclude>
@@ -454,7 +451,10 @@
       <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLTestSphere.h">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLCubeMap.h">
+      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -499,6 +499,9 @@
     </Filter>
     <Filter Include="RenderSystem\OpenGL\Preprocess">
       <UniqueIdentifier>{60a36af8-f9ce-4277-afbc-419a84b20f50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSystem\OpenGL\Preprocess\TestCase">
+      <UniqueIdentifier>{fd84fe24-f9f3-4ca4-ab08-45595d1e0d80}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
