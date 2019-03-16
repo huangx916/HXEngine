@@ -2,5 +2,5 @@
 <Model>
 	<Mesh File="prefab/SpherePBS/Sphere.FBX"/>
 	<Anim File=""/>
-	<Material File="prefab/_Material/SpherePBS/Sphere1PBS.material"/>
+	<Material File="prefab/_Material/PBS_DIR/Sphere1PBS.material"/>
 </Model>

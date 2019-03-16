@@ -31,12 +31,12 @@ ect...
 -->
 <Material>
 	<State RenderQueue="2000" CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
-    <Shader File="builtin/PBS">
+    <Shader File="builtin/PBS_DIR">
 		<Property Type="0" Name="MainTexture" Value="white" Value1="1" Value2="1" Value3="0" Value4="0"/>
 		<Property Type="4" Name="DiffuseColor" Value="" Value1="0.5" Value2="0.5" Value3="0.5" Value4="1"/>
 		<Property Type="3" Name="Albedo" Value="" Value1="1" Value2="1" Value3="1" Value4="0"/>
 		<Property Type="1" Name="Metalic" Value="" Value1="0" Value2="0" Value3="0" Value4="0"/>
-		<Property Type="1" Name="Roughness" Value="" Value1="0.1" Value2="0" Value3="0" Value4="0"/>
+		<Property Type="1" Name="Roughness" Value="" Value1="0.8" Value2="0" Value3="0" Value4="0"/>
 		<Property Type="5" Name="CubeMap" Value="prefab/_Material/CubeMapping/Sunny2.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
 	</Shader>
 </Material>
