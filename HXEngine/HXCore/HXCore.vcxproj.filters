@@ -208,6 +208,12 @@
     <ClCompile Include="src\HXGLCubeMap.cpp">
       <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXGLSpecularLDCubeMap.cpp">
+      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLSpecularDFGTexture.cpp">
+      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -455,6 +461,12 @@
     </ClInclude>
     <ClInclude Include="include\HXGLCubeMap.h">
       <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLSpecularLDCubeMap.h">
+      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLSpecularDFGTexture.h">
+      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-#include "..\include\HXGLConvolutionCubeMap.h"
+ï»¿#include "..\include\HXGLConvolutionCubeMap.h"
 #include "LoadShaders.h"
 #include "HXRenderable.h"
 #include "HXGLTexture.h"
@@ -46,7 +46,7 @@ namespace HX3D
 		tex_uniform_loc = glGetUniformLocation(convolution_prog, "hx_CubeMap");
 		face_uniform_loc = glGetUniformLocation(convolution_prog, "hx_FaceIndex");
 
-		// render target
+		// render target texture
 		glGenTextures(1, &cube_map_texture);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_texture);
 		for (int32_t i = 0; i < 6; i++) {
@@ -66,10 +66,12 @@ namespace HX3D
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
 
+		// render target fbo
 		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &original_fbo);
 		glGenFramebuffers(1, &cube_map_fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, cube_map_fbo);
 
+		// bind texture to fbo
 		GLint face[6] = {
 			GL_TEXTURE_CUBE_MAP_POSITIVE_X,
 			GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
@@ -102,9 +104,9 @@ namespace HX3D
 	void HXGLConvolutionCubeMap::Render(GLuint tex_obj)
 	{
 		int nTexIndex = 0;
-		// ²ÉÑùÆ÷
+		// é‡‡æ ·å™¨
 		glUniform1i(tex_uniform_loc, nTexIndex);
-		// ÎÆÀíµ¥Ôª
+		// çº¹ç†å•å…ƒ
 		glActiveTexture(GL_TEXTURE0 + nTexIndex);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, tex_obj);
 
@@ -114,7 +116,7 @@ namespace HX3D
 
 		for (int i = 0; i < 6; ++i)
 		{
-			glDrawBuffer(GL_COLOR_ATTACHMENT0 + i);	// ÖØµã
+			glDrawBuffer(GL_COLOR_ATTACHMENT0 + i);	// é‡ç‚¹
 			glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 			glClearDepth(1.0f);
 			glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);

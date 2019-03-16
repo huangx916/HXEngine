@@ -1,6 +1,3 @@
-﻿/*
-对CubeMap进行半球空间卷积，渲染到低分辨率的CubeMap中, IBL diffuse用
-*/
 #pragma once
 #include "HXCommon.h"
 #include "vgl.h"
@@ -8,11 +5,11 @@
 namespace HX3D
 {
 	class HXMesh;
-	class HXGLConvolutionCubeMap
+	class HXGLSpecularLDCubeMap
 	{
 	public:
-		HXGLConvolutionCubeMap();
-		~HXGLConvolutionCubeMap();
+		HXGLSpecularLDCubeMap();
+		~HXGLSpecularLDCubeMap();
 
 		void Preprocess(GLuint tex_obj);
 		GLuint GetCubeMapTexture();
@@ -23,16 +20,16 @@ namespace HX3D
 		void PreRender();
 		void Render(GLuint tex_obj);
 		void PostRender();
-		void GenerateMipmap();
 
 	private:
 		GLint original_fbo;
-		GLuint convolution_prog;
-		GLuint cube_map_fbo;
+		GLuint ld_prog;
+		GLuint cube_map_fbo[9];
 		GLuint cube_map_texture;
 
 		GLint tex_uniform_loc;
 		GLint face_uniform_loc;
+		GLint roughness_uniform_loc;
 
 		HXMesh* quadMesh;
 	};
