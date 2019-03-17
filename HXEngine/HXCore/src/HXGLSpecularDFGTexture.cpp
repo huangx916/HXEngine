@@ -41,8 +41,6 @@ namespace HX3D
 		};
 		dfg_prog = LoadShaders(dfg_shaders);
 		glUseProgram(dfg_prog);
-		tex_uniform_loc = glGetUniformLocation(dfg_prog, "hx_CubeMap");
-		face_uniform_loc = glGetUniformLocation(dfg_prog, "hx_FaceIndex");
 
 		// render target texture
 		glGenTextures(1, &texture_obj);

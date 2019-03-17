@@ -27,9 +27,6 @@ namespace HX3D
 		GLuint texture_fbo;
 		GLuint texture_obj;
 
-		GLint tex_uniform_loc;
-		GLint face_uniform_loc;
-
 		HXMesh* quadMesh;
 	};
 }

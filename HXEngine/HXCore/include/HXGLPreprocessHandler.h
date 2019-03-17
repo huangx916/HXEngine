@@ -5,6 +5,8 @@ namespace HX3D
 {
 	class HXGLERMap;
 	class HXGLConvolutionCubeMap;
+	class HXGLSpecularLDCubeMap;
+	class HXGLSpecularDFGTexture;
 	class HXGLPreprocessHandler
 	{
 	public:
@@ -14,10 +16,15 @@ namespace HX3D
 		void Preprocess(std::string strERMapFile);
 		HXGLERMap* GetErmap();
 		HXGLConvolutionCubeMap* GetConvolutionCubeMap();
+		HXGLSpecularLDCubeMap* GetSpecularLDCubeMap();
+		HXGLSpecularDFGTexture* GetSpecularDFGTexture();
 
+	private:
 		bool m_bPreprocess;
 		HXGLERMap* m_pErmap;
 		HXGLConvolutionCubeMap* m_ConvolutionCubeMap;
+		HXGLSpecularLDCubeMap* m_SpecularLDCubeMap;
+		HXGLSpecularDFGTexture* m_SpecularDFGTexture;
 	};
 }
 

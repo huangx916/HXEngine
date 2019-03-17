@@ -1,13 +1,13 @@
-#version 330
+#version 430
 #extension GL_NV_shadow_samplers_cube : enable
 
 in vec2 vs_TexCoord;
 
 out vec3 oColor;
 
-uniform samplerCube glb_CubeMap;
-uniform int glb_FaceIndex;
-uniform float glb_Roughness;
+uniform samplerCube hx_CubeMap;
+uniform int hx_FaceIndex;
+uniform float hx_Roughness;
 
 const float PI = 3.1415926536898;
 
@@ -102,12 +102,12 @@ vec3 convolution_cube_map(samplerCube cube, int faceIndex, vec2 uv) {
     float weight = 0.0;
     for (uint i = 0u; i < sampler; i++) {
         vec2 xi = hammersley(i, sampler);
-        vec3 h = importance_sampling_ggx(xi, glb_Roughness, n);
+        vec3 h = importance_sampling_ggx(xi, hx_Roughness, n);
         vec3 l = 2.0 * dot(v, h) * h - v;
 
         float ndotl = max(0, dot(n, l));
         if (ndotl > 0.0) {
-            color = color + filtering_cube_map(glb_CubeMap, l).xyz * ndotl;
+            color = color + filtering_cube_map(hx_CubeMap, l).xyz * ndotl;
             weight = weight + ndotl;
         }
     }
@@ -118,7 +118,7 @@ vec3 convolution_cube_map(samplerCube cube, int faceIndex, vec2 uv) {
 }
 
 void main() {
-    vec3 color = convolution_cube_map(glb_CubeMap, glb_FaceIndex, vs_TexCoord);
+    vec3 color = convolution_cube_map(hx_CubeMap, hx_FaceIndex, vs_TexCoord);
 
     //oColor = color / (1.0 + color);
     oColor = color;
