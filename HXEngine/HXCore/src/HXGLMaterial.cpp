@@ -14,6 +14,8 @@
 #include <algorithm>
 #include "HXGLERMap.h"
 #include "HXGLConvolutionCubeMap.h"
+#include "HXGLSpecularLDCubeMap.h"
+#include "HXGLSpecularDFGTexture.h"
 #include "HXGLPreprocessHandler.h"
 
 namespace HX3D
@@ -191,6 +193,50 @@ namespace HX3D
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 
 				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetConvolutionCubeMap()->GetCubeMapTexture());
+
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+				++nTexIndex;
+			}
+			break;
+			case MPT_IBL_LD_CUBEMAP:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				// 采样器
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+
+				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetSpecularLDCubeMap()->GetCubeMapTexture());
+
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+				++nTexIndex;
+			}
+			break;
+			case MPT_IBL_DFG_TEXTURE:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参与实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				// 采样器
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+
+				glBindTexture(GL_TEXTURE_2D, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetSpecularDFGTexture()->GetTexture());
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -488,6 +534,50 @@ namespace HX3D
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 
 				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetConvolutionCubeMap()->GetCubeMapTexture());
+
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+				++nTexIndex;
+			}
+			break;
+			case MPT_IBL_LD_CUBEMAP:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参被实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				// 采样器
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+
+				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetSpecularLDCubeMap()->GetCubeMapTexture());
+
+				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
+				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
+
+				++nTexIndex;
+			}
+			break;
+			case MPT_IBL_DFG_TEXTURE:
+			{
+				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
+				if (tex_uniform_loc == -1)
+				{
+					// 未参与实际调用的变量编译后会被自动删除
+					continue;
+				}
+
+				// 采样器
+				glUniform1i(tex_uniform_loc, nTexIndex);
+				// 纹理单元
+				glActiveTexture(GL_TEXTURE0 + nTexIndex);
+
+				glBindTexture(GL_TEXTURE_2D, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetSpecularDFGTexture()->GetTexture());
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);

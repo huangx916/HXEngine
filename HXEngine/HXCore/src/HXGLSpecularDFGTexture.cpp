@@ -25,6 +25,7 @@ namespace HX3D
 		Initialize();
 		PreRender();
 		Render();
+		GenerateMipmap();
 		PostRender();
 	}
 
@@ -103,7 +104,14 @@ namespace HX3D
 		glViewport(0, 0, HXGLRenderSystem::gCurScreenWidth, HXGLRenderSystem::gCurScreenHeight);
 	}
 
-	GLuint HXGLSpecularDFGTexture::GetCubeMapTexture()
+	void HXGLSpecularDFGTexture::GenerateMipmap()
+	{
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, texture_obj);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+
+	GLuint HXGLSpecularDFGTexture::GetTexture()
 	{
 		return texture_obj;
 	}

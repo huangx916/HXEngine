@@ -12,7 +12,7 @@ namespace HX3D
 		~HXGLSpecularDFGTexture();
 
 		void Preprocess();
-		GLuint GetCubeMapTexture();
+		GLuint GetTexture();
 
 	private:
 		void Initialize();
@@ -20,6 +20,7 @@ namespace HX3D
 		void PreRender();
 		void Render();
 		void PostRender();
+		void GenerateMipmap();
 
 	private:
 		GLint original_fbo;
