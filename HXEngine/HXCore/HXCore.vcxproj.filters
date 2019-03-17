@@ -214,6 +214,9 @@
     <ClCompile Include="src\HXGLSpecularDFGTexture.cpp">
       <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXGLPreprocessHandler.cpp">
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -466,6 +469,9 @@
       <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLSpecularDFGTexture.h">
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLPreprocessHandler.h">
       <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
   </ItemGroup>

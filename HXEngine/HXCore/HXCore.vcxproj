@@ -36,6 +36,7 @@
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
     <ClInclude Include="include\HXGLLoadPNG.h" />
     <ClInclude Include="include\HXGLMaterial.h" />
+    <ClInclude Include="include\HXGLPreprocessHandler.h" />
     <ClInclude Include="include\HXGLRenderTarget.h" />
     <ClInclude Include="include\HXGLShadowMap.h" />
     <ClInclude Include="include\HXGLSpecularDFGTexture.h" />
@@ -126,6 +127,7 @@
     <ClCompile Include="src\HXGLERMap.cpp" />
     <ClCompile Include="src\HXGLFreeTypeFont.cpp" />
     <ClCompile Include="src\HXGLMaterial.cpp" />
+    <ClCompile Include="src\HXGLPreprocessHandler.cpp" />
     <ClCompile Include="src\HXGLRenderable.cpp" />
     <ClCompile Include="src\HXGLRenderSystem.cpp" />
     <ClCompile Include="src\HXGLRenderTarget.cpp" />

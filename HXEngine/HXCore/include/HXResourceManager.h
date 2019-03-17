@@ -10,8 +10,7 @@ namespace HX3D
 	class HXModelInfo;
 	class HXMaterial;
 	class HXITexture;
-	class HXGLERMap;
-	class HXGLConvolutionCubeMap;
+	class HXGLPreprocessHandler;
 	class HXResourceManager
 	{
 	public:
@@ -35,8 +34,8 @@ namespace HX3D
 		void UnLoadAll();
 
 		void Preprocess(std::string strERMapFile);
-		HXGLERMap* GetErmap();
-		HXGLConvolutionCubeMap* GetConvolutionCubeMap();
+		HXGLPreprocessHandler* GetPreprocessHandler();
+		
 	private:
 		HXResourceManager();
 		static HXResourceManager* m_pInstance;
@@ -48,9 +47,7 @@ namespace HX3D
 		std::map<std::string, HXMaterial*> matMap;
 		std::map<std::string, HXITexture*> textureMap;
 
-		bool m_bPreprocess;
-		HXGLERMap* m_pErmap;
-		HXGLConvolutionCubeMap* m_ConvolutionCubeMap;
+		HXGLPreprocessHandler* preprocessHandler;
 	};
 }
 

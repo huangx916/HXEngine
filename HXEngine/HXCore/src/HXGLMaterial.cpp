@@ -1,4 +1,4 @@
-#include "..\include\HXGLMaterial.h"
+ï»¿#include "..\include\HXGLMaterial.h"
 #include "HXGLTexture.h"
 #include "LoadShaders.h"
 #include "HXResourceManager.h"
@@ -14,6 +14,7 @@
 #include <algorithm>
 #include "HXGLERMap.h"
 #include "HXGLConvolutionCubeMap.h"
+#include "HXGLPreprocessHandler.h"
 
 namespace HX3D
 {
@@ -33,7 +34,7 @@ namespace HX3D
 		render_scene_prog = LoadShaders(shaders);
 		glUseProgram(render_scene_prog);
 
-		// Ã¿Ö¡¸üĞÂµÄ±äÁ¿
+		// æ¯å¸§æ›´æ–°çš„å˜é‡
 		render_scene_uniforms.render_eye_pos_loc = glGetUniformLocation(render_scene_prog, "eyePos");
 		render_scene_uniforms.render_model_matrix_loc = glGetUniformLocation(render_scene_prog, "model_matrix");
 		render_scene_uniforms.render_view_matrix_loc = glGetUniformLocation(render_scene_prog, "view_matrix");
@@ -41,7 +42,7 @@ namespace HX3D
 		render_scene_uniforms.render_mvp_matrix_loc = glGetUniformLocation(render_scene_prog, "mvp_matrix");
 		render_scene_uniforms.render_shadow_matrix_loc = glGetUniformLocation(render_scene_prog, "shadow_matrix");
 
-		// ²»ĞèÒªÃ¿Ö¡¸üĞÂµÄ±äÁ¿£¨³ı±à¼­Æ÷Ä£Ê½ÏÂ£©
+		// ä¸éœ€è¦æ¯å¸§æ›´æ–°çš„å˜é‡ï¼ˆé™¤ç¼–è¾‘å™¨æ¨¡å¼ä¸‹ï¼‰
 		int nTexIndex = 0;
 		for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
 		{
@@ -52,7 +53,7 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²ÎÓëÊµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚ä¸å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
@@ -71,9 +72,9 @@ namespace HX3D
 					}					
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
-				// ²ÉÑùÆ÷
+				// é‡‡æ ·å™¨
 				glUniform1i(tex_uniform_loc, nTexIndex);
-				// ÎÆÀíµ¥Ôª
+				// çº¹ç†å•å…ƒ
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				
 				glBindTexture(GL_TEXTURE_2D, tex->texObj);
@@ -125,7 +126,7 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
@@ -139,9 +140,9 @@ namespace HX3D
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 
-				// ²ÉÑùÆ÷
+				// é‡‡æ ·å™¨
 				glUniform1i(tex_uniform_loc, nTexIndex);
-				// ÎÆÀíµ¥Ôª
+				// çº¹ç†å•å…ƒ
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				
 				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
@@ -158,16 +159,16 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
-				// ²ÉÑùÆ÷
+				// é‡‡æ ·å™¨
 				glUniform1i(tex_uniform_loc, nTexIndex);
-				// ÎÆÀíµ¥Ôª
+				// çº¹ç†å•å…ƒ
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 
-				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetErmap()->GetCubeMapTexture());
+				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetErmap()->GetCubeMapTexture());
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -180,16 +181,16 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
-				// ²ÉÑùÆ÷
+				// é‡‡æ ·å™¨
 				glUniform1i(tex_uniform_loc, nTexIndex);
-				// ÎÆÀíµ¥Ôª
+				// çº¹ç†å•å…ƒ
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 
-				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetConvolutionCubeMap()->GetCubeMapTexture());
+				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetConvolutionCubeMap()->GetCubeMapTexture());
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -202,7 +203,7 @@ namespace HX3D
 			}
 		}
 
-		// FOG TODO: Uniform Block ¹²Ïí
+		// FOG TODO: Uniform Block å…±äº«
 		GLint property_loc = glGetUniformLocation(render_scene_prog, "useFog");
 		if (property_loc != -1)
 		{
@@ -362,7 +363,7 @@ namespace HX3D
 		glUniformMatrix4fv(render_scene_uniforms.render_view_matrix_loc, 1, GL_FALSE, pCamera->mMatrixView);
 		glUniformMatrix4fv(render_scene_uniforms.render_projection_matrix_loc, 1, GL_FALSE, pCamera->mMatrixProjection);
 
-		// Ã¿´ÎäÖÈ¾£¬×´Ì¬¶¼ÒªÖØĞÂ¸³Öµ
+		// æ¯æ¬¡æ¸²æŸ“ï¼ŒçŠ¶æ€éƒ½è¦é‡æ–°èµ‹å€¼
 		HXMaterialInfo* pMatInfo = mMatInfo;
 		int nTexIndex = 0;
 		for (std::vector<HXMaterialProperty>::iterator itr = pMatInfo->vctMatProperty.begin(); itr != pMatInfo->vctMatProperty.end(); ++itr)
@@ -371,11 +372,11 @@ namespace HX3D
 			{
 			case MPT_TEXTURE:
 			{
-				//Ã¿Ö¡äÖÈ¾Ê±shader uniformµÄtexture±äÁ¿ĞèÒªÖØĞÂ´¦Àí£¨¸³ÖµµÄÖ»ÊÇÎÆÀí°ó¶¨µã£¬ÎÆÀí°ó¶¨µã°ó¶¨µÄÎÆÀí¿ÉÄÜ±»¸ÄµôÁË£©
+				//æ¯å¸§æ¸²æŸ“æ—¶shader uniformçš„textureå˜é‡éœ€è¦é‡æ–°å¤„ç†ï¼ˆèµ‹å€¼çš„åªæ˜¯çº¹ç†ç»‘å®šç‚¹ï¼Œçº¹ç†ç»‘å®šç‚¹ç»‘å®šçš„çº¹ç†å¯èƒ½è¢«æ”¹æ‰äº†ï¼‰
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
@@ -424,7 +425,7 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
@@ -435,9 +436,9 @@ namespace HX3D
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 
-				// ²ÉÑùÆ÷
+				// é‡‡æ ·å™¨
 				glUniform1i(tex_uniform_loc, nTexIndex);
-				// ÎÆÀíµ¥Ôª
+				// çº¹ç†å•å…ƒ
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 				
 				glBindTexture(GL_TEXTURE_CUBE_MAP, tex->texObj);
@@ -455,16 +456,16 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
-				// ²ÉÑùÆ÷
+				// é‡‡æ ·å™¨
 				glUniform1i(tex_uniform_loc, nTexIndex);
-				// ÎÆÀíµ¥Ôª
+				// çº¹ç†å•å…ƒ
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 
-				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetErmap()->GetCubeMapTexture());
+				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetErmap()->GetCubeMapTexture());
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -477,16 +478,16 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(render_scene_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
-				// ²ÉÑùÆ÷
+				// é‡‡æ ·å™¨
 				glUniform1i(tex_uniform_loc, nTexIndex);
-				// ÎÆÀíµ¥Ôª
+				// çº¹ç†å•å…ƒ
 				glActiveTexture(GL_TEXTURE0 + nTexIndex);
 
-				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetConvolutionCubeMap()->GetCubeMapTexture());
+				glBindTexture(GL_TEXTURE_CUBE_MAP, HXResourceManager::GetInstance()->GetPreprocessHandler()->GetConvolutionCubeMap()->GetCubeMapTexture());
 
 				GLint property_loc = glGetUniformLocation(render_scene_prog, (itr->name + "_ST").c_str());
 				glUniform4f(property_loc, itr->value1, itr->value2, itr->value3, itr->value4);
@@ -508,7 +509,7 @@ namespace HX3D
 			HXGLShadowMap* sm = rs->mShadowMap;
 			if (sm && sm->IsEnable())
 			{
-				// Ã¿Ö¡ĞèÒª¸üĞÂ
+				// æ¯å¸§éœ€è¦æ›´æ–°
 				const vmath::mat4 scale_bias_matrix = vmath::mat4(vmath::vec4(0.5f, 0.0f, 0.0f, 0.0f),
 					vmath::vec4(0.0f, 0.5f, 0.0f, 0.0f),
 					vmath::vec4(0.0f, 0.0f, 0.5f, 0.0f),
@@ -524,7 +525,7 @@ namespace HX3D
 
 		if (HXRoot::GetInstance()->IsEditorMode())
 		{
-			// FOG TODO: Uniform Block ¹²Ïí
+			// FOG TODO: Uniform Block å…±äº«
 			GLint property_loc = glGetUniformLocation(render_scene_prog, "useFog");
 			if (property_loc != -1)
 			{
@@ -560,7 +561,7 @@ namespace HX3D
 			}
 
 			// light
-			// Èç¹ûÓĞÉ¾³ıµÄlight£¬ÔòĞèÒªË¢ĞÂ
+			// å¦‚æœæœ‰åˆ é™¤çš„lightï¼Œåˆ™éœ€è¦åˆ·æ–°
 			for (int index = 0; index < 5; ++index)
 			{
 				std::stringstream ss;
@@ -669,7 +670,7 @@ namespace HX3D
 				GLint tex_uniform_loc = glGetUniformLocation(sm->render_light_prog, (itr->name).c_str());
 				if (tex_uniform_loc == -1)
 				{
-					// Î´²Î±»Êµ¼Êµ÷ÓÃµÄ±äÁ¿±àÒëºó»á±»×Ô¶¯É¾³ı
+					// æœªå‚è¢«å®é™…è°ƒç”¨çš„å˜é‡ç¼–è¯‘åä¼šè¢«è‡ªåŠ¨åˆ é™¤
 					continue;
 				}
 
