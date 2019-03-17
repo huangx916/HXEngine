@@ -6,7 +6,7 @@
 		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
 			<ClearColor Cr="63" Cg="63" Cb="63"/>
 			<ViewportRect X="0" Y="0" W="1" H="1"/>
-			<Position Px="0" Py="0" Pz="19"/>
+			<Position Px="0" Py="0" Pz="14"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 		</Camera>
 	</Cameras>

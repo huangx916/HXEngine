@@ -1,5 +1,5 @@
 ﻿/*
-CubeMap采样，渲染测试球，测试用
+CubeMap采样，渲染测试球，IBL_Diff测试用
 */
 #pragma once
 #include "HXCommon.h"

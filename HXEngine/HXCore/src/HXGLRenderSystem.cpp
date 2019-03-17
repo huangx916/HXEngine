@@ -194,6 +194,7 @@ namespace HX3D
 	{
 		glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 		glEnable(GL_MULTISAMPLE);
+		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);  // For cubemap seamless filtering
 		// InitTriangle();
 		mFont = new HXGLFreeTypeFont();
 		mFont->Initialize("default.ttf", 16);
