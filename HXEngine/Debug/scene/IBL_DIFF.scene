@@ -24,7 +24,7 @@
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
 		</GameObj>
-		<GameObj Name="SkySphereGO" Activity="1" Static="1" Model="prefab/SkySphere/SkySphere.model" CastShadow="0" Layer="0">
+		<GameObj Name="SkySphereGO1" Activity="1" Static="1" Model="prefab/SkySphere/SkySphere1.model" CastShadow="0" Layer="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="40" Sy="40" Sz="40"/>
