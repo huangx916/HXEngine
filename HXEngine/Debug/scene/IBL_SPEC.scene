@@ -6,7 +6,7 @@
 		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
 			<ClearColor Cr="63" Cg="63" Cb="63"/>
 			<ViewportRect X="0" Y="0" W="1" H="1"/>
-			<Position Px="0" Py="0" Pz="10"/>
+			<Position Px="0" Py="0" Pz="14"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 		</Camera>
 	</Cameras>
@@ -19,20 +19,155 @@
 		</Light>
 	</Lights>
 	<GameObjects>
-		<GameObj Name="_CoordArrow" Activity="0" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
-			<Position Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.01" Sy="0.01" Sz="0.01"/>
-		</GameObj>
-		<GameObj Name="SphereIBL_Spec" Activity="1" Static="1" Model="prefab/SphereIBL_Spec/SphereIBL_Spec.model" CastShadow="0" Layer="0">
-			<Position Px="0" Py="0" Pz="0"/>
-			<Rotation Rx="0" Ry="0" Rz="0"/>
-			<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
-		</GameObj>
 		<GameObj Name="SkySphereGO" Activity="1" Static="1" Model="prefab/SkySphere/SkySphere.model" CastShadow="0" Layer="0">
 			<Position Px="0" Py="0" Pz="0"/>
 			<Rotation Rx="0" Ry="0" Rz="0"/>
 			<Scale Sx="40" Sy="40" Sz="40"/>
+		</GameObj>
+		<GameObj Name="SphereIBL_Spec_List" Activity="1" Static="0" Model="" CastShadow="0" Layer="0">
+			<Position Px="0" Py="3" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec1.model" CastShadow="0" Layer="0">
+				<Position Px="-3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec2.model" CastShadow="0" Layer="0">
+				<Position Px="-2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec3.model" CastShadow="0" Layer="0">
+				<Position Px="-0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec4.model" CastShadow="0" Layer="0">
+				<Position Px="0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec5.model" CastShadow="0" Layer="0">
+				<Position Px="2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec6.model" CastShadow="0" Layer="0">
+				<Position Px="3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+		</GameObj>
+		<GameObj Name="SphereIBL_Spec_List" Activity="1" Static="0" Model="" CastShadow="0" Layer="0">
+			<Position Px="0" Py="1" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec11.model" CastShadow="0" Layer="0">
+				<Position Px="-3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec12.model" CastShadow="0" Layer="0">
+				<Position Px="-2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec13.model" CastShadow="0" Layer="0">
+				<Position Px="-0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec14.model" CastShadow="0" Layer="0">
+				<Position Px="0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec15.model" CastShadow="0" Layer="0">
+				<Position Px="2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec16.model" CastShadow="0" Layer="0">
+				<Position Px="3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+		</GameObj>
+		<GameObj Name="SphereIBL_Spec_List" Activity="1" Static="0" Model="" CastShadow="0" Layer="0">
+			<Position Px="0" Py="-1" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec21.model" CastShadow="0" Layer="0">
+				<Position Px="-3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec22.model" CastShadow="0" Layer="0">
+				<Position Px="-2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec23.model" CastShadow="0" Layer="0">
+				<Position Px="-0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec24.model" CastShadow="0" Layer="0">
+				<Position Px="0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec25.model" CastShadow="0" Layer="0">
+				<Position Px="2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec26.model" CastShadow="0" Layer="0">
+				<Position Px="3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+		</GameObj>
+		<GameObj Name="SphereIBL_Spec_List" Activity="1" Static="0" Model="" CastShadow="0" Layer="0">
+			<Position Px="0" Py="-3" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="1" Sy="1" Sz="1"/>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec31.model" CastShadow="0" Layer="0">
+				<Position Px="-3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec32.model" CastShadow="0" Layer="0">
+				<Position Px="-2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec33.model" CastShadow="0" Layer="0">
+				<Position Px="-0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec34.model" CastShadow="0" Layer="0">
+				<Position Px="0.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec35.model" CastShadow="0" Layer="0">
+				<Position Px="2.25" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+			<GameObj Name="SphereIBL_Spec" Activity="1" Static="0" Model="prefab/SphereIBL_Spec/SphereIBL_Spec36.model" CastShadow="0" Layer="0">
+				<Position Px="3.75" Py="0" Pz="0"/>
+				<Rotation Rx="0" Ry="0" Rz="0"/>
+				<Scale Sx="0.08" Sy="0.08" Sz="0.08"/>
+			</GameObj>
+		</GameObj>
+		<GameObj Name="_CoordArrow" Activity="0" Static="0" Model="prefab/CoordArrow/CoordArrow.model" CastShadow="0" Layer="0">
+			<Position Px="0" Py="-3" Pz="0"/>
+			<Rotation Rx="0" Ry="0" Rz="0"/>
+			<Scale Sx="0.0339935" Sy="0.0339935" Sz="0.0339935"/>
 		</GameObj>
 	</GameObjects>
 </Scene>
