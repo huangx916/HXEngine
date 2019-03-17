@@ -51,29 +51,20 @@ namespace HX3D
 		for (int32_t i = 0; i < 6; i++) {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA16, 256, 256, 0, GL_RGBA, GL_UNSIGNED_SHORT, nullptr);
 		}
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//if (enableMipmapping) 
 		{
-			glGenerateMipmap(GL_TEXTURE_2D);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		}
 		//else 
 		//{
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		//}
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP);
 
-		// Generate mipmap
-		glEnable(GL_TEXTURE_CUBE_MAP);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_texture);
-		glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-		
 		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &original_fbo);
 		int32_t width = 256, height = 256;
 		for (int32_t i = 0; i < 9; i++) {
@@ -150,13 +141,6 @@ namespace HX3D
 				// Draw
 				quadMesh->subMeshList[0]->renderable->Render();
 			}
-
-			//// Generate mipmap
-			//if (j == 0) {
-			//	glEnable(GL_TEXTURE_CUBE_MAP);
-			//	glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_texture);
-			//	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-			//}
 		}
 	}
 
