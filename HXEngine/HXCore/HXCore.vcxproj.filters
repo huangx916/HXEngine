@@ -197,22 +197,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLERMap.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLConvolutionCubeMap.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLTestSphere.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess\TestCase</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLCubeMap.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess\TestCase</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLSpecularLDCubeMap.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLSpecularDFGTexture.cpp">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -451,22 +451,22 @@
       <Filter>Math\Temp</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLERMap.h">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLConvolutionCubeMap.h">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLTestSphere.h">
-      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess\TestCase</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLCubeMap.h">
-      <Filter>RenderSystem\OpenGL\Preprocess\TestCase</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess\TestCase</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLSpecularLDCubeMap.h">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
     <ClInclude Include="include\HXGLSpecularDFGTexture.h">
-      <Filter>RenderSystem\OpenGL\Preprocess</Filter>
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -509,10 +509,10 @@
     <Filter Include="Math\Temp">
       <UniqueIdentifier>{8d415dfe-ce30-4139-8d09-7efad6c24091}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RenderSystem\OpenGL\Preprocess">
+    <Filter Include="RenderSystem\OpenGL\IBL_Preprocess">
       <UniqueIdentifier>{60a36af8-f9ce-4277-afbc-419a84b20f50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RenderSystem\OpenGL\Preprocess\TestCase">
+    <Filter Include="RenderSystem\OpenGL\IBL_Preprocess\TestCase">
       <UniqueIdentifier>{fd84fe24-f9f3-4ca4-ab08-45595d1e0d80}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
