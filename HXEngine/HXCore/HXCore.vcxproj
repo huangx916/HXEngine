@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\glbmatrix.cpp.h" />
-    <ClInclude Include="include\glbmatrix.h" />
-    <ClInclude Include="include\glbvector.h" />
     <ClInclude Include="include\HX3DHeader.h" />
     <ClInclude Include="include\HXBitmap.h" />
     <ClInclude Include="include\HXColor.h" />
@@ -178,9 +175,6 @@
     <ClCompile Include="src\tinyxml.cpp" />
     <ClCompile Include="src\tinyxmlerror.cpp" />
     <ClCompile Include="src\tinyxmlparser.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\glbvector.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7772C6AF-71B0-44F8-9F31-E44A139C0F23}</ProjectGuid>
