@@ -56,17 +56,17 @@ a cross-platform open source game engine developed by personal
       * qt  
 
 # Architecture UML  
-<img class="shadow" src="./HXEngine/Debug/readme/HXEngine UML.png" width="1200">  
+<img class="shadow" src="./HXEngine/Debug/readme/HXEngine UML.png" width="4126">  
 
 # Editor view  
-<img class="shadow" src="./HXEngine/Debug/readme/11.png" width="1200">  
-<img class="shadow" src="./HXEngine/Debug/readme/22.png" width="1200">  
-<img class="shadow" src="./HXEngine/Debug/readme/33.png" width="1200">  
-<img class="shadow" src="./HXEngine/Debug/readme/44.png" width="1200">  
-<img class="shadow" src="./HXEngine/Debug/readme/55.png" width="1200">  
+<img class="shadow" src="./HXEngine/Debug/readme/n1.png" width="1920">  
+<img class="shadow" src="./HXEngine/Debug/readme/n2.png" width="1920">  
+<img class="shadow" src="./HXEngine/Debug/readme/n3.png" width="1920">  
+<img class="shadow" src="./HXEngine/Debug/readme/n4.png" width="1920">  
+<img class="shadow" src="./HXEngine/Debug/readme/n5.png" width="1920">  
 
 # Game view  
-<img class="shadow" src="./HXEngine/Debug/readme/66.png" width="1200">  
+<img class="shadow" src="./HXEngine/Debug/readme/n6.png" width="1920">  
 
 # Detailed documentation  
 [https://huangx916.github.io/](https://huangx916.github.io/)  
