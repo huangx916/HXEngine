@@ -4,9 +4,9 @@ a cross-platform open source game engine developed by personal
 # Features  
   1. Crossplatform architecture, easy-to-add support for more platforms. The supported platforms are:  
       * Windows (x64/x86)  
-      * macOs is planned  
+      * MacOs  
 
-  2. Plugin-based framework, maximum decoupling and flexible customization.  
+  2. Plugin-based framework, maximum decoupling and flexible customization:  
       * HXCore
           * GDI
           * OpenGL
@@ -38,14 +38,14 @@ a cross-platform open source game engine developed by personal
       * Image-based lighting  
       * Physically-based rendering  
 
-  5. Editor  
+  5. Editor:  
       * Scene load/serialize  
       * Prefab load/serialize  
       * Gameobject/Fog/Light/Camera editing  
  
 # Configuration  
-  1. You can run at visual studio 2015  x86 debug;  open `HXEngine.sln` directly  
-  2. Third-party libraries  
+  1. You can run at visual studio 2015  x86 debug by opening `HXEngine.sln` directly.  
+  2. Third-party libraries:  
       * freeglut  
       * glew  
       * freetype  
