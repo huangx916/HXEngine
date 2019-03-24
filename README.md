@@ -55,7 +55,7 @@ a cross-platform open source game engine developed by personal
       * fbx  
       * qt  
 
-# Architecture UML  
+# Architecture UML (Not updated in time)  
 <img class="shadow" src="./HXEngine/Debug/readme/HXEngine UML.png" width="4126">  
 
 # Editor view  
