@@ -17,10 +17,7 @@ namespace HX3D
 
 	HXGLPreprocessHandler::~HXGLPreprocessHandler()
 	{
-		HX_SAFE_DELETE(m_pErmap);
-		HX_SAFE_DELETE(m_ConvolutionCubeMap);
-		HX_SAFE_DELETE(m_SpecularLDCubeMap);
-		HX_SAFE_DELETE(m_SpecularDFGTexture);
+		Release();
 	}
 
 	void HXGLPreprocessHandler::Preprocess(std::string strERMapFile)
@@ -33,6 +30,14 @@ namespace HX3D
 			m_SpecularDFGTexture->Preprocess();
 			m_bPreprocess = false;
 		}
+	}
+
+	void HXGLPreprocessHandler::Release()
+	{
+		HX_SAFE_DELETE(m_pErmap);
+		HX_SAFE_DELETE(m_ConvolutionCubeMap);
+		HX_SAFE_DELETE(m_SpecularLDCubeMap);
+		HX_SAFE_DELETE(m_SpecularDFGTexture);
 	}
 
 	HXGLERMap* HXGLPreprocessHandler::GetErmap()

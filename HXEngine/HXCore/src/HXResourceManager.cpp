@@ -134,11 +134,19 @@ namespace HX3D
 			delete itr->second;
 		}
 		textureMap.clear();
+
+		ResetPreprocess();
 	}
 
 	void HXResourceManager::Preprocess(std::string strERMapFile)
 	{
 		preprocessHandler->Preprocess(strERMapFile);
+	}
+
+	void HXResourceManager::ResetPreprocess()
+	{
+		HX_SAFE_DELETE(preprocessHandler);
+		preprocessHandler = new HXGLPreprocessHandler();
 	}
 
 	HXGLPreprocessHandler* HXResourceManager::GetPreprocessHandler()

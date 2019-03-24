@@ -34,6 +34,7 @@ namespace HX3D
 		void UnLoadAll();
 
 		void Preprocess(std::string strERMapFile);
+		void ResetPreprocess();
 		HXGLPreprocessHandler* GetPreprocessHandler();
 		
 	private:

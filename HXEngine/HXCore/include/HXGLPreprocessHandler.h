@@ -14,6 +14,7 @@ namespace HX3D
 		~HXGLPreprocessHandler();
 
 		void Preprocess(std::string strERMapFile);
+		void Release();
 		HXGLERMap* GetErmap();
 		HXGLConvolutionCubeMap* GetConvolutionCubeMap();
 		HXGLSpecularLDCubeMap* GetSpecularLDCubeMap();
