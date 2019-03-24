@@ -12,6 +12,9 @@
 namespace HX3D
 {
 	HXGLERMap::HXGLERMap()
+	:equirectangular_map_prog(-1)
+	,cube_map_fbo(-1)
+	,cube_map_texture(-1)
 	{
 		
 	}
@@ -89,6 +92,30 @@ namespace HX3D
 	void HXGLERMap::Release()
 	{
 		HX_SAFE_DELETE(sphereMesh);
+
+		if (cube_map_fbo != -1)
+		{
+			glBindRenderbuffer(GL_RENDERBUFFER, original_fbo);
+			glDeleteRenderbuffers(1, &cube_map_fbo);
+			cube_map_fbo = -1;
+		}
+
+		if (cube_map_texture != -1) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDeleteTextures(1, &cube_map_texture);
+			cube_map_texture = -1;
+		}
+
+		/*if (m_VertexShader != nullptr) {
+		HX_SAFE_DELETE(m_VertexShader);
+		}
+		if (m_FragmentShader != nullptr) {
+		HX_SAFE_DELETE(m_FragmentShader);
+		}*/
+		if (equirectangular_map_prog != -1) {
+			glDeleteProgram(equirectangular_map_prog);
+			equirectangular_map_prog = -1;
+		}
 	}
 
 	void HXGLERMap::PreRender()

@@ -12,6 +12,9 @@
 namespace HX3D
 {
 	HXGLConvolutionCubeMap::HXGLConvolutionCubeMap()
+	:cube_map_fbo(-1)
+	,cube_map_texture(-1)
+	,convolution_prog(-1)
 	{
 
 	}
@@ -91,6 +94,30 @@ namespace HX3D
 	void HXGLConvolutionCubeMap::Release()
 	{
 		HX_SAFE_DELETE(quadMesh);
+
+		if (cube_map_fbo != -1)
+		{
+			glBindRenderbuffer(GL_RENDERBUFFER, original_fbo);
+			glDeleteRenderbuffers(1, &cube_map_fbo);
+			cube_map_fbo = -1;
+		}
+
+		if (cube_map_texture != -1) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDeleteTextures(1, &cube_map_texture);
+			cube_map_texture = -1;
+		}
+
+		/*if (m_VertexShader != nullptr) {
+			HX_SAFE_DELETE(m_VertexShader);
+		}
+		if (m_FragmentShader != nullptr) {
+			HX_SAFE_DELETE(m_FragmentShader);
+		}*/
+		if (convolution_prog != -1) {
+			glDeleteProgram(convolution_prog);
+			convolution_prog = -1;
+		}
 	}
 
 	void HXGLConvolutionCubeMap::PreRender()

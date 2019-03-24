@@ -12,6 +12,9 @@
 namespace HX3D
 {
 	HXGLSpecularDFGTexture::HXGLSpecularDFGTexture()
+	:dfg_prog(-1)
+	,texture_fbo(-1)
+	,texture_obj(-1)
 	{
 	}
 
@@ -74,6 +77,30 @@ namespace HX3D
 	void HXGLSpecularDFGTexture::Release()
 	{
 		HX_SAFE_DELETE(quadMesh);
+
+		if (texture_fbo != -1)
+		{
+			glBindRenderbuffer(GL_RENDERBUFFER, original_fbo);
+			glDeleteRenderbuffers(1, &texture_fbo);
+			texture_fbo = -1;
+		}
+
+		if (texture_obj != -1) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDeleteTextures(1, &texture_obj);
+			texture_obj = -1;
+		}
+
+		/*if (m_VertexShader != nullptr) {
+		HX_SAFE_DELETE(m_VertexShader);
+		}
+		if (m_FragmentShader != nullptr) {
+		HX_SAFE_DELETE(m_FragmentShader);
+		}*/
+		if (dfg_prog != -1) {
+			glDeleteProgram(dfg_prog);
+			dfg_prog = -1;
+		}
 	}
 
 	void HXGLSpecularDFGTexture::PreRender()

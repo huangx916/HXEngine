@@ -12,7 +12,13 @@
 namespace HX3D
 {
 	HXGLSpecularLDCubeMap::HXGLSpecularLDCubeMap()
+	:ld_prog(-1)
+	,cube_map_texture(-1)
 	{
+		for (int i = 0; i < 9; ++i)
+		{
+			cube_map_fbo[i] = -1;
+		}
 	}
 
 	HXGLSpecularLDCubeMap::~HXGLSpecularLDCubeMap()
@@ -94,6 +100,33 @@ namespace HX3D
 	void HXGLSpecularLDCubeMap::Release()
 	{
 		HX_SAFE_DELETE(quadMesh);
+
+		for (int i = 0; i < 9; ++i)
+		{
+			if (cube_map_fbo[i] != -1)
+			{
+				glBindRenderbuffer(GL_RENDERBUFFER, original_fbo);
+				glDeleteRenderbuffers(1, &cube_map_fbo[i]);
+				cube_map_fbo[i] = -1;
+			}
+		}
+
+		if (cube_map_texture != -1) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glDeleteTextures(1, &cube_map_texture);
+			cube_map_texture = -1;
+		}
+
+		/*if (m_VertexShader != nullptr) {
+		HX_SAFE_DELETE(m_VertexShader);
+		}
+		if (m_FragmentShader != nullptr) {
+		HX_SAFE_DELETE(m_FragmentShader);
+		}*/
+		if (ld_prog != -1) {
+			glDeleteProgram(ld_prog);
+			ld_prog = -1;
+		}
 	}
 
 	void HXGLSpecularLDCubeMap::PreRender()
