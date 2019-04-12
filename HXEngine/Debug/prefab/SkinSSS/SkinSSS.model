@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Model>
-	<Mesh File="prefab/SkinSSS/PlayerPBS.FBX"/>
+	<Mesh File="prefab/SkinSSS/SkinSSS.FBX"/>
 	<Anim File=""/>
 	<Material File="prefab/_Material/SkinSSS/SkinSSS.material"/>
 </Model>
