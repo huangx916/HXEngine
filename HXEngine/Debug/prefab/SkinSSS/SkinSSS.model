@@ -2,5 +2,7 @@
 <Model>
 	<Mesh File="prefab/SkinSSS/SkinSSS.FBX"/>
 	<Anim File=""/>
+	<Material File="prefab/_Material/SkinSSS/Body.material"/>
+	<Material File="prefab/_Material/SkinSSS/SkinSSS.material"/>
 	<Material File="prefab/_Material/SkinSSS/SkinSSS.material"/>
 </Model>
