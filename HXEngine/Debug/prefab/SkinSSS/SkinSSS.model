@@ -3,16 +3,12 @@
 	<Mesh File="prefab/SkinSSS/SkinSSS.FBX"/>
 	<Anim File=""/>
 	<Material File="prefab/_Material/SkinSSS/Outfit1.material"/>
-	<Material File="prefab/_Material/SkinSSS/Body.material"/>
-    <Material File="prefab/_Material/SkinSSS/Temp.material"/>
-    <Material File="prefab/_Material/SkinSSS/Temp.material"/>
+    <Material File="prefab/_Material/SkinSSS/Face.material"/>
+    <Material File="prefab/_Material/SkinSSS/Face.material"/>
     <Material File="prefab/_Material/SkinSSS/Face.material"/>
 	<Material File="prefab/_Material/SkinSSS/Outfit2.material"/>
-    <Material File="prefab/_Material/SkinSSS/Temp.material"/>
-    <Material File="prefab/_Material/SkinSSS/Temp.material"/>
-    <Material File="prefab/_Material/SkinSSS/Temp.material"/>
-    <Material File="prefab/_Material/SkinSSS/Temp.material"/>
-    <Material File="prefab/_Material/SkinSSS/Temp.material"/>
+    <Material File="prefab/_Material/SkinSSS/Face.material"/>
     <Material File="prefab/_Material/SkinSSS/Hair.material"/>
     <Material File="prefab/_Material/SkinSSS/Hair.material"/>
+    <Material File="prefab/_Material/SkinSSS/Body.material"/>
 </Model>

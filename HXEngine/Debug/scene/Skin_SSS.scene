@@ -6,8 +6,8 @@
 		<Camera Name="MainCamera" Enable="1" ClearFlag="0" CullingMask="2" Projection="1" Field="60" Size="5" NearZ="0.01" FarZ="1000" Depth="-1">
 			<ClearColor Cr="63" Cg="63" Cb="63"/>
 			<ViewportRect X="0" Y="0" W="1" H="1"/>
-			<Position Px="5.53373" Py="-0.767544" Pz="10.549"/>
-			<Rotation Rx="1.7" Ry="32.2" Rz="0"/>
+			<Position Px="6.70606" Py="-0.802727" Pz="7.50917"/>
+			<Rotation Rx="0.0999999" Ry="40.3" Rz="0"/>
 		</Camera>
 	</Cameras>
 	<Lights>
