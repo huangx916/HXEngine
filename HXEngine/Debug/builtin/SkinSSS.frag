@@ -117,6 +117,11 @@ vec3 ConeDirection, float SpotCosCutoff, float SpotExponent, inout vec3 diff, in
 
 void main(void)
 {
+    vec3 normal = texture(NormalTex, vs_fs_texcoord.zw).rgb;
+    //vec3 normal = 2.0 * texture(NormalTex, vs_fs_texcoord.zw).rgb - 1.0;
+    fColor = vec4(normal, 1);
+    return;
+
 	fColor = texture(MainTexture, vs_fs_texcoord.xy);
 
     //////////////////////////////////////////////////////////////////////////////////////

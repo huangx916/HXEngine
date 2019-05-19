@@ -11,26 +11,28 @@ layout (location = 3) in vec3 normal;
 layout (location = 4) in vec3 tangent;
 
 out vec4 vs_fs_texcoord;
-out vec3 vs_Vertex;
-out vec3 vs_Normal;
-out vec3 vs_Tangent;
-out vec3 vs_Binormal;
+//out vec4 vs_Vertex;
+//out vec3 vs_Normal;
+//out vec3 vs_Tangent;
+//out vec3 vs_Binormal;
+out vec4 uv;
+out vec4 T2W0;
+out vec4 T2W1;
+out vec4 T2W2;
 
 void main(void)
 {
     gl_Position = mvp_matrix * vec4(position, 1);
-	vs_fs_texcoord.xy = texcoord * MainTexture_ST.xy + MainTexture_ST.zw;
-	vs_fs_texcoord.zw = texcoord * NormalTex_ST.xy + NormalTex_ST.zw;
-
-    vs_Vertex = (model_matrix * vec4(position, 1.0)).xyz;
-
-    mat4 invWorld = inverse(model_matrix);
-
+	uv.xy = texcoord * MainTexture_ST.xy + MainTexture_ST.zw;
+	uv.zw = texcoord * NormalTex_ST.xy + NormalTex_ST.zw;
+    //mat4 invWorld = inverse(model_matrix);
+    vec3 worldPos = (model_matrix * vec4(position, 1.0)).xyz;
 	vec3 n = normalize(normal);
     vec3 t = normalize(tangent);
-    //vec3 b = cross(n, t);
-
-    vs_Normal = (invWorld * vec4(n, 0.0)).xyz;
-    vs_Tangent = (invWorld * vec4(t, 0.0)).xyz;
-    vs_Binormal = cross(vs_Normal, vs_Tangent);
+    vec3 worldNormal = (model_matrix * vec4(n, 0.0)).xyz;
+    vec3 worldTangent = (model_matrix * vec4(t, 0.0)).xyz;
+    vec3 worldBitangent = cross(worldNormal, worldTangent);
+    T2W0 = vec4(worldTangent.x, worldBitangent.x, worldNormal.x, worldPos.x);
+    T2W1 = vec4(worldTangent.y, worldBitangent.y, worldNormal.y, worldPos.y);
+    T2W2 = vec4(worldTangent.z, worldBitangent.z, worldNormal.z, worldPos.z);
 }
