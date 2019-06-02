@@ -10,11 +10,6 @@ layout (location = 2) in vec2 texcoord;
 layout (location = 3) in vec3 normal;
 layout (location = 4) in vec3 tangent;
 
-out vec4 vs_fs_texcoord;
-//out vec4 vs_Vertex;
-//out vec3 vs_Normal;
-//out vec3 vs_Tangent;
-//out vec3 vs_Binormal;
 out vec4 uv;
 out vec4 T2W0;
 out vec4 T2W1;
