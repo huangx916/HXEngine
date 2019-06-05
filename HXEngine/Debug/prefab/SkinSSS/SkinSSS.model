@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Model>
-	<Mesh File="prefab/SkinSSS/SkinSSS.FBX"/>
+	<Mesh File="prefab/SkinSSS/test111.FBX"/>
 	<Anim File=""/>
 	<Material File="prefab/_Material/SkinSSS/Outfit1.material"/>
     <Material File="prefab/_Material/SkinSSS/Face.material"/>
