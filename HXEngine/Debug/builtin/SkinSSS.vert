@@ -31,10 +31,7 @@ void main(void)
     vec3 worldPos = (model_matrix * vec4(position, 1.0)).xyz;
 
     worldNormal = normalize((model_matrix_IT * vec4(normal, 0.0)).xyz);
-
-    //worldTangent = normalize((model_matrix * vec4(tangent, 0.0)).xyz);
-    worldTangent = tangent;
-
+    worldTangent = normalize((model_matrix * vec4(tangent, 0.0)).xyz);
     worldBitangent = cross(worldNormal, worldTangent);
     T2W0 = vec4(worldTangent.x, worldBitangent.x, worldNormal.x, worldPos.x);
     T2W1 = vec4(worldTangent.y, worldBitangent.y, worldNormal.y, worldPos.y);
