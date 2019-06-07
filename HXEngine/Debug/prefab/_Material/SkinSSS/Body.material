@@ -32,10 +32,10 @@ ect...
 <Material>
 	<State RenderQueue="2000" CullFace="2" DepthTest="3" AlphaBlend="0" SrcAlpha="2" DestAlpha="3"/>
     <Shader File="builtin/SkinSSS">
-		<Property Type="0" Name="MainTexture" Value="prefab/_Material/SkinSSS/AthenaFace_D.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
-		<Property Type="0" Name="NormalTex" Value="prefab/_Material/SkinSSS/AthenaFace_N.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
-		<Property Type="0" Name="SmoothTex" Value="prefab/_Material/SkinSSS/AthenaFace_S.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
-		<Property Type="0" Name="CurveTex" Value="prefab/_Material/SkinSSS/AthenaFace_C.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="0" Name="MainTexture" Value="prefab/_Material/SkinSSS/AthenaBody_D.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="0" Name="NormalTex" Value="prefab/_Material/SkinSSS/AthenaBody_N.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="0" Name="SmoothTex" Value="prefab/_Material/SkinSSS/AthenaBody_S.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
+		<Property Type="0" Name="CurveTex" Value="prefab/_Material/SkinSSS/AthenaBody_C.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
 		<Property Type="0" Name="SSSLUT" Value="prefab/_Material/SkinSSS/SSSLUT.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
 		<Property Type="0" Name="KelemenLUT" Value="prefab/_Material/SkinSSS/KelemenLUT.png" Value1="1" Value2="1" Value3="0" Value4="0"/>
 		<Property Type="4" Name="DiffuseColor" Value="" Value1="1" Value2="1" Value3="1" Value4="1"/>
