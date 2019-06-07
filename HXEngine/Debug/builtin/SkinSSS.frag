@@ -24,7 +24,7 @@ uniform vec3 eyePos;
 void main(void)
 {
     vec3 albedo = texture(MainTexture,uv.xy).rgb;
-    fColor = vec4(albedo, 1);
+    //fColor = vec4(albedo, 1);
 
     vec3 tangentNormal = texture(NormalTex, uv.zw).rgb;
     vec3 bump = 2.0 * tangentNormal - 1.0;
@@ -37,7 +37,7 @@ void main(void)
     vec3 lightDir = normalize(vec3(1,1,1));
     vec3 viewDir = normalize(eyePos - worldPos);
 
-    //fColor = vec4(worldNormal, 1);
+    fColor = vec4(worldTangent, 1);
 
     return;
 }
