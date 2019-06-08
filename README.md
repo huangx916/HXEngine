@@ -61,6 +61,7 @@ a cross-platform open source game engine developed by personal
 # Editor view  
 <img class="shadow" src="./HXEngine/Debug/readme/n1.png" width="1920">  
 <img class="shadow" src="./HXEngine/Debug/readme/n2.png" width="1920">  
+<img class="shadow" src="./HXEngine/Debug/readme/sss.png" width="1920">  
 <img class="shadow" src="./HXEngine/Debug/readme/n3.png" width="1920">  
 <img class="shadow" src="./HXEngine/Debug/readme/n4.png" width="1920">  
 <img class="shadow" src="./HXEngine/Debug/readme/n5.png" width="1920">  
