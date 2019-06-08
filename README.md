@@ -35,6 +35,7 @@ a cross-platform open source game engine developed by personal
       * Serialization scene  
       * Dynamic batch  
       * Support NormalMap/DetailMap/HDRI  
+	  * SSS Skin Material  
       * Image-based lighting  
       * Physically-based rendering  
 
