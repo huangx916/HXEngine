@@ -217,6 +217,9 @@
     <ClCompile Include="src\HXGLPreprocessHandler.cpp">
       <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
+    <ClCompile Include="src\testJson.cpp">
+      <Filter>Json</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -465,6 +468,9 @@
     <ClInclude Include="include\HXGLPreprocessHandler.h">
       <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
+    <ClInclude Include="include\json.hpp">
+      <Filter>Json</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
@@ -508,6 +514,9 @@
     </Filter>
     <Filter Include="RenderSystem\OpenGL\IBL_Preprocess\TestCase">
       <UniqueIdentifier>{fd84fe24-f9f3-4ca4-ab08-45595d1e0d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{f6694e89-95bd-42e2-95c3-d360b57638ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

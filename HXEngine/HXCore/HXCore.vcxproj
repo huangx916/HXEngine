@@ -94,6 +94,7 @@
     <ClInclude Include="include\HXUtil.h" />
     <ClInclude Include="include\HXVector.h" />
     <ClInclude Include="include\HXVector3.h" />
+    <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\MathUtils3D.h" />
     <ClInclude Include="include\Matrices.h" />
     <ClInclude Include="include\stb_image.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="src\HXVector3.cpp" />
     <ClCompile Include="src\MathUtils3D.cpp" />
     <ClCompile Include="src\Matrices.cpp" />
+    <ClCompile Include="src\testJson.cpp" />
     <ClCompile Include="src\tinystr.cpp" />
     <ClCompile Include="src\tinyxml.cpp" />
     <ClCompile Include="src\tinyxmlerror.cpp" />
