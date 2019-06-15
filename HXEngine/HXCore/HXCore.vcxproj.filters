@@ -133,16 +133,7 @@
     <ClCompile Include="src\HXVector.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\lib\vdds.cpp">
-      <Filter>RenderSystem\OpenGL\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="opengl\lib\loadtexture.cpp">
-      <Filter>RenderSystem\OpenGL\Util</Filter>
-    </ClCompile>
     <ClCompile Include="opengl\lib\LoadShaders.cpp">
-      <Filter>RenderSystem\OpenGL\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\HXGLLoadPNG.cpp">
       <Filter>RenderSystem\OpenGL\Util</Filter>
     </ClCompile>
     <ClCompile Include="src\HXGLMaterial.cpp">
@@ -219,6 +210,15 @@
     </ClCompile>
     <ClCompile Include="src\testJson.cpp">
       <Filter>Json</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLLoadPNG.cpp">
+      <Filter>RenderSystem\OpenGL\Util\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\loadtexture.cpp">
+      <Filter>RenderSystem\OpenGL\Util\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\lib\vdds.cpp">
+      <Filter>RenderSystem\OpenGL\Util\Deprecated</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -381,9 +381,6 @@
     <ClInclude Include="opengl\include\LoadShaders.h">
       <Filter>RenderSystem\OpenGL\Util</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXGLLoadPNG.h">
-      <Filter>RenderSystem\OpenGL\Util</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXGLMaterial.h">
       <Filter>RenderSystem\OpenGL</Filter>
     </ClInclude>
@@ -471,6 +468,9 @@
     <ClInclude Include="include\json.hpp">
       <Filter>Json</Filter>
     </ClInclude>
+    <ClInclude Include="include\HXGLLoadPNG.h">
+      <Filter>RenderSystem\OpenGL\Util\Deprecated</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
@@ -517,6 +517,9 @@
     </Filter>
     <Filter Include="Json">
       <UniqueIdentifier>{f6694e89-95bd-42e2-95c3-d360b57638ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderSystem\OpenGL\Util\Deprecated">
+      <UniqueIdentifier>{863cfc54-622b-4bce-8d56-a1416ef6b433}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
