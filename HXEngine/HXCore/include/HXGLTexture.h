@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "HXCommon.h"
 #include "HXITexture.h"
 #include "vgl.h"
@@ -12,7 +12,7 @@ namespace HX3D
 		HXGLTexture();
 		~HXGLTexture();
 		////////////////////////////////////////////////////////////////////////////
-		// ÒÑ·ÏÆú£¬ÇëÊ¹ÓÃCreateºÍCreateCubeBy6Texture2D´úÌæ
+		// å·²åºŸå¼ƒï¼Œè¯·ä½¿ç”¨Createå’ŒCreateCubeBy6Texture2Dä»£æ›¿
 		//HXGLTexture(EMatPropertyType matType, std::string strTextureFile);
 		//// PNG
 		//GLuint LoadPNGTexture(const char *filename);
@@ -43,7 +43,7 @@ namespace HX3D
 	public:
 		// int texID;
 		std::string texName;
-		GLuint texObj;	// ¾ßÌåÎÆÀíÊı¾İ±£´æÔÚÏÔ´æÉÏÁË£¬ÏµÍ³ÄÚ´æ²»ĞèÒªÔÙ±£´æÒ»·İ
+		GLuint texObj;	// å…·ä½“çº¹ç†æ•°æ®ä¿å­˜åœ¨æ˜¾å­˜ä¸Šäº†ï¼Œç³»ç»Ÿå†…å­˜ä¸éœ€è¦å†ä¿å­˜ä¸€ä»½
 		TextureType texType;
 		TextureFormat texFormat;
 		int texWidth;
