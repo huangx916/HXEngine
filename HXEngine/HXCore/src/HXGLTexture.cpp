@@ -45,7 +45,7 @@ namespace HX3D
 
 	}
 
-	HXGLTexture::HXGLTexture(EMatPropertyType matType, std::string strTextureFile)
+	/*HXGLTexture::HXGLTexture(EMatPropertyType matType, std::string strTextureFile)
 	{
 		texObj = 0;
 		size_t size = strTextureFile.length();
@@ -73,7 +73,7 @@ namespace HX3D
 				texObj = LoadPNGTextureCubeMap(strTextureFile.c_str());
 			}
 		}
-	}
+	}*/
 
 	HXGLTexture::~HXGLTexture()
 	{
@@ -83,26 +83,26 @@ namespace HX3D
 		}
 	}
 
-	GLuint HXGLTexture::LoadPNGTexture(const char *filename)
-	{
-		return HXGLLoadPNG::vglLoadPNGTexture(filename);
-	}
+	//GLuint HXGLTexture::LoadPNGTexture(const char *filename)
+	//{
+	//	return HXGLLoadPNG::vglLoadPNGTexture(filename);
+	//}
 
-	GLuint HXGLTexture::LoadPNGTextureCubeMap(const char *filename)
-	{
-		return HXGLLoadPNG::vglLoadPNGTextureCubeMap(filename);
-	}
+	//GLuint HXGLTexture::LoadPNGTextureCubeMap(const char *filename)
+	//{
+	//	return HXGLLoadPNG::vglLoadPNGTextureCubeMap(filename);
+	//}
 
-	GLuint HXGLTexture::LoadDDSTexture(const char *filename)
-	{
-		return vglLoadTexture(filename, 0, NULL);
-	}
+	//GLuint HXGLTexture::LoadDDSTexture(const char *filename)
+	//{
+	//	return vglLoadTexture(filename, 0, NULL);
+	//}
 
-	GLuint HXGLTexture::LoadDDSTextureCubeMap(const char *filename)
-	{
-		// TODO:
-		return 0;
-	}
+	//GLuint HXGLTexture::LoadDDSTextureCubeMap(const char *filename)
+	//{
+	//	// TODO:
+	//	return 0;
+	//}
 
 	//------------------------------------------------------
 	void HXGLTexture::Create(const char* texture_name, bool enableMipmapping)

@@ -10,17 +10,18 @@ namespace HX3D
 	{
 	public:
 		HXGLTexture();
-		HXGLTexture(EMatPropertyType matType, std::string strTextureFile);
 		~HXGLTexture();
-
-		// PNG
-		GLuint LoadPNGTexture(const char *filename);
-		GLuint LoadPNGTextureCubeMap(const char *filename);
-		
-		// DDS
-		GLuint LoadDDSTexture(const char *filename);
-		GLuint LoadDDSTextureCubeMap(const char *filename);
-
+		////////////////////////////////////////////////////////////////////////////
+		// 已废弃，请使用Create和CreateCubeBy6Texture2D代替
+		//HXGLTexture(EMatPropertyType matType, std::string strTextureFile);
+		//// PNG
+		//GLuint LoadPNGTexture(const char *filename);
+		//GLuint LoadPNGTextureCubeMap(const char *filename);
+		//// DDS
+		//GLuint LoadDDSTexture(const char *filename);
+		//GLuint LoadDDSTextureCubeMap(const char *filename);
+		////////////////////////////////////////////////////////////////////////////
+	public:
 		//----------------------------------------------------
 		void Create(const char* texture_name, bool enableMipmapping = true);
 		void CreateCubeBy6Texture2D(const char* texture_name, bool enableMipmapping = true);

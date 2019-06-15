@@ -64,7 +64,10 @@ namespace HX3D
 				{
 					if (itr->value.find('.') == std::string::npos)
 					{
-						tex = new HXGLTexture(MPT_TEXTURE, "prefab/_Material/builtinPic/" + itr->value +".png");
+						//tex = new HXGLTexture(MPT_TEXTURE, "prefab/_Material/builtinPic/" + itr->value +".png");
+						tex = new HXGLTexture();
+						std::string file = "prefab/_Material/builtinPic/" + itr->value + ".png";
+						tex->Create(file.c_str());
 					}
 					else
 					{
@@ -138,7 +141,6 @@ namespace HX3D
 					//tex = new HXGLTexture(MPT_CUBEMAP,itr->value);
 					tex = new HXGLTexture();
 					tex->CreateCubeBy6Texture2D(itr->value.c_str());
-					
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 
@@ -478,7 +480,9 @@ namespace HX3D
 				HXGLTexture* tex = (HXGLTexture*)HXResourceManager::GetInstance()->GetTexture(itr->value);
 				if (NULL == tex)
 				{
-					tex = new HXGLTexture(MPT_CUBEMAP, itr->value);
+					//tex = new HXGLTexture(MPT_CUBEMAP,itr->value);
+					tex = new HXGLTexture();
+					tex->CreateCubeBy6Texture2D(itr->value.c_str());
 					HXResourceManager::GetInstance()->AddTexture(itr->value, tex);
 				}
 
