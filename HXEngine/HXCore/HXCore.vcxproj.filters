@@ -220,6 +220,9 @@
     <ClCompile Include="opengl\lib\vdds.cpp">
       <Filter>RenderSystem\OpenGL\Util\Deprecated</Filter>
     </ClCompile>
+    <ClCompile Include="src\HXTextureMetaData.cpp">
+      <Filter>MetaData</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\HXLoadConfigAnim.h">
@@ -471,6 +474,12 @@
     <ClInclude Include="include\HXGLLoadPNG.h">
       <Filter>RenderSystem\OpenGL\Util\Deprecated</Filter>
     </ClInclude>
+    <ClInclude Include="include\HXIMetaData.h">
+      <Filter>MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXTextureMetaData.h">
+      <Filter>MetaData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Config">
@@ -520,6 +529,9 @@
     </Filter>
     <Filter Include="RenderSystem\OpenGL\Util\Deprecated">
       <UniqueIdentifier>{863cfc54-622b-4bce-8d56-a1416ef6b433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MetaData">
+      <UniqueIdentifier>{afc2e26c-7942-484b-bbce-e4bc59289c81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

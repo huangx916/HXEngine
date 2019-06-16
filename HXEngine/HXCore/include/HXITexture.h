@@ -1,6 +1,7 @@
 #pragma once
 #include "HXCommon.h"
 #include "HXTextureInfo.h"
+#include "HXTextureMetaData.h"
 
 namespace HX3D
 {
@@ -28,5 +29,7 @@ namespace HX3D
 	public:
 		HXITexture() {};
 		virtual ~HXITexture() {};
+
+		HXTextureMetaData* m_pMetaData = NULL;
 	};
 }

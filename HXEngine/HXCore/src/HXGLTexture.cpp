@@ -114,11 +114,15 @@ namespace HX3D
 		int32_t texture_pixel_format = TPFT_UNKOWN;
 		if (HXTextureReader::ReadTexture(texture_name, &texture_data, texture_width, texture_height, texture_type, texture_pixel_format))
 		{
+			m_pMetaData = new HXTextureMetaData();
+			string metaFile = (string)texture_name + ".meta";
+			m_pMetaData->ParseMetaFile(metaFile);
+
 			GLuint tex_obj = 0;
 			glGenTextures(1, &tex_obj);
 
 			if (texture_type == TT_2D) {
-				CreateGLTexture2D(tex_obj, texture_width, texture_height, texture_data, texture_pixel_format, enableMipmapping);
+				CreateGLTexture2D(tex_obj, texture_width, texture_height, texture_data, texture_pixel_format, enableMipmapping, m_pMetaData->wrapMode);
 			}
 			else if (texture_type == TT_3D) {
 				// TODO:
@@ -224,7 +228,7 @@ namespace HX3D
 		SetTexturePixelFormat(this, texture_pixel_format);
 	}
 
-	void HXGLTexture::CreateGLTexture2D(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping)
+	void HXGLTexture::CreateGLTexture2D(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping, ETextureWrapMode wrapMode)
 	{
 		for (int32_t i = 0; i < HX_ARRAY_SIZE(kGLPixelFormatTbl); i++) 
 		{
@@ -251,10 +255,16 @@ namespace HX3D
 				{
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				}
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-				/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);*/
+				if (wrapMode == ETextureWrapMode::TWM_REPEAT)
+				{
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+				}
+				else
+				{
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+				}
 				glBindTexture(GL_TEXTURE_2D, 0);
 				break;
 			}

@@ -11,6 +11,8 @@
 
 namespace HX3D
 {
+	const std::string Version = "1.0.0";
+
 	// 窗口大小
 	const int SCREEN_WIDTH = 800;
 	const int SCREEN_HEIGHT = 600;
@@ -126,6 +128,19 @@ namespace HX3D
 		CF_SOLIDCOLOR,
 		CF_DEPTHONLY,
 		CF_DONTCLEAR
+	};
+
+	enum class ETextureWrapMode
+	{
+		TWM_REPEAT,
+		TWM_CLAMP
+	};
+
+	enum class ETextureFilterMode
+	{
+		TFM_POINT,
+		TFM_BILINEAR,
+		TFM_TRILINEAR
 	};
 
 	// TODO: 如何根据当前子网格顶点数动态生成顶点数组大小

@@ -35,7 +35,7 @@ namespace HX3D
 		void CreateFloat323DTexture(int32_t width, int32_t height, int32_t depth, bool enableMipmapping = true);
 
 	protected:
-		static void CreateGLTexture2D(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping);
+		static void CreateGLTexture2D(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping, ETextureWrapMode wrapMode);
 		static void CreateGLTextureCube(int32_t tex_obj, int32_t width, int32_t height, int8_t* texture_data, int32_t texture_pixel_format, bool enableMipmapping);
 		static void CreateGLTexture3D();// TODO:
 		static void SetTexturePixelFormat(HXGLTexture* texture, int32_t texture_pixel_format);
