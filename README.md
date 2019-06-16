@@ -27,6 +27,7 @@ a cross-platform open source game engine developed by personal
       * Math library  
       * UI font  
       * DDS/PNG/BMP importer  
+	  * MetaData  
       * MultiCamera system  
       * Material system  
       * MultiLighting & Shadow maps  
@@ -53,6 +54,7 @@ a cross-platform open source game engine developed by personal
       * libpng  
       * zlib  
       * tinyxml  
+	  * json  
       * fbx  
       * qt  
 
