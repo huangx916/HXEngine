@@ -1,4 +1,4 @@
-﻿#include "..\include\HXGLERMap.h"
+﻿#include "..\include\HXGLERMapToCubeMap.h"
 #include "LoadShaders.h"
 #include "HXRenderable.h"
 #include "HXGLTexture.h"
@@ -11,7 +11,7 @@
 
 namespace HX3D
 {
-	HXGLERMap::HXGLERMap()
+	HXGLERMapToCubeMap::HXGLERMapToCubeMap()
 	:equirectangular_map_prog(-1)
 	,cube_map_fbo(-1)
 	,cube_map_texture(-1)
@@ -19,12 +19,12 @@ namespace HX3D
 		
 	}
 
-	HXGLERMap::~HXGLERMap()
+	HXGLERMapToCubeMap::~HXGLERMapToCubeMap()
 	{
 		Release();
 	}
 
-	void HXGLERMap::Preprocess(std::string strERMapFile)
+	void HXGLERMapToCubeMap::Preprocess(std::string strERMapFile)
 	{
 		Initialize();
 		PreRender();
@@ -33,7 +33,7 @@ namespace HX3D
 		PostRender();
 	}
 
-	void HXGLERMap::Initialize()
+	void HXGLERMapToCubeMap::Initialize()
 	{
 		HXMesh* pMesh = HXResourceManager::GetInstance()->GetMesh("prefab/SkySphere/Sphere.FBX", "");
 		sphereMesh = pMesh->Clone(HXRoot::GetInstance()->GetRenderSystem());
@@ -89,7 +89,7 @@ namespace HX3D
 		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
 	}
 
-	void HXGLERMap::Release()
+	void HXGLERMapToCubeMap::Release()
 	{
 		HX_SAFE_DELETE(sphereMesh);
 
@@ -118,7 +118,7 @@ namespace HX3D
 		}
 	}
 
-	void HXGLERMap::PreRender()
+	void HXGLERMapToCubeMap::PreRender()
 	{
 		glGetIntegerv(GL_FRAMEBUFFER_BINDING, &original_fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, cube_map_fbo);
@@ -126,7 +126,7 @@ namespace HX3D
 		glViewport(0, 0, 1024, 1024);
 	}
 
-	void HXGLERMap::Render(std::string strERMapFile)
+	void HXGLERMapToCubeMap::Render(std::string strERMapFile)
 	{
 		//std::string file = "prefab/_Material/SphereIBL/ermap2.hdr";
 		std::string file = strERMapFile;
@@ -172,20 +172,20 @@ namespace HX3D
 		}
 	}
 
-	void HXGLERMap::PostRender()
+	void HXGLERMapToCubeMap::PostRender()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, original_fbo);
 		glViewport(0, 0, HXGLRenderSystem::gCurScreenWidth, HXGLRenderSystem::gCurScreenHeight);
 	}
 
-	void HXGLERMap::GenerateMipmap()
+	void HXGLERMapToCubeMap::GenerateMipmap()
 	{
 		glEnable(GL_TEXTURE_CUBE_MAP);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cube_map_texture);
 		glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 	}
 
-	GLuint HXGLERMap::GetCubeMapTexture()
+	GLuint HXGLERMapToCubeMap::GetCubeMapTexture()
 	{
 		return cube_map_texture;
 	}

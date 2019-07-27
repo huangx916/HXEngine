@@ -12,7 +12,7 @@
 #include "HXGLRenderable.h"
 #include "HXStatus.h"
 #include <algorithm>
-#include "HXGLERMap.h"
+#include "HXGLERMapToCubeMap.h"
 #include "HXGLConvolutionCubeMap.h"
 #include "HXGLSpecularLDCubeMap.h"
 #include "HXGLSpecularDFGTexture.h"

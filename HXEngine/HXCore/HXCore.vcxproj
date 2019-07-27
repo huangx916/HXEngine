@@ -29,7 +29,7 @@
     <ClInclude Include="include\HXGDITransform.h" />
     <ClInclude Include="include\HXGLConvolutionCubeMap.h" />
     <ClInclude Include="include\HXGLCubeMap.h" />
-    <ClInclude Include="include\HXGLERMap.h" />
+    <ClInclude Include="include\HXGLERMapToCubeMap.h" />
     <ClInclude Include="include\HXGLFreeTypeFont.h" />
     <ClInclude Include="include\HXGLLoadPNG.h" />
     <ClInclude Include="include\HXGLMaterial.h" />
@@ -124,7 +124,7 @@
     <ClCompile Include="src\HXGLCamera.cpp" />
     <ClCompile Include="src\HXGLConvolutionCubeMap.cpp" />
     <ClCompile Include="src\HXGLCubeMap.cpp" />
-    <ClCompile Include="src\HXGLERMap.cpp" />
+    <ClCompile Include="src\HXGLERMapToCubeMap.cpp" />
     <ClCompile Include="src\HXGLFreeTypeFont.cpp" />
     <ClCompile Include="src\HXGLMaterial.cpp" />
     <ClCompile Include="src\HXGLPreprocessHandler.cpp" />

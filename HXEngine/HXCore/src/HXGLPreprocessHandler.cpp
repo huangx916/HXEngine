@@ -1,5 +1,5 @@
 #include "..\include\HXGLPreprocessHandler.h"
-#include "HXGLERMap.h"
+#include "HXGLERMapToCubeMap.h"
 #include "HXGLConvolutionCubeMap.h"
 #include "HXGLSpecularLDCubeMap.h"
 #include "HXGLSpecularDFGTexture.h"
@@ -9,7 +9,7 @@ namespace HX3D
 	HXGLPreprocessHandler::HXGLPreprocessHandler()
 	{
 		m_bPreprocess = true;
-		m_pErmap = new HXGLERMap();
+		m_pErmap = new HXGLERMapToCubeMap();
 		m_ConvolutionCubeMap = new HXGLConvolutionCubeMap();
 		m_SpecularLDCubeMap = new HXGLSpecularLDCubeMap();
 		m_SpecularDFGTexture = new HXGLSpecularDFGTexture();
@@ -40,7 +40,7 @@ namespace HX3D
 		HX_SAFE_DELETE(m_SpecularDFGTexture);
 	}
 
-	HXGLERMap* HXGLPreprocessHandler::GetErmap()
+	HXGLERMapToCubeMap* HXGLPreprocessHandler::GetErmap()
 	{
 		return m_pErmap;
 	}

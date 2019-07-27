@@ -187,9 +187,6 @@
     <ClCompile Include="src\HXColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HXGLERMap.cpp">
-      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
-    </ClCompile>
     <ClCompile Include="src\HXGLConvolutionCubeMap.cpp">
       <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
@@ -222,6 +219,9 @@
     </ClCompile>
     <ClCompile Include="src\HXTextureMetaData.cpp">
       <Filter>MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HXGLERMapToCubeMap.cpp">
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -447,9 +447,6 @@
     <ClInclude Include="include\HXColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HXGLERMap.h">
-      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
-    </ClInclude>
     <ClInclude Include="include\HXGLConvolutionCubeMap.h">
       <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
@@ -479,6 +476,9 @@
     </ClInclude>
     <ClInclude Include="include\HXTextureMetaData.h">
       <Filter>MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HXGLERMapToCubeMap.h">
+      <Filter>RenderSystem\OpenGL\IBL_Preprocess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,11 +9,11 @@ namespace HX3D
 {
 	class HXRenderable;
 	class HXMesh;
-	class HXGLERMap
+	class HXGLERMapToCubeMap
 	{
 	public:
-		HXGLERMap();
-		~HXGLERMap();
+		HXGLERMapToCubeMap();
+		~HXGLERMapToCubeMap();
 		
 		void Preprocess(std::string strERMapFile);
 		GLuint GetCubeMapTexture();

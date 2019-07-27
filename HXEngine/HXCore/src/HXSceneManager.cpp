@@ -17,7 +17,7 @@
 #include "HXLoadConfigScene.h"
 #include "HXLoadConfigPrefab.h"
 #include "HXMaterial.h"
-#include "HXGLERMap.h"
+//#include "HXGLERMapToCubeMap.h"
 #include "HXGLCubeMap.h"
 #include "HXGLConvolutionCubeMap.h"
 #include "HXGLTestSphere.h"
